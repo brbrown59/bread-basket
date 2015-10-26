@@ -5,7 +5,7 @@
 		<title>Persona for Alice Who Works at The Coop</title>
 	</head>
 	<body>
-		<h1>Alicea</h1>
+		<h1>Alice</h1>
 	</body>
 
 </html>
