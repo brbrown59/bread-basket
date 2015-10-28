@@ -6,10 +6,14 @@
 	</head>
 	<body>
 		<h2>User Stories</h2>
-		<p>As a public user, I want to register for Bread Basket.</p>
-		<p>As a registered user, I want to put out a message that I have food available.</p>
-		<p>As a registered user, I want to claim an available set of food.</p>
-		<p>As a registered user, I want to notify the system that food I made available has been picked up.</p>
+		<p>As a public user, I want to register for Bread Basket and create a profile.</p>
+		<p>As a registered user, I want to put out a message that my grocery store has food available.</p>
+		<p>As a registered user, I want to delete my earlier food listing.</p>
+		<p>As a registered user, I want to respond to a reminder notification regarding my food listing.</p>
+		<p>As an administrator, I want to claim an available set of food for my food bank.</p>
+		<p>As an administrator, I want to push a notification about claimed food to my volunteers.</p>
+		<p>As an administrator, I want to add a list of volunteer contacts to my food bank.</p>
+		<p>As a registered user, I want to respond to a notification from a food bank and agree to pick up a claimed set of food</p>
 		<h2>Use Cases</h2>
 	</body>
 </html>
