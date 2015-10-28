@@ -11,9 +11,10 @@
 		<a href="persona-alice.php" target="_self">Alice: manager at a grocery co-op</a><br/>
 		<a href="persona-joe.php" target="_self">Joe: small food bank owner</a><br/>
 		<a href="persona-julia-rrfb.php" target="_self">Julia: manager at Roadrunner Food Bank</a><br/>
+		<a href="persona-keith.php" target="_self">Keith: owns a small restaurant</a><br/>
 		<h2>User Stories and Use Cases</h2>
 		<a href="use-cases.php" target="_self">Use Cases</a>
 		<h2>Entity Relationship Diagram and Database Schema</h2>
-		<a href="use-cases.php" target="_self">ERD</a>
+		<a href="entity-relationship.php" target="_self">ERD</a>
 	</body>
 </html>
