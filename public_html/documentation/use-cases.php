@@ -13,7 +13,7 @@
 		<p>As an administrator, I want to claim an available set of food for my food bank.Tamra</p>
 		<p>As an administrator, I want to push a notification about claimed food to my volunteers.Tamra</p>
 		<p>As an administrator, I want to add a list of volunteer contacts to my food bank.Carlos</p>
-		<p>As a registered user, I want to respond to a notification from a food bank and agree to pick up a claimed set of food.Carlos</p>
+		<p>As a registered user, I want to respond to a notification from a food bank and agree to pick up a claimed set of food.Tamra</p>
 		<h2>Use Cases</h2>
 		<h3>Use Case: Grocery store manager Alice wants to sign her store up for Bread Basket</h3>
 		<ul>
