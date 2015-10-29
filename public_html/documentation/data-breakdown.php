@@ -10,6 +10,7 @@
 		<ul>
 			<li>orgID</li>
 			<li>orgName</li>
+			<li>adminName</li>
 			<li>orgType</li>
 			<li>orgDescription</li>
 			<li>orgLocation</li>
@@ -25,11 +26,22 @@
 			<li>organization Id</li>
 			<li></li>
 		</ul>
+		<p>Message/Notification</p>
 		<ul>
+			<li>message content</li>
+		</ul>
+		<p>Listing (robust) (recursive 1 to n)</p>
+		<ul>
+			<li>listing type</li>
+			<li>listing cost</li>
+			<li>listing memo</li>
+			<li>listing date time</li>
+			<li>pickup time</li>
+			<li>organization name</li>
+			<li>organization phone</li>
+			<li>org location</li>
 			<li></li>
 		</ul>
-		<p>Message/Notification</p>
-		<p>Listing (robust) (recursive 1 to n)</p>
 
 
 		<p>Reporting</p>
