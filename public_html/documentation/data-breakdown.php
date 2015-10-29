@@ -6,7 +6,7 @@
 	</head>
 	<body>
 		<h1>Data Breakdown</h1>
-		<p>Organization</p>
+		<p>Organization/Administrator</p>
 		<ul>
 			<li>orgID</li>
 			<li>orgName</li>
@@ -16,11 +16,22 @@
 			<li>orgHours</li>
 			<li>orgEmail</li>
 		</ul>
-		<p>Admin</p>
 		<p>Volunteer</p>
-		<p>Connection</p>
+		<ul>
+			<li>volunteer Id</li>
+			<li>volunteer name</li>
+			<li>volunteer email</li>
+			<li>volunteer phone</li>
+			<li>organization Id</li>
+			<li></li>
+		</ul>
+		<ul>
+			<li></li>
+		</ul>
 		<p>Message/Notification</p>
-		<p>Listing</p>
-		<p></p>
+		<p>Listing (robust) (recursive 1 to n)</p>
+
+
+		<p>Reporting</p>
 	</body>
 </html>
