@@ -36,5 +36,22 @@
 			<li>Alice enters the pertinent information into the appropriate forms and clicks "Submit"</li>
 			<li>The site takes the information and either confirms the new listing has been created, or displays an error message if it was not.</li>
 		</ul>
+
+		<h3>As an administrator, I want to add a list of volunteer contacts to my food bank.Carlos</h3>
+		<ul>
+			<li>Administrator opens app</li>
+			<li>logs into app  by typing in password in the text field.</li>
+			<li>Administrator directs them selves to the settings tab on top left corner of app</li>
+			<li>the Settings tab opens and setting options are revealed.</li>
+			<li>The Volunteer contact option is selected.</li>
+			<li>A New page opens showing a list of volunteer names.</li>
+			<li>At the bottom of the volunteer list, the "add new” button is selected.</li>
+			<li>A new page opens in the app, a contact form field is displayed.</li>
+			<li>The contact form is filled out with the new volunteers information (Name, PH# & Email)</li>
+			<li>The save/submit volunteer button is pressed at the bottom of the form field.</li>
+			<li>The App returns to list of volunteers, the newly added volunteer now appears on the list of volunteers.</li>
+		</ul>
+
+
 	</body>
 </html>
