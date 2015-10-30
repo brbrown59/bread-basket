@@ -51,6 +51,7 @@
 			<li>organization name</li>
 			<li>organization phone</li>
 			<li>org location</li>
+			<li>isClaimed</li>
 			<li></li>
 		</ul>
 
