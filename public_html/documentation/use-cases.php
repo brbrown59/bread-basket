@@ -74,7 +74,7 @@
 				<li>Julia decides her food pantry can use the food and clicks the claim button.</li>
 				<li>She is taken to the page that announces that she has claimed the food.</li>
 				<li>She is then given the option to push a notice to her volunteers, and pushes the button to past the notification on to her volunteers</li>
-				<li>Within 10 minutes Julia receives a notification that Joe will be picking up the donation.</li>
+				<li>Within 10 minutes Julia receives a notification that Joe will be picking up the donation,.</li>
 			</ul>
 		</ul>
 	</body>
