@@ -35,10 +35,14 @@
 			<li>orgAdmin name</li>
 			<li>organization location</li>
 			<li>organization phone</li>
+			<li>messageId</li>
+			<li>listingId</li>
+			<li>orgId</li>
 		</ul>
 		<p>Listing (robust) (recursive 1 to n)</p>
 		<ul>
 			<li>listingId</li>
+			<li>orgId</li>
 			<li>listing type</li>
 			<li>listing cost</li>
 			<li>listing memo</li>
