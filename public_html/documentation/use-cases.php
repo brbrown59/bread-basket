@@ -37,7 +37,7 @@
 			<li>The site takes the information and either confirms the new listing has been created, or displays an error message if it was not.</li>
 		</ul>
 
-		<h3>As an administrator, I want to add a list of volunteer contacts to my food bank.Carlos</h3>
+		<h3>Bill, administrator-at large Grocery store, I want to add a list of volunteer contacts to my food bank.Carlos</h3>
 		<ul>
 			<li>Administrator opens app</li>
 			<li>logs into app  by typing in password in the text field.</li>
@@ -52,7 +52,7 @@
 			<li>The App returns to list of volunteers, the newly added volunteer now appears on the list of volunteers.</li>
 		</ul>
 
-		<h3>As a registered user, I want to respond to a notification from a food bank and agree to pick up a claimed set of food.Carlos</h3>
+		<h3>As a registered user-julia, I want to respond to a notification from a food bank and agree to pick up a claimed set of food.Carlos</h3>
 		<ul>
 			<li>Registered user/volunteer receives a push notice their phone.</li>
 			<li>Volunteer opens app</li>
