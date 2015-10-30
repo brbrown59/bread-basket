@@ -47,7 +47,7 @@
 			<li>the Settings tab opens and setting options are revealed.</li>
 			<li>The Volunteer contact option is selected.</li>
 			<li>A New page opens showing a list of volunteer names.</li>
-			<li>At the bottom of the volunteer list, the "add new�? button is selected.</li>
+			<li>At the bottom of the volunteer list, the "add new? button is selected.</li>
 			<li>A new page opens in the app, a contact form field is displayed.</li>
 			<li>The contact form is filled out with the new volunteers information (Name, PH# & Email)</li>
 			<li>The save/submit volunteer button is pressed at the bottom of the form field.</li>
