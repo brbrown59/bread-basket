@@ -39,7 +39,7 @@
 			<li>The site takes the information and either confirms the new listing has been created, or displays an error message if it was not.</li>
 		</ul>
 
-		<h3>Bill, administrator-at large Grocery store, I want to add a list of volunteer contacts to my food bank.Carlos</h3>
+		<h3>Administrator-foodbank, I want to add a list of volunteer contacts to my food bank.Carlos</h3>
 		<ul>
 			<li>Administrator opens app</li>
 			<li>logs into app  by typing in password in the text field.</li>
