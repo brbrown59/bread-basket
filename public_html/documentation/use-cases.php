@@ -10,6 +10,7 @@
 		<p>As a registered user, I want to put out a message that my grocery store has food available.</p>
 		<p>As a registered user, I want to delete my earlier food listing.</p>
 		<p>As a registered user, I want to respond to a reminder notification regarding my food listing.</p>
+		<p>As a registered user, I want to get a report of my previous listings for tax purposes.</p>
 		<p>As an administrator, I want to claim an available set of food for my food bank and inform my volunteers.</p>
 		<p>As an administrator, I want to add a list of volunteer contacts to my food bank.</p>
 		<p>As a registered user, I want to respond to a notification from a food bank and agree to pick up a claimed set of food.</p>
