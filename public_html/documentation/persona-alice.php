@@ -10,7 +10,7 @@
 		Her small store composts and donates any unsellable food. She is personally invested in the reduction of food waste and the distribution
 		of usable goods to people in need. She owns a smart phone and knows her way around the basic functions of a computer, but needs quick, intuitive
 		access to apps or software that she uses. Her frustrations include managing her store and employees while putting her best effort into following the
-		ethical codes  and considerations of her store. She is not the owner of the store, but is invested in it's mission.
+		ethical codes  and considerations of her store. She is not the owner of the store, but is invested in its mission.
 		</p>
 		<p>Use Cases: Alice wants to list some extra food available for pickup at her store</p>
 		<ul>
