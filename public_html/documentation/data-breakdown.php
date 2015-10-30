@@ -56,6 +56,6 @@
 		</ul>
 
 
-		<p>Reporting</p>
+
 	</body>
 </html>
