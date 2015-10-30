@@ -8,13 +8,13 @@
 		<h2>User Stories</h2>
 		<p>As a public user, I want to register for Bread Basket and create a profile.</p>
 		<p>As a registered user, I want to put out a message that my grocery store has food available.</p>
-		<p>As a registered user, I want to delete my earlier food listing.Kimberly</p>
-		<p>As a registered user, I want to respond to a reminder notification regarding my food listing.Kimberly</p>
-		<p>As an administrator, I want to claim an available set of food for my food bank.Tamra</p>
-		<p>As an administrator, I want to push a notification about claimed food to my volunteers.Tamra</p>
-		<p>As an administrator, I want to add a list of volunteer contacts to my food bank.Carlos</p>
-		<p>As a registered user, I want to respond to a notification from a food bank and agree to pick up a claimed set of food.Tamra</p>
+		<p>As a registered user, I want to delete my earlier food listing.</p>
+		<p>As a registered user, I want to respond to a reminder notification regarding my food listing.</p>
+		<p>As an administrator, I want to claim an available set of food for my food bank and inform my volunteers.</p>
+		<p>As an administrator, I want to add a list of volunteer contacts to my food bank.</p>
+		<p>As a registered user, I want to respond to a notification from a food bank and agree to pick up a claimed set of food.</p>
 		<h2>Use Cases</h2>
+
 		<h3>Use Case: Grocery store manager Alice wants to sign her store up for Bread Basket</h3>
 		<ul>
 			<li>Alice navigates to the home page of Bread Basket
@@ -27,16 +27,44 @@
 			<li>Alice checks the validation e-mail and clicks the provided link</li>
 			<li>The site validates the new account and logs Alice in</li>
 		</ul>
+
 		<h3>Use Case: Alice has available food, and wishes to notify the food banks</h3>
 		<ul>
 			<li>Alice goes to the Bread Basket home page and selects the "Log In" option.</li>
-			<li>The site presents Alice with forms for her log-in information</li>
-			<li>Alice enters her log-in credentials and presses the "Submit" button.</li>
+			<li>The site presents Alice with forms for her log-in information, which she fills out and submits</li>
 			<li>The site logs Alice in.</li>
-			<li>Alice navigates to a "Create New Listing" option.</li>
-			<li>The site presents Alice with two forms: one for a description of the available food, another for the monetary value of said food</li>
+			<li>She sees her home page, which includes her contact information, her store's location/details and her recent listings</li>
+			<li>She clicks a link to add a new listing</li>
+			<li>A page is loaded that allows her to fill in the listing name, type, pick up time, estimated cost</li>
 			<li>Alice enters the pertinent information into the appropriate forms and clicks "Submit"</li>
 			<li>The site takes the information and either confirms the new listing has been created, or displays an error message if it was not.</li>
+		</ul>
+
+		<h3>Use Case: Alice wants to check if her listing has been claimed</h3>
+		<ul>
+			<li>Alice opens her browser and logs in</li>
+			<li>Her home page loads with her information and recent listings</li>
+			<li>She clicks on her most recent listing and sees that it has just been claimed</li>
+			<li>Alice closes her browser</li>
+		</ul>
+
+		<h3>Use Case: Alice gets a reminder to update her food donation status</h3>
+		<ul>
+			<li>Alice has posted a food listing earlier in the day but she's been busy managing issues at her store</li>
+			<li>Alice looks at her phone and sees a message that says "Has your donation been picked up?"</li>
+			<li>Her donation had been picked up, so Alice hits yes and is redirected to a thank you page</li>
+			<li>OR Alice hits no and her posting is re-listed and sent to the relieving places</li>
+			<li>Alice is relocated to a thank you page and she closes her browser.</li>
+		</ul>
+
+		<h3>Use Case: Alice wants to run a report for tax purposes</h3>
+		<ul>
+			<li>Alice opens her browser and logs into her account</li>
+			<li>Her homepage loads and she sees her details, contact info, and recent listings</li>
+			<li>She clicks a link called reporting and is brought to a page where she can run a report</li>
+			<li>She selects a report that pulls all her successfully donated listing</li>
+			<li>A table of data loads with her listings and their details</li>
+			<li>She prints the pages for tax and or bragging purposes</li>
 		</ul>
 
 		<h3>Use Case: Julia wishes to add a list of volunteer contacts to her food bank.</h3>
