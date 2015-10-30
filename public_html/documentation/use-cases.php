@@ -47,7 +47,7 @@
 			<li>the Settings tab opens and setting options are revealed.</li>
 			<li>The Volunteer contact option is selected.</li>
 			<li>A New page opens showing a list of volunteer names.</li>
-			<li>At the bottom of the volunteer list, the "add newâ€? button is selected.</li>
+			<li>At the bottom of the volunteer list, the "add newï¿½? button is selected.</li>
 			<li>A new page opens in the app, a contact form field is displayed.</li>
 			<li>The contact form is filled out with the new volunteers information (Name, PH# & Email)</li>
 			<li>The save/submit volunteer button is pressed at the bottom of the form field.</li>
@@ -60,7 +60,12 @@
 			<li>Volunteer opens app</li>
 			<li>app opens and a alerted to a pending request flashes on phone.</li>
 			<li>user clicks alert and new page opens with additional info regarding clicked alert.</li>
-			<li>user reads alert and then clicks â€œcommit buttonâ€? and confirms to pick-up and deliver food items.</li>
+			<li>user reads alert and then clicks â€œcommit buttonï¿½? and confirms to pick-up and deliver food items.</li>
+		</ul>
+
+		<h3>As a registered user, I want to respond to a reminder notification regarding my food listing.</h3>
+		<ul>
+			<li></li>
 		</ul>
 
 	</body>

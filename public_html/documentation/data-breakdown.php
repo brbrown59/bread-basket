@@ -38,6 +38,7 @@
 		</ul>
 		<p>Listing (robust) (recursive 1 to n)</p>
 		<ul>
+			<li>listingId</li>
 			<li>listing type</li>
 			<li>listing cost</li>
 			<li>listing memo</li>
