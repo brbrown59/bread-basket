@@ -35,7 +35,7 @@
 			<li>Alice looks at her phone and sees a message that says "Has your donation been picked up?"</li>
 			<li>Her donation had been picked up, so Alice hits yes and is redirected to a thank you page</li>
 			<li>OR Alice hits no and her posting is re-listed and sent to the relieving places</li>
-			<li>Alice is relocated to a thank you page and she closes her browser</li>
+			<li>Alice is relocated to a thank you page and she closes her browser.</li>
 		</ul>
 	</body>
 
