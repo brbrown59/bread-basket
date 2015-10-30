@@ -72,18 +72,18 @@
 		<ul>
 			<li>Administrator opens app</li>
 			<li>logs into app  by typing in password in the text field.</li>
-			<li>Administrator directs them selves to the settings tab on top left corner of app</li>
+			<li>Administrator opens the settings tab on top left corner of app</li>
 			<li>the Settings tab opens and setting options are revealed.</li>
 			<li>The Volunteer contact option is selected.</li>
 			<li>A New page opens showing a list of volunteer names.</li>
-			<li>At the bottom of the volunteer list, the "add new? button is selected.</li>
+			<li>At the bottom of the volunteer list, the "add new" button is selected.</li>
 			<li>A new page opens in the app, a contact form field is displayed.</li>
-			<li>The contact form is filled out with the new volunteers information (Name, PH# & Email)</li>
+			<li>The contact form is filled out with the new volunteers information (Name, Phone Number and Email)</li>
 			<li>The save/submit volunteer button is pressed at the bottom of the form field.</li>
 			<li>The App returns to list of volunteers, the newly added volunteer now appears on the list of volunteers.</li>
 		</ul>
 
-		<h3>Use Case: Julia is an administrator that wants to claim an available set of food for her food bank, and then she wants to push a notification about claimed food to her volunteers.</h3>
+		<h3>Use Case: Julia is an administrator that wants to claim an available food donation for her food pantry, and then she wants to push a notification about claimed food to her volunteers.</h3>
 		<ul>
 			<li>Julia receives a push notification from the Bread Basket app.</li>
 			<li>Registered user/volunteer receives a push notice their phone.</li>
@@ -96,8 +96,8 @@
 
 		<h3>Use Case: Joe receives a notification from his food bank about available food, and wants to go pick it up</h3>
 		<ul>
-			<li>Joe gets a push notification from the site about the available food on his phone</li>
-			<li>The notification contains the information about the food, a prompt to claim the food, and a link to the listing on the site</li>
+			<li>Joe gets a push notification sent from the Bread Basket site about the available food on his phone</li>
+			<li>The notification contains the information about the food and the pick up location, and a prompt to claim the food, and a link to the listing on the site</li>
 			<li>Joe decides he can get the food, and clicks the "claim" option</li>
 			<li>The site processes his claim</li>
 		</ul>
