@@ -60,7 +60,7 @@
 			<li>Volunteer opens app</li>
 			<li>app opens and a alerted to a pending request flashes on phone.</li>
 			<li>user clicks alert and new page opens with additional info regarding clicked alert.</li>
-			<li>user reads alert and then clicks “commit button�? and confirms to pick-up and deliver food items.</li>
+			<li>user reads alert and then clicks “commit button? and confirms to pick-up and deliver food items.</li>
 		</ul>
 
 		<h3>As a registered user, I want to respond to a reminder notification regarding my food listing.</h3>
