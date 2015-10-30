@@ -6,6 +6,12 @@
 	</head>
 	<body>
 		<h2>Executive Summary</h2>
+		<p>Bread Basket (name in progress) is a web and mobile peer-to-peer application that connects grocery stores, non-profits, and
+		restaurants with shelters and donation centers. Our mission is to give grocery stores and restaurants with food overflow the technology to communicate
+		more efficiently with shelters and centers in need. Donation centers and shelters frequently speak of their lack of access to donations on a regular basis. Grocery
+		stores and restaurants regularly throw out edible, usable food because of the time/effort it takes to transport and donate the food. Our technology allows grocery stores, restaurants,
+		and other organizations to send a notification to points of contact at shelters and donation centers when goods are available. These notifications allow the donation center or shelter to
+		send a volunteer in their network to collect the donation. This creates a direct line of communication from the donater to the donatee. </p>
 		<p>Stuff</p>
 		<h2>Personas</h2>
 		<a href="persona-alice.php" target="_self">Alice: manager at a grocery co-op</a><br/>
