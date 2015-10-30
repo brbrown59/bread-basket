@@ -23,7 +23,9 @@
 			<li>Alice selects the option to register as a food provider, instead of a food bank.
 			<li>Alice enters the remaining pertinent information about her store
 			<li>Alice confirms her information and presses a "Submit" button
-			<li>The site takes Alice's information, creates the account, and logs her in
+			<li>The site takes Alice's information, creates an account, and sends Alice an e-mail to validate the new account</li>
+			<li>Alice checks the validation e-mail and clicks the provided link</li>
+			<li>The site validates the new account and logs Alice in</li>
 		</ul>
 		<h3>Use Case: Alice has available food, and wishes to notify the food banks</h3>
 		<ul>
@@ -45,7 +47,7 @@
 			<li>the Settings tab opens and setting options are revealed.</li>
 			<li>The Volunteer contact option is selected.</li>
 			<li>A New page opens showing a list of volunteer names.</li>
-			<li>At the bottom of the volunteer list, the "add new” button is selected.</li>
+			<li>At the bottom of the volunteer list, the "add new�? button is selected.</li>
 			<li>A new page opens in the app, a contact form field is displayed.</li>
 			<li>The contact form is filled out with the new volunteers information (Name, PH# & Email)</li>
 			<li>The save/submit volunteer button is pressed at the bottom of the form field.</li>
@@ -58,7 +60,7 @@
 			<li>Volunteer opens app</li>
 			<li>app opens and a alerted to a pending request flashes on phone.</li>
 			<li>user clicks alert and new page opens with additional info regarding clicked alert.</li>
-			<li>user reads alert and then clicks “commit button” and confirms to pick-up and deliver food items.</li>
+			<li>user reads alert and then clicks “commit button�? and confirms to pick-up and deliver food items.</li>
 		</ul>
 
 	</body>
