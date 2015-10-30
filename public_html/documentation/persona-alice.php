@@ -42,7 +42,9 @@
 			<li>Alice opens her browser and logs into her account</li>
 			<li>Her homepage loads and she sees her details, contact info, and recent listings</li>
 			<li>She clicks a link called reporting and is brought to a page where she can run a report</li>
-			<li>She selects a report that pulls all her successfullly donated </li>
+			<li>She selects a report that pulls all her successfully donated listing</li>
+			<li>A table of data loads with her listings and their details</li>
+			<li>She prints the pages for tax and or bragging purposes</li>
 		</ul>
 	</body>
 
