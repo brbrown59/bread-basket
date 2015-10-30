@@ -65,7 +65,17 @@
 
 		<h3>As a registered user, I want to respond to a reminder notification regarding my food listing.</h3>
 		<ul>
-			<li></li>
+
+			<p>Julia, is an administrator that wants to claim an available set of food for her food bank, and then she wants to push a notification about claimed food to her volunteers.</p>
+			<ul>
+				<li>Julia receives a push notification from the Bread Basket app.</li>
+				<li>Registered user/volunteer receives a push notice their phone.</li>
+				<li>She takes a look at the message that includes the location and what is being donated.</li>
+				<li>Julia decides her food pantry can use the food and clicks the claim button.</li>
+				<li>She is taken to the page that announces that she has claimed the food.</li>
+				<li>She is then given the option to push a notice to her volunteers, and pushes the button to past the notification on to her volunteers</li>
+				<li>Within 10 minutes Julia receives a notification that Joe will be picking up the donation.</li>
+			</ul>
 		</ul>
 
 	</body>
