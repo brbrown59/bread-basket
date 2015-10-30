@@ -12,7 +12,6 @@
 		stores and restaurants regularly throw out edible, usable food because of the time/effort it takes to transport and donate the food. Our technology allows grocery stores, restaurants,
 		and other organizations to send a notification to points of contact at shelters and donation centers when goods are available. These notifications allow the donation center or shelter to
 		send a volunteer in their network to collect the donation. This creates a direct line of communication from the donater to the donatee. </p>
-		<p>Stuff</p>
 		<h2>Personas</h2>
 		<a href="persona-alice.php" target="_self">Alice: manager at a grocery co-op</a><br/>
 		<a href="persona-joe.php" target="_self">Joe: volunteer for his church food ministry</a><br/>
