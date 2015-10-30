@@ -77,6 +77,5 @@
 				<li>Within 10 minutes Julia receives a notification that Joe will be picking up the donation.</li>
 			</ul>
 		</ul>
-
 	</body>
 </html>
