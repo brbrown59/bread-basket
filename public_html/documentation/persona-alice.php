@@ -37,6 +37,13 @@
 			<li>OR Alice hits no and her posting is re-listed and sent to the relieving places</li>
 			<li>Alice is relocated to a thank you page and she closes her browser.</li>
 		</ul>
+		<p>Alice wants to run a report for tax purposes</p>
+		<ul>
+			<li>Alice opens her browser and logs into her account</li>
+			<li>Her homepage loads and she sees her details, contact info, and recent listings</li>
+			<li>She clicks a link called reporting and is brought to a page where she can run a report</li>
+			<li>She selects a report that pulls all her successfullly donated </li>
+		</ul>
 	</body>
 
 </html>
