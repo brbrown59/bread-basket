@@ -68,6 +68,7 @@
 		</ul>
 		<p>Listing (robust) (recursive 1 to n)</p>
 		<ul>
+			<li>parentListingId</li>
 			<li>listingId (primary key)</li>
 			<li>orgId (foreign key)</li>
 			<li>listingType (what are the options here?)</li>
