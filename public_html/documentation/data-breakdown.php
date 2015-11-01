@@ -6,6 +6,52 @@
 	</head>
 	<body>
 		<h1>Data Breakdown</h1>
+		<p>givOrg</p>
+		<ul>
+			<li>givOrgID (primary key)</li>
+			<li>givOrgName</li>
+			<li>givOrgAdminFirstName</li>
+			<li>givOrgAdminLastName</li>
+			<li>givOrgAdminTitle</li>
+			<li>givOrgEmail</li>
+			<li>givOrgPassword</li>
+			<li>givOrgPhone</li>
+			<li>givOrgType</li>
+			<ul>
+				<li>Store or Food provider?</li>
+				<li>Restaurant</li>
+				<li>Food Bank or Pantry</li>
+			</ul>
+			<li>givOrgDescription (what are we expecting here?)</li>
+			<li>givOrgAddress1</li>
+			<li>givOrgAddress2</li>
+			<li>givOrgCity</li>
+			<li>givOrgState</li>
+			<li>givOrgZip</li>
+			<li>givOrgHours</li>
+		<p>recOrg</p>
+			<ul>
+				<li>recOrgID (primary key)</li>
+				<li>recOrgName</li>
+				<li>recOrgAdminFirstName</li>
+				<li>recOrgAdminLastName</li>
+				<li>recOrgAdminTitle</li>
+				<li>recOrgEmail</li>
+				<li>recOrgPassword</li>
+				<li>recOrgPhone</li>
+				<li>recOrgType</li>
+				<ul>
+					<li>Store or Food provider?</li>
+					<li>Restaurant</li>
+					<li>Food Bank or Pantry</li>
+				</ul>
+				<li>recOrgDescription (what are we expecting here?)</li>
+				<li>recOrgAddress1</li>
+				<li>recOrgAddress2</li>
+				<li>recOrgCity</li>
+				<li>recOrgState</li>
+				<li>recOrgZip</li>
+				<li>recOrgHours</li>
 		<p>Organization/Administrator</p>
 		<ul>
 			<li>orgID (primary key)</li>
