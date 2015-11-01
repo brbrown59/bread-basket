@@ -8,7 +8,7 @@
 		<h1>Data Breakdown</h1>
 		<p>Organization/Administrator</p>
 		<ul>
-			<li>orgID</li>
+			<li>orgID (primary key)</li>
 			<li>orgName</li>
 			<li>orgAdminFirstName</li>
 			<li>orgAdminLastName</li>
@@ -33,7 +33,7 @@
 		</ul>
 		<p>Volunteer</p>
 		<ul>
-			<li>volId</li>
+			<li>volId (primary key)</li>
 			<li>volFirstName</li>
 			<li>volLastName</li>
 			<li>volEmail</li>
@@ -62,13 +62,13 @@
 			<li>orgState</li>
 			<li>orgZip</li>
 			<li>orgHours</li>
-			<li>messageId</li>
+			<li>messageId (primary key)</li>
 			<li>listingId</li>
 			<li>orgId</li>
 		</ul>
 		<p>Listing (robust) (recursive 1 to n)</p>
 		<ul>
-			<li>listingId</li>
+			<li>listingId (primary key)</li>
 			<li>orgId</li>
 			<li>listingType (what are the options here?)</li>
 			<li>listingCost</li>
