@@ -33,10 +33,13 @@
 		</ul>
 		<p>Volunteer</p>
 		<ul>
-			<li>volunteerId</li>
-			<li>volunteerName</li>
-			<li>volunteerEmail</li>
-			<li>volunteerPhone</li>
+			<li>volId</li>
+			<li>volFirstName</li>
+			<li>volLastName</li>
+			<li>volEmail</li>
+			<li>volPhone</li>
+			<li>volActive</li>
+			<li>volPushNotif</li>
 			<li>orgId</li>
 			<li>Do we need an opt in for push notifications?</li>
 			<li>Do we need an active field, so we can make volunteer inactive instead of deleting?</li>
@@ -51,7 +54,8 @@
 			<li>orgName</li>
 			<li>orgEmail</li>
 			<li>orgPhone</li>
-			<li>orgAdminName</li>
+			<li>orgAdminFirstName</li>
+			<li>orgAdminLastName</li>
 			<li>orgAddress1</li>
 			<li>orgAddress2</li>
 			<li>orgCity</li>
