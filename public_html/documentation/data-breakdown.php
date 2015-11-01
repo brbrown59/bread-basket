@@ -6,29 +6,43 @@
 	</head>
 	<body>
 		<h1>Data Breakdown</h1>
-		<p>Organization/Administrator</p>
+		<p>givOrg</p>
 		<ul>
-			<li>orgID (primary key)</li>
-			<li>orgName</li>
-			<li>orgAdminFirstName</li>
-			<li>orgAdminLastName</li>
-			<li>orgAdminTitle</li>
-			<li>orgEmail</li>
-			<li>orgPassword</li>
-			<li>orgPhone</li>
-			<li>orgType</li>
-			 <ul>
-				 <li>Store or Food provider?</li>
-				 <li>Restaurant</li>
-				 <li>Food Bank or Pantry</li>
-			 </ul>
-			<li>orgDescription (what are we expecting here?)</li>
-			<li>orgAddress1</li>
-			<li>orgAddress2</li>
-			<li>orgCity</li>
-			<li>orgState</li>
-			<li>orgZip</li>
-			<li>orgHours</li>
+			<li>givOrgId (primary key)</li>
+			<li>givOrgName</li>
+			<li>givOrgAdminFirstName</li>
+			<li>givOrgAdminLastName</li>
+			<li>givOrgAdminTitle</li>
+			<li>givOrgEmail</li>
+			<li>givOrgPassword</li>
+			<li>givOrgPhone</li>
+			<li>givOrgType</li>
+			<li>givOrgDescription (what are we expecting here?)</li>
+			<li>givOrgAddress1</li>
+			<li>givOrgAddress2</li>
+			<li>givOrgCity</li>
+			<li>givOrgState</li>
+			<li>givOrgZip</li>
+			<li>givOrgHours</li>
+		</ul>
+		<p>recOrg</p>
+		<ul>
+			<li>recOrgId (primary key)</li>
+			<li>recOrgName</li>
+			<li>recOrgAdminFirstName</li>
+			<li>recOrgAdminLastName</li>
+			<li>recOrgAdminTitle</li>
+			<li>recOrgEmail</li>
+			<li>recOrgPassword</li>
+			<li>recOrgPhone</li>
+			<li>recOrgType</li>
+			<li>recOrgDescription (what are we expecting here?)</li>
+			<li>recOrgAddress1</li>
+			<li>recOrgAddress2</li>
+			<li>recOrgCity</li>
+			<li>recOrgState</li>
+			<li>recOrgZip</li>
+			<li>recOrgHours</li>
 		</ul>
 		<p>Volunteer</p>
 		<ul>
@@ -68,6 +82,7 @@
 		</ul>
 		<p>Listing (robust) (recursive 1 to n)</p>
 		<ul>
+			<li>parentListingId</li>
 			<li>listingId (primary key)</li>
 			<li>orgId (foreign key)</li>
 			<li>listingType (what are the options here?)</li>
@@ -86,7 +101,25 @@
 			<li></li>
 		</ul>
 
-
+		<p>Organization/Administrator</p>
+		<ul>
+			<li>orgId (primary key)</li>
+			<li>orgName</li>
+			<li>orgAdminFirstName</li>
+			<li>orgAdminLastName</li>
+			<li>orgAdminTitle</li>
+			<li>orgEmail</li>
+			<li>orgPassword</li>
+			<li>orgPhone</li>
+			<li>orgType</li>
+			<li>orgDescription (what are we expecting here?)</li>
+			<li>orgAddress1</li>
+			<li>orgAddress2</li>
+			<li>orgCity</li>
+			<li>orgState</li>
+			<li>orgZip</li>
+			<li>orgHours</li>
+		</ul>
 
 	</body>
 </html>
