@@ -8,7 +8,7 @@
 		<h1>Data Breakdown</h1>
 		<p>givOrg</p>
 		<ul>
-			<li>givOrgID (primary key)</li>
+			<li>givOrgId (primary key)</li>
 			<li>givOrgName</li>
 			<li>givOrgAdminFirstName</li>
 			<li>givOrgAdminLastName</li>
@@ -27,7 +27,7 @@
 		</ul>
 		<p>recOrg</p>
 			<ul>
-				<li>recOrgID (primary key)</li>
+				<li>recOrgId (primary key)</li>
 				<li>recOrgName</li>
 				<li>recOrgAdminFirstName</li>
 				<li>recOrgAdminLastName</li>
@@ -46,7 +46,7 @@
 			</ul>
 		<p>Organization/Administrator</p>
 		<ul>
-			<li>orgID (primary key)</li>
+			<li>orgId (primary key)</li>
 			<li>orgName</li>
 			<li>orgAdminFirstName</li>
 			<li>orgAdminLastName</li>
@@ -122,7 +122,7 @@
 
 		<p>Organization/Administrator</p>
 		<ul>
-			<li>orgID (primary key)</li>
+			<li>orgId (primary key)</li>
 			<li>orgName</li>
 			<li>orgAdminFirstName</li>
 			<li>orgAdminLastName</li>
