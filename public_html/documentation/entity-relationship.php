@@ -5,6 +5,7 @@
 		<title>Entity Relationship Diagram</title>
 	</head>
 	<body>
-		<p>Stuff goes here</p>
+		<a href="image/erd-simple-1.svg"> </a>
+		<a href="image/erd-simple-1w-xml.svg" alt="Entity Relationship Diagram"/>
 	</body>
 </html>
