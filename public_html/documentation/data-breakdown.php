@@ -42,7 +42,6 @@
 			<li>volPushNotif</li>
 			<li>orgId (foreign key)</li>
 			<li>Do we need an opt in for push notifications?</li>
-			<li>Do we need an active field, so we can make volunteer inactive instead of deleting?</li>
 			<li>What about a mute notification field? Would that be out of scope or easy to implement?</li>
 		</ul>
 		<p>Message/Notification</p>
@@ -84,10 +83,7 @@
 			<li>orgState</li>
 			<li>orgZip</li>
 			<li>isClaimed</li>
-			<li></li>
 		</ul>
-
-
 
 	</body>
 </html>

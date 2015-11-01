@@ -88,16 +88,15 @@
 			<li>Julia receives a push notification from the Bread Basket app.</li>
 			<li>Registered user/volunteer receives a push notice their phone.</li>
 			<li>She takes a look at the message that includes the location and what is being donated.</li>
-			<li>Julia decides her food pantry can use the food and clicks the claim button.</li>
-			<li>She is taken to the page that announces that she has claimed the food.</li>
-			<li>She is then given the option to push a notice to her volunteers, and pushes the button to past the notification on to her volunteers</li>
-			<li>Within 10 minutes Julia receives a notification that Joe will be picking up the donation.</li>
+			<li>Julia decides her food pantry can use the food, and pushes the donation to her volunteer group to see if any of her volunteers can claim and pick up the food. </li>
+			<li>She clicks the button to push the donation to her volunteers.</li>
+			<li>Within 10 minutes Julia receives a notification that Joe has claimed and will be picking up the donation.</li>
 		</ul>
 
 		<h3>Use Case: Joe receives a notification from his food bank about available food, and wants to go pick it up</h3>
 		<ul>
-			<li>Joe gets a push notification sent from the Bread Basket site about the available food on his phone</li>
-			<li>The notification contains the information about the food and the pick up location, and a prompt to claim the food, and a link to the listing on the site</li>
+			<li>Joe gets a push notification sent from Julia using the Bread Basket site about the available food on his phone</li>
+			<li>The notification contains the information about the food and the pick up location, and a prompt to claim and pick up the food, and a link to the listing on the site</li>
 			<li>Joe decides he can get the food, and clicks the "claim" option</li>
 			<li>The site processes his claim</li>
 		</ul>
