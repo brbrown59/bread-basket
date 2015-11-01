@@ -14,7 +14,6 @@
 			<li>orgAdminLastName</li>
 			<li>orgAdminTitle</li>
 			<li>orgEmail</li>
-			<li>orgEmail validated?</li>
 			<li>orgPassword</li>
 			<li>orgPhone</li>
 			<li>orgType</li>
@@ -51,7 +50,7 @@
 			<li>listingType</li>
 			<li>listingMemo</li>
 			<li>listingPickupTime</li>
-			<li>listingDateTime</li>
+			<li>listingPostTime</li>
 			<li>orgName</li>
 			<li>orgEmail</li>
 			<li>orgPhone</li>
@@ -74,8 +73,7 @@
 			<li>listingType (what are the options here?)</li>
 			<li>listingCost</li>
 			<li>listingMemo (what are we expecting here?)</li>
-			<li>listingDateTime</li>
-			<li>listingPickupTime</li>
+			<li>listingPostTime</li>
 			<li>orgName</li>
 			<li>orgPhone</li>
 			<li>orgAddress1</li>
@@ -84,6 +82,7 @@
 			<li>orgState</li>
 			<li>orgZip</li>
 			<li>isClaimed</li>
+			<li>wasPickedUp</li>
 			<li></li>
 		</ul>
 
