@@ -36,7 +36,7 @@
 			<li>The site logs Alice in.</li>
 			<li>She sees her home page, which includes her contact information, her store's location/details and her recent listings</li>
 			<li>She clicks a link to add a new listing</li>
-			<li>A page is loaded that allows her to fill in the listing name, type, pick up time, estimated cost</li>
+			<li>A page is loaded that allows her to fill in the listing type, memo, pick up time, estimated cost</li>
 			<li>Alice enters the pertinent information into the appropriate forms and clicks "Submit"</li>
 			<li>The site takes the information and either confirms the new listing has been created, or displays an error message if it was not.</li>
 		</ul>
@@ -91,7 +91,7 @@
 			<li>Julia decides her food pantry can use the food and clicks the claim button.</li>
 			<li>She is taken to the page that announces that she has claimed the food.</li>
 			<li>She is then given the option to push a notice to her volunteers, and pushes the button to past the notification on to her volunteers</li>
-			<li>Within 10 minutes Julia receives a notification that Joe will be picking up the donation,.</li>
+			<li>Within 10 minutes Julia receives a notification that Joe will be picking up the donation.</li>
 		</ul>
 
 		<h3>Use Case: Joe receives a notification from his food bank about available food, and wants to go pick it up</h3>
