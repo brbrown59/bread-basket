@@ -10,7 +10,8 @@
 		<ul>
 			<li>orgID</li>
 			<li>orgName</li>
-			<li>orgAdminName</li>
+			<li>orgAdminFirstName</li>
+			<li>orgAdminLastName</li>
 			<li>orgAdminTitle</li>
 			<li>orgEmail</li>
 			<li>orgEmail validated?</li>
