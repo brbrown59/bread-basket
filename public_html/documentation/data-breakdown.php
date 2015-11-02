@@ -39,12 +39,8 @@
 			<li>volActive</li>
 			<li>volPushNotif</li>
 			<li>orgId (foreign key)</li>
-			<li>Do we need an opt in for push notifications?</li>
-			<li>Do we need an active field, so we can make volunteer inactive instead of deleting?</li>
-			<li>What about a mute notification field? Would that be out of scope or easy to implement?</li>
 		</ul>
 		<p>Message/Notification</p>
-		<p>Do we want to treat claim and pick up differently since the food bank claims the food and a volunteer picks up the food? Claim or a Claim and Pick up buttons for food bank???</p>
 		<ul>
 			<li>listingType</li>
 			<li>listingMemo</li>
@@ -81,7 +77,7 @@
 			<li>orgCity</li>
 			<li>orgState</li>
 			<li>orgZip</li>
-			<li>isClaimed</li>
+			<li>claimedBy</li>
 			<li>wasPickedUp</li>
 			<li></li>
 		</ul>
