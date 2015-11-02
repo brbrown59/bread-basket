@@ -37,7 +37,6 @@
 			<li>volEmail</li>
 			<li>volPhone</li>
 			<li>volActive</li>
-			<li>volPushNotif</li>
 			<li>orgId (foreign key)</li>
 		</ul>
 		<p>Message/Notification</p>
