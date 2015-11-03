@@ -62,7 +62,7 @@
 			<li>listingMemo</li>
 			<li>listingPostTime</li>
 			<li>claimedBy</li>
-			<li>listingCloseddit</li>
+			<li>listingClosed</li>
 			<li></li>
 		</ul>
 
