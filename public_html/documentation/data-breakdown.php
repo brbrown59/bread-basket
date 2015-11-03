@@ -10,11 +10,7 @@
 		<p>Organization</p>
 		<ul>
 			<li>orgId (primary key)</li>
-			<li>volId (foreign key)</li>
 			<li>orgName</li>
-			<li>orgEmail</li>
-			<li>orgHash</li>
-			<li>orgSalt</li>
 			<li>orgPhone</li>
 			<li>orgType</li>
 			<li>orgDescription</li>
@@ -25,25 +21,34 @@
 			<li>orgZip</li>
 			<li>orgHours</li>
 		</ul>
-	<ul>
-		<li>orgAdminFirstName</li>
-		<li>orgAdminLastName</li>
-		<li>orgAdminTitle</li>
-	</ul>
-
+		<ul>
+			<li>adminId (primary key)</li>
+			<li>volId (foreign key)</li>
+			<li>orgId (foreign key)</li>
+			<li>adminFirstName</li>
+			<li>adminLastName</li>
+			<li>adminEmail</li>
+			<li>adminEmailConfirmed</li>
+			<li>adminPhone</li>
+			<li>adminHash</li>
+			<li>adminSalt</li>
+		</ul>
 
 		<p>Volunteer</p>
 		<ul>
 			<li>volId (primary key)</li>
+			<li>orgId (foreign key)</li>
 			<li>volFirstName</li>
 			<li>volLastName</li>
 			<li>volEmail</li>
+			<li>volEmailConfirmed</li>
 			<li>volPhone</li>
-			<li>volActive</li>
-			<li>orgId (foreign key)</li>
 		</ul>
 		<p>Message/Notification</p>
 		<ul>
+			<li>messageId (primary key)</li>
+			<li>listingId (foreign key)</li>
+			<li>orgId (foreign key)</li>
 			<li>listingType</li>
 			<li>listingMemo</li>
 			<li>listingPickupTime</li>
@@ -59,9 +64,6 @@
 			<li>orgState</li>
 			<li>orgZip</li>
 			<li>orgHours</li>
-			<li>messageId (primary key)</li>
-			<li>listingId (foreign key)</li>
-			<li>orgId (foreign key)</li>
 		</ul>
 		<p>Listing (robust) (recursive 1 to n)</p>
 		<ul>
