@@ -21,6 +21,7 @@
 			<li>orgZip</li>
 			<li>orgHours</li>
 		</ul>
+		<p>Admin</p>
 		<ul>
 			<li>adminId (primary key)</li>
 			<li>volId (foreign key)</li>
