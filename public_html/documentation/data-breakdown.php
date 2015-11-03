@@ -7,14 +7,11 @@
 	<body>
 		<h1>Data Breakdown</h1>
 
-		<p>Organization/Administrator</p>
+		<p>Organization</p>
 		<ul>
 			<li>orgId (primary key)</li>
 			<li>volId (foreign key)</li>
 			<li>orgName</li>
-			<li>orgAdminFirstName</li>
-			<li>orgAdminLastName</li>
-			<li>orgAdminTitle</li>
 			<li>orgEmail</li>
 			<li>orgHash</li>
 			<li>orgSalt</li>
@@ -28,6 +25,12 @@
 			<li>orgZip</li>
 			<li>orgHours</li>
 		</ul>
+	<ul>
+		<li>orgAdminFirstName</li>
+		<li>orgAdminLastName</li>
+		<li>orgAdminTitle</li>
+	</ul>
+
 
 		<p>Volunteer</p>
 		<ul>
@@ -65,9 +68,9 @@
 			<li>parentListingId</li>
 			<li>listingId (primary key)</li>
 			<li>orgId (foreign key)</li>
-			<li>listingType (what are the options here?)</li>
+			<li>listingType</li>
 			<li>listingCost</li>
-			<li>listingMemo (what are we expecting here?)</li>
+			<li>listingMemo</li>
 			<li>listingPostTime</li>
 			<li>orgName</li>
 			<li>orgPhone</li>
