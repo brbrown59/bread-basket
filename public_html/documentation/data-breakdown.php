@@ -61,7 +61,7 @@
 			<li>listingCost</li>
 			<li>listingMemo</li>
 			<li>listingPostTime</li>
-			<li>claimedBy</li>
+			<li>listingClaimedBy</li>
 			<li>listingClosed</li>
 			<li></li>
 		</ul>
