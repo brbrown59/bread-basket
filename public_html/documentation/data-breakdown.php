@@ -50,17 +50,7 @@
 			<li>messageId (primary key)</li>
 			<li>listingId (foreign key)</li>
 			<li>orgId (foreign key)</li>
-			<li>listingType</li>
-			<li>listingMemo</li>
-			<li>listingPickupTime</li>
-			<li>listingPostTime</li>
-			<li>orgName</li>
-			<li>orgPhone</li>
-			<li>orgAddress1</li>
-			<li>orgAddress2</li>
-			<li>orgCity</li>
-			<li>orgState</li>
-			<li>orgZip</li>
+			<li>messageText</li>
 		</ul>
 		<p>Listing (robust) (recursive 1 to n)</p>
 		<ul>
@@ -71,15 +61,8 @@
 			<li>listingCost</li>
 			<li>listingMemo</li>
 			<li>listingPostTime</li>
-			<li>orgName</li>
-			<li>orgPhone</li>
-			<li>orgAddress1</li>
-			<li>orgAddress2</li>
-			<li>orgCity</li>
-			<li>orgState</li>
-			<li>orgZip</li>
 			<li>claimedBy</li>
-			<li>wasPickedUp</li>
+			<li>listingCloseddit</li>
 			<li></li>
 		</ul>
 
