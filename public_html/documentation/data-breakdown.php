@@ -29,7 +29,7 @@
 			<li>adminFirstName</li>
 			<li>adminLastName</li>
 			<li>adminEmail</li>
-			<li>adminEmailConfirmed</li>
+			<li>adminEmailActivation</li>
 			<li>adminPhone</li>
 			<li>adminHash</li>
 			<li>adminSalt</li>
@@ -42,7 +42,7 @@
 			<li>volFirstName</li>
 			<li>volLastName</li>
 			<li>volEmail</li>
-			<li>volEmailConfirmed</li>
+			<li>volEmailActivation</li>
 			<li>volPhone</li>
 		</ul>
 		<p>Message/Notification</p>
