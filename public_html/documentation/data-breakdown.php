@@ -21,6 +21,7 @@
 			<li>orgZip</li>
 			<li>orgHours</li>
 		</ul>
+		<p>Admin</p>
 		<ul>
 			<li>adminId (primary key)</li>
 			<li>volId (foreign key)</li>
@@ -54,16 +55,12 @@
 			<li>listingPickupTime</li>
 			<li>listingPostTime</li>
 			<li>orgName</li>
-			<li>orgEmail</li>
 			<li>orgPhone</li>
-			<li>orgAdminFirstName</li>
-			<li>orgAdminLastName</li>
 			<li>orgAddress1</li>
 			<li>orgAddress2</li>
 			<li>orgCity</li>
 			<li>orgState</li>
 			<li>orgZip</li>
-			<li>orgHours</li>
 		</ul>
 		<p>Listing (robust) (recursive 1 to n)</p>
 		<ul>
