@@ -83,3 +83,33 @@ public function setListingId($newListingId) {
 	//convert and store the listing id
 	$this->listingId = intval($newListingId);
 }
+/**
+ * accessor method for the organization id
+ *
+ * @return int value of organization id
+ */
+public function getOrgId() {
+	return($this->orgId);
+}
+/**
+ * mutator method for organization id
+ *
+ * @param int $newOrgId new value of organization id
+ * @throws InvalidArgumentException if $newOrgId is not an integer or not positive
+ * @throws RangeException if $newOrgId is not positive
+ **/
+public function setOrgId($newOrgId) {
+	//verify the organization id is valid
+	$newOrgId = filter_var($newOrgId, FILTER_VALIDATE_INT);
+	if($newOrgId === false){
+		throw(new InvalidArgumentException("organization id is not a valid integer"));
+}
+
+	//verify the organization id is positive
+	if($newOrgId <= 0) {
+		throw(new RangeException("Organization if is not positive"));
+	}
+
+	//convert and store the organization id
+	$this->orgId = intval($newOrgId);
+}
