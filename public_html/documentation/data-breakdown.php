@@ -10,28 +10,28 @@
 		<p>Organization</p>
 		<ul>
 			<li>orgId (primary key)</li>
-			<li>orgName</li>
-			<li>orgPhone</li>
-			<li>orgType</li>
-			<li>orgDescription</li>
 			<li>orgAddress1</li>
 			<li>orgAddress2</li>
 			<li>orgCity</li>
-			<li>orgState</li>
-			<li>orgZip</li>
+			<li>orgDescription</li>
 			<li>orgHours</li>
+			<li>orgName</li>
+			<li>orgPhone</li>
+			<li>orgState</li>
+			<li>orgType</li>
+			<li>orgZip</li>
 		</ul>
 		<p>Admin</p>
 		<ul>
 			<li>adminId (primary key)</li>
-			<li>volId (foreign key)</li>
 			<li>orgId (foreign key)</li>
-			<li>adminFirstName</li>
-			<li>adminLastName</li>
+			<li>volId (foreign key)</li>
 			<li>adminEmail</li>
 			<li>adminEmailActivation</li>
-			<li>adminPhone</li>
+			<li>adminFirstName</li>
 			<li>adminHash</li>
+			<li>adminLastName</li>
+			<li>adminPhone</li>
 			<li>adminSalt</li>
 		</ul>
 
@@ -39,10 +39,10 @@
 		<ul>
 			<li>volId (primary key)</li>
 			<li>orgId (foreign key)</li>
-			<li>volFirstName</li>
-			<li>volLastName</li>
 			<li>volEmail</li>
 			<li>volEmailActivation</li>
+			<li>volFirstName</li>
+			<li>volLastName</li>
 			<li>volPhone</li>
 		</ul>
 		<p>Message/Notification</p>
@@ -54,16 +54,15 @@
 		</ul>
 		<p>Listing (robust) (recursive 1 to n)</p>
 		<ul>
-			<li>parentListingId</li>
 			<li>listingId (primary key)</li>
 			<li>orgId (foreign key)</li>
-			<li>listingType</li>
-			<li>listingCost</li>
-			<li>listingMemo</li>
-			<li>listingPostTime</li>
 			<li>listingClaimedBy</li>
 			<li>listingClosed</li>
-			<li></li>
+			<li>listingCost</li>
+			<li>listingMemo</li>
+			<li>listingParentId</li>
+			<li>listingPostTime</li>
+			<li>listingType</li>
 		</ul>
 
 
