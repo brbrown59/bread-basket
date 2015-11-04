@@ -6,24 +6,23 @@ DROP TABLE IF EXISTS organization;
 
 CREATE TABLE organization(
 	orgId INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	orgAddress1 VARCHAR(32) NOT NULL,
-	orgAddress2 VARCHAR(32),
-	orgCity VARCHAR(16) NOT NULL,
+	orgAddress1 VARCHAR(64) NOT NULL,
+	orgAddress2 VARCHAR(64),
+	orgCity VARCHAR(24) NOT NULL,
 	orgDescription VARCHAR(256),
 	orgHours VARCHAR(16),
-	orgName VARCHAR(32) NOT NULL,
+	orgName VARCHAR(64) NOT NULL,
 	orgPhone VARCHAR(32) NOT NULL,
 	orgState CHAR(2) NOT NULL,
-	orgType VARCHAR(16) NOT NULL,
-	orgZip VARCHAR (10) NOT NULL,
-
+	orgType VARCHAR(24) NOT NULL,
+	orgZip VARCHAR(10) NOT NULL,
 
 	UNIQUE(orgName),
-	INDEX(orgType),
 	INDEX(orgCity),
 	INDEX(orgState),
+	INDEX(orgType),
 	INDEX(orgZip),
-	PRIMARY KEY (orgId)
+	PRIMARY KEY(orgId)
 );
 
 CREATE TABLE volunteer(
@@ -64,13 +63,12 @@ CREATE TABLE listing(
 	listingId INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	orgId INT UNSIGNED NOT NULL,
 	listingClaimedBy INT UNSIGNED,
-	listingClosed BOOL,
+	listingClosed BOOL NOT NULL,
 	listingCost DOUBLE NOT NULL,
 	listingMemo VARCHAR(256) NOT NULL,
 	listingParentId INT UNSIGNED,
 	listingPostTime DATETIME NOT NULL,
 	listingType VARCHAR(14) NOT NULL,
-
 
 	INDEX (orgId),
 	INDEX (listingParentId),
