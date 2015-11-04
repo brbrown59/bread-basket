@@ -10,4 +10,38 @@
 
 class Volunteer {
 	/**
+	 * id for this Volunteer; this is the primary key
+	 * @var int $volId
+	 **/
+	private $volId;
+	/**
+	 * id of the Organization that this Volunteer is associated with; this is a foreign key
+	 * @var int $orgId
+	 **/
+	private $orgId;
+	/**
+	 * email the Volunteer is associated with
+	 * @var string $volEmail
+	 **/
+	private $volEmail;
+	/**
+	 * activation key for Volunteer email
+	 * @var int $volEmailActivation
+	 */
+	private $volEmailActivation;
+	/**
+	 * first name of Volunteer
+	 * @var string $volFirstName
+	 */
+	private $volFirstName;
+	/**
+	 * last name of Volunteer
+	 * @var string $volLastName
+	 */
+	private $volLastName;
+	/**
+	 * phone number for Volunteer
+	 * @var string $volPhone
+	 */
+	private $volPhone;
 }
