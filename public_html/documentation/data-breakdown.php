@@ -7,20 +7,6 @@
 	<body>
 		<h1>Data Breakdown</h1>
 
-		<p>Organization</p>
-		<ul>
-			<li>orgId (primary key)</li>
-			<li>orgAddress1</li>
-			<li>orgAddress2</li>
-			<li>orgCity</li>
-			<li>orgDescription</li>
-			<li>orgHours</li>
-			<li>orgName</li>
-			<li>orgPhone</li>
-			<li>orgState</li>
-			<li>orgType</li>
-			<li>orgZip</li>
-		</ul>
 		<p>Admin</p>
 		<ul>
 			<li>adminId (primary key)</li>
@@ -35,23 +21,6 @@
 			<li>adminSalt</li>
 		</ul>
 
-		<p>Volunteer</p>
-		<ul>
-			<li>orgId (foreign key)</li>
-			<li>volId (primary key)</li>
-			<li>volEmail</li>
-			<li>volEmailActivation</li>
-			<li>volFirstName</li>
-			<li>volLastName</li>
-			<li>volPhone</li>
-		</ul>
-		<p>Message/Notification</p>
-		<ul>
-			<li>messageId (primary key)</li>
-			<li>listingId (foreign key)</li>
-			<li>orgId (foreign key)</li>
-			<li>messageText</li>
-		</ul>
 		<p>Listing (recursive 1 to n)</p>
 		<ul>
 			<li>listingId (primary key)</li>
@@ -65,6 +34,39 @@
 			<li>listingType</li>
 		</ul>
 
+		<p>Message/Notification</p>
+		<ul>
+			<li>messageId (primary key)</li>
+			<li>listingId (foreign key)</li>
+			<li>orgId (foreign key)</li>
+			<li>messageText</li>
+		</ul>
+
+		<p>Organization</p>
+		<ul>
+			<li>orgId (primary key)</li>
+			<li>orgAddress1</li>
+			<li>orgAddress2</li>
+			<li>orgCity</li>
+			<li>orgDescription</li>
+			<li>orgHours</li>
+			<li>orgName</li>
+			<li>orgPhone</li>
+			<li>orgState</li>
+			<li>orgType</li>
+			<li>orgZip</li>
+		</ul>
+
+		<p>Volunteer</p>
+		<ul>
+			<li>volId (primary key)</li>
+			<li>orgId (foreign key)</li>
+			<li>volEmail</li>
+			<li>volEmailActivation</li>
+			<li>volFirstName</li>
+			<li>volLastName</li>
+			<li>volPhone</li>
+		</ul>
 
 	</body>
 </html>
