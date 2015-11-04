@@ -53,11 +53,11 @@ CREATE TABLE administrator(
 	adminPhone VARCHAR(32),
 	adminSalt CHAR(32) NOT NULL,
 
-	INDEX(orgId),
-	INDEX(volId),
-	FOREIGN KEY(orgId) REFERENCES organization(orgId),
-	FOREIGN KEY(volId) REFERENCES volunteer(volId),
-	PRIMARY KEY(adminId)
+	INDEX (orgId),
+	INDEX (volId),
+	FOREIGN KEY (orgId) REFERENCES organization (orgId),
+	FOREIGN KEY (volId) REFERENCES volunteer (volId),
+	PRIMARY KEY (adminId)
 );
 
 CREATE TABLE listing(
@@ -75,10 +75,19 @@ CREATE TABLE listing(
 	INDEX (orgId),
 	INDEX (listingParentId),
 	INDEX (listingType),
-	FOREIGN KEY(orgID) REFERENCES organization(orgId),
-	PRIMARY KEY(listingId)
+	FOREIGN KEY (orgID) REFERENCES organization(orgId),
+	PRIMARY KEY (listingId)
 );
 
 CREATE TABLE message(
+	messageId INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	listingId INT UNSIGNED NOT NULL,
+	orgId INT UNSIGNED NOT NULL,
+	messageText VARCHAR(256) NOT NULL,
 
+	INDEX (listingId),
+	INDEX (orgId),
+	FOREIGN KEY (listingId) REFERENCES listing(listingId),
+	FOREIGN KEY (orgId) REFERENCES organization(orgId),
+	PRIMARY KEY (messageID)
 );
