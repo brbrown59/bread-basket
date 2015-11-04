@@ -52,7 +52,7 @@
 			<li>orgId (foreign key)</li>
 			<li>messageText</li>
 		</ul>
-		<p>Listing (robust) (recursive 1 to n)</p>
+		<p>Listing (recursive 1 to n)</p>
 		<ul>
 			<li>listingId (primary key)</li>
 			<li>orgId (foreign key)</li>
