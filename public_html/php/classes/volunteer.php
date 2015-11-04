@@ -10,4 +10,17 @@
 
 class Volunteer {
 	/**
+	 * id for this Volunteer; this is the primary key
+	 * @var int $volId
+	 */
+	private $volId;
+	/**
+	 * id of the Organization that this Volunteer is associated with; this is a foreign key
+	 * @var int $orgId
+	 */
+	private $orgId;
+	/**
+	 * email the Volunteer is associated with
+	 * @
+	 */
 }
