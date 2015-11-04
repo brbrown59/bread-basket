@@ -6,16 +6,17 @@ DROP TABLE IF EXISTS organization;
 
 CREATE TABLE organization(
 	orgId INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	orgName VARCHAR(32) NOT NULL,
-	orgPhone VARCHAR(32) NOT NULL,
-	orgType VARCHAR(16) NOT NULL,
-	orgDescription VARCHAR(256),
 	orgAddress1 VARCHAR(32) NOT NULL,
 	orgAddress2 VARCHAR(32),
 	orgCity VARCHAR(16) NOT NULL,
-	orgState CHAR(2) NOT NULL,
-	orgZip VARCHAR (10) NOT NULL,
+	orgDescription VARCHAR(256),
 	orgHours VARCHAR(16),
+	orgName VARCHAR(32) NOT NULL,
+	orgPhone VARCHAR(32) NOT NULL,
+	orgState CHAR(2) NOT NULL,
+	orgType VARCHAR(16) NOT NULL,
+	orgZip VARCHAR (10) NOT NULL,
+
 
 	UNIQUE(orgName),
 	INDEX(orgType),
@@ -28,10 +29,10 @@ CREATE TABLE organization(
 CREATE TABLE volunteer(
 	volId INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	orgId INT UNSIGNED NOT NULL,
-	volFirstName VARCHAR(16) NOT NULL,
-	volLastName VARCHAR(16) NOT NULL,
 	volEmail VARCHAR(128) NOT NULL,
 	volEmailActivation VARCHAR(16),
+	volFirstName VARCHAR(16) NOT NULL,
+	volLastName VARCHAR(16) NOT NULL,
 	volPhone VARCHAR(32),
 
 	UNIQUE(volEmail),
@@ -41,7 +42,22 @@ CREATE TABLE volunteer(
 );
 
 CREATE TABLE administrator(
+	adminId INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	orgId INT UNSIGNED NOT NULL,
+	volId INT UNSIGNED NOT NULL,
+	adminEmail VARCHAR(128) NOT NULL,
+	adminEmailActivation VARCHAR(16),
+	adminFirstName VARCHAR(16) NOT NULL,
+	adminHash CHAR(64) NOT NULL,
+	adminLastName VARCHAR(16) NOT NULL,
+	adminPhone VARCHAR(32),
+	adminSalt CHAR(32) NOT NULL,
 
+	INDEX(orgId),
+	INDEX(volId),
+	FOREIGN KEY(orgId) REFERENCES organization(orgId),
+	FOREIGN KEY(volId) REFERENCES volunteer(volId),
+	PRIMARY KEY(adminId)
 );
 
 CREATE TABLE listing(
