@@ -53,3 +53,33 @@ class listing {
 	 **/
 	private $listingType;
 }
+/**
+ * accessor method for listing id
+ *
+ * @return mixed value for listing id
+ **/
+public function getListingId() {
+	return($this->listingId);
+}
+/**
+ * mutator method for listing id
+ *
+ * @param mixed $newListingId new value of listing id
+ * @throws InvalidArgumentException if $newListingId is not an integer
+ * @throws RangeException is $newListingId is not positive
+ **/
+public function setListingId($newListingId) {
+	//base case: if the listing id is null, this a new listing without a mySQL assigned id (yet)
+	if($newListingId === null) {
+		$this->listingId = null;
+		return;
+	}
+	//verify the listing id is valid
+	$newListingId = filter_var($newListingId, FILTER_VALIDATE_INT);
+	if($newListingId === false) {
+		throw(new InvalidArgumentException("listing id is not positive"));
+	}
+
+	//convert and store the listing id
+	$this->listingId = intval($newListingId);
+}
