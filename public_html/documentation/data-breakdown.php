@@ -37,8 +37,8 @@
 
 		<p>Volunteer</p>
 		<ul>
-			<li>volId (primary key)</li>
 			<li>orgId (foreign key)</li>
+			<li>volId (primary key)</li>
 			<li>volEmail</li>
 			<li>volEmailActivation</li>
 			<li>volFirstName</li>
