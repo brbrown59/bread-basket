@@ -61,7 +61,22 @@ CREATE TABLE administrator(
 );
 
 CREATE TABLE listing(
+	listingId INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	orgId INT UNSIGNED NOT NULL,
+	listingClaimedBy INT UNSIGNED,
+	listingClosed BOOL,
+	listingCost DOUBLE NOT NULL,
+	listingMemo VARCHAR(256) NOT NULL,
+	listingParentId INT UNSIGNED,
+	listingPostTime DATETIME NOT NULL,
+	listingType VARCHAR(14) NOT NULL,
 
+
+	INDEX (orgId),
+	INDEX (listingParentId),
+	INDEX (listingType),
+	FOREIGN KEY(orgID) REFERENCES organization(orgId),
+	PRIMARY KEY(listingId)
 );
 
 CREATE TABLE message(
