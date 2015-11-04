@@ -25,9 +25,19 @@ CREATE TABLE organization(
 	PRIMARY KEY (orgId)
 );
 
-CREATE TABLE volunteeer(
+CREATE TABLE volunteer(
+	volId INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	orgId INT UNSIGNED NOT NULL,
+	volFirstName VARCHAR(16) NOT NULL,
+	volLastName VARCHAR(16) NOT NULL,
+	volEmail VARCHAR(128) NOT NULL,
+	volEmailActivation VARCHAR(16),
+	volPhone VARCHAR(32),
 
-
+	UNIQUE(volEmail),
+	INDEX(orgId),
+	FOREIGN KEY(orgId) REFERENCES organization(orgId),
+	PRIMARY KEY(volId)
 );
 
 CREATE TABLE administrator(
