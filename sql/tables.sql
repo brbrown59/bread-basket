@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS message;
 DROP TABLE IF EXISTS listing;
+DROP TABLE IF EXISTS listingType;
 DROP TABLE IF EXISTS administrator;
 DROP TABLE IF EXISTS volunteer;
 DROP TABLE IF EXISTS organization;
@@ -91,5 +92,5 @@ CREATE TABLE message (
 	INDEX (orgId),
 	FOREIGN KEY (listingId) REFERENCES listing(listingId),
 	FOREIGN KEY (orgId) REFERENCES organization(orgId),
-	PRIMARY KEY (messageID)
+	PRIMARY KEY (messageId)
 );
