@@ -5,7 +5,7 @@
 		<title>Entity Relationship Diagram</title>
 	</head>
 	<body>
-		<p>Basic Entity Relationship Diagram</p>
+		<p>Basic Entity Relationship Diagram yay</p>
 		<img src="image/erd-simple-2.svg" alt="Entity Relationship Diagram"/>
 	</body>
 </html>
