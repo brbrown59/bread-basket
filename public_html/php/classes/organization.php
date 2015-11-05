@@ -11,67 +11,105 @@
 class Organization{
 
 	/**
-	 * ID for the organization: this is the primary key
+	 * id for the organization: this is the primary key
 	 * @var int $orgId;
  	**/
 	private $orgId;
 
 	/**
-	 * The primary address info of the organization
+	 * the primary address info of the organization
 	 * @var String $orgAddress1;
 	 **/
 	private $orgAddress1;
 
 	/**
-	 * The secondary address info of the organization
+	 * the secondary address info of the organization
 	 * @var String $orgAddress2;
 	 **/
 	private $orgAddress2;
 
 	/**
-	 * The city of the organization
+	 * the city of the organization
 	 * @var String $orgCity;
 	 **/
 	private $orgCity;
 
 	/**
-	 * A description of the organization
+	 * a description of the organization
 	 * @var String $orgDescription;
 	 **/
 	private $orgDescription;
 
 	/**
-	 * The listed hours of the organization
+	 * the listed hours of the organization
 	 * @var String $orgHours
 	 **/
 	private $orgHours;
 
 	/**
-	 * The name of the organization
+	 * the name of the organization
 	 * @var String $orgName
 	 **/
 	private $orgName;
 
 	/**
-	 * The organization's phone number
+	 * the organization's phone number
 	 * @var String $orgPhone
 	 **/
 	private $orgPhone;
 
 	/**
-	 * The organization's state
+	 * the organization's state
 	 * @var String $orgState
 	 **/
 	private $orgState;
 
 	/**
-	 * A one character field flagging the type of organization
+	 * a one character field flagging the type of organization
 	 * @var String $orgType
 	 **/
 	private $orgType;
 
 	/**
-	 * The zipcode of the organization
+	 * the zipcode of the organization
 	 **/
 	private $orgZip;
+
+	/**
+	 * accessor method for the organization id
+	 *
+	 * @return mixed value of organization id
+	 **/
+	public function getOrgId() {
+		return($this->orgId);
+	}
+
+	/**
+	 * mutator method for the organization id
+	 *
+	 * @param mixed $newOrgId new value of the organization id
+	 * @throws InvalidArgumentException if $newOrgId is not an integer
+	 * @throws RangeException if $newOrgId is not positive
+	 **/
+	public function setOrgId($newOrgId) {
+		//if the org id is null, this is a new organization profile with no mySQL id; temporarily set the id to null
+		if($newOrgId === null) {
+			$this->orgId = null;
+			return;
+		}
+
+		//verify the id is a valid integer
+		$newOrgId =  filter_var($newOrgId, FILTER_VALIDATE_INT);
+		if($newOrgId === false) {
+			throw(new InvalidArgumentException("organization id is not a valid integer"));
+		}
+
+		//verify the id is positive
+		if($newOrgId <= 0) {
+			throw(new RangeException("organization id is not positive"));
+		}
+
+		//convert and store the new org id
+		$this->orgId = intval($newOrgId);
+	}
 }
