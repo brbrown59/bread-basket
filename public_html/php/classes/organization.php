@@ -112,4 +112,71 @@ class Organization{
 		//convert and store the new org id
 		$this->orgId = intval($newOrgId);
 	}
+
+	/**
+	 * accessor method for the first line of the organization address
+	 *
+	 * @return String value of organization address
+	 */
+	public function getOrgAddress1() {
+		return($this->orgAddress1);
+	}
+
+	/**
+	 * mutator method for the first line of the organization address
+	 *
+	 * @param String $newOrgAddress1 new value of the organization address
+	 * @throws InvalidArgumentException if $newOrgAddress1 is not a string or is insecure
+	 * @throws RangeException if $newOrgAddress1 is larger than 64 characters
+	 **/
+	public function setOrgAddress1($newOrgAddress1) {
+		//verify the new address is secure
+		$newOrgAddress1 = trim($newOrgAddress1);
+		$newOrgAddress1 = filter_var($newOrgAddress1, FILTER_SANITIZE_STRING);
+		if(empty($newOrgAddress) === true) {
+			throw (new InvalidArgumentException("address (first line) is empty or insecure"));
+		}
+
+		//verify the new address will fit in the database
+		if(strlen($newOrgAddress1) > 64) {
+			throw(new RangeException("address (first line) is too large"));
+		}
+
+		//store the new address
+		$this->orgAddress1 = $newOrgAddress1;
+	}
+
+	/**
+	 * accessor method for the second line of the organization address
+	 *
+	 * @return String value of organization address
+	 */
+	public function getOrgAddress2() {
+		return($this->orgAddress2);
+	}
+
+	/**
+	 * mutator method for the second line of the organization address
+	 *
+	 * @param String $newOrgAddress2 new value of the organization address
+	 * @throws InvalidArgumentException if $newOrgAddress2 is not a string or is insecure
+	 * @throws RangeException if $newOrgAddress2 is larger than 64 characters
+	 **/
+	public function setOrgAddress2($newOrgAddress2) {
+		//verify the new address is secure
+		$newOrgAddress2 = trim($newOrgAddress2);
+		$newOrgAddress2 = filter_var($newOrgAddress2, FILTER_SANITIZE_STRING);
+		//allow the empty case
+		if($newOrgAddress2 === false) {
+			throw (new InvalidArgumentException("address (second line) is insecure"));
+		}
+
+		//verify the new address will fit in the database
+		if(strlen($newOrgAddress2) > 64) {
+			throw(new RangeException("address (second line) is too large"));
+		}
+
+		//store the new address
+		$this->orgAddress1 = $newOrgAddress2;
+	}
 }
