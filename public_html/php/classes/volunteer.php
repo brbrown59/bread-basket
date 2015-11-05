@@ -284,6 +284,21 @@ class Volunteer {
 		$this->volLastName = $newVolLastName;
 	}
 
+	/**
+	 * accessor for vol phone
+	 *
+	 * @returns string value of phone number
+	 **/
+	public function getVolPhone() {
+		return($this->volPhone);
+	}
+
+	/**
+	 * mutator for vol phone
+	 *
+	 * @param string $newVolPhone
+	 */
+
 
 
 
