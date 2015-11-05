@@ -112,4 +112,36 @@ class Volunteer {
 		$this->volId = intval($newVolId);
 	}
 
+	/**
+	 * accessor method for org id
+	 *
+	 * @return int value of org id
+	 **/
+	public function getOrgId() {
+		return($this->orgId);
+	}
+
+	/**
+	 * mutator method for org id
+	 *
+	 * @param int $newOrgId new value of org id
+	 * @throws InvalidArgumentException if $newOrgId is not an integer or postive
+	 * @throws RangeException if $newOrgId is not positive
+	 **/
+	public function setOrgId() {
+		//verify the org id is valid
+		$newOrgId = filter_var($newOrgId, FILTER_VALIDATE_INT);
+		if($newOrgId === false) {
+			throw(new InvalidArgumentException("org id is not a valid integer"));
+		}
+		//verify the org id is positive
+		if($newOrgId <= 0) {
+			throw(new RangeException("org id is not positive"));
+		}
+		//convert and store the org id
+		$this->orgId = intval($newOrgId);
+	}
+
+
+
 }
