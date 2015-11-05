@@ -224,7 +224,6 @@ class Organization{
 	 * @throws InvalidArgumentException if $newDescription is insecure
 	 * @throws RangeException if $newDescription is too large for the database
 	 */
-
 	public function setOrgDescription($newDescription) {
 		//check that new description is secure
 		$newDescription = trim($newDescription);
@@ -240,5 +239,79 @@ class Organization{
 
 		//store the new value
 		$this->orgDescription = $newDescription;
+	}
+
+	/**
+	 * accessor method for the organization hours
+	 *
+	 * @return String value of organization hours
+	 */
+	public function getOrgHours() {
+		return ($this->orgHours);
+	}
+
+	/**
+	 * mutator method for the listed organization hours
+	 *
+	 * @param String $newHours new hours of the organization
+	 * @throws InvalidArgumentException if $newHours is insecure
+	 * @throws RangeException if $newHours is too large for the database
+	 */
+	public function setOrgHours($newHours) {
+		//check that new description is secure
+		$newHours = trim($newHours);
+		$newHours = filter_var($newHours, FILTER_SANITIZE_STRING);
+		if($newHours === false) {
+			throw new InvalidArgumentException("organization hours are insecure");
+		}
+
+		//check that new description will fit in the database
+		if(strlen($newHours) > 64) {
+			throw new RangeException("organization hours are too large");
+		}
+
+		//store the new value
+		$this->orgHours = $newHours;
+	}
+
+	/**
+	 * accessor method for the organization name
+	 *
+	 * @return String value of organization name
+	 */
+	public function getOrgName() {
+		return ($this->orgName);
+	}
+
+	/**
+	 * mutator method for the organization name
+	 *
+	 * @param String $newName new Name of the organization
+	 * @throws InvalidArgumentException if $newName is empty insecure
+	 * @throws RangeException if $newName is too large for the database
+	 */
+	public function setOrgName($newName) {
+		//check that new name is not empty and secure
+		$newName = trim($newName);
+		$newName = filter_var($newName, FILTER_SANITIZE_STRING);
+		if(empty($newName) === true) {
+			throw new InvalidArgumentException("organization name is empty insecure");
+		}
+
+		//check that new name will fit in the database
+		if(strlen($newName) > 128) {
+			throw new RangeException("organization description is too large");
+		}
+
+		//store the new value
+		$this->orgName = $newName;
+	}
+
+	/**accessor method for organization phone number
+	 *
+	 * @return String value of organization phone number
+	 */
+	public function getOrgPhone(){
+		return($this->orgPhone);
 	}
 }
