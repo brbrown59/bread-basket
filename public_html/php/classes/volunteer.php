@@ -251,6 +251,41 @@ class Volunteer {
 		$this->volFirstName = $newVolFirstName;
 	}
 
+	/**
+	 * accessor method for vol last name
+	 *
+	 * @returns string value of last name
+	 */
+	public function getVolLastName() {
+		return($this->volLastName);
+	}
+
+	/**
+	 * mutator method for vol last name
+	 *
+	 * @param string $newVolLastName new value of last name
+	 * @throws InvalidArgumentException if $newVolLastName is not a string or insecure
+	 * @throws RangeException if $newVolLastName if last name is more than 32 char
+	 **/
+	public function setVolLastName($newVolLastName) {
+		//verify the last name is a secure
+		$newVolLastName = trim($newVolLastName);
+		$newVolLastName = filter_var($newVolLastName, FILTER_SANITIZE_STRING);
+		if(empty($newVolLastName) === true) {
+			throw(new InvalidArgumentException("last name is empty or insecure"));
+		}
+
+		//verify the last name will fit in the database
+		if(strlen($newVolLastName) > 32) {
+			throw(new RangeException("last name is too long"));
+		}
+
+		//store the last name
+		$this->volLastName = $newVolLastName;
+	}
+
+
+
 
 
 
