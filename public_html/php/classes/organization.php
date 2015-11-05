@@ -258,14 +258,14 @@ class Organization{
 	 * @throws RangeException if $newHours is too large for the database
 	 */
 	public function setOrgHours($newHours) {
-		//check that new description is secure
+		//check that new hours string is secure
 		$newHours = trim($newHours);
 		$newHours = filter_var($newHours, FILTER_SANITIZE_STRING);
 		if($newHours === false) {
 			throw new InvalidArgumentException("organization hours are insecure");
 		}
 
-		//check that new description will fit in the database
+		//check that new hours will fit in the database
 		if(strlen($newHours) > 64) {
 			throw new RangeException("organization hours are too large");
 		}
@@ -287,7 +287,7 @@ class Organization{
 	 * mutator method for the organization name
 	 *
 	 * @param String $newName new Name of the organization
-	 * @throws InvalidArgumentException if $newName is empty insecure
+	 * @throws InvalidArgumentException if $newName is empty or insecure
 	 * @throws RangeException if $newName is too large for the database
 	 */
 	public function setOrgName($newName) {
@@ -295,12 +295,12 @@ class Organization{
 		$newName = trim($newName);
 		$newName = filter_var($newName, FILTER_SANITIZE_STRING);
 		if(empty($newName) === true) {
-			throw new InvalidArgumentException("organization name is empty insecure");
+			throw new InvalidArgumentException("organization name is empty or insecure");
 		}
 
 		//check that new name will fit in the database
 		if(strlen($newName) > 128) {
-			throw new RangeException("organization description is too large");
+			throw new RangeException("organization name is too large");
 		}
 
 		//store the new value
@@ -313,5 +313,81 @@ class Organization{
 	 */
 	public function getOrgPhone(){
 		return($this->orgPhone);
+	}
+
+	/**
+	 * mutator method for the organization phone number
+	 *
+	 * @param String $newPhone new phone number of the organization
+	 * @throws InvalidArgumentException if $newPhone is empty or insecure
+	 * @throws RangeException if $newPhone is too large for the database
+	 */
+	public function setOrgPhone($newPhone) {
+		//come back to in a bit; phone is tricky
+	}
+
+	/**accessor method for organization state
+	 *
+	 * @return String value of organization state
+	 */
+	public function getOrgState(){
+		return($this->orgState);
+	}
+
+	/**
+	 * mutator method for the organization state
+	 *
+	 * @param String $newState new organization state
+	 * @throws InvalidArgumentException if $newState is empty or insecure
+	 * @throws RangeException if $newState is too large for the database
+	 */
+	public function setOrgState($newState) {
+		//check that state is not empty and secure
+		$newState = trim($newState);
+		$newState = filter_var($newState, FILTER_SANITIZE_STRING);
+		if(empty($newState) === true) {
+			throw new InvalidArgumentException("state is empty or insecure");
+		}
+
+		//check the length of the state code
+		if(strlen($newState) > 2) {
+			throw new RangeException("state abbreviation is too large");
+		}
+
+		//store the new value
+		$this->orgState = $newState;
+	}
+
+	/**
+	 * accessor method for the organization type
+	 *
+	 * @return String value of organization type
+	 */
+	public function getOrgType() {
+		return $this->getOrgType();
+	}
+
+	/**
+	 * mutator method for the organization type
+	 *
+	 * @param String $newType new organization type
+	 * @throws InvalidArgumentException if $newType is empty or insecure
+	 * @throws RangeException if $newType is too large for the database
+	 */
+	public function setOrgType($newType) {
+		//check that type is not empty and secure
+		$newType = trim($newType);
+		$newType = filter_var($newType, FILTER_SANITIZE_STRING);
+		if(empty($newType) === true) {
+			throw new InvalidArgumentException("organization type is empty or insecure");
+		}
+
+		//check that type will fit in the database
+		if(strlen($newType) > 1) {
+			throw new RangeException("organization type is too large");
+		}
+
+		//store the value
+		$this->orgType = $newType;
 	}
 }
