@@ -234,6 +234,24 @@ class Volunteer {
 	 * @throws InvalidArgumentException if $newVolFirstName is not a string or insecure
 	 * @throws RangeException if $newVolFirstName is too large
 	 **/
+	public function setVolFirstName($newVolFirstName) {
+		//verify this first name is secure
+		$newVolFirstName = trim($newVolFirstName);
+		$newVolFirstName = filter_var($newVolFirstName, FILTER_SANITIZE_STRING);
+		if(empty($newVolFirstName) === true) {
+			throw(new InvalidArgumentException("first name empty or insecure"));
+		}
+
+		//verify the first name will fit in the database
+		if(strlen($newVolFirstName) > 32) {
+			throw(new RangeException("first name is too long"));
+		}
+
+		//store the first name
+		$this->volFirstName = $newVolFirstName;
+	}
+
+
 
 
 
