@@ -107,9 +107,41 @@ public function setOrgId($newOrgId) {
 
 	//verify the organization id is positive
 	if($newOrgId <= 0) {
-		throw(new RangeException("Organization if is not positive"));
+		throw(new RangeException("organization if is not positive"));
 	}
 
 	//convert and store the organization id
 	$this->orgId = intval($newOrgId);
 }
+/**
+ * accessor method for listing claimed by. This is the volId of the volunteer that claims the donation
+ *
+ * @return mixed value of listing claimed by
+ */
+public function getListingClaimedBy() {
+	return($this->listingClaimedBy);
+}
+
+/**
+ * mutator method for listing claimed by.
+ *
+ * @param int $newListingClaimedBy new value of listing claimed by
+ * @throws InvalidArgumentException if $newClistingClaimedBy is not an integer or not positive
+ * @throws RangeException if $newClaimedBy is not positive
+ */
+public function setListingClaimedBy($newListingClaimedBy) {
+	//verify the listing claimed by number is valid
+	$newListingClaimedBy = filter_var($newListingClaimedBy, FILTER_VALIDATE_INT);
+	if($newListingClaimedBy === false) {
+		throw(new InvalidArgumentException("listing claimed by is not a valid integer"));
+	}
+
+	//verify the listing claimed by is positive
+	if($newListingClaimedBy <= 0) {
+		throw(new RangeException("listing claimed by is not positive"));
+	}
+
+	//convert and store the listing claimed by
+	$this->listingClaimedBy = intval($newListingClaimedBy);
+}
+/**
