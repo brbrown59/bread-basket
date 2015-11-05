@@ -99,7 +99,17 @@ class Volunteer {
 			$this->volId = null;
 			return;
 		}
-
-
+		//verify the vol id is valid
+		$newVolId = filter_var($newVolId, FILTER_VALIDATE_INT);
+		if($newVolId === false) {
+			throw(new InvalidArgumentException("this volunteer id is not a valid integer"));
+		}
+		//verify the vol id is positive
+		if($newVolId <= 0) {
+			throw(new RangeException("this volunteer id is not positive"));
+		}
+		//convert and store the vol id
+		$this->volId = intval($newVolId);
 	}
+
 }
