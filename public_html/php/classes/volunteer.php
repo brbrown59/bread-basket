@@ -65,12 +65,15 @@ class Volunteer {
 			$this->setVolFirstName($newVolFirstName);
 			$this->setVolLastName($newVolLastName);
 			$this->setVolPhone($newVolPhone);
+
 		} catch(InvalidArgumentException $invalidArugument) {
 			//rethrow the exception to the caller
 			throw(new InvalidArgumentException($invalidArugument->getMessage(),0, $invalidArugument));
+
 		} catch(RangeException $range) {
 			//rethrow the exception to the caller
 			throw(new RangeException($range->getMessage(), 0, $range));
+
 		} catch(Exception $exception) {
 			//rethrow generic exception
 			throw(new Exception($exception->getMessage(), 0, $exception));
@@ -94,20 +97,24 @@ class Volunteer {
 	 * @throws RangeException if $newVolId is not positive
 	 **/
 	public function setVolId($newVolId) {
+
 		//base case: if the vol id is null, this is a new volunteer without a mySQL assigned id
 		if($newVolId === null) {
 			$this->volId = null;
 			return;
 		}
+
 		//verify the vol id is valid
 		$newVolId = filter_var($newVolId, FILTER_VALIDATE_INT);
 		if($newVolId === false) {
 			throw(new InvalidArgumentException("this volunteer id is not a valid integer"));
 		}
+
 		//verify the vol id is positive
 		if($newVolId <= 0) {
 			throw(new RangeException("this volunteer id is not positive"));
 		}
+
 		//convert and store the vol id
 		$this->volId = intval($newVolId);
 	}
@@ -129,15 +136,18 @@ class Volunteer {
 	 * @throws RangeException if $newOrgId is not positive
 	 **/
 	public function setOrgId($newOrgId) {
+
 		//verify the org id is valid
 		$newOrgId = filter_var($newOrgId, FILTER_VALIDATE_INT);
 		if($newOrgId === false) {
 			throw(new InvalidArgumentException("org id is not a valid integer"));
 		}
+
 		//verify the org id is positive
 		if($newOrgId <= 0) {
 			throw(new RangeException("org id is not positive"));
 		}
+
 		//convert and store the org id
 		$this->orgId = intval($newOrgId);
 	}
@@ -159,19 +169,71 @@ class Volunteer {
 	 * @throws RangeException if $newVolEmail is > 128 characters
 	 */
 	public function setVolEmail($newVolEmail) {
+
 		//verify the email is secure
 		$newVolEmail = trim($newVolEmail);
 		$newVolEmail = filter_var($newVolEmail, FILTER_SANITIZE_EMAIL);
 		if(empty($newVolEmail) === true) {
 			throw(new InvalidArgumentException("email is empty or insecure"));
 		}
+
 		//verify the email will fit in the database
 		if(strlen($newVolEmail) > 128) {
 			throw(new RangeException("email is too long"));
 		}
+
 		//store the email address
 		$this->volEmail = $newVolEmail;
 	}
+
+	/**
+	 * accessor for vol email activation code
+	 *
+	 * @return string value of activation code
+	 */
+	public function getVolEmailActivation() {
+		return($this->volEmailActivation);
+	}
+
+	/**
+	 * mutator for vol email activation code
+	 *
+	 * @param string $newVolEmailActivation
+	 * @throws InvalidArgumentException if activation code is not a string or insecure
+	 */
+	public function setVolEmailActivation($newVolEmailActivation) {
+
+		//verify the activation code is valid
+		$newVolEmailActivation = filter_var($newVolEmailActivation, FILTER_SANITIZE_STRING);
+		if(strlen($newVolEmailActivation) < 16) {
+			throw(new InvalidArgumentException("activation code is insufficient length or insecure"));
+		}
+
+		//verify the code will fit in the database
+		if(strlen($newVolEmailActivation) > 16) {
+			throw(new RangeException("activation code is too large"));
+		}
+
+		//store activation code
+		$this->volEmailActivation = $newVolEmailActivation;
+	}
+
+	/**
+	 * accessor method for volunteer first name
+	 *
+	 * @return string value for first name
+	 **/
+	public function getVolFirstName() {
+		return($this->volFirstName);
+	}
+
+	/**
+	 * mutator method for volunteer first name
+	 *
+	 * @param string $newVolFirstName new first name of a volunteer
+	 * @throws InvalidArgumentException if $newVolFirstName is not a string or insecure
+	 * @throws RangeException if $newVolFirstName is too large
+	 **/
 
 
 
