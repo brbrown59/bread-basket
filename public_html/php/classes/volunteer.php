@@ -64,6 +64,42 @@ class Volunteer {
 			$this->setVolEmailActivation($newVolEmailActivation);
 			$this->setVolFirstName($newVolFirstName);
 			$this->setVolLastName($newVolLastName);
+			$this->setVolPhone($newVolPhone);
+		} catch(InvalidArgumentException $invalidArugument) {
+			//rethrow the exception to the caller
+			throw(new InvalidArgumentException($invalidArugument->getMessage(),0, $invalidArugument));
+		} catch(RangeException $range) {
+			//rethrow the exception to the caller
+			throw(new RangeException($range->getMessage(), 0, $range));
+		} catch(Exception $exception) {
+			//rethrow generic exception
+			throw(new Exception($exception->getMessage(), 0, $exception));
 		}
+	}
+
+	/**
+	 * accessor method for volunteer id
+	 *
+	 * @return mixed value for volunteer id
+	 **/
+	public function getVolId() {
+		return($this->volId);
+	}
+
+	/**
+	 * mutator method for volunteer id
+	 *
+	 * @param mixed $newVolId new value of volunteer id
+	 * @throws InvalidArgumentException if $newVolId is not an integer
+	 * @throws RangeException if $newVolId is not positive
+	 **/
+	public function setVolId($newVolId) {
+		//base case: if the vol id is null, this is a new volunteer without a mySQL assigned id
+		if($newVolId === null) {
+			$this->volId = null;
+			return;
+		}
+
+
 	}
 }
