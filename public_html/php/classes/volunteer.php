@@ -128,7 +128,7 @@ class Volunteer {
 	 * @throws InvalidArgumentException if $newOrgId is not an integer or postive
 	 * @throws RangeException if $newOrgId is not positive
 	 **/
-	public function setOrgId() {
+	public function setOrgId($newOrgId) {
 		//verify the org id is valid
 		$newOrgId = filter_var($newOrgId, FILTER_VALIDATE_INT);
 		if($newOrgId === false) {
@@ -141,6 +141,25 @@ class Volunteer {
 		//convert and store the org id
 		$this->orgId = intval($newOrgId);
 	}
+
+	/**
+	 * accessor method for vol email
+	 *
+	 * @return string value of vol email
+	 **/
+	public function getVolEmail() {
+		return($this->volEmail);
+	}
+
+
+
+	/**
+	 * mutator method for vol email
+	 *
+	 * @param string $newVolEmail new volunteer email
+	 * @throws InvalidArgumentException if $newVolEmail is not a string or insecure
+	 * @throws RangeException if $newVolEmail is > 128 characters
+	 */
 
 
 
