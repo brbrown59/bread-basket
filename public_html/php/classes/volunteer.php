@@ -151,8 +151,6 @@ class Volunteer {
 		return($this->volEmail);
 	}
 
-
-
 	/**
 	 * mutator method for vol email
 	 *
@@ -160,6 +158,21 @@ class Volunteer {
 	 * @throws InvalidArgumentException if $newVolEmail is not a string or insecure
 	 * @throws RangeException if $newVolEmail is > 128 characters
 	 */
+	public function setVolEmail($newVolEmail) {
+		//verify the email is secure
+		$newVolEmail = trim($newVolEmail);
+		$newVolEmail = filter_var($newVolEmail, FILTER_SANITIZE_EMAIL);
+		if(empty($newVolEmail) === true) {
+			throw(new InvalidArgumentException("email is empty or insecure"));
+		}
+		//verify the email will fit in the database
+		if(strlen($newVolEmail) > 128) {
+			throw(new RangeException("email is too long"));
+		}
+		//store the email address
+		$this->volEmail = $newVolEmail;
+	}
+
 
 
 
