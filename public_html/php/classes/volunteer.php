@@ -64,6 +64,103 @@ class Volunteer {
 			$this->setVolEmailActivation($newVolEmailActivation);
 			$this->setVolFirstName($newVolFirstName);
 			$this->setVolLastName($newVolLastName);
+			$this->setVolPhone($newVolPhone);
+		} catch(InvalidArgumentException $invalidArugument) {
+			//rethrow the exception to the caller
+			throw(new InvalidArgumentException($invalidArugument->getMessage(),0, $invalidArugument));
+		} catch(RangeException $range) {
+			//rethrow the exception to the caller
+			throw(new RangeException($range->getMessage(), 0, $range));
+		} catch(Exception $exception) {
+			//rethrow generic exception
+			throw(new Exception($exception->getMessage(), 0, $exception));
 		}
 	}
+
+	/**
+	 * accessor method for volunteer id
+	 *
+	 * @return mixed value for volunteer id
+	 **/
+	public function getVolId() {
+		return($this->volId);
+	}
+
+	/**
+	 * mutator method for volunteer id
+	 *
+	 * @param mixed $newVolId new value of volunteer id
+	 * @throws InvalidArgumentException if $newVolId is not an integer
+	 * @throws RangeException if $newVolId is not positive
+	 **/
+	public function setVolId($newVolId) {
+		//base case: if the vol id is null, this is a new volunteer without a mySQL assigned id
+		if($newVolId === null) {
+			$this->volId = null;
+			return;
+		}
+		//verify the vol id is valid
+		$newVolId = filter_var($newVolId, FILTER_VALIDATE_INT);
+		if($newVolId === false) {
+			throw(new InvalidArgumentException("this volunteer id is not a valid integer"));
+		}
+		//verify the vol id is positive
+		if($newVolId <= 0) {
+			throw(new RangeException("this volunteer id is not positive"));
+		}
+		//convert and store the vol id
+		$this->volId = intval($newVolId);
+	}
+
+	/**
+	 * accessor method for org id
+	 *
+	 * @return int value of org id
+	 **/
+	public function getOrgId() {
+		return($this->orgId);
+	}
+
+	/**
+	 * mutator method for org id
+	 *
+	 * @param int $newOrgId new value of org id
+	 * @throws InvalidArgumentException if $newOrgId is not an integer or postive
+	 * @throws RangeException if $newOrgId is not positive
+	 **/
+	public function setOrgId($newOrgId) {
+		//verify the org id is valid
+		$newOrgId = filter_var($newOrgId, FILTER_VALIDATE_INT);
+		if($newOrgId === false) {
+			throw(new InvalidArgumentException("org id is not a valid integer"));
+		}
+		//verify the org id is positive
+		if($newOrgId <= 0) {
+			throw(new RangeException("org id is not positive"));
+		}
+		//convert and store the org id
+		$this->orgId = intval($newOrgId);
+	}
+
+	/**
+	 * accessor method for vol email
+	 *
+	 * @return string value of vol email
+	 **/
+	public function getVolEmail() {
+		return($this->volEmail);
+	}
+
+
+
+	/**
+	 * mutator method for vol email
+	 *
+	 * @param string $newVolEmail new volunteer email
+	 * @throws InvalidArgumentException if $newVolEmail is not a string or insecure
+	 * @throws RangeException if $newVolEmail is > 128 characters
+	 */
+
+
+
 }
