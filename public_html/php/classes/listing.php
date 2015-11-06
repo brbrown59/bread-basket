@@ -145,3 +145,120 @@ public function setListingClaimedBy($newListingClaimedBy) {
 	$this->listingClaimedBy = intval($newListingClaimedBy);
 }
 /**
+ * accessor method for Listing Closed
+ *
+ * @return bool value of listing closed
+ *
+ * QUESTION: have this looked over
+ */
+public function getListingClosed() {
+	return($this->listingClosed);
+}
+/**
+ * mutator method for listing closed
+ *
+ * @param bool $newListingClosed
+ * @throws InvalidArgumentException if $newListingClosed is not a bool or insecure
+ */
+public function setListingClosed($newListingClosed) {
+	//verify the listing closed is valid
+	$newListingClosed = filter_var($newListingClosed, FILTER_VALIDATE_BOOLEAN);
+	if($newListingClosed === false) {
+		throw(new InvalidArgumentException("listing closed is not a valid boolean"));
+	}
+
+	//convert and store the tweed id
+	$this->listingClosed = boolval($newListingClosed);
+}
+
+/**
+ * accessor method for listing cost
+ *
+ * @return float a decimal to represent listing cost
+ */
+public function getListingCost() {
+	return($this->listingCost);
+}
+
+/**
+ * mutator method for listing cost
+ *
+ * @param float value for the estimated cost of the donation
+ * @throws InvalidArgumentException if $newListingCost is not a valid float
+ * @throws RangeException if the $newListingCost is not positive
+ */
+public function setListingCost($newListingCost) {
+	//verify the cost is a valid float
+	$newListingCost = filter_var($newListingCost, FILTER_VALIDATE_FLOAT);
+	if(empty($newListingCost) === true) {
+		throw (new InvalidArgumentException ("listing cost is not a valid float"));
+	}
+
+	//verify the listing cost is positive
+	if($newListingCost <= 0) {
+		throw(new RangeException("listing cost is not positive"));
+	}
+
+	//convert and store the listing cost
+	$this->listingCost = floatval($newListingCost);
+}
+/**
+ * accessor method for listing memo
+ *
+ * @return string value of listing memo
+ */
+public function getListingMemo() {
+	return($this->listingMemo);
+}
+
+/**
+ *mutator method for listing memo
+ *
+ * @param string $newListingMemo new value of  listing memo
+ * @throws InvalidArgumentException if $newListingMemo is not a string or insecure
+ * @throws Range Exception if $newListingMemo is > 256 characters
+ */
+public function setListingMemo($newListingMemo) {
+	//verify the listing memo is secure
+	$newListingMemo = trim($newListingMemo);
+	$newListingMemo = filter_var($newListingMemo, FILTER_SANITIZE_STRING);
+	if(empty($newListingMemo) === true) {
+		throw(new InvalidArgumentException("listing memo is empty or insecure"));
+	}
+	//verify the listing memo will fit in the database
+	if(strlen($newListingMemo) > 256) {
+		throw(new RangeException("listing memo is longer than 256 characters"));
+	}
+
+	//store the listing memo
+	$this->listingMemo = $newListingMemo;
+}
+/**
+ * accessor method for listing parent id. this will be used if the listing is resent
+ *
+ * @return mixed value of listing parent id
+ */
+public function getListingParentId() {
+	return($this->listingParentId);
+}
+/**
+ * mutator method for listing parent id
+ *
+ * @param mixed $newListingParentId new value of Listing parent id
+ * @throws InvalidArgumentException if $newListingParentId is not an integer
+ *@throws RangeException is $newListingParentId is not positive
+ */
+public function setListingParentId($newListingParentId) {
+	//verify the ListingParentId is valid
+	$newListingParentId = filter_var($newListingParentId, FILTER_VALIDATE_INT);
+	if($newListingParentId === false) {
+		throw(new InvalidArgumentException("listing parent id is not a valid integer"));
+	}
+	//verify the ListingParentId is positive
+	if($newListingParentId <= 0) {
+		throw(new RangeException("listing parent id is not positive"));
+	}
+
+	//convert and store the listing id
+	$this->listingParentId = intval($newListingParentId);
+}
