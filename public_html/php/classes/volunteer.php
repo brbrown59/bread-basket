@@ -316,14 +316,4 @@ class Volunteer {
 		//store the phone number
 		$this->volPhone = $newVolPhone;
 	}
-
-
-
-
-
-
-
-
-
-
 }
