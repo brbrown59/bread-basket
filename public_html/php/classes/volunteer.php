@@ -268,7 +268,7 @@ class Volunteer {
 	 * @throws RangeException if $newVolLastName if last name is more than 32 char
 	 **/
 	public function setVolLastName($newVolLastName) {
-		//verify the last name is a secure
+		//verify the last name is secure
 		$newVolLastName = trim($newVolLastName);
 		$newVolLastName = filter_var($newVolLastName, FILTER_SANITIZE_STRING);
 		if(empty($newVolLastName) === true) {
@@ -297,7 +297,27 @@ class Volunteer {
 	 * mutator for vol phone
 	 *
 	 * @param string $newVolPhone
-	 */
+	 * @throws InvalidArgumentException if $$newVolPhone is not a string or insecure
+	 * @throws RangeException if $newVolPhone is more than 32 characters
+	**/
+	public function setVolPhone($newVolPhone) {
+		//verify that the phone number is secure
+		$newVolPhone = trim($newVolPhone);
+		$newVolPhone = filter_var($newVolPhone, FILTER_SANITIZE_STRING);
+		if(empty($newVolPhone) === true) {
+			throw(new InvalidArgumentException("phone number is empty or insecure"));
+		}
+
+		//verify the phone number will fit in the database
+		if(strlen($newVolPhone) > 32) {
+			throw(new RangeException("phone number is too long"));
+		}
+
+		//store the phone number
+		$this->volPhone = $newVolPhone;
+	}
+
+
 
 
 
