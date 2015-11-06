@@ -262,3 +262,6 @@ public function setListingParentId($newListingParentId) {
 	//convert and store the listing id
 	$this->listingParentId = intval($newListingParentId);
 }
+/**
+ *
+ */
