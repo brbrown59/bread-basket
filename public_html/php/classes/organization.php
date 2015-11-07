@@ -71,9 +71,50 @@ class Organization{
 	private $orgType;
 
 	/**
-	 * the zipcode of the organization
+	 * the zip code of the organization
 	 **/
 	private $orgZip;
+
+	/**
+	 * constructor for the organization
+	 *
+	 * @param $newOrgId mixed the id of the organization, or null if a new organization
+	 * @param $newAddress1 String the first line of the address of the organization
+	 * @param $newAddress2 String the second line of the address of the organization
+	 * @param $newCity String the city of the organization
+	 * @param $newDescription String a description of the new organization
+	 * @param $newHours String the hours of the organization
+	 * @param $newName String the name of the organization
+	 * @param $newPhone String the phone number of the organization
+	 * @param $newState String the state of the organization
+	 * @param $newType String the type of the organization
+	 * @param $newZip String the zip code of the organization
+	 * @throws InvalidArgumentException if data types are invalid or values are insecure
+	 * @throws RangeException if data values are out of bounds
+	 * @throws Exception if some other exception is thrown
+	 */
+	public function __construct($newOrgId, $newAddress1, $newAddress2, $newCity, $newDescription, $newHours, $newName, $newPhone, $newState, $newType, $newZip) {
+		try {
+			$this->setOrgId($newOrgId);
+			$this->setOrgAddress1($newAddress1);
+			$this->setOrgAddress2($newAddress2);
+			$this->setOrgCity($newCity);
+			$this->setOrgDescription($newDescription);
+			$this->setOrgHours($newHours);
+			$this->setOrgName($newName);
+			$this->setOrgPhone($newPhone);
+			$this->setOrgState($newState);
+			$this->setOrgType($newType);
+			$this->setOrgZip($newZip);
+			//rethrow any exceptions to their callers
+		} catch(InvalidArgumentException $invalidArgument) {
+			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		} catch(RangeException $range) {
+			throw(new RangeException($range->getMessage(), 0, $range));
+		} catch(Exception $exception) {
+			throw(new Exception($exception->getMessage(), 0, $exception));
+		}
+	}
 
 	/**
 	 * accessor method for the organization id
@@ -311,7 +352,7 @@ class Organization{
 	 *
 	 * @return String value of organization phone number
 	 */
-	public function getOrgPhone(){
+	public function getOrgPhone() {
 		return($this->orgPhone);
 	}
 
@@ -323,14 +364,26 @@ class Organization{
 	 * @throws RangeException if $newPhone is too large for the database
 	 */
 	public function setOrgPhone($newPhone) {
-		//come back to in a bit; phone is tricky
+		//check that the phone number is secure and not empty
+		$newPhone = trim($newPhone);
+		$newPhone = filter_var($newPhone, FILTER_SANITIZE_STRING);
+		if(empty($newPhone) === true) {
+			throw new InvalidArgumentException("phone number is empty or insecure");
+		}
+
+		//check that the new phone number will fit in the database
+		if(strlen($newPhone) > 32) {
+			throw new RangeException("phone number is too large");
+		}
+		 //store the value
+		$this->orgPhone = $newPhone;
 	}
 
 	/**accessor method for organization state
 	 *
 	 * @return String value of organization state
 	 */
-	public function getOrgState(){
+	public function getOrgState() {
 		return($this->orgState);
 	}
 
@@ -389,5 +442,36 @@ class Organization{
 
 		//store the value
 		$this->orgType = $newType;
+	}
+
+	/**accessor method for the organization zip code
+	 *
+	 * @return String value of the organization zip code
+	 **/
+
+	public function getOrgZip() {
+		return $this->orgZip;
+	}
+
+	/**
+	 * mutator method for the organization zip code
+	 *
+	 * @param String $newZip new zip code of the organization
+	 * @throws InvalidArgumentException if $newZip is empty or insecure
+	 * @throws RangeException if $newZip is too large for the database
+	 */
+	public function setOrgZip($newZip) {
+	//check that new zip code is secure and not empty
+		$newZip = trim($newZip);
+		$newZip = filter_var($newZip, FILTER_SANITIZE_STRING);
+		if(empty($newZip === true)) {
+			throw new InvalidArgumentException("zip code is empty or insecure");
+		}
+		//check that the new zip code is the proper length
+		if(!(strlen($newZip) === 10 ^ strlen($newZip) === 5)) {
+			throw new RangeException("zip code is not the proper length");
+		}
+		//store the new value
+		$this->orgZip = $newZip;
 	}
 }
