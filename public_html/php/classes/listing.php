@@ -53,6 +53,45 @@ class listing {
 	 **/
 	private $listingType;
 }
+
+/**
+ * constructor for this listing
+ *
+ * @param mixed $newListingId new value of listing id
+ * @param int $newOrgId new value of organization id
+ * @param int $newListingClaimedBy new value of listing claimed by
+ * @param bool $newListingClosed
+ * @param float $newListingCost a value for the estimated cost of the donation
+ * @param string $newListingMemo new value of  listing memo
+ * @param mixed $newListingParentId new value of Listing parent id
+ * @param mixed $newListingPostTime listing post time as a DateTime object or string (or null to load the current time)
+ * @param int $newListingType new value of listing type
+ * @throws InvalidArgumentException if data types are not valid
+ * @throws RangeException is data values are out of bounds (e.g., strings too long, negative integers)
+ * @throws Exception is some other exception is thrown
+ */
+public function __construct($newListingId,$newOrgId,$newListingClaimedBy,$newListingClosed,$newListingCost,$newListingMemo,$newListingParentId,$newListingPostTime,$newListingType = null) {
+	try {
+		$this->setListingId($newListingId);
+		$this->setNewOrgId($newOrgId);
+		$this->setListingClaimedBy($newListingClaimedBy);
+		$this->setListingClosed($newListingClosed);
+		$this->setListingCost($newListingCost);
+		$this->setListingMemo($newListingMemo);
+		$this->setListingParentId($newListingParentId);
+		$this->setListingPostTime($newListingPostTime);
+		$this->setListingType($newListingType);
+	} catch(InvalidArgumentException $invalidArguement) {
+		//rethrow the exception to the caller
+		throw(new InvalidArgumentException($invalidArguement->getMessage(), 0, $invalidArguement));
+	} catch(RangeException $range) {
+		//rethrow the exception to the caller
+		throw(new RangeException($range->getMessage(), 0, $range));
+	} catch(Exception $exception) {
+		//rethow generic exception
+		throw(new Exception($exception->getMessage(), 0, $exception));
+	}
+}
 /**
  * accessor method for listing id
  *
@@ -167,7 +206,7 @@ public function setListingClosed($newListingClosed) {
 		throw(new InvalidArgumentException("listing closed is not a valid boolean"));
 	}
 
-	//convert and store the tweed id
+	//convert and store the listing closed
 	$this->listingClosed = boolval($newListingClosed);
 }
 
@@ -263,5 +302,67 @@ public function setListingParentId($newListingParentId) {
 	$this->listingParentId = intval($newListingParentId);
 }
 /**
+ *accessor method for listing post time listingPostTime
  *
+ *@return DateTime value of listing post time
+ **/
+public function getListingPostTime() {
+	return($this->listingPostTime);
+}
+
+/**
+ * mutator method for listing post time
+ *
+ * @param mixed $newListingPostTime listing post time as a DateTime object or string (or null to load the current time)
+ * @throws InavalidArgumentException if $newListingPostTime is not a valid object or string
+ * @throws RangeException if $newListingPostTime is a date that does not exist
+ **/
+public function setListingPostTime($newListingPostTime) {
+	//base case: if the date is null, use the current date and time
+	if($newListingPostTime === null) {
+		$this->newListingPostTime = new DateTime();
+		return;
+	}
+
+	//store the listing post time
+	try {
+		$newListingPostTime = validateDate($newListingPostTime);
+	} catch(InvalidArgumentException $invalidArgument) {
+		throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+	} catch(RangeException $range) {
+		throw(new RangeException($range->getMessage(), 0, $range));
+	}
+	$this->listingPostTime = $newListingPostTime;
+}
+
+/**
+ * accessor method for listing type
+ *
+ * @returns int value of listing type
  */
+public function getListingType() {
+	return($this->listingType);
+}
+
+/**
+ * mutator method for listing type
+ *
+ * @param int $newListingType new value of listing type
+ * @throws InvalidArgumentException if $newListingType is not an integer or not positive
+ * @throws RangeException if $newListingType is not positive
+ **/
+public function setListingType($newListingType) {
+	//verify the profile id is valid
+	$newListingType = filter_var($newListingType, FILTER_VALIDATE_INT);
+	if($newListingType === false) {
+		throw(new InvalidArgumentException("listing type is not a valid integer"));
+	}
+
+	//verify the listing id is positive
+	if($newListingType <= 0) {
+		throw(new RangeException("list type is not positive"));
+	}
+
+	//convert and store the listing type
+	$this->listingType = intval($newListingType);
+}
