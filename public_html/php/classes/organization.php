@@ -478,7 +478,7 @@ class Organization{
 	/**
 	 * function to insert the new organization into the database
 	 *
-	 * @param PDO $pdo
+	 * @param PDO $pdo pdo connection object
 	 * @throws PDOException when mySQL related errors occur
 	 */
 	public function insert (PDO $pdo) {
@@ -488,12 +488,12 @@ class Organization{
 		}
 
 		//create query template
-		$query = "INSERT INTO organization(orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip)
-					VALUES(:orgId, :orgAddress1, :orgAddress2, :orgCity, :orgDescription, :orgHours, :orgName, :orgPhone, :orgState, :orgType, :orgZip)";
+		$query = "INSERT INTO organization(orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip)
+					VALUES(:orgAddress1, :orgAddress2, :orgCity, :orgDescription, :orgHours, :orgName, :orgPhone, :orgState, :orgType, :orgZip)";
 		$statement = $pdo->prepare($query);
 
 		//bind member variables to the placeholders in the template
-		$parameters = array("orgId" => $this->orgId, "orgAddress1" => $this->orgAddress1, "orgAddress2" => $this->orgAddress2,
+		$parameters = array("orgAddress1" => $this->orgAddress1, "orgAddress2" => $this->orgAddress2,
 							"orgCity" => $this->orgCity, "orgDescription" => $this->orgDescription, "orgHours" => $this->orgHours,
 							"orgName" => $this->orgName, "orgPhone" => $this->orgPhone, "orgState" => $this->orgState,
 							"orgType" => $this->orgType, "orgZip" => $this->orgZip);
@@ -501,5 +501,52 @@ class Organization{
 
 		//update the class with the mySQL-assigned id
 		$this->orgId = intval($pdo->lastInsertId());
+	}
+
+	/**
+	 * function to delete an organization from the database
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @throws PDOException when mySQL related errors occur
+	 */
+	public function delete(PDO $pdo) {
+		//ensure the organization we are trying to delete exists in the database
+		if($this->orgId === null) {
+			throw (new PDOException("unable to delete an organization that does not exist"));
+		}
+
+		//create query template
+		$query = "DELETE FROM organization WHERE orgId = :orgId";
+		$statement = $pdo->prepare($query);
+
+		//bind the values to their placeholders in the template, and execute
+		$parameters = array("orgId" => $this->orgId);
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * function to update an organization in mySQL
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @throws PDOException when mySQL related errors occur
+	 */
+	public function update(PDO $pdo) {
+		//ensure the organization we are trying to update exists in the database
+		if($this->orgId === null) {
+			throw (new PDOException("unable to delete an organization that does not exist"));
+		}
+
+		//create query template
+		$query = "UPDATE organization SET orgAddress1 = :orgAddress1, orgAddress2 = :orgAddress2, orgCity = :orgCity, orgDescription = :orgDescription,
+						orgHours= :orgHours, orgName = :orgName, orgPhone = :orgPhone, orgState = :orgState, orgType = :orgType, orgZip = :orgZip
+						WHERE orgId = :orgId";
+		$statement = $pdo->prepare($query);
+
+		//bind the values to their placeholders in the template, and execute
+		$parameters = array("orgAddress1" => $this->orgAddress1, "orgAddress2" => $this->orgAddress2,
+				"orgCity" => $this->orgCity, "orgDescription" => $this->orgDescription, "orgHours" => $this->orgHours,
+				"orgName" => $this->orgName, "orgPhone" => $this->orgPhone, "orgState" => $this->orgState,
+				"orgType" => $this->orgType, "orgZip" => $this->orgZip, "orgId" => $this->orgId);
+		$statement->execute($parameters);
 	}
 }
