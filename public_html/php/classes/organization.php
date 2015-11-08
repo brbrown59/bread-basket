@@ -597,6 +597,36 @@ class Organization{
 	}
 
 	/**
+	 * function to store multiple database results into an SplFixedArray
+	 *
+	 * @param PDOStatement $statement pdo statement object
+	 * @return SPLFixedArray all organizations obtained from database
+	 * @throws PDOException if mySQL related errors occur
+	 */
+	public static function storeResultsInArray(PDOStatement $statement) {
+		//build an array of tweets, as an SPLFixedArray object
+		//set the size of the object to the number of retrieved rows
+		$retrievedOrgs = new SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(PDO::FETCH_ASSOC);
+
+		//while rows can still be retrieved from the result
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$organization = new Organization($row["orgId"], $row["orgAddress1"], $row["orgAddress2"], $row["orgCity"],
+						$row["orgDescription"], $row["orgHours"], $row["orgName"], $row["orgPhone"], $row["orgState"],
+						$row["orgType"], $row["orgZip"]);
+				//place result in the current field, then advance the key
+				$retrievedOrgs[$retrievedOrgs->key()] = $organization;
+				$retrievedOrgs->next();
+			} catch(Exception $exception) {
+				//rethrow the exception if retrieval failed
+				throw(new PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return $retrievedOrgs;
+	}
+
+	/**
 	 * function to retrieve organizations by city
 	 *
 	 * @param PDO $pdo pdo connection object
@@ -622,25 +652,35 @@ class Organization{
 		$parameters = array("orgCity" => $orgCity);
 		$statement->execute($parameters);
 
-		//build an array of tweets, as an SPLFixedArray object
-		//set the size of the object to the number of retrieved rows
-		$retrievedOrgs = new SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(PDO::FETCH_ASSOC);
+		//call the storeResultsInArray function to build the array of results, then return it
+		return Organization::storeResultsInArray($statement);
+	}
 
-		//while rows can still be retrieved from the result
-		while(($row = $statement->fetch()) !== false) {
-			try {
-				$organization = new Organization($row["orgId"], $row["orgAddress1"], $row["orgAddress2"], $row["orgCity"],
-						$row["orgDescription"], $row["orgHours"], $row["orgName"], $row["orgPhone"], $row["orgState"],
-						$row["orgType"], $row["orgZip"]);
-				//place result in the current field, then advance the key
-				$retrievedOrgs[$retrievedOrgs->key()] = $organization;
-				$retrievedOrgs->next();
-			} catch(Exception $exception) {
-				//rethrow the exception if retrieval failed
-				throw(new PDOException($exception->getMessage(), 0, $exception));
-			}
+	/**
+	 * function to retrieve organizations by name
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @param int $orgName org city to search for
+	 * @return SplFixedArray all organizations found for this content
+	 * @throws PDOException if mySQL related errors occur
+	 */
+	public static function getOrganizationByOrgName(PDO $pdo, $orgName) {
+		//sanitize the input
+		$orgName = trim($orgName);
+		$orgName = filter_var($orgName, FILTER_SANITIZE_STRING);
+		if(empty($orgName) === true) {
+			throw(new PDOException("name is invalid"));
 		}
-		return $retrievedOrgs;
+
+		//create query template
+		$query = "SELECT orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip
+						FROM organization WHERE orgName = :orgName";
+		$statement = $pdo->prepare($query);
+
+		//bind the city value to the placeholder in the template
+		$orgName = "%$orgName%";
+		$parameters = array("orgName" => $orgName);
+		$statement->execute($parameters);
+		return Organization::storeResultsInArray($statement);
 	}
 }
