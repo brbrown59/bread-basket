@@ -474,4 +474,32 @@ class Organization{
 		//store the new value
 		$this->orgZip = $newZip;
 	}
+
+	/**
+	 * function to insert the new organization into the database
+	 *
+	 * @param PDO $pdo
+	 * @throws PDOException when mySQL related errors occur
+	 */
+	public function insert (PDO $pdo) {
+		//if the orgId is not null, this is not a new entry: don't insert into the database
+		if($this->orgId !== null) {
+			throw(new PDOException("not a new organization"));
+		}
+
+		//create query template
+		$query = "INSERT INTO organization(orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip)
+					VALUES(:orgId, :orgAddress1, :orgAddress2, :orgCity, :orgDescription, :orgHours, :orgName, :orgPhone, :orgState, :orgType, :orgZip)";
+		$statement = $pdo->prepare($query);
+
+		//bind member variables to the placeholders in the template
+		$parameters = array("orgId" => $this->orgId, "orgAddress1" => $this->orgAddress1, "orgAddress2" => $this->orgAddress2,
+							"orgCity" => $this->orgCity, "orgDescription" => $this->orgDescription, "orgHours" => $this->orgHours,
+							"orgName" => $this->orgName, "orgPhone" => $this->orgPhone, "orgState" => $this->orgState,
+							"orgType" => $this->orgType, "orgZip" => $this->orgZip);
+		$statement->execute($parameters);
+
+		//update the class with the mySQL-assigned id
+		$this->orgId = intval($pdo->lastInsertId());
+	}
 }
