@@ -167,7 +167,7 @@ class Volunteer {
 	 * @param string $newVolEmail new volunteer email
 	 * @throws InvalidArgumentException if $newVolEmail is not a string or insecure
 	 * @throws RangeException if $newVolEmail is > 128 characters
-	 */
+	 **/
 	public function setVolEmail($newVolEmail) {
 
 		//verify the email is secure
@@ -190,7 +190,7 @@ class Volunteer {
 	 * accessor for vol email activation code
 	 *
 	 * @return string value of activation code
-	 */
+	 **/
 	public function getVolEmailActivation() {
 		return($this->volEmailActivation);
 	}
@@ -200,7 +200,7 @@ class Volunteer {
 	 *
 	 * @param string $newVolEmailActivation
 	 * @throws InvalidArgumentException if activation code is not a string or insecure
-	 */
+	 **/
 	public function setVolEmailActivation($newVolEmailActivation) {
 
 		//verify the activation code is valid
@@ -255,7 +255,7 @@ class Volunteer {
 	 * accessor method for vol last name
 	 *
 	 * @returns string value of last name
-	 */
+	 **/
 	public function getVolLastName() {
 		return($this->volLastName);
 	}
@@ -316,4 +316,33 @@ class Volunteer {
 		//store the phone number
 		$this->volPhone = $newVolPhone;
 	}
+
+	/**
+	 * inserts this Volunteer into mySQL
+	 *
+	 * @param PDO $pdo PDO connection object
+	 * @throws PDO exception when mySQL related errors occur
+	 **/
+	public function insert(PDO $pdo) {
+		//enforce the volID is null (don't insert a volunteer that already exists)
+		if($this->volId !== null) {
+			throw (new PDOException("not a new volunteer"));
+		}
+
+		//create query template
+		$query = "INSERT INTO volunteer(orgId,volEmail, volEmailActivation, volFirstName, volLastName, volPhone) VALUES(:orgId, :volEmail, :volEmailActivation, :volFirstName, :volLastName, :volPhone)";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holders in the template
+		$parameters = array("orgId" => $this->orgId, "volEmail" => $this->volEmail, "volEmailActivation" => $this->volEmailActivation, "volFirstName" => $this->volFirstName, "volLastName" => $this->volLastName, "volPhone" => $this->volPhone);
+		$statement->execute($parameters);
+
+		//update the null volId with what mySQL just gave us
+		$this->volId = intval($pdo->lastInsertId());
+	}
+
+
+
+
 }
+

@@ -533,7 +533,7 @@ class Organization{
 	public function update(PDO $pdo) {
 		//ensure the organization we are trying to update exists in the database
 		if($this->orgId === null) {
-			throw (new PDOException("unable to delete an organization that does not exist"));
+			throw (new PDOException("unable to update an organization that does not exist"));
 		}
 
 		//create query template
