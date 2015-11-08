@@ -549,4 +549,47 @@ class Organization{
 				"orgType" => $this->orgType, "orgZip" => $this->orgZip, "orgId" => $this->orgId);
 		$statement->execute($parameters);
 	}
+	/**
+	 * function to retrieve organizations by organization ID
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @param int $orgId org id to search for
+	 * @return mixed organization if found or null if not found
+	 * @throws PDOException if mySQL related errors occur
+	 */
+	public static function getOrganizationByOrgId(PDO $pdo, $orgId){
+		//verify that the id to search by is a valid integer
+		$orgId = filter_var($orgId, FILTER_VALIDATE_INT);
+		if($orgId === false) {
+			throw new PDOException("organization id is not an integer");
+		}
+		if($orgId <= 0) {
+			throw new PDOException("organization id is not positive");
+		}
+		//create query template
+		$query = "SELECT orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip
+						FROM organization WHERE orgId = :orgId";
+		$statement = $pdo->prepare($query);
+		//bind the id to its placeholder in the template, and execute
+		$parameters = array("orgId" => $orgId);
+		$statement->execute($parameters);
+		//grab the result from mySQL
+		try {
+			$organization = null;
+			//set fetch mode to retrieve the result as an array indexed by column name
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			//if the fetch succeeded, store it in a new object
+			if($row !== false) {
+				$organization = new Organization($row["orgId"], $row["orgAddress1"], $row["orgAddress2"], $row["orgCity"],
+						$row["orgDescription"], $row["orgHours"], $row["orgName"], $row["orgPhone"], $row["orgState"],
+						$row["orgType"], $row["orgZip"]);
+			}
+		} catch(Exception $exception) {
+			//rethrow the exception if the retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $organization;
+	}
+
 }
