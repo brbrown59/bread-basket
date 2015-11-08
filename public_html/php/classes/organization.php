@@ -603,7 +603,7 @@ class Organization{
 	 * @return SPLFixedArray all organizations obtained from database
 	 * @throws PDOException if mySQL related errors occur
 	 */
-	public static function storeResultsInArray(PDOStatement $statement) {
+	public static function storeSQLResultsInArray(PDOStatement $statement) {
 		//build an array of tweets, as an SPLFixedArray object
 		//set the size of the object to the number of retrieved rows
 		$retrievedOrgs = new SplFixedArray($statement->rowCount());
@@ -630,7 +630,7 @@ class Organization{
 	 * function to retrieve organizations by city
 	 *
 	 * @param PDO $pdo pdo connection object
-	 * @param int $orgCity org city to search for
+	 * @param String $orgCity org city to search for
 	 * @return SplFixedArray all organizations found for this content
 	 * @throws PDOException if mySQL related errors occur
 	 */
@@ -653,14 +653,14 @@ class Organization{
 		$statement->execute($parameters);
 
 		//call the storeResultsInArray function to build the array of results, then return it
-		return Organization::storeResultsInArray($statement);
+		return Organization::storeSQLResultsInArray($statement);
 	}
 
 	/**
 	 * function to retrieve organizations by name
 	 *
 	 * @param PDO $pdo pdo connection object
-	 * @param int $orgName org city to search for
+	 * @param String $orgName org city to search for
 	 * @return SplFixedArray all organizations found for this content
 	 * @throws PDOException if mySQL related errors occur
 	 */
@@ -677,10 +677,102 @@ class Organization{
 						FROM organization WHERE orgName = :orgName";
 		$statement = $pdo->prepare($query);
 
-		//bind the city value to the placeholder in the template
+		//bind the name value to the placeholder in the template
 		$orgName = "%$orgName%";
 		$parameters = array("orgName" => $orgName);
 		$statement->execute($parameters);
-		return Organization::storeResultsInArray($statement);
+
+		//call the storeResultsInArray function to build the array of results, then return it
+		return Organization::storeSQLResultsInArray($statement);
+	}
+
+	/**
+	 * function to retrieve organizations by state
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @param String $orgState org state to search for
+	 * @return SplFixedArray all organizations found for this content
+	 * @throws PDOException if mySQL related errors occur
+	 */
+	public static function getOrganizationByOrgState(PDO $pdo, $orgState) {
+		//sanitize the input
+		$orgState = trim($orgState);
+		$orgState = filter_var($orgState, FILTER_SANITIZE_STRING);
+		if(empty($orgState) === true) {
+			throw(new PDOException("state is invalid"));
+		}
+
+		//create query template
+		$query = "SELECT orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip
+						FROM organization WHERE orgState = :orgState";
+		$statement = $pdo->prepare($query);
+
+		//bind the state value to the placeholder in the template
+		$orgState = "$orgState";
+		$parameters = array("orgState" => $orgState);
+		$statement->execute($parameters);
+
+		//call the storeResultsInArray function to build the array of results, then return it
+		return Organization::storeSQLResultsInArray($statement);
+	}
+
+	/**
+	 * function to retrieve organizations by type
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @param String $orgType org type to search for
+	 * @return SplFixedArray all organizations found for this content
+	 * @throws PDOException if mySQL related errors occur
+	 */
+	public static function getOrganizationByOrgType(PDO $pdo, $orgType) {
+		//sanitize the input
+		$orgType = trim($orgType);
+		$orgType = filter_var($orgType, FILTER_SANITIZE_STRING);
+		if(empty($orgType) === true) {
+			throw(new PDOException("type is invalid"));
+		}
+
+		//create query template
+		$query = "SELECT orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip
+						FROM organization WHERE orgType = :orgType";
+		$statement = $pdo->prepare($query);
+
+		//bind the type value to the placeholder in the template
+		$orgType = "$orgType";
+		$parameters = array("orgType" => $orgType);
+		$statement->execute($parameters);
+
+		//call the storeResultsInArray function to build the array of results, then return it
+		return Organization::storeSQLResultsInArray($statement);
+	}
+
+	/**
+	 * function to retrieve organizations by zip code
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @param String $orgZip org zip code to search for
+	 * @return SplFixedArray all organizations found for this content
+	 * @throws PDOException if mySQL related errors occur
+	 */
+	public static function getOrganizationByOrgZip(PDO $pdo, $orgZip) {
+		//sanitize the input
+		$orgZip = trim($orgZip);
+		$orgZip = filter_var($orgZip, FILTER_SANITIZE_STRING);
+		if(empty($orgZip) === true) {
+			throw(new PDOException("zip code is invalid"));
+		}
+
+		//create query template
+		$query = "SELECT orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip
+						FROM organization WHERE orgZip = :orgZip";
+		$statement = $pdo->prepare($query);
+
+		//bind the type value to the placeholder in the template
+		$orgZip = "$orgZip";
+		$parameters = array("orgZip" => $orgZip);
+		$statement->execute($parameters);
+
+		//call the storeResultsInArray function to build the array of results, then return it
+		return Organization::storeSQLResultsInArray($statement);
 	}
 }
