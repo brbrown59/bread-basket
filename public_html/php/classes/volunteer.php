@@ -383,6 +383,47 @@ class Volunteer {
 		$statement->execute($parameters);
 	}
 
+	/**
+	 * gets volunteer by volId
+	 *
+	 * @param PDO $pdo PDO connection object
+	 * @param int $volId the volunteer id to search for
+	 * @return mixed volunteer found or null if not found
+	 * @throws PDOexception when mySQL related errors occur
+	 **/
+	public static function getVolunteerByVolId(PDO $pdo, $volId) {
+		//sanitize the volId before searching
+		$volId = filter_var($volId, FILTER_VALIDATE_INT);
+		if($volId === false) {
+			throw(new PDOException("volunteer id is not an integer"));
+		}
+		if($volId <= 0) {
+			throw(new PDOException("volunteer id is not positive"));
+		}
+
+		//create query template
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone FROM volunteer WHERE volId = :volId";
+		$statement = $pdo->prepare($query);
+
+		//bind the volunteer id to the place holder in the template
+		$parameters = array("volId" => $volId);
+		$statement->execute($parameters);
+
+		//grab the volunteer from mySQL
+		try {
+			$volunteer = null;
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"], $row["volFirstName"], $row["volLastName"], $row["volPhone"]);
+			}
+		} catch(Exception $exception) {
+			//if the row couldn't be converted, rethrow it
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($volunteer);
+	}
+
 
 
 
