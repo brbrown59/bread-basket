@@ -341,6 +341,48 @@ class Volunteer {
 		$this->volId = intval($pdo->lastInsertId());
 	}
 
+	/**
+	 * deletes this volunteer from mySQL
+	 *
+	 * @param PDO $pdo PDO connection object
+	 * @throws PDO exception when mySQL related errors occur
+	 **/
+	public function delete(PDO $pdo) {
+		//enforce that the volId is not null (don't delete a volunteer that hasn't been inserted)
+		if($this->volId === null) {
+			throw(new PDOException("unable to delete a volunteer that does not exist"));
+		}
+
+		//create query tempalte
+		$query = "DELETE FROM volunteer WHERE volId = :volId";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holder in the template
+		$parameters = array("volId" => $this->volId);
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * update this volunteer in mySQL
+	 *
+	 * @param PDO $pdo PDO connection object
+	 * @throws PDOException when mySQL related errors occure
+	 **/
+	public function update(PDO $pdo) {
+		//enforce the volID is not null (don't update a volunteer that hasn't been inserted)
+		if($this->volId === null) {
+			throw(new PDOException("unable to update a volunteer that doesn not exist"));
+		}
+
+		//create query tempalte
+		$query = "UPDATE volunteer SET orgId = :orgId, volEmail = :volEmail, volEmailActivation =:volEmailActivation, volFirstName = :volFirstName, volLastName = :volLastName, volPhone = :volPhone";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holders in the template
+		$parameters = array("orgId" => $this->orgId, "volEmail" => $this->volEmail, "volEmailActivation" => $this->volEmailActivation, "volFirstName" => $this->volFirstName, "volLastName" => $this->volLastName, "volPhone" => $this->volPhone);
+		$statement->execute($parameters);
+	}
+
 
 
 
