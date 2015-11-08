@@ -566,19 +566,23 @@ class Organization{
 		if($orgId <= 0) {
 			throw new PDOException("organization id is not positive");
 		}
+
 		//create query template
 		$query = "SELECT orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip
 						FROM organization WHERE orgId = :orgId";
 		$statement = $pdo->prepare($query);
+
 		//bind the id to its placeholder in the template, and execute
 		$parameters = array("orgId" => $orgId);
 		$statement->execute($parameters);
+
 		//grab the result from mySQL
 		try {
 			$organization = null;
 			//set fetch mode to retrieve the result as an array indexed by column name
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
+
 			//if the fetch succeeded, store it in a new object
 			if($row !== false) {
 				$organization = new Organization($row["orgId"], $row["orgAddress1"], $row["orgAddress2"], $row["orgCity"],
@@ -592,4 +596,51 @@ class Organization{
 		return $organization;
 	}
 
+	/**
+	 * function to retrieve organizations by city
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @param int $orgCity org city to search for
+	 * @return SplFixedArray all organizations found for this content
+	 * @throws PDOException if mySQL related errors occur
+	 */
+	public static function getOrganizationByOrgCity(PDO $pdo, $orgCity) {
+		//sanitize the input
+		$orgCity = trim($orgCity);
+		$orgCity = filter_var($orgCity, FILTER_SANITIZE_STRING);
+		if(empty($orgCity) === true) {
+			throw(new PDOException("city is invalid"));
+		}
+
+		//create query template
+		$query = "SELECT orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip
+						FROM organization WHERE orgCity = :orgCity";
+		$statement = $pdo->prepare($query);
+
+		//bind the city value to the placeholder in the template
+		$orgCity = "%$orgCity%";
+		$parameters = array("orgCity" => $orgCity);
+		$statement->execute($parameters);
+
+		//build an array of tweets, as an SPLFixedArray object
+		//set the size of the object to the number of retrieved rows
+		$retrievedOrgs = new SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(PDO::FETCH_ASSOC);
+
+		//while rows can still be retrieved from the result
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$organization = new Organization($row["orgId"], $row["orgAddress1"], $row["orgAddress2"], $row["orgCity"],
+						$row["orgDescription"], $row["orgHours"], $row["orgName"], $row["orgPhone"], $row["orgState"],
+						$row["orgType"], $row["orgZip"]);
+				//place result in the current field, then advance the key
+				$retrievedOrgs[$retrievedOrgs->key()] = $organization;
+				$retrievedOrgs->next();
+			} catch(Exception $exception) {
+				//rethrow the exception if retrieval failed
+				throw(new PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return $retrievedOrgs;
+	}
 }
