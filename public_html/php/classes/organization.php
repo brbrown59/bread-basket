@@ -652,8 +652,14 @@ class Organization{
 		$parameters = array("orgCity" => $orgCity);
 		$statement->execute($parameters);
 
-		//call the storeResultsInArray function to build the array of results, then return it
-		return Organization::storeSQLResultsInArray($statement);
+		//call the function to build an array of the retrieved results
+		try {
+			$retrievedOrgs = Organization::storeSQLResultsInArray($statement);
+		} catch(Exception $exception) {
+			//rethrow the exception if retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $retrievedOrgs;
 	}
 
 	/**
@@ -682,8 +688,14 @@ class Organization{
 		$parameters = array("orgName" => $orgName);
 		$statement->execute($parameters);
 
-		//call the storeResultsInArray function to build the array of results, then return it
-		return Organization::storeSQLResultsInArray($statement);
+		//call the function to build an array of the retrieved results
+		try {
+			$retrievedOrgs = Organization::storeSQLResultsInArray($statement);
+		} catch(Exception $exception) {
+			//rethrow the exception if retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $retrievedOrgs;
 	}
 
 	/**
@@ -712,8 +724,14 @@ class Organization{
 		$parameters = array("orgState" => $orgState);
 		$statement->execute($parameters);
 
-		//call the storeResultsInArray function to build the array of results, then return it
-		return Organization::storeSQLResultsInArray($statement);
+		//call the function to build an array of the retrieved results
+		try {
+			$retrievedOrgs = Organization::storeSQLResultsInArray($statement);
+		} catch(Exception $exception) {
+			//rethrow the exception if retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $retrievedOrgs;
 	}
 
 	/**
@@ -742,8 +760,14 @@ class Organization{
 		$parameters = array("orgType" => $orgType);
 		$statement->execute($parameters);
 
-		//call the storeResultsInArray function to build the array of results, then return it
-		return Organization::storeSQLResultsInArray($statement);
+		//call the function to build an array of the retrieved results
+		try {
+			$retrievedOrgs = Organization::storeSQLResultsInArray($statement);
+		} catch(Exception $exception) {
+			//rethrow the exception if retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $retrievedOrgs;
 	}
 
 	/**
@@ -768,11 +792,42 @@ class Organization{
 		$statement = $pdo->prepare($query);
 
 		//bind the type value to the placeholder in the template
-		$orgZip = "$orgZip";
+		$orgZip = "%$orgZip%";
 		$parameters = array("orgZip" => $orgZip);
 		$statement->execute($parameters);
 
-		//call the storeResultsInArray function to build the array of results, then return it
-		return Organization::storeSQLResultsInArray($statement);
+		//call the function to build an array of the retrieved results
+		try {
+			$retrievedOrgs = Organization::storeSQLResultsInArray($statement);
+		} catch(Exception $exception) {
+			//rethrow the exception if retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $retrievedOrgs;
+	}
+
+	/**
+	 * retrieves all organizations
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @return SplFixedArray all organizations
+	 * @throws PDOException if mySQL errors occur
+	 */
+	public static function getAllOrganizations(PDO $pdo) {
+
+		//create query template
+		$query = "SELECT orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip
+						FROM organization";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+
+		///call the function to build an array of the retrieved results
+		try {
+			$retrievedOrgs = Organization::storeSQLResultsInArray($statement);
+		} catch(Exception $exception) {
+			//rethrow the exception if retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $retrievedOrgs;
 	}
 }
