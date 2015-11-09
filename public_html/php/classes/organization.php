@@ -644,7 +644,7 @@ class Organization{
 
 		//create query template
 		$query = "SELECT orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip
-						FROM organization WHERE orgCity = :orgCity";
+						FROM organization WHERE orgCity LIKE :orgCity";
 		$statement = $pdo->prepare($query);
 
 		//bind the city value to the placeholder in the template
@@ -659,6 +659,7 @@ class Organization{
 			//rethrow the exception if retrieval failed
 			throw(new PDOException($exception->getMessage(), 0, $exception));
 		}
+
 		return $retrievedOrgs;
 	}
 
@@ -680,7 +681,7 @@ class Organization{
 
 		//create query template
 		$query = "SELECT orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip
-						FROM organization WHERE orgName = :orgName";
+						FROM organization WHERE orgName LIKE :orgName";
 		$statement = $pdo->prepare($query);
 
 		//bind the name value to the placeholder in the template
@@ -716,7 +717,7 @@ class Organization{
 
 		//create query template
 		$query = "SELECT orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip
-						FROM organization WHERE orgState = :orgState";
+						FROM organization WHERE orgState LIKE :orgState";
 		$statement = $pdo->prepare($query);
 
 		//bind the state value to the placeholder in the template
@@ -752,7 +753,7 @@ class Organization{
 
 		//create query template
 		$query = "SELECT orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip
-						FROM organization WHERE orgType = :orgType";
+						FROM organization WHERE orgType LIKE :orgType";
 		$statement = $pdo->prepare($query);
 
 		//bind the type value to the placeholder in the template
@@ -788,7 +789,7 @@ class Organization{
 
 		//create query template
 		$query = "SELECT orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip
-						FROM organization WHERE orgZip = :orgZip";
+						FROM organization WHERE orgZip LIKE :orgZip";
 		$statement = $pdo->prepare($query);
 
 		//bind the type value to the placeholder in the template

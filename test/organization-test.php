@@ -133,7 +133,7 @@ class OrganizationTest extends BreadBasketTest {
 		$this->assertSame($pdoOrganization->getOrgCity(), $this->VALID_CITY);
 		$this->assertSame($pdoOrganization->getOrgDescription(), $this->VALID_DESCRIPTION);
 		$this->assertSame($pdoOrganization->getOrgHours(), $this->VALID_HOURS);
-		$this->assertSame($pdoOrganization->getOrgName(), $this->VALID_NAME);
+		$this->assertSame($pdoOrganization->getOrgName(), $this->VALID_NAME_ALT);
 		$this->assertSame($pdoOrganization->getOrgPhone(), $this->VALID_PHONE);
 		$this->assertSame($pdoOrganization->getOrgState(), $this->VALID_STATE);
 		$this->assertSame($pdoOrganization->getOrgType(), $this->VALID_TYPE);
@@ -253,7 +253,7 @@ class OrganizationTest extends BreadBasketTest {
 	 */
 	public function testGetInvalidOrganizationByCity() {
 		$organization = Organization::getOrganizationByOrgCity($this->getPDO(), "Atlantis");
-		$this->assertNull($organization);
+		$this->assertNull($organization[0]);
 	}
 
 	/**
@@ -287,7 +287,7 @@ class OrganizationTest extends BreadBasketTest {
 	 */
 	public function testGetInvalidOrganizationByName() {
 		$organization = Organization::getOrganizationByOrgName($this->getPDO(), "Let the Poor Starve");
-		$this->assertNull($organization);
+		$this->assertNull($organization[0]);
 	}
 
 	/**
@@ -321,7 +321,7 @@ class OrganizationTest extends BreadBasketTest {
 	 */
 	public function testGetInvalidOrganizationByState() {
 		$organization = Organization::getOrganizationByOrgState($this->getPDO(), "ZQ");
-		$this->assertNull($organization);
+		$this->assertNull($organization[0]);
 	}
 
 	/**
@@ -355,7 +355,7 @@ class OrganizationTest extends BreadBasketTest {
 	 */
 	public function testGetInvalidOrganizationByType() {
 		$organization = Organization::getOrganizationByOrgType($this->getPDO(), "Z");
-		$this->assertNull($organization);
+		$this->assertNull($organization[0]);
 	}
 
 	/**
@@ -389,6 +389,6 @@ class OrganizationTest extends BreadBasketTest {
 	 */
 	public function testGetInvalidOrganizationByZip() {
 		$organization = Organization::getOrganizationByOrgZip($this->getPDO(), "99999");
-		$this->assertNull($organization);
+		$this->assertNull($organization[0]);
 	}
 }
