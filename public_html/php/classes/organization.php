@@ -424,20 +424,12 @@ class Organization{
 	 * mutator method for the organization type
 	 *
 	 * @param String $newType new organization type
-	 * @throws InvalidArgumentException if $newType is empty or insecure
-	 * @throws RangeException if $newType is too large for the database
+	 * @throws InvalidArgumentException if $newType is not on the whitelist
 	 */
 	public function setOrgType($newType) {
 		//check that type is not empty and secure
-		$newType = trim($newType);
-		$newType = filter_var($newType, FILTER_SANITIZE_STRING);
-		if(empty($newType) === true) {
-			throw new InvalidArgumentException("organization type is empty or insecure");
-		}
-
-		//check that type will fit in the database
-		if(strlen($newType) > 1) {
-			throw new RangeException("organization type is too large");
+		if($newType !== "G" && $newType !== "R") {
+			throw new InvalidArgumentException("organization type is invalid");
 		}
 
 		//store the value

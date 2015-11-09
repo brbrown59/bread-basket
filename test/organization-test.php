@@ -64,7 +64,7 @@ class OrganizationTest extends BreadBasketTest {
 	 * valid organization type to use
 	 * @var String $VALID_TYPE
 	 */
-	protected $VALID_TYPE = "F";
+	protected $VALID_TYPE = "G";
 	/**
 	 * valid organization zip code to use
 	 * @var String $VALID_ZIP
