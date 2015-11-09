@@ -16,6 +16,11 @@ require_once(dirname(__DIR__) . "public_html/php/classes/volunteer.php");
  **/
 class VolunteerTest extends BreadBasketTest {
 	/**
+	 * valid org id to use
+	 * @var int $ORG_ID
+	 **/
+	protected $VALID_ORG_ID = "1";
+	/**
 	 * valid email to use
 	 * @var string $VALID_EMAIL
 	 **/
@@ -45,6 +50,23 @@ class VolunteerTest extends BreadBasketTest {
 	 * test inserting a valid Volunteer and verity that the actual mySQL data matches
 	 **/
 	public function testInsertValidVolunteer() {
-		//
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("volunteer");
+
+		//create a new Volunteer and insert into mySQL
+		$volunteer = new Volunteer(null, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer->insert($this->getPDO());
+
+		//grab the data from mySQL and enforce the fields match our expectations
+		$pdoVolunteer = Volunteer::getVolunteerByVolId($this->getPDO(), $volunteer->getVolId());
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("volunteer"));
+		$this->assertSame($pdoVolunteer->getOrgId(), $this->VALID_ORG_ID);
+		$this->assertSame($pdoVolunteer->getVolEmail(), $this->VALID_EMAIL);
+		$this->assertSame($pdoVolunteer->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
+		$this->assertSame($pdoVolunteer->getVolFirstName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoVolunteer->getVolLastName(), $this->VALID_LAST_NAME);
+		$this->assertSame($pdoVolunteer->getVolPhone(), $this->VALID_PHONE);
 	}
+
+
 }
