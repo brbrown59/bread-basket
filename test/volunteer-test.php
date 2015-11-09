@@ -110,5 +110,16 @@ class VolunteerTest extends BreadBasketTest {
 		$this->assertSatme($pdoVolunteer->getVolPhone(), $this->VALID_PHONE);
 	}
 
+	/**
+	 * test updating a Volunteer that does not exist
+	 *
+	 * @expectedException PDOException
+	 **/
+	public function testUpdateInvalidProfile() {
+		//create a Volunteer and try to update it without actually inserting it
+		$volunteer = new Volunteer(null, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer->update($this->getPDO());
+	}
+
 
 }
