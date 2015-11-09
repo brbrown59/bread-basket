@@ -73,13 +73,13 @@ class Administrator {
 	 * @param $newAdminId
 	 * @param $newVolId
 	 * @param $newOrgId
-	 * @param $newAdminEmailId
+	 * @param $newAdminEmail
 	 * @param $newAdminEmailActivation
-	 * @param $newAdminFirstNameId
-	 * @param $newAdminHashId
-	 * @param $newAdminLastNameId
-	 * @param $newAdminPhoneId
-	 * @param $newAdminSaltId
+	 * @param $newAdminFirstName
+	 * @param $newAdminHash
+	 * @param $newAdminLastName
+	 * @param $newAdminPhone
+	 * @param $newAdminSalt
 	 * @throws Exception
 	 *
 	 */
@@ -89,12 +89,12 @@ class Administrator {
 			$this->setAdminId($newAdminId);
 			$this->setVolId($newVolId);
 			$this->SetOrgId($newOrgId);
-			$this->setAdminEmailId($newAdminEmailId);
+			$this->setAdminEmailId($newAdminEmail);
 			$this->setAdminEmailActivation($newAdminEmailActivation);
-			$this->SetFirstNameId($newAdminFirstNameId);
-			$this->SetAdminHashId($newAdminHashId);
-			$this->SetAdminPhoneId($newAdminPhoneId);
-			$this->SetAdminSaltId($newAdminSaltId);
+			$this->setAdminFirstName($newAdminFirstName);
+			$this->setAdminHash($newAdminHash);
+			$this->setAdminPhone($newAdminPhone);
+			$this->setAdminSalt($newAdminSalt);
 
 
 		} catch(invalidArgumentException $invalidArgument) {
@@ -302,6 +302,177 @@ class Administrator {
 		//Store Activation for Administrator Email;adminEmailActivation
 		$this->adminEmailActivation = $newAdminEmailActivation;
 	}
+
+
+
+
+	/**
+	 * Accessor for Administrator First Name; adminFirstName; adminFirstName
+	 * @return string value for the Administrators First Name.
+	 */
+	public function getAdminFirstName(){
+		return($this->adminFirstName);
+	}
+
+	/**
+	 * Mutator for the Administrators First Name; adminFirstName
+	 * @param String $newAdminFirstName
+	 * @throw Invalid ArgumentException if Administrators First Name is not a string
+	 * @throw RangeException if Administrator First Name is to long.
+	 */
+	public function setAdminFirstName($newAdminFirstName) {
+		//Verify that First name is valid
+		$newAdminFirstName = trim($newAdminFirstName);
+		$newAdminFirstName = filter_var($newAdminFirstName, FILTER_SANITIZE_STRING);
+		if(empty ($newAdminFirstName) === true)  {
+			throw(new InvalidArgumentException("First Name is Empty or Insecure"));
+		}
+
+		//Verify the first name will fit in the database.
+		if(strlen($newAdminFirstName) > 32){
+			throw(new RangeException("First Name is too long"));
+		}
+
+		//Store the first name.
+		$this->adminFirstName = $newAdminFirstName;
+	}
+
+
+
+
+
+	/**Accessor for Administrator Hash
+	 * @return string value of hash
+	 */
+	public function getAdminHash() {
+		return ($this->adminHash);
+	}
+
+	/** Mutator For Administrator Hash; adminHash
+	 * @param String $newAdminHash new Value for password
+	 * @throw InvalidArgumentException if $newAdminHash is not a string.
+	 * @throw RangeException if $newAdminHas is too long.
+	 */
+	public function setAdminHash($newAdminHash) {
+		// Verify that Hash is correct.
+		$newAdminHash = trim($newAdminHash);
+		$newAdminHash = filter_var($newAdminHash, FILTER_SANITIZE_STRING);
+		if(empty ($newAdminHash) === true) {
+			throw(new InvalidArgumentException ("Password is incorrect"));
+		}
+		//verify the hash will fit into the database.
+		if(strlen($newAdminHash) !== 128) {
+			throw(new RangeException("Password is not verified"));
+		}
+		//Store Administrator Hash
+		$this->adminHash = $newAdminHash;
+	}
+
+
+
+
+	/**
+	 * Accessor for Administrator Last Name; adminLastName
+	 * @return string value for the Administrators Last Name.
+	 */
+	public function getAdminLastName(){
+		return($this->adminLastName);
+	}
+
+	/**
+	 * Mutator for the Administrators Last Name; adminLastName
+	 * @param String $newAdminLastName
+	 * @throw Invalid ArgumentException if Administrators Last Name is not a string
+	 * @throw RangeException if Administrator Last Name is to long.
+	 */
+	public function setAdminLastName($newAdminLastName) {
+		//Verify that Last name is valid
+		$newAdminLastName = trim($newAdminLastName);
+		$newAdminLastName = filter_var($newAdminLastName, FILTER_SANITIZE_STRING);
+		if(empty ($newAdminLastName) === true)  {
+			throw(new InvalidArgumentException("First Name is Empty or Insecure"));
+		}
+
+		//Verify the Last name will fit in the database.
+		if(strlen($newAdminLastName) > 32){
+			throw(new RangeException("Last Name is too long"));
+		}
+
+		//Store the first name.
+		$this->adminLastName = $newAdminLastName;
+	}
+
+
+
+
+	/**
+	 *Accessor for the Administrators phone number.
+	 * @return string value of Phone Number.
+	 */
+	public function getAdminPhone(){
+		return($this->adminPhone);
+	}
+
+	/**
+	 * Mutator for Administrator Phone Number
+	 *
+	 * @param string $newAdminPhone
+	 * @throw InvalidArgumentException if Administrators Phone Number is not a string.
+	 * @throw RangeException if $newAdminPhone is contains more than 32 characters.
+	 */
+	public function setAdminPhone($newAdminPhone) {
+		//Verify that the Phone Number is Secure
+		$newAdminPhone = trim($newAdminPhone);
+		$newAdminPhone = filter_var($newAdminPhone, FILTER_SANITIZE_STRING);
+		if(empty ($newAdminPhone) === true) {
+			throw(new InvalidArgumentException("Please Enter Phone Number"));
+		}
+
+		//Verify the PHone Number will fit in the database
+		if(strlen($newAdminPhone) > 32) {
+			throw(new RangeException("Phone Number is to long"));
+		}
+
+		//Store Administrator Phone Number.
+		$this->adminPhone = $newAdminPhone;
+
+	}
+
+
+
+
+
+	/**
+	 *Accessor the Administrator Salt
+	 * @return string value for Administrator salt
+	 */
+
+	public function getAdminSalt() {
+		return($this->adminSalt);
+	}
+
+	/**
+	 * Mutator method for Administrator salt; adminSalt
+	 * @param string $newAdminSalt new value of Administrator salt.
+	 * @throw InvalidArgumentException if $newAdminSalt is not a string
+	 * @throw RangeException if $newAdminSalt us not 64 characters
+	 */
+
+	public function setAdminSalt($newAdminSalt){
+		//Verify Administrator salt is correct
+		$newAdminSalt = trim($newAdminSalt);
+		$newAdminSalt = filter_var($newAdminSalt, FILTER_SANITIZE_STRING);
+		if(empty($newAdminSalt) === true) {
+			throw(new InvalidArgumentException("Password is incorrect"));
+		}
+		//Verify Administrator salt is correct length
+		if(strlen($newAdminSalt) !== 64) {
+			throw(new RangeException("Password is not valid"));
+		}
+		//Store the Administrator Salt content.
+		$this->adminSalt = $newAdminSalt;
+	}
+
 
 }
 
