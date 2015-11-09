@@ -198,7 +198,7 @@ class OrganizationTest extends BreadBasketTest {
 			$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
 		$organization->insert($this->getPDO());
 
-		//grab date from mySQL and enforce that the fields match
+		//grab data from mySQL and enforce that the fields match
 		$pdoOrganization = Organization::getOrganizationByOrgId($this->getPDO(), $organization->getOrgId());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
 		$this->assertSame($pdoOrganization->getAddress1(), $this->VALID_ADDRESS1);
@@ -234,7 +234,7 @@ class OrganizationTest extends BreadBasketTest {
 			$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
 		$organization->insert($this->getPDO());
 
-		//grab date from mySQL and enforce that the fields match
+		//grab data from mySQL and enforce that the fields match
 		$pdoOrganization = Organization::getOrganizationByCity($this->getPDO(), $this->VALID_CITY);
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
 		$this->assertSame($pdoOrganization->getAddress1(), $this->VALID_ADDRESS1);
@@ -253,6 +253,142 @@ class OrganizationTest extends BreadBasketTest {
 	 */
 	public function testGetInvalidOrganizationByCity() {
 		$organization = Organization::getOrganizationByOrgCity($this->getPDO(), "Atlantis");
+		$this->assertNull($organization);
+	}
+
+	/**
+	 * test grabbing an organization by Name
+	 */
+	public function testGetValidOrganizationByName() {
+		//count the number of rows currently in the database
+		$numRows = $this->getConnection()->getRowCount("organization");
+
+		//create a new organization and insert into mySQL
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+			$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+		$organization->insert($this->getPDO());
+
+		//grab data from mySQL and enforce that the fields match
+		$pdoOrganization = Organization::getOrganizationByName($this->getPDO(), $this->VALID_NAME);
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
+		$this->assertSame($pdoOrganization->getAddress1(), $this->VALID_ADDRESS1);
+		$this->assertSame($pdoOrganization->getAddress2(), $this->VALID_ADDRESS2);
+		$this->assertSame($pdoOrganization->getCity(), $this->VALID_CITY);
+		$this->assertSame($pdoOrganization->getDescription(), $this->VALID_DESCRIPTION);
+		$this->assertSame($pdoOrganization->getHours(), $this->VALID_HOURS);
+		$this->assertSame($pdoOrganization->getName(), $this->VALID_NAME_ALT);
+		$this->assertSame($pdoOrganization->getPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoOrganization->getState(), $this->VALID_STATE);
+		$this->assertSame($pdoOrganization->getType(), $this->VALID_TYPE);
+		$this->assertSame($pdoOrganization->getZip(), $this->VALID_ZIP);
+	}
+	/**
+	 * test for grabbing an organization by name that does not exist
+	 */
+	public function testGetInvalidOrganizationByName() {
+		$organization = Organization::getOrganizationByOrgName($this->getPDO(), "Let the Poor Starve");
+		$this->assertNull($organization);
+	}
+
+	/**
+	 * test grabbing an organization by state
+	 */
+	public function testGetValidOrganizationByState() {
+		//count the number of rows currently in the database
+		$numRows = $this->getConnection()->getRowCount("organization");
+
+		//create a new organization and insert into mySQL
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+			$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+		$organization->insert($this->getPDO());
+
+		//grab data from mySQL and enforce that the fields match
+		$pdoOrganization = Organization::getOrganizationByState($this->getPDO(), $this->VALID_STATE);
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
+		$this->assertSame($pdoOrganization->getAddress1(), $this->VALID_ADDRESS1);
+		$this->assertSame($pdoOrganization->getAddress2(), $this->VALID_ADDRESS2);
+		$this->assertSame($pdoOrganization->getCity(), $this->VALID_CITY);
+		$this->assertSame($pdoOrganization->getDescription(), $this->VALID_DESCRIPTION);
+		$this->assertSame($pdoOrganization->getHours(), $this->VALID_HOURS);
+		$this->assertSame($pdoOrganization->getName(), $this->VALID_NAME_ALT);
+		$this->assertSame($pdoOrganization->getPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoOrganization->getState(), $this->VALID_STATE);
+		$this->assertSame($pdoOrganization->getType(), $this->VALID_TYPE);
+		$this->assertSame($pdoOrganization->getZip(), $this->VALID_ZIP);
+	}
+	/**
+	 * test for grabbing an organization by state that does not exist
+	 */
+	public function testGetInvalidOrganizationByState() {
+		$organization = Organization::getOrganizationByOrgState($this->getPDO(), "ZQ");
+		$this->assertNull($organization);
+	}
+
+	/**
+	 * test grabbing an organization by type
+	 */
+	public function testGetValidOrganizationByType() {
+		//count the number of rows currently in the database
+		$numRows = $this->getConnection()->getRowCount("organization");
+
+		//create a new organization and insert into mySQL
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+			$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+		$organization->insert($this->getPDO());
+
+		//grab data from mySQL and enforce that the fields match
+		$pdoOrganization = Organization::getOrganizationByType($this->getPDO(), $this->VALID_TYPE);
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
+		$this->assertSame($pdoOrganization->getAddress1(), $this->VALID_ADDRESS1);
+		$this->assertSame($pdoOrganization->getAddress2(), $this->VALID_ADDRESS2);
+		$this->assertSame($pdoOrganization->getCity(), $this->VALID_CITY);
+		$this->assertSame($pdoOrganization->getDescription(), $this->VALID_DESCRIPTION);
+		$this->assertSame($pdoOrganization->getHours(), $this->VALID_HOURS);
+		$this->assertSame($pdoOrganization->getName(), $this->VALID_NAME_ALT);
+		$this->assertSame($pdoOrganization->getPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoOrganization->getState(), $this->VALID_STATE);
+		$this->assertSame($pdoOrganization->getType(), $this->VALID_TYPE);
+		$this->assertSame($pdoOrganization->getZip(), $this->VALID_ZIP);
+	}
+	/**
+	 * test for grabbing an organization by type that does not exist
+	 */
+	public function testGetInvalidOrganizationByType() {
+		$organization = Organization::getOrganizationByOrgType($this->getPDO(), "Z");
+		$this->assertNull($organization);
+	}
+
+	/**
+	 * test grabbing an organization by zip code
+	 */
+	public function testGetValidOrganizationByZip() {
+		//count the number of rows currently in the database
+		$numRows = $this->getConnection()->getRowCount("organization");
+
+		//create a new organization and insert into mySQL
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+			$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+		$organization->insert($this->getPDO());
+
+		//grab data from mySQL and enforce that the fields match
+		$pdoOrganization = Organization::getOrganizationByZip($this->getPDO(), $this->VALID_ZIP);
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
+		$this->assertSame($pdoOrganization->getAddress1(), $this->VALID_ADDRESS1);
+		$this->assertSame($pdoOrganization->getAddress2(), $this->VALID_ADDRESS2);
+		$this->assertSame($pdoOrganization->getCity(), $this->VALID_CITY);
+		$this->assertSame($pdoOrganization->getDescription(), $this->VALID_DESCRIPTION);
+		$this->assertSame($pdoOrganization->getHours(), $this->VALID_HOURS);
+		$this->assertSame($pdoOrganization->getName(), $this->VALID_NAME_ALT);
+		$this->assertSame($pdoOrganization->getPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoOrganization->getState(), $this->VALID_STATE);
+		$this->assertSame($pdoOrganization->getType(), $this->VALID_TYPE);
+		$this->assertSame($pdoOrganization->getZip(), $this->VALID_ZIP);
+	}
+	/**
+	 * test for grabbing an organization by type that does not exist
+	 */
+	public function testGetInvalidOrganizationByZip() {
+		$organization = Organization::getOrganizationByOrgZip($this->getPDO(), "99999");
 		$this->assertNull($organization);
 	}
 }
