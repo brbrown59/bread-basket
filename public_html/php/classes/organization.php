@@ -417,7 +417,7 @@ class Organization{
 	 * @return String value of organization type
 	 */
 	public function getOrgType() {
-		return $this->getOrgType();
+		return ($this->orgType);
 	}
 
 	/**
