@@ -424,6 +424,37 @@ class Volunteer {
 		return($volunteer);
 	}
 
+	/**
+	 * function to store multiple database results into an SplFixedArray
+	 *
+	 * @param PDOStatement $statement pdo statement object
+	 * @return SplFixedArray all volunteers obtained from databse
+	 * @throws PDOException if mySQL related errors occur
+	 **/
+	public static function storeSQLResultsInArray(PDOStatement $statement) {
+		//build an array of volunteers as an SplFixedArray object
+		//set the size of the object to the number of retrieved rows
+		$retrievedVol = new SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(PDO::FETCH_ASSOC);
+
+		//while rows can still be retrieved from the result
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$volunteer = new Volunteer($row["volId"], $row["ordId"], $row["volEmail"], $row["volEmailActivation"],
+						$row["volFirstName"], $row["volLastName"], $row["volPhone"]);
+				//place result in the current field, then advance the key
+				$retrievedVol[$retrievedVol->key()] = $volunteer;
+				$retrievedVol->next();
+			} catch(Exception $exception) {
+				//rethrow the exception if retrieval failed
+				throw(new PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return $retrievedVol;
+	}
+
+
+
 
 
 
