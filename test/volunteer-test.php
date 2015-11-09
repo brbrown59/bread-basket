@@ -26,6 +26,11 @@ class VolunteerTest extends BreadBasketTest {
 	 **/
 	protected $VALID_EMAIL = "captain@voyager.com";
 	/**
+	 * valid email alt to use
+	 * @var string $VALID_EMAIL_ALT
+	 **/
+	protected $VALID_EMAIL_ALT ="seven@voyager.com";
+	/**
 	 * valid activation key to use
 	 * @var string $VALID_EMAIL_ACTIVATION
 	 **/
@@ -80,10 +85,29 @@ class VolunteerTest extends BreadBasketTest {
 	}
 
 	/**
-	 * test inserting a Volunteer, editing it and then updating it
+	 * test inserting a Volunteer, editing it, and then updating it
 	 **/
 	public function testUpdateValidVolunteer() {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("volunteer");
 
+		// create a new Volunteer and insert to into mySQL
+		$volunteer = new Volunteer(null, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer->insert($this->getPDO());
+
+		// edit the Volunteer and update it in mySQL
+		$volunteer->setVolEmail($this->VALID_EMAIL_ALT);
+		$volunteer->update($this->getPDO());
+
+		// grab the data from mySQL and enforce the fields match our expectations
+		$pdoVolunteer = Volunteer::getVolunteerByVolId($this->getPDO(), $profile->getVolId());
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("volunteer"));
+		$this->assertSame($pdoVolunteer->getOrgId(), $this->VALID_ORG_ID);
+		$this->assertSame($pdoVolunteer->getEmail(), $this->VALID_EMAIL_ALT);
+		$this->assertSame($pdoVolunteer->getEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
+		$this->assertSame($pdoVolunteer->getFirstName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoVolunteer->getLastName(), $this->VALID_FIRST_NAME);
+		$this->assertSatme($pdoVolunteer-getPhone(), $this->VALID_PHONE);
 	}
 
 
