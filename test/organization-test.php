@@ -99,11 +99,11 @@ class OrganizationTest extends BreadBasketTest {
 	}
 
 	/**
-	 * test inserting a profile that already exists
+	 * test inserting an organization that cannot be added
 	 * @expectedException PDOException
 	 */
 	public function testInsertInvalidOrganization() {
-		//create profile with non-null id, and hope it fails
+		//create organization with non-null id, and hope it fails
 		$organization = new Organization(BreadBasketTest::INVALID_KEY, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
 			$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
 		$organization->insert($this->getPDO());
@@ -141,19 +141,19 @@ class OrganizationTest extends BreadBasketTest {
 	}
 
 	/**
-	 * test updating a profile that does not exist
+	 * test updating an organization that does not exist
 	 *
 	 * @expectedException PDOException
 	 */
 	public function testUpdateInvalidOrganization() {
-		//create a profile and try to update without inserting first
+		//create an organization and try to update without inserting first
 		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
 			$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
 		$organization->update($this->getPDO());
 	}
 
 	/**
-	 * test creating a profile and then deleting it
+	 * test creating an organization and then deleting it
 	 */
 	public function testDeleteValidOrganization() {
 		//count the number of rows currently in the database
@@ -175,14 +175,84 @@ class OrganizationTest extends BreadBasketTest {
 	}
 
 	/**
-	 * test deleting a profile that does not exist
+	 * test deleting an organization that does not exist
 	 *
 	 * @expectedException PDOException
 	 */
 	public function testDeleteInvalidOrganization() {
-		//create profile and delete without actually inserting it
+		//create organization and delete without actually inserting it
 		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
 			$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
 		$organization->delete($this->getPDO());
+	}
+
+	/**
+	 * test inserting an organization and regrabbing it from mySQL
+	 */
+	public function testGetValidOrganizationByOrgId() {
+		//count the number of rows currently in the database
+		$numRows = $this->getConnection()->getRowCount("organization");
+
+		//create a new organization and insert into mySQL
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+			$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+		$organization->insert($this->getPDO());
+
+		//grab date from mySQL and enforce that the fields match
+		$pdoOrganization = Organization::getOrganizationByOrgId($this->getPDO(), $organization->getOrgId());
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
+		$this->assertSame($pdoOrganization->getAddress1(), $this->VALID_ADDRESS1);
+		$this->assertSame($pdoOrganization->getAddress2(), $this->VALID_ADDRESS2);
+		$this->assertSame($pdoOrganization->getCity(), $this->VALID_CITY);
+		$this->assertSame($pdoOrganization->getDescription(), $this->VALID_DESCRIPTION);
+		$this->assertSame($pdoOrganization->getHours(), $this->VALID_HOURS);
+		$this->assertSame($pdoOrganization->getName(), $this->VALID_NAME_ALT);
+		$this->assertSame($pdoOrganization->getPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoOrganization->getState(), $this->VALID_STATE);
+		$this->assertSame($pdoOrganization->getType(), $this->VALID_TYPE);
+		$this->assertSame($pdoOrganization->getZip(), $this->VALID_ZIP);
+	}
+
+	/**
+	 * test getting an organization that does not exist
+	 */
+	public function testGetInvalidOrganizationByOrgId() {
+		//grab an id that exceeds the maximum allowable value
+		$organization = Organization::getOrganizationByOrgId($this->getPDO(), BreadBasketTest::INVALID_KEY);
+		$this->assertNull($organization);
+	}
+
+	/**
+	 * test grabbing an organization by city
+	 */
+	public function testGetValidOrganizationByCity() {
+		//count the number of rows currently in the database
+		$numRows = $this->getConnection()->getRowCount("organization");
+
+		//create a new organization and insert into mySQL
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+			$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+		$organization->insert($this->getPDO());
+
+		//grab date from mySQL and enforce that the fields match
+		$pdoOrganization = Organization::getOrganizationByCity($this->getPDO(), $this->VALID_CITY);
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
+		$this->assertSame($pdoOrganization->getAddress1(), $this->VALID_ADDRESS1);
+		$this->assertSame($pdoOrganization->getAddress2(), $this->VALID_ADDRESS2);
+		$this->assertSame($pdoOrganization->getCity(), $this->VALID_CITY);
+		$this->assertSame($pdoOrganization->getDescription(), $this->VALID_DESCRIPTION);
+		$this->assertSame($pdoOrganization->getHours(), $this->VALID_HOURS);
+		$this->assertSame($pdoOrganization->getName(), $this->VALID_NAME_ALT);
+		$this->assertSame($pdoOrganization->getPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoOrganization->getState(), $this->VALID_STATE);
+		$this->assertSame($pdoOrganization->getType(), $this->VALID_TYPE);
+		$this->assertSame($pdoOrganization->getZip(), $this->VALID_ZIP);
+	}
+	/**
+	 * test for grabbing an organization by city that does not exist
+	 */
+	public function testGetInvalidOrganizationByCity() {
+		$organization = Organization::getOrganizationByOrgCity($this->getPDO(), "Atlantis");
+		$this->assertNull($organization);
 	}
 }
