@@ -511,8 +511,41 @@ class Volunteer {
 		$statement = $pdo->prepare($query);
 
 		//bind the id value to the placeholder in the template
-		$volEmail = $volEmail;
 		$parameters = array("volEmail" => $volEmail);
+		$statement->execute($parameters);
+
+		//call the function to build and array of the retrieved values
+		try {
+			$retrievedVol = Volunteer::storeSQLResultsInArray($statement);
+		} catch(Exception $exception) {
+			//rethrow the exception if the retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $retrievedVol;
+	}
+
+	/**
+	 * get volunteer by phone number
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @param string $volPhone phone number this volunteer is associated with
+	 * @return SplFixedArray all volunteers found for this content
+	 * @throws PDOException if mySQL related errors occur
+	 **/
+	public static function getVolunteerByVolPhone(PDO $pdo, $volPhone) {
+		//sanitize the input
+		$volPhone = trim($volPhone);
+		$volPhone = filter_var($volPhone, FILTER_SANITIZE_STRING);
+		if(empty($volPhone) === true) {
+			throw (new PDOException("phone number is empty or insecure"));
+		}
+
+		//create query template
+		$query = "SELECT volId, orgId, volEmail, volFirstName, volLastName FROM volunteer WHERE volPhone = :volPhone ";
+		$statement = $pdo->prepare($query);
+
+		//bind the id value to the placeholder in the template
+		$parameters = array("volPhone" => $volPhone);
 		$statement->execute($parameters);
 
 		//call the function to build and array of the retrieved values
