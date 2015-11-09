@@ -202,18 +202,19 @@ class Volunteer {
 	 * @throws InvalidArgumentException if activation code is not a string or insecure
 	 **/
 	public function setVolEmailActivation($newVolEmailActivation) {
-
-		//sanitize the activation code
+		//verify the activation code is valid
 		$newVolEmailActivation = filter_var($newVolEmailActivation, FILTER_SANITIZE_STRING);
+		if(strlen($newVolEmailActivation) < 16) {
+			throw(new InvalidArgumentException("activation code is insufficient length or insecure"));
+		}
 		if(empty($newVolEmailActivation) === true) {
 			throw(new InvalidArgumentException("this code is empty or insecure"));
-		}
+ 		}
 
-		//verify the activation code is valid
-		$newVolEmailActivation = ctype_xdigit($this->$newVolEmailActivation);
-		if($newVolEmailActivation !== true) {
-			throw(new RangeException("this code is not a valid hex code"));
-		}
+		//verify the code will fit in the database
+		if(strlen($newVolEmailActivation) > 16) {
+				throw(new RangeException("activation code is too large"));
+			}
 
 		//store activation code
 		$this->volEmailActivation = $newVolEmailActivation;
@@ -331,7 +332,7 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "INSERT INTO volunteer(orgId,volEmail, volEmailActivation, volFirstName, volLastName, volPhone) VALUES(:orgId, :volEmail, :volEmailActivation, :volFirstName, :volLastName, :volPhone)";
+		$query = "INSERT INTO volunteer(orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone) VALUES(:orgId, :volEmail, :volEmailActivation, :volFirstName, :volLastName, :volPhone)";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
