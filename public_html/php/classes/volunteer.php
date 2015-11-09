@@ -220,7 +220,7 @@ class Volunteer {
 	}
 
 	/**
-	 * accessor method for volunteer first name
+	 * accessor method for volunteer first name.
 	 *
 	 * @return string value for first name
 	 **/
