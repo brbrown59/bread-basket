@@ -453,9 +453,180 @@ class Volunteer {
 		return $retrievedVol;
 	}
 
+	/**
+	 * get volunteer by organization id
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @param int $orgId organization this volunteer is associated with
+	 * @return SplFixedArray all volunteers found for this content
+	 * @throws PDOException if mySQL related errors occur
+	 **/
+	public static function getVolunteerByOrgId(PDO $pdo, $orgId) {
+		//sanitize the input
+		$orgId = filter_var($orgId, FILTER_VALIDATE_INT);
+		if($orgId === false) {
+			throw(new PDOException("org id is not an integer"));
+		}
+		if($orgId <= 0) {
+			throw(new PDOException("org id is not positive"));
+		}
 
+		//create query template
+		$query = "SELECT volId, volEmail, volFirstName, volLastName, volPhone FROM volunteer WHERE orgId = :orgId ";
+		$statement = $pdo->prepare($query);
 
+		//bind the id value to the placeholder in the template
+		$orgId = $orgId;
+		$parameters = array("orgId" => $orgId);
+		$statement->execute($parameters);
 
+		//call the function to build and array of the retrieved values
+		try {
+			$retrievedVol = Volunteer::storeSQLResultsInArray($statement);
+		} catch(Exception $exception) {
+			//rethrow the exception if the retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $retrievedVol;
+	}
+
+	/**
+	 * get volunteer by email
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @param string $volEmail email this volunteer is associated with
+	 * @return SplFixedArray all volunteers found for this content
+	 * @throws PDOException if mySQL related errors occur
+	 **/
+	public static function getVolunteerByVolEmail(PDO $pdo, $volEmail) {
+		//sanitize the input
+		$volEmail = trim($volEmail);
+		$volEmail = filter_var($volEmail, FILTER_SANITIZE_EMAIL);
+		if(empty($volEmail) === true) {
+			throw (new PDOException("email is empty or insecure"));
+		}
+
+		//create query template
+		$query = "SELECT volId, orgId, volFirstName, volLastName, volPhone FROM volunteer WHERE volEmail = :volEmail ";
+		$statement = $pdo->prepare($query);
+
+		//bind the id value to the placeholder in the template
+		$parameters = array("volEmail" => $volEmail);
+		$statement->execute($parameters);
+
+		//call the function to build and array of the retrieved values
+		try {
+			$retrievedVol = Volunteer::storeSQLResultsInArray($statement);
+		} catch(Exception $exception) {
+			//rethrow the exception if the retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $retrievedVol;
+	}
+
+	/**
+	 * get volunteer by phone number
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @param string $volPhone phone number this volunteer is associated with
+	 * @return SplFixedArray all volunteers found for this content
+	 * @throws PDOException if mySQL related errors occur
+	 **/
+	public static function getVolunteerByVolPhone(PDO $pdo, $volPhone) {
+		//sanitize the input
+		$volPhone = trim($volPhone);
+		$volPhone = filter_var($volPhone, FILTER_SANITIZE_STRING);
+		if(empty($volPhone) === true) {
+			throw (new PDOException("phone number is empty or insecure"));
+		}
+
+		//create query template
+		$query = "SELECT volId, orgId, volEmail, volFirstName, volLastName FROM volunteer WHERE volPhone = :volPhone ";
+		$statement = $pdo->prepare($query);
+
+		//bind the id value to the placeholder in the template
+		$parameters = array("volPhone" => $volPhone);
+		$statement->execute($parameters);
+
+		//call the function to build and array of the retrieved values
+		try {
+			$retrievedVol = Volunteer::storeSQLResultsInArray($statement);
+		} catch(Exception $exception) {
+			//rethrow the exception if the retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $retrievedVol;
+	}
+
+	/**
+	 * get volunteer by first and last name
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @param string $volFirstName first name of the volunteer
+	 * @param string $volLastName last name of the volunteer
+	 * @return SplFixedArray all volunteers found for this content
+	 * @throws PDOException if mySQL related errors occur
+	 **/
+	public static function getVolunteerByVolFirstAndLastName(PDO $pdo, $volFirstName, $volLastName) {
+		//sanitize the input for first name
+		$volFirstName = trim($volFirstName);
+		$volFirstName = filter_var($volFirstName, FILTER_SANITIZE_STRING);
+		if(empty($volFirstName) === true) {
+			throw (new PDOException("first name is empty or insecure"));
+		}
+
+		//sanitize the input for last name
+		$volLastName = trim($volLastName);
+		$volLastName = filter_var($volLastName, FILTER_SANITIZE_STRING);
+		if(empty($volLastName) === true) {
+			throw (new PDOException("last name is empty or insecure"));
+		}
+
+		//create query template
+		$query = "SELECT volId, orgId, volEmail, volPhone FROM volunteer WHERE volFirstName = :volFirstName AND volLastName = :volLastName ";
+		$statement = $pdo->prepare($query);
+
+		//bind the first name value to the placeholder in the template
+		$parameters = array("volFirstName" => $volFirstName);
+		$statement->execute($parameters);
+
+		//bind the last name value to the placeholder in the template
+		$parameters = array("volLastName" => $volLastName);
+		$statement->execute($parameters);
+
+		//call the function to build and array of the retrieved values
+		try {
+			$retrievedVol = Volunteer::storeSQLResultsInArray($statement);
+		} catch(Exception $exception) {
+			//rethrow the exception if the retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $retrievedVol;
+	}
+
+	/**
+	 * retrieves all volunteers
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @return SplFixedArray all organizations
+	 * @throws PDOException if mySQL errors occur
+	 */
+	public static function getAllVolunteers(PDO $pdo) {
+
+		//create query template
+		$query = "SELECT volId, orgId, volEmail, VolFirstName, VolLastName, volPhone FROM volunteer";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+
+		///call the function to build an array of the retrieved results
+		try {
+			$retrievedVol = Organization::storeSQLResultsInArray($statement);
+		} catch(Exception $exception) {
+			//rethrow the exception if retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $retrievedVol;
+	}
 
 
 }
