@@ -84,7 +84,7 @@ class Administrator {
 	 *
 	 */
 
-	public function __construct($newAdminId, $newVolId, $newOrgId, $newAdminEmailId, $newAdminEmailActivation, $newAdminFirstNameId, $newAdminHashId, $newAdminLastNameId, $newAdminPhoneId, $newAdminSaltId) {
+	public function __construct($newAdminId, $newVolId, $newOrgId, $newAdminEmail, $newAdminEmailActivation, $newAdminFirstName, $newAdminHash, $newAdminLastName, $newAdminPhone, $newAdminSalt) {
 		try {
 			$this->setAdminId($newAdminId);
 			$this->setVolId($newVolId);
