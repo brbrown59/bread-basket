@@ -253,7 +253,7 @@ class OrganizationTest extends BreadBasketTest {
 	 */
 	public function testGetInvalidOrganizationByCity() {
 		$organization = Organization::getOrganizationByOrgCity($this->getPDO(), "Atlantis");
-		$this->assertNull($organization[0]);
+		$this->assertSame($organization->getSize(), 0);
 	}
 
 	/**
@@ -287,7 +287,7 @@ class OrganizationTest extends BreadBasketTest {
 	 */
 	public function testGetInvalidOrganizationByName() {
 		$organization = Organization::getOrganizationByOrgName($this->getPDO(), "Let the Poor Starve");
-		$this->assertNull($organization[0]);
+		$this->assertSame($organization->getSize(), 0);
 	}
 
 	/**
@@ -321,7 +321,7 @@ class OrganizationTest extends BreadBasketTest {
 	 */
 	public function testGetInvalidOrganizationByState() {
 		$organization = Organization::getOrganizationByOrgState($this->getPDO(), "ZQ");
-		$this->assertNull($organization[0]);
+		$this->assertSame($organization->getSize(), 0);
 	}
 
 	/**
@@ -355,7 +355,7 @@ class OrganizationTest extends BreadBasketTest {
 	 */
 	public function testGetInvalidOrganizationByType() {
 		$organization = Organization::getOrganizationByOrgType($this->getPDO(), "Z");
-		$this->assertNull($organization[0]);
+		$this->assertSame($organization->getSize(), 0);
 	}
 
 	/**
@@ -389,6 +389,6 @@ class OrganizationTest extends BreadBasketTest {
 	 */
 	public function testGetInvalidOrganizationByZip() {
 		$organization = Organization::getOrganizationByOrgZip($this->getPDO(), "99999");
-		$this->assertNull($organization[0]);
+		$this->assertSame($organization->getSize(), 0);
 	}
 }
