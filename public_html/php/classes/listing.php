@@ -36,17 +36,17 @@ class listing {
 	/**
 	 * this is an memo area extra information about the donation being listed
 	 * @var string $listingMemo
-	 */
+	 **/
 	private $listingMemo;
 	/**
 	 * Pulled from the listing Id of the first time a message is sent
 	 * @var int $listingParentId
-	 */
+	 **/
 	private $listingParentId;
 	/**
 	 * This is the time that the listing was created, in a PHP DateTime object
 	 * @var DateTime $listingPostTime
-	 */
+	 **/
 	private $listingPostTime;
 	/**
 	 *This is a listing type for the donation. It'll be a dropdown with things like perishable, non perishable, refrigerated
@@ -70,7 +70,7 @@ class listing {
  * @throws InvalidArgumentException if data types are not valid
  * @throws RangeException is data values are out of bounds (e.g., strings too long, negative integers)
  * @throws Exception is some other exception is thrown
- */
+ **/
 public function __construct($newListingId, $newOrgId, $newListingClaimedBy, $newListingClosed, $newListingCost, $newListingMemo, $newListingParentId, $newListingPostTime, $newListingType = null) {
 	try {
 		$this->setListingId($newListingId);
@@ -133,7 +133,7 @@ public function setListingId($newListingId) {
  * accessor method for the organization id
  *
  * @return int value of organization id
- */
+ **/
 public function getOrgId() {
 	return ($this->orgId);
 }
@@ -165,7 +165,7 @@ public function setOrgId($newOrgId) {
  * accessor method for listing claimed by. This is the volId of the volunteer that claims the donation
  *
  * @return mixed value of listing claimed by
- */
+ **/
 public function getListingClaimedBy() {
 	return ($this->listingClaimedBy);
 }
@@ -176,7 +176,7 @@ public function getListingClaimedBy() {
  * @param int $newListingClaimedBy new value of listing claimed by
  * @throws InvalidArgumentException if $newClistingClaimedBy is not an integer or not positive
  * @throws RangeException if $newClaimedBy is not positive
- */
+ **/
 public function setListingClaimedBy($newListingClaimedBy) {
 	//verify the listing claimed by number is valid
 	$newListingClaimedBy = filter_var($newListingClaimedBy, FILTER_VALIDATE_INT);
@@ -199,7 +199,7 @@ public function setListingClaimedBy($newListingClaimedBy) {
  * @return bool value of listing closed
  *
  * QUESTION: have this looked over
- */
+ **/
 public function getListingClosed() {
 	return ($this->listingClosed);
 }
@@ -209,7 +209,7 @@ public function getListingClosed() {
  *
  * @param bool $newListingClosed
  * @throws InvalidArgumentException if $newListingClosed is not a bool or insecure
- */
+ **/
 public function setListingClosed($newListingClosed) {
 	//verify the listing closed is valid
 	$newListingClosed = filter_var($newListingClosed, FILTER_VALIDATE_BOOLEAN);
@@ -225,7 +225,7 @@ public function setListingClosed($newListingClosed) {
  * accessor method for listing cost
  *
  * @return float a decimal to represent listing cost
- */
+ **/
 public function getListingCost() {
 	return ($this->listingCost);
 }
@@ -236,7 +236,7 @@ public function getListingCost() {
  * @param float value for the estimated cost of the donation
  * @throws InvalidArgumentException if $newListingCost is not a valid float
  * @throws RangeException if the $newListingCost is not positive
- */
+ **/
 public function setListingCost($newListingCost) {
 	//verify the cost is a valid float
 	$newListingCost = filter_var($newListingCost, FILTER_VALIDATE_FLOAT);
@@ -257,7 +257,7 @@ public function setListingCost($newListingCost) {
  * accessor method for listing memo
  *
  * @return string value of listing memo
- */
+ **/
 public function getListingMemo() {
 	return ($this->listingMemo);
 }
@@ -268,7 +268,7 @@ public function getListingMemo() {
  * @param string $newListingMemo new value of  listing memo
  * @throws InvalidArgumentException if $newListingMemo is not a string or insecure
  * @throws RangeException if $newListingMemo is > 256 characters
- */
+ **/
 public function setListingMemo($newListingMemo) {
 	//verify the listing memo is secure
 	$newListingMemo = trim($newListingMemo);
@@ -289,7 +289,7 @@ public function setListingMemo($newListingMemo) {
  * accessor method for listing parent id. this will be used if the listing is resent
  *
  * @return mixed value of listing parent id
- */
+ **/
 public function getListingParentId() {
 	return ($this->listingParentId);
 }
@@ -300,7 +300,7 @@ public function getListingParentId() {
  * @param mixed $newListingParentId new value of Listing parent id
  * @throws InvalidArgumentException if $newListingParentId is not an integer
  * @throws RangeException is $newListingParentId is not positive
- */
+ **/
 public function setListingParentId($newListingParentId) {
 	//verify the ListingParentId is valid
 	$newListingParentId = filter_var($newListingParentId, FILTER_VALIDATE_INT);
@@ -354,7 +354,7 @@ public function setListingPostTime($newListingPostTime) {
  * accessor method for listing type
  *
  * @returns int value of listing type
- */
+ **/
 public function getListingType() {
 	return ($this->listingType);
 }
@@ -367,13 +367,13 @@ public function getListingType() {
  * @throws RangeException if $newListingType is not positive
  **/
 public function setListingType($newListingType) {
-	//verify the profile id is valid
+	//verify the listing type is valid
 	$newListingType = filter_var($newListingType, FILTER_VALIDATE_INT);
 	if($newListingType === false) {
 		throw(new InvalidArgumentException("listing type is not a valid integer"));
 	}
 
-	//verify the listing id is positive
+	//verify the listing type is positive
 	if($newListingType <= 0) {
 		throw(new RangeException("list type is not positive"));
 	}
@@ -411,11 +411,11 @@ public function insert(PDO $pdo) {
  *
  * @param PDO $pdo pointer to PDO connection
  * @throws PDOException when mySQL related errors occur
- */
+ **/
 public function delete(PDO $pdo) {
 	//enforce the listing id is not null (i.e., don't delete a listing that hasn't been inserted)
 	if($this->listingId === null) {
-		throw(new PDOException("unable to delete a listing that does not exicst"));
+		throw(new PDOException("unable to delete a listing that does not exist"));
 	}
 
 	//create query template
@@ -433,13 +433,13 @@ public function delete(PDO $pdo) {
  * @param PDO $pdo pointer to PDO connection
  * @throws PDOException when mySQL related errors occur
  **/
-public function udate(PDO $pdo) {
-	//enforce the listingId is not null (i.e., don't update alisting that hasn't been inserted)
+public function update(PDO $pdo) {
+	//enforce the listingId is not null (i.e., don't update a listing that hasn't been inserted)
 	if($this->listingId === null) {
 		throw(new PDOException("unable to update a listing that does not exist"));
 	}
 	//create query template
-	$query = "UPDATE listing SET orgId = :orgId,listingClaimedBy = listingClaimedBy,listingClosed = :listingClosed,listingCost = :listingCost,listingMemo = :listingMemo,listingParentId = :listingParentId,listingPostTime = :listingPostTime,listingType = :listingType WHERE listingId = :listingId";
+	$query = "UPDATE listing SET orgId = :orgId,listingClaimedBy = :listingClaimedBy,listingClosed = :listingClosed,listingCost = :listingCost,listingMemo = :listingMemo,listingParentId = :listingParentId,listingPostTime = :listingPostTime,listingType = :listingType WHERE listingId = :listingId";
 	$statement = $pdo->prepare($query);
 
 	//bind the member variables to the place holders in the template
@@ -455,7 +455,7 @@ public function udate(PDO $pdo) {
  * @param int $orgId organization id to search for
  * @return mixed listing found or null if not found
  * @throws PDOExceptions when my SQL related errors occur
- */
+ **/
 public static function getListingByOrgId(PDO $pdo, $orgId) {
 	//sanitize the orgId before searching
 	$orgId = filter_var($orgId, FILTER_VALIDATE_INT);
@@ -498,7 +498,7 @@ public static function getListingByOrgId(PDO $pdo, $orgId) {
  * @param int $listingParentId listing parent id to search for
  * @return mixed listing found or null if not found
  * @throws PDOExceptions when my SQL related errors occur
- */
+ **/
 public static function getListingByParentId(PDO $pdo, $listingParentId) {
 	//sanitize the listingParentId before searching
 	$listingParentId = filter_var($listingParentId, FILTER_VALIDATE_INT);
@@ -541,7 +541,7 @@ return ($listing);
  * @return mixed listing found or null if not found
  * @throws PDOExceptions when my SQL related errors occur
  * QUESTION: does this make sense if we are new searching within a range? No one would know the exact time a listing is posted REVIEW CAREFULLY
- */
+ **/
 public static function getListingByListingPostTime(PDO $pdo, $listingPostTime) {
 	//sanitize the listingPostTime before searching coauthored by @author Kyle Dozier <kyle@kedlogic.com> CNM parking I wonder if these exceptions are correct since other exceptions in the get foo by bar section are PDOExceptions
 	try {
@@ -583,7 +583,7 @@ public static function getListingByListingPostTime(PDO $pdo, $listingPostTime) {
  * @param int $listingTypeId listing type id to search for
  * @return mixed listing found or null if not found
  * @throws PDOExceptions when my SQL related errors occur
- */
+ **/
 public static function getListingByOrgId(PDO $pdo, $listingTypeId) {
 	//sanitize the listingTypeId before searching
 	$listingTypeId = filter_var($listingTypeId, FILTER_VALIDATE_INT);
