@@ -2,7 +2,11 @@
 	<testsuites>
 		<testsuite name="Bread Basket">
 			<file>organization-test.php</file>
-
+			<file>volunteer-test.php</file>
+			<file>administrator-test.php</file>
+			<file>listingtype-test.php</file>
+			<file>listing-test.php</file>
+			<file>message-test.php</file>
 		</testsuite>
 	</testsuites>
 </phpunit>
