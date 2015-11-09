@@ -46,6 +46,11 @@ class OrganizationTest extends BreadBasketTest {
 	 */
 	protected $VALID_NAME = "Feeding Albuquerque";
 	/**
+	 * a second valid organization name to use
+	 * @var String $VALID_NAME2
+	 */
+	 protected $VALID_NAME_ALT = "Keeping ABQ Fed";
+	/**
 	 * valid organization phone number to use
 	 * @var String $VALID_PHONE
 	 */
@@ -91,5 +96,59 @@ class OrganizationTest extends BreadBasketTest {
 		$this->assertSame($pdoOrganization->getState(), $this->VALID_STATE);
 		$this->assertSame($pdoOrganization->getType(), $this->VALID_TYPE);
 		$this->assertSame($pdoOrganization->getZip(), $this->VALID_ZIP);
+	}
+
+	/**
+	 * test inserting a profile that already exists
+	 * @expectedException PDOException
+	 */
+	public function testInsertInvalidOrganization() {
+		//create profile with non-null id, and hope it fails
+		$organization = new Organization(BreadBasketTest::INVALID_KEY, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+			$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+		$organization->insert($this->getPDO());
+	}
+
+	/**
+	 * test inserting an organization, editing it, then updating it
+	 */
+	public function testUpdateValidOrganization() {
+		//get the count of the number of rows in the database
+		$numRows = $this->getConnection()->getRowCount("organization");
+
+		//create a new organization and insert into mySQL
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+			$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+		$organization->insert($this->getPDO());
+
+		//edit the organization and update it in mySQL
+		$organization->setOrgName($this->VALID_NAME_ALT);
+		$organization->update($this->getPDO());
+
+		//grab data from SQL and ensure it matches
+		$pdoOrganization = Organization::getOrganizationByOrgId($this->getPDO(), $organization->getOrgId());
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
+		$this->assertSame($pdoOrganization->getAddress1(), $this->VALID_ADDRESS1);
+		$this->assertSame($pdoOrganization->getAddress2(), $this->VALID_ADDRESS2);
+		$this->assertSame($pdoOrganization->getCity(), $this->VALID_CITY);
+		$this->assertSame($pdoOrganization->getDescription(), $this->VALID_DESCRIPTION);
+		$this->assertSame($pdoOrganization->getHours(), $this->VALID_HOURS);
+		$this->assertSame($pdoOrganization->getName(), $this->VALID_NAME_ALT);
+		$this->assertSame($pdoOrganization->getPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoOrganization->getState(), $this->VALID_STATE);
+		$this->assertSame($pdoOrganization->getType(), $this->VALID_TYPE);
+		$this->assertSame($pdoOrganization->getZip(), $this->VALID_ZIP);
+	}
+
+	/**
+	 * test updating a profile that does not exist
+	 *
+	 * @expectedException PDOExecption
+	 */
+	public function testUpdateInvalidOrganization() {
+		//create a profile and try to update without inserting first
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+			$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+		$organization->update($this->getPDO());
 	}
 }
