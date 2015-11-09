@@ -6,10 +6,15 @@
  *
  * @author Tamra Fentermaker <fenstermaker505@gmail.com>
  **/
-class message {
+class Message {
 	/**
 	 * id for this message; this is the primary key
 	 * @var int $messageId
+	 **/
+	private $messageId;
+	/**
+	 * id for listing; this is the a foreign key
+	 * @var int $listingId
 	 **/
 	private $listingId;
 	/**
@@ -22,7 +27,6 @@ class message {
 	 * @var string $messageText
 	 **/
 	private $messageText;
-}
 
 /**
  * constructor for this message
@@ -39,11 +43,11 @@ public function __construct($newMessageId, $newListingId, $newOrgId, $newMessage
 	try {
 		$this->setMessageId($newMessageId);
 		$this->setListingId($newListingId);
-		$this->setNewOrgId($newOrgId);
+		$this->setOrgId($newOrgId);
 		$this->setMessageText($newMessageText);
-	} catch(InvalidArgumentException $invalidArguement) {
+	} catch(InvalidArgumentException $invalidArgument) {
 		//rethrow the exception to the caller
-		throw(new InvalidArgumentException($invalidArguement->getMessage(), 0, $invalidArguement));
+		throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 	} catch(RangeException $range) {
 		//rethrow the exception to the caller
 		throw(new RangeException($range->getMessage(), 0, $range));
@@ -84,8 +88,6 @@ public function setMessageId($newMessageId) {
 	if($newMessageId <= 0) {
 	throw(new RangeException("message id is not positive"));
 	}
-}
-
 	//convert and store the message id
 	$this->messageId = intval($newMessageId);
 }
@@ -184,6 +186,7 @@ public function setMessageText($newMessageText) {
 	if(strlen($newMessageText) > 256) {
 		throw(new RangeException("message text is longer than 256 characters"));
 	}
+}
 	/**
 	 * inserts this message into mySQL
 	 *
@@ -244,7 +247,7 @@ public function setMessageText($newMessageText) {
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = array("messageId" => $this->messageId,"listingId" = $this->listingId,"orgId" => $this->orgId, "messageText" => $this->messageText);
+		$parameters = array("messageId" => $this->messageId,"listingId" => $this->listingId,"orgId" => $this->orgId, "messageText" => $this->messageText);
 		$statement->execute($parameters);
 	}
 
@@ -254,7 +257,7 @@ public function setMessageText($newMessageText) {
 	 * @param PDO $pdo pointer to PDO connection
 	 * @param int $messageId message id to search for
 	 * @return mixed message found or null if not found
-	 * @throws PDOExceptions when my SQL related errors occur
+	 * @throws PDO Exceptions when my SQL related errors occur
 	 **/
 	public static function getListingByMessageId(PDO $pdo, $messageId) {
 		//sanitize the messageId before searching
@@ -297,7 +300,7 @@ public function setMessageText($newMessageText) {
 	 * @param PDO $pdo pointer to PDO connection
 	 * @param int $listingId listing id to search for
 	 * @return mixed message found or null if not found
-	 * @throws PDOExceptions when my SQL related errors occur
+	 * @throws PDO Exceptions when my SQL related errors occur
 	 **/
 public static function getListingByListingId(PDO $pdo, $listingId) {
 		//sanitize the listingId before searching
@@ -339,7 +342,7 @@ public static function getListingByListingId(PDO $pdo, $listingId) {
 	 * @param PDO $pdo pointer to PDO connection
 	 * @param int $orgId organization id to search for
 	 * @return mixed message found or null if not found
-	 * @throws PDOExceptions when my SQL related errors occur
+	 * @throws PDO Exceptions when my SQL related errors occur
 	 **/
 	public static function getListingByOrgId(PDO $pdo, $orgId) {
 		//sanitize the orgId before searching
@@ -375,3 +378,4 @@ public static function getListingByListingId(PDO $pdo, $listingId) {
 		}
 		return ($message);
 	}
+}
