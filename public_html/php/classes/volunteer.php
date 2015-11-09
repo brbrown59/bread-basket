@@ -203,15 +203,16 @@ class Volunteer {
 	 **/
 	public function setVolEmailActivation($newVolEmailActivation) {
 
-		//verify the activation code is valid
+		//sanitize the activation code
 		$newVolEmailActivation = filter_var($newVolEmailActivation, FILTER_SANITIZE_STRING);
-		if(strlen($newVolEmailActivation) < 16) {
-			throw(new InvalidArgumentException("activation code is insufficient length or insecure"));
+		if(empty($newVolEmailActivation) === true) {
+			throw(new InvalidArgumentException("this code is empty or insecure"));
 		}
 
-		//verify the code will fit in the database
-		if(strlen($newVolEmailActivation) > 16) {
-			throw(new RangeException("activation code is too large"));
+		//verify the activation code is valid
+		$newVolEmailActivation = ctype_xdigit($this->$newVolEmailActivation);
+		if($newVolEmailActivation !== true) {
+			throw(new RangeException("this code is not a valid hex code"));
 		}
 
 		//store activation code
@@ -219,7 +220,7 @@ class Volunteer {
 	}
 
 	/**
-	 * accessor method for volunteer first name
+	 * accessor method for volunteer first name.
 	 *
 	 * @return string value for first name
 	 **/
@@ -558,11 +559,75 @@ class Volunteer {
 		return $retrievedVol;
 	}
 
+	/**
+	 * get volunteer by first and last name
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @param string $volFirstName first name of the volunteer
+	 * @param string $volLastName last name of the volunteer
+	 * @return SplFixedArray all volunteers found for this content
+	 * @throws PDOException if mySQL related errors occur
+	 **/
+	public static function getVolunteerByVolFirstAndLastName(PDO $pdo, $volFirstName, $volLastName) {
+		//sanitize the input for first name
+		$volFirstName = trim($volFirstName);
+		$volFirstName = filter_var($volFirstName, FILTER_SANITIZE_STRING);
+		if(empty($volFirstName) === true) {
+			throw (new PDOException("first name is empty or insecure"));
+		}
 
+		//sanitize the input for last name
+		$volLastName = trim($volLastName);
+		$volLastName = filter_var($volLastName, FILTER_SANITIZE_STRING);
+		if(empty($volLastName) === true) {
+			throw (new PDOException("last name is empty or insecure"));
+		}
 
+		//create query template
+		$query = "SELECT volId, orgId, volEmail, volPhone FROM volunteer WHERE volFirstName = :volFirstName AND volLastName = :volLastName ";
+		$statement = $pdo->prepare($query);
 
+		//bind the first name value to the placeholder in the template
+		$parameters = array("volFirstName" => $volFirstName);
+		$statement->execute($parameters);
 
+		//bind the last name value to the placeholder in the template
+		$parameters = array("volLastName" => $volLastName);
+		$statement->execute($parameters);
 
+		//call the function to build and array of the retrieved values
+		try {
+			$retrievedVol = Volunteer::storeSQLResultsInArray($statement);
+		} catch(Exception $exception) {
+			//rethrow the exception if the retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $retrievedVol;
+	}
+
+	/**
+	 * retrieves all volunteers
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @return SplFixedArray all organizations
+	 * @throws PDOException if mySQL errors occur
+	 */
+	public static function getAllVolunteers(PDO $pdo) {
+
+		//create query template
+		$query = "SELECT volId, orgId, volEmail, VolFirstName, VolLastName, volPhone FROM volunteer";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+
+		///call the function to build an array of the retrieved results
+		try {
+			$retrievedVol = Organization::storeSQLResultsInArray($statement);
+		} catch(Exception $exception) {
+			//rethrow the exception if retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $retrievedVol;
+	}
 
 
 }

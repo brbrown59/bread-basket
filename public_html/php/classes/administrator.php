@@ -29,7 +29,7 @@ class Administrator {
 	 * Id for the The Administrator Email address.
 	 * @var string $adminEmail
 	 */
-	private $adminEmail;
+	private $adminEmailId;
 
 	/**
 	 * Id for the activation of Administrators Email address.
@@ -114,6 +114,11 @@ class Administrator {
 
 	}
 
+
+
+
+
+
 	/**
 	 * Accessor method for the Aministrator Id
 	 */
@@ -146,6 +151,11 @@ class Administrator {
 		//convert and store the Administrator Id
 		$this->adminId = intval($newAdminId);
 	}
+
+
+
+
+
 
 	/**
 	 * Accessor method for the Volunteer Id
@@ -181,6 +191,11 @@ class Administrator {
 		$this->volId = intval($newVolId);
 	}
 
+
+
+
+
+
 	/**
 	 * accessor method for Organization ID
 	 * @return int value of Organization ID
@@ -189,7 +204,7 @@ class Administrator {
 		return ($this->orgId);
 	}
 
-	/**Mutator for Organization Id ID
+	/**Mutator for Organization ID
 	 * @param Integer ; $newOrgId new value of Organization Id
 	 * @throw InvalidAgrumentException if the new Organization Id is not an Integer.
 	 **/
@@ -203,16 +218,89 @@ class Administrator {
 		//Verify the Organization Id is valid
 		$newOrgId = filter_var($newOrgId, FILTER_VALIDATE_INT);
 		if($newOrgId === false) {
-			throw(new InvalidArgumentException("This Organization IS is not a valid iteger"));
+			throw(new InvalidArgumentException("This Organization ID is not a valid Number"));
 		}
 
-		//verify the Organization ID is positive
+		//verify the Organization ID is good
 		if($newOrgId <= 0) {
-			throw (new RangeException("This Organization IDis not positive"));
+			throw (new RangeException("This Organization ID is not valid"));
 		}
 
 		//convert and store the Organization Id
-		$this->orgId = intval($newOrgId);
+		$this->adminId = intval($newOrgId);
+	}
+
+
+
+
+
+
+	/**
+	 * Accessor for Administrator Email; adminEmailId
+	 * @return string value for adminEmail Id
+	 */
+	public function getAdminEmailId() {
+		return($this->adminEmailId);
+	}
+
+	/**
+	 * Mutator method for Administrator Email; adminEmailId
+	 *
+	 * @param String $adminEmailId new Administrator Email
+	 * @throw InvalidArgumentException if $newAdminEmailId is not a string
+	 * @throw rangeException if $newAdminEmailId is more than 128 characters
+	 */
+	public function setAdminEmailId($newAdminEmailId){
+
+		//Verify the Email for Administrator is valid; adminEmailId
+		$newAdminEmailId = trim($newAdminEmailId);
+		$newAdminEmailId = filter_var($newAdminEmailId, FILTER_SANITIZE_EMAIL);
+		if (empty($newAdminEmailId) ===true) {
+			Throw(new InvalidArgumentException ("There is no content in this email"));
+		}
+
+		//Verify that the Administrator's Email message is no more than 128 characters
+		if(strlen($newAdminEmailId) > 128){
+			throw(new RangeException("Maximum amount of characters has been exceeded"));
+		}
+
+		//Convert and store this Administrator Email; adminEmailId
+		$this->adminEmailId = $newAdminEmailId;
+	}
+
+
+
+
+
+
+	/**
+	 * Accessor for Administrator Email Activation; adminEmailActivation
+	 * @return string Value for Administrator Email Activation.
+	 */
+	public function getAdminEmailActivation(){
+		return($this->adminEmailActivation);
+	}
+
+	/**
+	 * Mutator for Administrator Email Activation; adminEmailActivation
+	 * @return string $newAdminEmailActivation
+	 * @throw InvalidArgumentException
+	 */
+	public function setAdminEmailActivation($newAdminEmailActivation){
+
+		//Verify Administrator Email is Valid;adminEmailActivation
+		$newAdminEmailActivation = filter_var($newAdminEmailActivation, FILTER_SANITIZE_STRING);
+		if(strlen($newAdminEmailActivation) < 16) {
+			throw(new InvalidArgumentException("activation code is insufficient or insecure pkk"));
+		}
+
+		//Verify Administrator Email "will fit in the DATABASE" pkk;adminEmailActivation
+		if(strlen($newAdminEmailActivation) > 16) {
+			throw(new RangeException("Activation Code is too large pkk"));
+		}
+
+		//Store Activation for Administrator Email;adminEmailActivation
+		$this->adminEmailActivation = $newAdminEmailActivation;
 	}
 
 }

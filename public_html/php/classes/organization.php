@@ -464,7 +464,7 @@ class Organization{
 	//check that new zip code is secure and not empty
 		$newZip = trim($newZip);
 		$newZip = filter_var($newZip, FILTER_SANITIZE_STRING);
-		if(empty($newZip === true)) {
+		if(empty($newZip) === true) {
 			throw new InvalidArgumentException("zip code is empty or insecure");
 		}
 		//check that the new zip code is the proper length
