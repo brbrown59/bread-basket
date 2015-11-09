@@ -2,14 +2,19 @@
 /**
  * Message entity
  *
- * The Message entity is holds the information that is sent to the voluteers about donations available for pick up.
+ * The Message entity is holds the information that is sent to the volunteers about donations available for pick up.
  *
  * @author Tamra Fentermaker <fenstermaker505@gmail.com>
  **/
-class message {
+class Message {
 	/**
 	 * id for this message; this is the primary key
 	 * @var int $messageId
+	 **/
+	private $messageId;
+	/**
+	 * id for listing; this is the a foreign key
+	 * @var int $listingId
 	 **/
 	private $listingId;
 	/**
@@ -22,7 +27,6 @@ class message {
 	 * @var string $messageText
 	 **/
 	private $messageText;
-}
 
 /**
  * constructor for this message
@@ -31,19 +35,19 @@ class message {
  * @param int $newListingId new value of listing id
  * @param int $newOrgId new value of organization id
  * @param string $newMessageText new value for message text
-@throws InvalidArgumentException if data types are not valid
+ * @throws InvalidArgumentException if data types are not valid
  * @throws RangeException is data values are out of bounds (e.g., strings too long, negative integers)
  * @throws Exception is some other exception is thrown
- */
+ **/
 public function __construct($newMessageId, $newListingId, $newOrgId, $newMessageText = null) {
 	try {
 		$this->setMessageId($newMessageId);
 		$this->setListingId($newListingId);
-		$this->setNewOrgId($newOrgId);
+		$this->setOrgId($newOrgId);
 		$this->setMessageText($newMessageText);
-	} catch(InvalidArgumentException $invalidArguement) {
+	} catch(InvalidArgumentException $invalidArgument) {
 		//rethrow the exception to the caller
-		throw(new InvalidArgumentException($invalidArguement->getMessage(), 0, $invalidArguement));
+		throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 	} catch(RangeException $range) {
 		//rethrow the exception to the caller
 		throw(new RangeException($range->getMessage(), 0, $range));
@@ -84,8 +88,6 @@ public function setMessageId($newMessageId) {
 	if($newMessageId <= 0) {
 	throw(new RangeException("message id is not positive"));
 	}
-}
-
 	//convert and store the message id
 	$this->messageId = intval($newMessageId);
 }
@@ -130,7 +132,7 @@ public function setListingId($newListingId) {
  * accessor method for the organization id
  *
  * @return int value of organization id
- */
+ **/
 public function getOrgId() {
 	return ($this->orgId);
 }
@@ -161,7 +163,7 @@ public function setOrgId($newOrgId) {
  * accessor method for message text
  *
  * @return string value of message text
- */
+ **/
 public function getMessageText() {
 	return ($this->messageText);
 }
@@ -172,9 +174,9 @@ public function getMessageText() {
  * @param string $newMessageText new value of  message text
  * @throws InvalidArgumentException if $newMessageText is not a string or insecure
  * @throws RangeException if $newMessageText is > 256 characters
- */
+ **/
 public function setMessageText($newMessageText) {
-	//verify the listing memo is secure
+	//verify the message text is secure
 	$newMessageText = trim($newMessageText);
 	$newMessageText = filter_var($newMessageText, FILTER_SANITIZE_STRING);
 	if(empty($newMessageText) === true) {
@@ -184,3 +186,196 @@ public function setMessageText($newMessageText) {
 	if(strlen($newMessageText) > 256) {
 		throw(new RangeException("message text is longer than 256 characters"));
 	}
+}
+	/**
+	 * inserts this message into mySQL
+	 *
+	 * @param PDO $pdo pointer to PDO connection
+	 * @throws PDOException when mySQL related errors occur
+	 **/
+	public function insert(PDO $pdo) {
+		//enforce the messageId is null (i.e., don't insert a message id that already exists)
+		if($this->messageId !== null) {
+			throw(new PDOException("not a new message"));
+		}
+		//create query template
+		$query = "INSERT INTO message(messageId, listingId, orgId, messageText)VALUES(:messageId,:listingId,:orgId,:messageText)";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holders in the template
+		$parameters = array("messageId" => $this->messageId, "listingId" => $this->listingId, "orgId" => $this->orgId, "messageText" => $this->messageText);
+		$statement->execute($parameters);
+
+		//update the null messageId with what mySQL just gave us
+		$this->messageId = intval($pdo->lastInsertId());
+	}
+
+	/**
+	 * deletes this message in mySQL
+	 *
+	 * @param PDO $pdo pointer to PDO connection
+	 * @throws PDOException when mySQL related errors occur
+	 **/
+	public function delete(PDO $pdo) {
+		//enforce the message id is not null (i.e., don't delete a message that hasn't been inserted)
+		if($this->messageId === null) {
+			throw(new PDOException("unable to delete a message that does not exist"));
+		}
+
+		//create query template
+		$query = "DELETE FROM message WHERE messageId = :messageId";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holder in the template
+		$parameters = array("messageId" => $this->messageId);
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * updates this message in mySQL
+	 *
+	 * @param PDO $pdo pointer to PDO connection
+	 * @throws PDOException when mySQL related errors occur
+	 **/
+	public function update(PDO $pdo) {
+		//enforce the messageId is not null (i.e., don't update a message that hasn't been inserted)
+		if($this->messageId === null) {
+			throw(new PDOException("unable to update a message that does not exist"));
+		}
+		//create query template
+		$query = "UPDATE message SET messageId = :messageId,listingId = :listingId,orgId = :orgId,messageText = :messageText";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holders in the template
+		$parameters = array("messageId" => $this->messageId,"listingId" => $this->listingId,"orgId" => $this->orgId, "messageText" => $this->messageText);
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * gets the message by messageId
+	 *
+	 * @param PDO $pdo pointer to PDO connection
+	 * @param int $messageId message id to search for
+	 * @return mixed message found or null if not found
+	 * @throws PDO Exceptions when my SQL related errors occur
+	 **/
+	public static function getListingByMessageId(PDO $pdo, $messageId) {
+		//sanitize the messageId before searching
+		$messageId = filter_var($messageId, FILTER_VALIDATE_INT);
+		if($messageId === false) {
+			throw(new PDOException("message id is not a valid integer"));
+		}
+
+		//verify the message id is positive
+		if($messageId <= 0) {
+			throw(new PDOException("message id is not positive"));
+		}
+
+		//create query template
+		$query = "SELECT messageId, listingId, orgId, messageText FROM message WHERE messageId = :messageId";
+		$statement = $pdo->prepare($query);
+
+		//bind the message id to the place holder in the template
+		$parameters = array("messageId" => $messageId);
+		$statement->execute($parameters);
+
+		//grab the message from mySQL
+		try {
+			$message = null;
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$message = new message($row["messageId"], $row["listingId"], $row["orgId"], $row["messageText"]);
+			}
+		} catch(Exception $exception) {
+			//if the row couldn't be converted, rethrow it
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($message);
+	}
+
+	/**
+	 * gets the message by listingId
+	 *
+	 * @param PDO $pdo pointer to PDO connection
+	 * @param int $listingId listing id to search for
+	 * @return mixed message found or null if not found
+	 * @throws PDO Exceptions when my SQL related errors occur
+	 **/
+public static function getListingByListingId(PDO $pdo, $listingId) {
+		//sanitize the listingId before searching
+		$listingId = filter_var($listingId, FILTER_VALIDATE_INT);
+		if($listingId === false) {
+			throw(new PDOException("listing id is not a valid integer"));
+		}
+
+		//verify the listing id is positive
+		if($listingId <= 0) {
+			throw(new PDOException("listing id is not positive"));
+		}
+
+		//create query template
+		$query = "SELECT messageId, listingId, orgId, messageText FROM message WHERE listingId = :listingId";
+		$statement = $pdo->prepare($query);
+
+		//bind the listing id to the place holder in the template
+		$parameters = array("listingId" => $listingId);
+		$statement->execute($parameters);
+
+		//grab the message from mySQL
+		try {
+			$message = null;
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$message = new message($row["messageId"], $row["listingId"], $row["orgId"], $row["messageText"]);
+			}
+		} catch(Exception $exception) {
+			//if the row couldn't be converted, rethrow it
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($message);
+	}
+	/**
+	 * gets the message by orgId
+	 *
+	 * @param PDO $pdo pointer to PDO connection
+	 * @param int $orgId organization id to search for
+	 * @return mixed message found or null if not found
+	 * @throws PDO Exceptions when my SQL related errors occur
+	 **/
+	public static function getListingByOrgId(PDO $pdo, $orgId) {
+		//sanitize the orgId before searching
+		$orgId = filter_var($orgId, FILTER_VALIDATE_INT);
+		if($orgId === false) {
+			throw(new PDOException("organization id is not a valid integer"));
+		}
+
+		//verify the organization id is positive
+		if($orgId <= 0) {
+			throw(new PDOException("organization id is not positive"));
+		}
+
+		//create query template
+		$query = "SELECT messageId, listingId, orgId, messageText FROM message WHERE orgId = :orgId";
+		$statement = $pdo->prepare($query);
+
+		//bind the organization id to the place holder in the template
+		$parameters = array("orgId" => $orgId);
+		$statement->execute($parameters);
+
+		//grab the message from mySQL
+		try {
+			$message = null;
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$message = new message($row["messageId"], $row["listingId"], $row["orgId"], $row["messageText"]);
+			}
+		} catch(Exception $exception) {
+			//if the row couldn't be converted, rethrow it
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($message);
+	}
+}
