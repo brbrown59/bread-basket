@@ -203,6 +203,7 @@ class Volunteer {
 	 **/
 	public function setVolEmailActivation($newVolEmailActivation) {
 		//verify the activation code is valid
+		$newVolEmailActivation = trim($newVolEmailActivation);
 		$newVolEmailActivation = filter_var($newVolEmailActivation, FILTER_SANITIZE_STRING);
 		if(empty($newVolEmailActivation) === true) {
 			throw(new InvalidArgumentException("activation code is insufficient length or insecure"));
