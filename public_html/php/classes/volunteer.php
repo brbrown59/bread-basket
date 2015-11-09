@@ -604,12 +604,29 @@ class Volunteer {
 		return $retrievedVol;
 	}
 
+	/**
+	 * retrieves all volunteers
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @return SplFixedArray all organizations
+	 * @throws PDOException if mySQL errors occur
+	 */
+	public static function getAllVolunteers(PDO $pdo) {
 
+		//create query template
+		$query = "SELECT volId, orgId, volEmail, VolFirstName, VolLastName, volPhone FROM volunteer";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
 
-
-
-
-
+		///call the function to build an array of the retrieved results
+		try {
+			$retrievedVol = Organization::storeSQLResultsInArray($statement);
+		} catch(Exception $exception) {
+			//rethrow the exception if retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $retrievedVol;
+	}
 
 
 }
