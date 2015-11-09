@@ -143,12 +143,46 @@ class OrganizationTest extends BreadBasketTest {
 	/**
 	 * test updating a profile that does not exist
 	 *
-	 * @expectedException PDOExecption
+	 * @expectedException PDOException
 	 */
 	public function testUpdateInvalidOrganization() {
 		//create a profile and try to update without inserting first
 		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
 			$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
 		$organization->update($this->getPDO());
+	}
+
+	/**
+	 * test creating a profile and then deleting it
+	 */
+	public function testDeleteValidOrganization() {
+		//count the number of rows currently in the database
+		$numRows = $this->getConnection()->getRowCount("organization");
+
+		//create a new organization and insert into mySQL
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+			$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+		$organization->insert($this->getPDO());
+
+		//confirm the row was added, then delete it
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
+		$organization->delete($this->getPDO());
+
+		//grab data from mySQL and ensure it doesn't exist
+		$pdoOrganization = Organization::getOrganizationByOrgId($this->getPDO(), $organization->getOrgID());
+		$this->assertNull($pdoOrganization);
+		$this->assertSame($numRows, $this->getConnection()->getRowCount("organization"));
+	}
+
+	/**
+	 * test deleting a profile that does not exist
+	 *
+	 * @expectedException PDOException
+	 */
+	public function testDeleteInvalidOrganization() {
+		//create profile and delete without actually inserting it
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+			$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+		$organization->delete($this->getPDO());
 	}
 }
