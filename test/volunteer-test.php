@@ -115,7 +115,7 @@ class VolunteerTest extends BreadBasketTest {
 	 *
 	 * @expectedException PDOException
 	 **/
-	public function testUpdateInvalidProfile() {
+	public function testUpdateInvalidVolunteer() {
 		//create a Volunteer and try to update it without actually inserting it
 		$volunteer = new Volunteer(null, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
 		$volunteer->update($this->getPDO());
@@ -154,7 +154,6 @@ class VolunteerTest extends BreadBasketTest {
 	}
 
 
-
 	/**
 	 * test inserting a Volunteer and regrabbing it from mySQL
 	 */
@@ -176,6 +175,39 @@ class VolunteerTest extends BreadBasketTest {
 		$this->assertSame($pdoVolunteer->getVolLastName(), $this->VALID_FIRST_NAME);
 		$this->assertSatme($pdoVolunteer->getVolPhone(), $this->VALID_PHONE);
 	}
+
+	/**
+	 * test grabbing a volunteer that does not exist
+	 **/
+	public function testGetInvalidVolunteerByVolId() {
+		//grab a volunteer id that exceeds the maximum allowable volunteer id
+		$volunteer = Volunteer::getVolunteerByVolId($this->getPDO(), BreadBasketTest::INVALID_KEY);
+		$this->assertNull($volunteer);
+	}
+
+	/**
+	 * test grabbing a volunteer by email
+	 **/
+	public function testGetValidVolunteerByVolEmail() {
+			// count the number of rows and save it for later
+			$numRows = $this->getConnection()->getRowCount("volunteer");
+
+			// create a new Volunteer and insert to into mySQL
+			$volunteer = new Volunteer(null, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+			$volunteer->insert($this->getPDO());
+
+			// grab the data from mySQL and enforce the fields match our expectations
+			$pdoVolunteer = Volunteer::getVolunteerByVolEmail($this->getPDO(), $volunteer->getVolEmail());
+			$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("volunteer"));
+			$this->assertSame($pdoVolunteer->getOrgId(), $this->VALID_ORG_ID);
+			$this->assertSame($pdoVolunteer->getVolEmail(), $this->VALID_EMAIL_ALT);
+			$this->assertSame($pdoVolunteer->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
+			$this->assertSame($pdoVolunteer->getVolFirstName(), $this->VALID_FIRST_NAME);
+			$this->assertSame($pdoVolunteer->getVolLastName(), $this->VALID_FIRST_NAME);
+			$this->assertSatme($pdoVolunteer->getVolPhone(), $this->VALID_PHONE);
+		}
+
+
 
 
 }
