@@ -34,7 +34,7 @@ class VolunteerTest extends BreadBasketTest {
 	 * valid activation key to use
 	 * @var string $VALID_EMAIL_ACTIVATION
 	 **/
-	protected $VALID_EMAIL_ACTIVATION = "12345678ABCDEFGH";
+	protected $VALID_EMAIL_ACTIVATION = "1234567898765432";
 	/**
 	 * valid first name
 	 * @var string $VALID_FIRST_NAME
