@@ -5,7 +5,10 @@ require_once("/etc/apache2/data-design/encrypted-config.php");
 /**
  * Abstract class containing universal and project specific mySQL parameters
  *
- * @author Bradley Brown tall.white.ninja@gmail.com>
+ * This class is designed to lay the foundation of the unit tests per project. It loads the all the database
+ * parameters about the project so that table specific tests can share the parameters in on place
+ *
+ * @author Bradley Brown <tall.white.ninja@gmail.com>
  **/
 abstract class BreadBasketTest extends PHPUnit_Extensions_Database_TestCase {
 	/**
