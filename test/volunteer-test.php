@@ -68,5 +68,23 @@ class VolunteerTest extends BreadBasketTest {
 		$this->assertSame($pdoVolunteer->getVolPhone(), $this->VALID_PHONE);
 	}
 
+	/**
+	 * test inserting a Volunteer that already exists
+	 *
+	 * @expectedException PDOException
+	 **/
+	public function testInsertInvalidVolunteer() {
+		//create a volunteer wiht a non null volId and watch it fail
+		$volunteer = new Volunteer(BreadBasketTest::INVALID_KEY, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer->insert($this->getPDO());
+	}
+
+	/**
+	 * test inserting a Volunteer, editing it and then updating it
+	 **/
+	public function testUpdateValidVolunteer() {
+
+	}
+
 
 }
