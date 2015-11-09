@@ -1,4 +1,5 @@
 <?php
+require_once("../traits/date-parsing-trait.php");
 
 /**
  * Listing entity
@@ -8,6 +9,10 @@
  * @author Tamra Fentermaker <fenstermaker505@gmail.com>
  **/
 class Listing {
+	/**
+	 * trait that will validate the listing post time
+	 */
+	use ValidateDate;
 	/**
 	 * id for this listing; this is the primary key
 	 * @var int $listingId
@@ -70,8 +75,7 @@ class Listing {
 	 * @throws RangeException is data values are out of bounds (e.g., strings too long, negative integers)
 	 * @throws Exception is some other exception is thrown
 	 **/
-	public
-	function __construct($newListingId, $newOrgId, $newListingClaimedBy, $newListingClosed, $newListingCost, $newListingMemo, $newListingParentId, $newListingPostTime, $newListingType = null) {
+	public function __construct($newListingId, $newOrgId, $newListingClaimedBy, $newListingClosed, $newListingCost, $newListingMemo, $newListingParentId, $newListingPostTime, $newListingType = null) {
 		try {
 			$this->setListingId($newListingId);
 			$this->setOrgId($newOrgId);
@@ -356,7 +360,7 @@ class Listing {
 
 		//store the listing post time
 		try {
-			$newListingPostTime = validateDate($newListingPostTime);
+			$newListingPostTime = Listing::validateDate($newListingPostTime);
 		} catch(InvalidArgumentException $invalidArgument) {
 			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 		} catch(RangeException $range) {
@@ -412,11 +416,11 @@ class Listing {
 			throw(new PDOException("not a new listing"));
 		}
 		//create query template
-		$query = "INSERT INTO listing(listingId,orgId,listingClaimedBy,listingClosed,listingCost,listingMemo,listingParentId,listingPostTime,listingType)VALUES(:listingId,:orgId,:listingClaimedBy,:listingClosed,:listingCost,:listingMemo,:listingParentId,:listingPostTime,:listingType)";
+		$query = "INSERT INTO listing(listingId,orgId,listingClaimedBy,listingClosed,listingCost,listingMemo,listingParentId,listingPostTime,listingTypeId)VALUES(:listingId,:orgId,:listingClaimedBy,:listingClosed,:listingCost,:listingMemo,:listingParentId,:listingPostTime,:listingType)";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$formattedDate = $this->listingPostTime->fomat("Y-m-d H:i:s");
+		$formattedDate = $this->listingPostTime->format("Y-m-d H:i:s");
 		$parameters = array("listingId" => $this->listingId, "orgId" => $this->orgId, "listingClaimedBy" => $this->listingClaimedBy, "listingClosed" => $this->listingClosed, "listingCost" => $this->listingCost, "listingMemo" => $this->listingMemo, "listingParentId" => $this->listingParentId, "listingPostTime" => $formattedDate, "listingType" => $this->listingType);
 		$statement->execute($parameters);
 
@@ -459,11 +463,11 @@ class Listing {
 			throw(new PDOException("unable to update a listing that does not exist"));
 		}
 		//create query template
-		$query = "UPDATE listing SET orgId = :orgId,listingClaimedBy = :listingClaimedBy,listingClosed = :listingClosed,listingCost = :listingCost,listingMemo = :listingMemo,listingParentId = :listingParentId,listingPostTime = :listingPostTime,listingType = :listingType WHERE listingId = :listingId";
+		$query = "UPDATE listing SET orgId = :orgId,listingClaimedBy = :listingClaimedBy,listingClosed = :listingClosed,listingCost = :listingCost,listingMemo = :listingMemo,listingParentId = :listingParentId,listingPostTime = :listingPostTime,listingTypeId = :listingType WHERE listingId = :listingId";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$formattedDate = $this->listingPostTime->fomat("Y-m-d H:i:s");
+		$formattedDate = $this->listingPostTime->format("Y-m-d H:i:s");
 		$parameters = array("orgId" => $this->orgId, "listingClaimedBy" => $this->listingClaimedBy, "listingClosed" => $this->listingClosed, "listingCost" => $this->listingCost, "listingMemo" => $this->listingMemo, "listingParentId" => $this->listingParentId, "listingPostTime" => $formattedDate, "listingType" => $this->listingType, "listingId" => $this->listingId);
 		$statement->execute($parameters);
 	}
@@ -490,7 +494,7 @@ class Listing {
 		}
 
 		//create query template
-		$query = "SELECT listingId,orgId,listingClaimedBy,listingClosed,listingCost,listingMemo,listingParentId,listingPostTime,listingType FROM listing WHERE orgId = :orgId";
+		$query = "SELECT listingId,orgId,listingClaimedBy,listingClosed,listingCost,listingMemo,listingParentId,listingPostTime,listingTypeId FROM listing WHERE orgId = :orgId";
 		$statement = $pdo->prepare($query);
 
 		//bind the organization id to the place holder in the template
@@ -532,7 +536,7 @@ class Listing {
 			throw(new PDOException("listing parent id is not positive"));
 		}
 		//create query template
-		$query = "SELECT listingId,orgId,listingClaimedBy,listingClosed,listingCost,listingMemo,listingParentId,listingPostTime,listingType FROM listing WHERE listingParentId = :listingParentId";
+		$query = "SELECT listingId,orgId,listingClaimedBy,listingClosed,listingCost,listingMemo,listingParentId,listingPostTime,listingTypeId FROM listing WHERE listingParentId = :listingParentId";
 		$statement = $pdo->prepare($query);
 
 		//bind the listing parent id to the place holder in the template
@@ -566,7 +570,7 @@ class Listing {
 	public static function getListingByListingPostTime(PDO $pdo, $listingPostTime) {
 		//sanitize the listingPostTime before searching coauthored by @author Kyle Dozier <kyle@kedlogic.com> CNM parking I wonder if these exceptions are correct since other exceptions in the get foo by bar section are PDO Exceptions
 		try {
-			$listingPostTime = self::sanitizeDate($listingPostTime);
+			$listingPostTime = Listing::validateDate($listingPostTime);
 		} catch(InvalidArgumentException $invalidArgument) {
 			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 		} catch(RangeException $range) {
@@ -574,7 +578,7 @@ class Listing {
 		}
 
 //create query template
-		$query = "SELECT listingId,orgId,listingClaimedBy,listingClosed,listingCost,listingMemo,listingParentId,listingPostTime,listingType FROM listing WHERE listingPostTime = :listingPostTime";
+		$query = "SELECT listingId,orgId,listingClaimedBy,listingClosed,listingCost,listingMemo,listingParentId,listingPostTime,listingTypeId FROM listing WHERE listingPostTime = :listingPostTime";
 		$statement = $pdo->prepare($query);
 
 //bind the listing post time to the place holder in the template
@@ -618,7 +622,7 @@ class Listing {
 		}
 
 		//create query template
-		$query = "SELECT listingId,orgId,listingClaimedBy,listingClosed,listingCost,listingMemo,listingParentId,listingPostTime,listingType FROM listing WHERE listingTypeId = :listingTypeId";
+		$query = "SELECT listingId,orgId,listingClaimedBy,listingClosed,listingCost,listingMemo,listingParentId,listingPostTime,listingTypeId FROM listing WHERE listingTypeId = :listingTypeId";
 		$statement = $pdo->prepare($query);
 
 		//bind the listing type id to the place holder in the template
