@@ -453,6 +453,43 @@ class Volunteer {
 		return $retrievedVol;
 	}
 
+	/**
+	 * get volunteer by organization id
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @param int $orgId organization this volunteer is associated with
+	 * @return SplFixedArray all volunteers found for this content
+	 * @throws PDOException if mySQL related errors occur
+	 **/
+	public static function getVolunteerByOrgId(PDO $pdo, $orgId) {
+		//sanitize the input
+		$orgId = filter_var($orgId, FILTER_VALIDATE_INT);
+		if($orgId === false) {
+			throw(new PDOException("org id is not an integer"));
+		}
+		if($orgId <= 0) {
+			throw(new PDOException("org id is not positive"));
+		}
+
+		//create query template
+		$query = "SELECT volId, volEmail, volFirstName, volLastName, volPhone FROM volunteer WHERE orgId = :orgId ";
+		$statement = $pdo->prepare($query);
+
+		//bind the id value to the placeholder in the template
+		$orgId = $orgId;
+		$parameters = array("orgCity" => $orgId);
+		$statement->execute($parameters);
+
+		//call the function to build and array of the retrieved values
+		try {
+			$retrievedVol = Volunteer::storeSQLResultsInArray($statement);
+		} catch(Exception $exception) {
+			//rethrow the exception if the retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $retrievedVol;
+	}
+
 
 
 
