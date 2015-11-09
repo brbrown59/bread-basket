@@ -121,5 +121,61 @@ class VolunteerTest extends BreadBasketTest {
 		$volunteer->update($this->getPDO());
 	}
 
+	/**
+	 * test creating a Volunteer and then deleting it
+	 **/
+	public function testDeleteValidVolunteer() {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("volunteer");
+
+		// create a new Volunteer and insert to into mySQL
+		$volunteer = new Volunteer(null, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer->insert($this->getPDO());
+
+		//delete the Volunteer from mySQL
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("volunteer"));
+		$volunteer->delete($this->getPDO());
+
+		//grab the data from mySQL and enforce the Volunteer does not exist
+		$pdoVolunteer = Volunteer::getVolunteerByVolId($this->getPDO(), $volunteer->getVolId());
+		$this->assertNull($pdoVolunteer);
+		$this->assertSame($numRows, $this->getConnection()->getRowCount("volunteer"));
+	}
+
+	/**
+	 * test deleting a Volunteer that does not exist
+	 *
+	 * @expectedException PDOException
+	 **/
+	public function testDeleteInvalidVolunteer() {
+		// create a Volunteer and try to delete it without actually inserting it
+		$volunteer = new Volunteer(null, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer->delete($this->getPDO());
+	}
+
+
+
+	/**
+	 * test inserting a Volunteer and regrabbing it from mySQL
+	 */
+	public function testGetValidVolunteerByVolId() {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("volunteer");
+
+		// create a new Volunteer and insert to into mySQL
+		$volunteer = new Volunteer(null, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer->insert($this->getPDO());
+
+		// grab the data from mySQL and enforce the fields match our expectations
+		$pdoVolunteer = Volunteer::getVolunteerByVolId($this->getPDO(), $volunteer->getVolId());
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("volunteer"));
+		$this->assertSame($pdoVolunteer->getOrgId(), $this->VALID_ORG_ID);
+		$this->assertSame($pdoVolunteer->getVolEmail(), $this->VALID_EMAIL_ALT);
+		$this->assertSame($pdoVolunteer->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
+		$this->assertSame($pdoVolunteer->getVolFirstName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoVolunteer->getVolLastName(), $this->VALID_FIRST_NAME);
+		$this->assertSatme($pdoVolunteer->getVolPhone(), $this->VALID_PHONE);
+	}
+
 
 }
