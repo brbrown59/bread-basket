@@ -86,16 +86,16 @@ class OrganizationTest extends BreadBasketTest {
 		//grab data from SQL and ensure it matches
 		$pdoOrganization = Organization::getOrganizationByOrgId($this->getPDO(), $organization->getOrgId());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
-		$this->assertSame($pdoOrganization->getAddress1(), $this->VALID_ADDRESS1);
-		$this->assertSame($pdoOrganization->getAddress2(), $this->VALID_ADDRESS2);
-		$this->assertSame($pdoOrganization->getCity(), $this->VALID_CITY);
-		$this->assertSame($pdoOrganization->getDescription(), $this->VALID_DESCRIPTION);
-		$this->assertSame($pdoOrganization->getHours(), $this->VALID_HOURS);
-		$this->assertSame($pdoOrganization->getName(), $this->VALID_NAME);
-		$this->assertSame($pdoOrganization->getPhone(), $this->VALID_PHONE);
-		$this->assertSame($pdoOrganization->getState(), $this->VALID_STATE);
-		$this->assertSame($pdoOrganization->getType(), $this->VALID_TYPE);
-		$this->assertSame($pdoOrganization->getZip(), $this->VALID_ZIP);
+		$this->assertSame($pdoOrganization->getOrgAddress1(), $this->VALID_ADDRESS1);
+		$this->assertSame($pdoOrganization->getOrgAddress2(), $this->VALID_ADDRESS2);
+		$this->assertSame($pdoOrganization->getOrgCity(), $this->VALID_CITY);
+		$this->assertSame($pdoOrganization->getOrgDescription(), $this->VALID_DESCRIPTION);
+		$this->assertSame($pdoOrganization->getOrgHours(), $this->VALID_HOURS);
+		$this->assertSame($pdoOrganization->getOrgName(), $this->VALID_NAME);
+		$this->assertSame($pdoOrganization->getOrgPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoOrganization->getOrgState(), $this->VALID_STATE);
+		$this->assertSame($pdoOrganization->getOrgType(), $this->VALID_TYPE);
+		$this->assertSame($pdoOrganization->getOrgZip(), $this->VALID_ZIP);
 	}
 
 	/**
@@ -128,16 +128,16 @@ class OrganizationTest extends BreadBasketTest {
 		//grab data from SQL and ensure it matches
 		$pdoOrganization = Organization::getOrganizationByOrgId($this->getPDO(), $organization->getOrgId());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
-		$this->assertSame($pdoOrganization->getAddress1(), $this->VALID_ADDRESS1);
-		$this->assertSame($pdoOrganization->getAddress2(), $this->VALID_ADDRESS2);
-		$this->assertSame($pdoOrganization->getCity(), $this->VALID_CITY);
-		$this->assertSame($pdoOrganization->getDescription(), $this->VALID_DESCRIPTION);
-		$this->assertSame($pdoOrganization->getHours(), $this->VALID_HOURS);
-		$this->assertSame($pdoOrganization->getName(), $this->VALID_NAME_ALT);
-		$this->assertSame($pdoOrganization->getPhone(), $this->VALID_PHONE);
-		$this->assertSame($pdoOrganization->getState(), $this->VALID_STATE);
-		$this->assertSame($pdoOrganization->getType(), $this->VALID_TYPE);
-		$this->assertSame($pdoOrganization->getZip(), $this->VALID_ZIP);
+		$this->assertSame($pdoOrganization->getOrgAddress1(), $this->VALID_ADDRESS1);
+		$this->assertSame($pdoOrganization->getOrgAddress2(), $this->VALID_ADDRESS2);
+		$this->assertSame($pdoOrganization->getOrgCity(), $this->VALID_CITY);
+		$this->assertSame($pdoOrganization->getOrgDescription(), $this->VALID_DESCRIPTION);
+		$this->assertSame($pdoOrganization->getOrgHours(), $this->VALID_HOURS);
+		$this->assertSame($pdoOrganization->getOrgName(), $this->VALID_NAME);
+		$this->assertSame($pdoOrganization->getOrgPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoOrganization->getOrgState(), $this->VALID_STATE);
+		$this->assertSame($pdoOrganization->getOrgType(), $this->VALID_TYPE);
+		$this->assertSame($pdoOrganization->getOrgZip(), $this->VALID_ZIP);
 	}
 
 	/**
@@ -201,16 +201,16 @@ class OrganizationTest extends BreadBasketTest {
 		//grab data from mySQL and enforce that the fields match
 		$pdoOrganization = Organization::getOrganizationByOrgId($this->getPDO(), $organization->getOrgId());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
-		$this->assertSame($pdoOrganization->getAddress1(), $this->VALID_ADDRESS1);
-		$this->assertSame($pdoOrganization->getAddress2(), $this->VALID_ADDRESS2);
-		$this->assertSame($pdoOrganization->getCity(), $this->VALID_CITY);
-		$this->assertSame($pdoOrganization->getDescription(), $this->VALID_DESCRIPTION);
-		$this->assertSame($pdoOrganization->getHours(), $this->VALID_HOURS);
-		$this->assertSame($pdoOrganization->getName(), $this->VALID_NAME_ALT);
-		$this->assertSame($pdoOrganization->getPhone(), $this->VALID_PHONE);
-		$this->assertSame($pdoOrganization->getState(), $this->VALID_STATE);
-		$this->assertSame($pdoOrganization->getType(), $this->VALID_TYPE);
-		$this->assertSame($pdoOrganization->getZip(), $this->VALID_ZIP);
+		$this->assertSame($pdoOrganization->getOrgAddress1(), $this->VALID_ADDRESS1);
+		$this->assertSame($pdoOrganization->getOrgAddress2(), $this->VALID_ADDRESS2);
+		$this->assertSame($pdoOrganization->getOrgCity(), $this->VALID_CITY);
+		$this->assertSame($pdoOrganization->getOrgDescription(), $this->VALID_DESCRIPTION);
+		$this->assertSame($pdoOrganization->getOrgHours(), $this->VALID_HOURS);
+		$this->assertSame($pdoOrganization->getOrgName(), $this->VALID_NAME);
+		$this->assertSame($pdoOrganization->getOrgPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoOrganization->getOrgState(), $this->VALID_STATE);
+		$this->assertSame($pdoOrganization->getOrgType(), $this->VALID_TYPE);
+		$this->assertSame($pdoOrganization->getOrgZip(), $this->VALID_ZIP);
 	}
 
 	/**
@@ -237,16 +237,16 @@ class OrganizationTest extends BreadBasketTest {
 		//grab data from mySQL and enforce that the fields match
 		$pdoOrganization = Organization::getOrganizationByCity($this->getPDO(), $this->VALID_CITY);
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
-		$this->assertSame($pdoOrganization->getAddress1(), $this->VALID_ADDRESS1);
-		$this->assertSame($pdoOrganization->getAddress2(), $this->VALID_ADDRESS2);
-		$this->assertSame($pdoOrganization->getCity(), $this->VALID_CITY);
-		$this->assertSame($pdoOrganization->getDescription(), $this->VALID_DESCRIPTION);
-		$this->assertSame($pdoOrganization->getHours(), $this->VALID_HOURS);
-		$this->assertSame($pdoOrganization->getName(), $this->VALID_NAME_ALT);
-		$this->assertSame($pdoOrganization->getPhone(), $this->VALID_PHONE);
-		$this->assertSame($pdoOrganization->getState(), $this->VALID_STATE);
-		$this->assertSame($pdoOrganization->getType(), $this->VALID_TYPE);
-		$this->assertSame($pdoOrganization->getZip(), $this->VALID_ZIP);
+		$this->assertSame($pdoOrganization->getOrgAddress1(), $this->VALID_ADDRESS1);
+		$this->assertSame($pdoOrganization->getOrgAddress2(), $this->VALID_ADDRESS2);
+		$this->assertSame($pdoOrganization->getOrgCity(), $this->VALID_CITY);
+		$this->assertSame($pdoOrganization->getOrgDescription(), $this->VALID_DESCRIPTION);
+		$this->assertSame($pdoOrganization->getOrgHours(), $this->VALID_HOURS);
+		$this->assertSame($pdoOrganization->getOrgName(), $this->VALID_NAME);
+		$this->assertSame($pdoOrganization->getOrgPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoOrganization->getOrgState(), $this->VALID_STATE);
+		$this->assertSame($pdoOrganization->getOrgType(), $this->VALID_TYPE);
+		$this->assertSame($pdoOrganization->getOrgZip(), $this->VALID_ZIP);
 	}
 	/**
 	 * test for grabbing an organization by city that does not exist
@@ -271,16 +271,16 @@ class OrganizationTest extends BreadBasketTest {
 		//grab data from mySQL and enforce that the fields match
 		$pdoOrganization = Organization::getOrganizationByName($this->getPDO(), $this->VALID_NAME);
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
-		$this->assertSame($pdoOrganization->getAddress1(), $this->VALID_ADDRESS1);
-		$this->assertSame($pdoOrganization->getAddress2(), $this->VALID_ADDRESS2);
-		$this->assertSame($pdoOrganization->getCity(), $this->VALID_CITY);
-		$this->assertSame($pdoOrganization->getDescription(), $this->VALID_DESCRIPTION);
-		$this->assertSame($pdoOrganization->getHours(), $this->VALID_HOURS);
-		$this->assertSame($pdoOrganization->getName(), $this->VALID_NAME_ALT);
-		$this->assertSame($pdoOrganization->getPhone(), $this->VALID_PHONE);
-		$this->assertSame($pdoOrganization->getState(), $this->VALID_STATE);
-		$this->assertSame($pdoOrganization->getType(), $this->VALID_TYPE);
-		$this->assertSame($pdoOrganization->getZip(), $this->VALID_ZIP);
+		$this->assertSame($pdoOrganization->getOrgAddress1(), $this->VALID_ADDRESS1);
+		$this->assertSame($pdoOrganization->getOrgAddress2(), $this->VALID_ADDRESS2);
+		$this->assertSame($pdoOrganization->getOrgCity(), $this->VALID_CITY);
+		$this->assertSame($pdoOrganization->getOrgDescription(), $this->VALID_DESCRIPTION);
+		$this->assertSame($pdoOrganization->getOrgHours(), $this->VALID_HOURS);
+		$this->assertSame($pdoOrganization->getOrgName(), $this->VALID_NAME);
+		$this->assertSame($pdoOrganization->getOrgPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoOrganization->getOrgState(), $this->VALID_STATE);
+		$this->assertSame($pdoOrganization->getOrgType(), $this->VALID_TYPE);
+		$this->assertSame($pdoOrganization->getOrgZip(), $this->VALID_ZIP);
 	}
 	/**
 	 * test for grabbing an organization by name that does not exist
@@ -305,16 +305,16 @@ class OrganizationTest extends BreadBasketTest {
 		//grab data from mySQL and enforce that the fields match
 		$pdoOrganization = Organization::getOrganizationByState($this->getPDO(), $this->VALID_STATE);
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
-		$this->assertSame($pdoOrganization->getAddress1(), $this->VALID_ADDRESS1);
-		$this->assertSame($pdoOrganization->getAddress2(), $this->VALID_ADDRESS2);
-		$this->assertSame($pdoOrganization->getCity(), $this->VALID_CITY);
-		$this->assertSame($pdoOrganization->getDescription(), $this->VALID_DESCRIPTION);
-		$this->assertSame($pdoOrganization->getHours(), $this->VALID_HOURS);
-		$this->assertSame($pdoOrganization->getName(), $this->VALID_NAME_ALT);
-		$this->assertSame($pdoOrganization->getPhone(), $this->VALID_PHONE);
-		$this->assertSame($pdoOrganization->getState(), $this->VALID_STATE);
-		$this->assertSame($pdoOrganization->getType(), $this->VALID_TYPE);
-		$this->assertSame($pdoOrganization->getZip(), $this->VALID_ZIP);
+		$this->assertSame($pdoOrganization->getOrgAddress1(), $this->VALID_ADDRESS1);
+		$this->assertSame($pdoOrganization->getOrgAddress2(), $this->VALID_ADDRESS2);
+		$this->assertSame($pdoOrganization->getOrgCity(), $this->VALID_CITY);
+		$this->assertSame($pdoOrganization->getOrgDescription(), $this->VALID_DESCRIPTION);
+		$this->assertSame($pdoOrganization->getOrgHours(), $this->VALID_HOURS);
+		$this->assertSame($pdoOrganization->getOrgName(), $this->VALID_NAME);
+		$this->assertSame($pdoOrganization->getOrgPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoOrganization->getOrgState(), $this->VALID_STATE);
+		$this->assertSame($pdoOrganization->getOrgType(), $this->VALID_TYPE);
+		$this->assertSame($pdoOrganization->getOrgZip(), $this->VALID_ZIP);
 	}
 	/**
 	 * test for grabbing an organization by state that does not exist
@@ -339,16 +339,16 @@ class OrganizationTest extends BreadBasketTest {
 		//grab data from mySQL and enforce that the fields match
 		$pdoOrganization = Organization::getOrganizationByType($this->getPDO(), $this->VALID_TYPE);
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
-		$this->assertSame($pdoOrganization->getAddress1(), $this->VALID_ADDRESS1);
-		$this->assertSame($pdoOrganization->getAddress2(), $this->VALID_ADDRESS2);
-		$this->assertSame($pdoOrganization->getCity(), $this->VALID_CITY);
-		$this->assertSame($pdoOrganization->getDescription(), $this->VALID_DESCRIPTION);
-		$this->assertSame($pdoOrganization->getHours(), $this->VALID_HOURS);
-		$this->assertSame($pdoOrganization->getName(), $this->VALID_NAME_ALT);
-		$this->assertSame($pdoOrganization->getPhone(), $this->VALID_PHONE);
-		$this->assertSame($pdoOrganization->getState(), $this->VALID_STATE);
-		$this->assertSame($pdoOrganization->getType(), $this->VALID_TYPE);
-		$this->assertSame($pdoOrganization->getZip(), $this->VALID_ZIP);
+		$this->assertSame($pdoOrganization->getOrgAddress1(), $this->VALID_ADDRESS1);
+		$this->assertSame($pdoOrganization->getOrgAddress2(), $this->VALID_ADDRESS2);
+		$this->assertSame($pdoOrganization->getOrgCity(), $this->VALID_CITY);
+		$this->assertSame($pdoOrganization->getOrgDescription(), $this->VALID_DESCRIPTION);
+		$this->assertSame($pdoOrganization->getOrgHours(), $this->VALID_HOURS);
+		$this->assertSame($pdoOrganization->getOrgName(), $this->VALID_NAME);
+		$this->assertSame($pdoOrganization->getOrgPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoOrganization->getOrgState(), $this->VALID_STATE);
+		$this->assertSame($pdoOrganization->getOrgType(), $this->VALID_TYPE);
+		$this->assertSame($pdoOrganization->getOrgZip(), $this->VALID_ZIP);
 	}
 	/**
 	 * test for grabbing an organization by type that does not exist
@@ -373,16 +373,16 @@ class OrganizationTest extends BreadBasketTest {
 		//grab data from mySQL and enforce that the fields match
 		$pdoOrganization = Organization::getOrganizationByZip($this->getPDO(), $this->VALID_ZIP);
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
-		$this->assertSame($pdoOrganization->getAddress1(), $this->VALID_ADDRESS1);
-		$this->assertSame($pdoOrganization->getAddress2(), $this->VALID_ADDRESS2);
-		$this->assertSame($pdoOrganization->getCity(), $this->VALID_CITY);
-		$this->assertSame($pdoOrganization->getDescription(), $this->VALID_DESCRIPTION);
-		$this->assertSame($pdoOrganization->getHours(), $this->VALID_HOURS);
-		$this->assertSame($pdoOrganization->getName(), $this->VALID_NAME_ALT);
-		$this->assertSame($pdoOrganization->getPhone(), $this->VALID_PHONE);
-		$this->assertSame($pdoOrganization->getState(), $this->VALID_STATE);
-		$this->assertSame($pdoOrganization->getType(), $this->VALID_TYPE);
-		$this->assertSame($pdoOrganization->getZip(), $this->VALID_ZIP);
+		$this->assertSame($pdoOrganization->getOrgAddress1(), $this->VALID_ADDRESS1);
+		$this->assertSame($pdoOrganization->getOrgAddress2(), $this->VALID_ADDRESS2);
+		$this->assertSame($pdoOrganization->getOrgCity(), $this->VALID_CITY);
+		$this->assertSame($pdoOrganization->getOrgDescription(), $this->VALID_DESCRIPTION);
+		$this->assertSame($pdoOrganization->getOrgHours(), $this->VALID_HOURS);
+		$this->assertSame($pdoOrganization->getOrgName(), $this->VALID_NAME);
+		$this->assertSame($pdoOrganization->getOrgPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoOrganization->getOrgState(), $this->VALID_STATE);
+		$this->assertSame($pdoOrganization->getOrgType(), $this->VALID_TYPE);
+		$this->assertSame($pdoOrganization->getOrgZip(), $this->VALID_ZIP);
 	}
 	/**
 	 * test for grabbing an organization by type that does not exist
