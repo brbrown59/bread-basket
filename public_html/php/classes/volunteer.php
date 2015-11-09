@@ -210,7 +210,7 @@ class Volunteer {
 		}
 
 		//verify the activation code is valid
-		$newVolEmailActivation = ctype_xdigit($this->volEmailActivation);
+		$newVolEmailActivation = ctype_xdigit($this->$newVolEmailActivation);
 		if($newVolEmailActivation !== true) {
 			throw(new RangeException("this code is not a valid hex code"));
 		}
