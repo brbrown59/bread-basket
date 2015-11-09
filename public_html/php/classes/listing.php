@@ -71,8 +71,7 @@ class listing {
  * @throws RangeException is data values are out of bounds (e.g., strings too long, negative integers)
  * @throws Exception is some other exception is thrown
  */
-public
-function __construct($newListingId, $newOrgId, $newListingClaimedBy, $newListingClosed, $newListingCost, $newListingMemo, $newListingParentId, $newListingPostTime, $newListingType = null) {
+public function __construct($newListingId, $newOrgId, $newListingClaimedBy, $newListingClosed, $newListingCost, $newListingMemo, $newListingParentId, $newListingPostTime, $newListingType = null) {
 	try {
 		$this->setListingId($newListingId);
 		$this->setNewOrgId($newOrgId);
@@ -90,7 +89,7 @@ function __construct($newListingId, $newOrgId, $newListingClaimedBy, $newListing
 		//rethrow the exception to the caller
 		throw(new RangeException($range->getMessage(), 0, $range));
 	} catch(Exception $exception) {
-		//rethow generic exception
+		//rethrow generic exception
 		throw(new Exception($exception->getMessage(), 0, $exception));
 	}
 }
@@ -100,8 +99,7 @@ function __construct($newListingId, $newOrgId, $newListingClaimedBy, $newListing
  *
  * @return mixed value for listing id
  **/
-public
-function getListingId() {
+public function getListingId() {
 	return ($this->listingId);
 }
 
@@ -112,8 +110,7 @@ function getListingId() {
  * @throws InvalidArgumentException if $newListingId is not an integer
  * @throws RangeException is $newListingId is not positive
  **/
-public
-function setListingId($newListingId) {
+public function setListingId($newListingId) {
 	//base case: if the listing id is null, this a new listing without a mySQL assigned id (yet)
 	if($newListingId === null) {
 		$this->listingId = null;
@@ -122,9 +119,12 @@ function setListingId($newListingId) {
 	//verify the listing id is valid
 	$newListingId = filter_var($newListingId, FILTER_VALIDATE_INT);
 	if($newListingId === false) {
-		throw(new InvalidArgumentException("listing id is not positive"));
+		throw(new InvalidArgumentException("listing id is not valid"));
 	}
-
+	//verify the listing id is positive
+	if($newListingId <= 0) {
+		throw(new RangeException("listing if is not positive"));
+	}
 	//convert and store the listing id
 	$this->listingId = intval($newListingId);
 }
@@ -134,8 +134,7 @@ function setListingId($newListingId) {
  *
  * @return int value of organization id
  */
-public
-function getOrgId() {
+public function getOrgId() {
 	return ($this->orgId);
 }
 
@@ -146,8 +145,7 @@ function getOrgId() {
  * @throws InvalidArgumentException if $newOrgId is not an integer or not positive
  * @throws RangeException if $newOrgId is not positive
  **/
-public
-function setOrgId($newOrgId) {
+public function setOrgId($newOrgId) {
 	//verify the organization id is valid
 	$newOrgId = filter_var($newOrgId, FILTER_VALIDATE_INT);
 	if($newOrgId === false) {
@@ -168,8 +166,7 @@ function setOrgId($newOrgId) {
  *
  * @return mixed value of listing claimed by
  */
-public
-function getListingClaimedBy() {
+public function getListingClaimedBy() {
 	return ($this->listingClaimedBy);
 }
 
@@ -180,8 +177,7 @@ function getListingClaimedBy() {
  * @throws InvalidArgumentException if $newClistingClaimedBy is not an integer or not positive
  * @throws RangeException if $newClaimedBy is not positive
  */
-public
-function setListingClaimedBy($newListingClaimedBy) {
+public function setListingClaimedBy($newListingClaimedBy) {
 	//verify the listing claimed by number is valid
 	$newListingClaimedBy = filter_var($newListingClaimedBy, FILTER_VALIDATE_INT);
 	if($newListingClaimedBy === false) {
@@ -204,8 +200,7 @@ function setListingClaimedBy($newListingClaimedBy) {
  *
  * QUESTION: have this looked over
  */
-public
-function getListingClosed() {
+public function getListingClosed() {
 	return ($this->listingClosed);
 }
 
@@ -215,8 +210,7 @@ function getListingClosed() {
  * @param bool $newListingClosed
  * @throws InvalidArgumentException if $newListingClosed is not a bool or insecure
  */
-public
-function setListingClosed($newListingClosed) {
+public function setListingClosed($newListingClosed) {
 	//verify the listing closed is valid
 	$newListingClosed = filter_var($newListingClosed, FILTER_VALIDATE_BOOLEAN);
 	if($newListingClosed === false) {
@@ -232,8 +226,7 @@ function setListingClosed($newListingClosed) {
  *
  * @return float a decimal to represent listing cost
  */
-public
-function getListingCost() {
+public function getListingCost() {
 	return ($this->listingCost);
 }
 
@@ -244,8 +237,7 @@ function getListingCost() {
  * @throws InvalidArgumentException if $newListingCost is not a valid float
  * @throws RangeException if the $newListingCost is not positive
  */
-public
-function setListingCost($newListingCost) {
+public function setListingCost($newListingCost) {
 	//verify the cost is a valid float
 	$newListingCost = filter_var($newListingCost, FILTER_VALIDATE_FLOAT);
 	if(empty($newListingCost) === true) {
@@ -266,8 +258,7 @@ function setListingCost($newListingCost) {
  *
  * @return string value of listing memo
  */
-public
-function getListingMemo() {
+public function getListingMemo() {
 	return ($this->listingMemo);
 }
 
@@ -278,8 +269,7 @@ function getListingMemo() {
  * @throws InvalidArgumentException if $newListingMemo is not a string or insecure
  * @throws RangeException if $newListingMemo is > 256 characters
  */
-public
-function setListingMemo($newListingMemo) {
+public function setListingMemo($newListingMemo) {
 	//verify the listing memo is secure
 	$newListingMemo = trim($newListingMemo);
 	$newListingMemo = filter_var($newListingMemo, FILTER_SANITIZE_STRING);
@@ -300,8 +290,7 @@ function setListingMemo($newListingMemo) {
  *
  * @return mixed value of listing parent id
  */
-public
-function getListingParentId() {
+public function getListingParentId() {
 	return ($this->listingParentId);
 }
 
@@ -312,8 +301,7 @@ function getListingParentId() {
  * @throws InvalidArgumentException if $newListingParentId is not an integer
  * @throws RangeException is $newListingParentId is not positive
  */
-public
-function setListingParentId($newListingParentId) {
+public function setListingParentId($newListingParentId) {
 	//verify the ListingParentId is valid
 	$newListingParentId = filter_var($newListingParentId, FILTER_VALIDATE_INT);
 	if($newListingParentId === false) {
@@ -333,8 +321,7 @@ function setListingParentId($newListingParentId) {
  *
  * @return DateTime value of listing post time
  **/
-public
-function getListingPostTime() {
+public function getListingPostTime() {
 	return ($this->listingPostTime);
 }
 
@@ -345,8 +332,7 @@ function getListingPostTime() {
  * @throws InavalidArgumentException if $newListingPostTime is not a valid object or string
  * @throws RangeException if $newListingPostTime is a date that does not exist
  **/
-public
-function setListingPostTime($newListingPostTime) {
+public function setListingPostTime($newListingPostTime) {
 	//base case: if the date is null, use the current date and time
 	if($newListingPostTime === null) {
 		$this->newListingPostTime = new DateTime();
@@ -369,8 +355,7 @@ function setListingPostTime($newListingPostTime) {
  *
  * @returns int value of listing type
  */
-public
-function getListingType() {
+public function getListingType() {
 	return ($this->listingType);
 }
 
@@ -381,8 +366,7 @@ function getListingType() {
  * @throws InvalidArgumentException if $newListingType is not an integer or not positive
  * @throws RangeException if $newListingType is not positive
  **/
-public
-function setListingType($newListingType) {
+public function setListingType($newListingType) {
 	//verify the profile id is valid
 	$newListingType = filter_var($newListingType, FILTER_VALIDATE_INT);
 	if($newListingType === false) {
@@ -404,8 +388,7 @@ function setListingType($newListingType) {
  * @param PDO $pdo pointer to PDO connection
  * @throws PDOException when mySQL related errors occur
  **/
-public
-function insert(PDO $pdo) {
+public function insert(PDO $pdo) {
 	//enforce the listingId is null (i.e., don't insert a listing id that already exists)
 	if($this->listingId !== null) {
 		throw(new PDOException("not a new listing"));
@@ -429,8 +412,7 @@ function insert(PDO $pdo) {
  * @param PDO $pdo pointer to PDO connection
  * @throws PDOException when mySQL related errors occur
  */
-public
-function delete(PDO $pdo) {
+public function delete(PDO $pdo) {
 	//enforce the listing id is not null (i.e., don't delete a listing that hasn't been inserted)
 	if($this->listingId === null) {
 		throw(new PDOException("unable to delete a listing that does not exicst"));
@@ -451,8 +433,7 @@ function delete(PDO $pdo) {
  * @param PDO $pdo pointer to PDO connection
  * @throws PDOException when mySQL related errors occur
  **/
-public
-function udate(PDO $pdo) {
+public function udate(PDO $pdo) {
 	//enforce the listingId is not null (i.e., don't update alisting that hasn't been inserted)
 	if($this->listingId === null) {
 		throw(new PDOException("unable to update a listing that does not exist"));
