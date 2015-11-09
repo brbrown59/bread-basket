@@ -205,7 +205,7 @@ class Volunteer {
 		//verify the activation code is valid
 		$newVolEmailActivation = filter_var($newVolEmailActivation, FILTER_SANITIZE_STRING);
 		if(strlen($newVolEmailActivation) < 16) {
-			throw(new InvalidArgumentException("activation code is insufficient length or insecure"));
+			throw(new InvalidArgumentException("activation code is insufficient length or insecure."));
 		}
 		if(empty($newVolEmailActivation) === true) {
 			throw(new InvalidArgumentException("this code is empty or insecure"));
