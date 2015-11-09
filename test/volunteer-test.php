@@ -210,7 +210,7 @@ class VolunteerTest extends BreadBasketTest {
 	/**
 	 * test grabbing a volunteer by an org id that does not exist
 	 */
-	public function testGetInvalidVolunteerByOrgId {
+	public function testGetInvalidVolunteerByOrgId() {
 		//grab an organization that does not exists
 		$volunteer = Volunteer::getVolunteerByOrgId($this->getPDO(), "10000000000000000");
 		$this->assertNull($volunteer);
@@ -278,8 +278,36 @@ class VolunteerTest extends BreadBasketTest {
 		$this->assertNull($volunteer);
 	}
 
+	/**
+	 * test grabbing a volunteer by phone number
+	 */
+	public function testGetVolunteerByVolPhone() {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("volunteer");
 
+		// create a new Volunteer and insert to into mySQL
+		$volunteer = new Volunteer(null, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer->insert($this->getPDO());
 
+		// grab the data from mySQL and enforce the fields match our expectations
+		$pdoVolunteer = Volunteer::getVolunteerByVolPhone($this->getPDO(), $volunteer->getVolPhone());
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("volunteer"));
+		$this->assertSame($pdoVolunteer->getOrgId(), $this->VALID_ORG_ID);
+		$this->assertSame($pdoVolunteer->getVolEmail(), $this->VALID_EMAIL_ALT);
+		$this->assertSame($pdoVolunteer->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
+		$this->assertSame($pdoVolunteer->getVolFirstName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoVolunteer->getVolLastName(), $this->VALID_FIRST_NAME);
+		$this->assertSatme($pdoVolunteer->getVolPhone(), $this->VALID_PHONE);
+	}
+
+	/**
+	 * test grabbing a volunteer by invalid phone number
+	 */
+	public function testGetInvalidVolunteerByVolPhone() {
+		//grab a volunteer first and last name that does not exist
+		$volunteer = Volunteer::getVolunteerByVolPhone($this->getPDO(), "12345678910");
+		$this->assertNull($volunteer);
+	}
 
 
 
