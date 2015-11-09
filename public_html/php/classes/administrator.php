@@ -240,7 +240,7 @@ class Administrator {
 	 * @return string value for adminEmail Id
 	 */
 	public function getAdminEmailId() {
-		return($this->adminEmailId);
+		return($this->adminEmail);
 	}
 
 	/**
