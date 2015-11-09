@@ -235,7 +235,7 @@ class OrganizationTest extends BreadBasketTest {
 		$organization->insert($this->getPDO());
 
 		//grab data from mySQL and enforce that the fields match
-		$pdoOrganization = Organization::getOrganizationByCity($this->getPDO(), $this->VALID_CITY);
+		$pdoOrganization = Organization::getOrganizationByOrgCity($this->getPDO(), $this->VALID_CITY);
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
 		$this->assertSame($pdoOrganization->getOrgAddress1(), $this->VALID_ADDRESS1);
 		$this->assertSame($pdoOrganization->getOrgAddress2(), $this->VALID_ADDRESS2);
@@ -269,7 +269,7 @@ class OrganizationTest extends BreadBasketTest {
 		$organization->insert($this->getPDO());
 
 		//grab data from mySQL and enforce that the fields match
-		$pdoOrganization = Organization::getOrganizationByName($this->getPDO(), $this->VALID_NAME);
+		$pdoOrganization = Organization::getOrganizationByOrgName($this->getPDO(), $this->VALID_NAME);
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
 		$this->assertSame($pdoOrganization->getOrgAddress1(), $this->VALID_ADDRESS1);
 		$this->assertSame($pdoOrganization->getOrgAddress2(), $this->VALID_ADDRESS2);
@@ -303,7 +303,7 @@ class OrganizationTest extends BreadBasketTest {
 		$organization->insert($this->getPDO());
 
 		//grab data from mySQL and enforce that the fields match
-		$pdoOrganization = Organization::getOrganizationByState($this->getPDO(), $this->VALID_STATE);
+		$pdoOrganization = Organization::getOrganizationByOrgState($this->getPDO(), $this->VALID_STATE);
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
 		$this->assertSame($pdoOrganization->getOrgAddress1(), $this->VALID_ADDRESS1);
 		$this->assertSame($pdoOrganization->getOrgAddress2(), $this->VALID_ADDRESS2);
@@ -337,7 +337,7 @@ class OrganizationTest extends BreadBasketTest {
 		$organization->insert($this->getPDO());
 
 		//grab data from mySQL and enforce that the fields match
-		$pdoOrganization = Organization::getOrganizationByType($this->getPDO(), $this->VALID_TYPE);
+		$pdoOrganization = Organization::getOrganizationByOrgType($this->getPDO(), $this->VALID_TYPE);
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
 		$this->assertSame($pdoOrganization->getOrgAddress1(), $this->VALID_ADDRESS1);
 		$this->assertSame($pdoOrganization->getOrgAddress2(), $this->VALID_ADDRESS2);
@@ -371,7 +371,7 @@ class OrganizationTest extends BreadBasketTest {
 		$organization->insert($this->getPDO());
 
 		//grab data from mySQL and enforce that the fields match
-		$pdoOrganization = Organization::getOrganizationByZip($this->getPDO(), $this->VALID_ZIP);
+		$pdoOrganization = Organization::getOrganizationByOrgZip($this->getPDO(), $this->VALID_ZIP);
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
 		$this->assertSame($pdoOrganization->getOrgAddress1(), $this->VALID_ADDRESS1);
 		$this->assertSame($pdoOrganization->getOrgAddress2(), $this->VALID_ADDRESS2);
