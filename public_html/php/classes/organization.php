@@ -417,27 +417,19 @@ class Organization{
 	 * @return String value of organization type
 	 */
 	public function getOrgType() {
-		return $this->getOrgType();
+		return ($this->orgType);
 	}
 
 	/**
 	 * mutator method for the organization type
 	 *
 	 * @param String $newType new organization type
-	 * @throws InvalidArgumentException if $newType is empty or insecure
-	 * @throws RangeException if $newType is too large for the database
+	 * @throws InvalidArgumentException if $newType is not on the whitelist
 	 */
 	public function setOrgType($newType) {
 		//check that type is not empty and secure
-		$newType = trim($newType);
-		$newType = filter_var($newType, FILTER_SANITIZE_STRING);
-		if(empty($newType) === true) {
-			throw new InvalidArgumentException("organization type is empty or insecure");
-		}
-
-		//check that type will fit in the database
-		if(strlen($newType) > 1) {
-			throw new RangeException("organization type is too large");
+		if($newType !== "G" && $newType !== "R") {
+			throw new InvalidArgumentException("organization type is invalid");
 		}
 
 		//store the value
@@ -644,7 +636,7 @@ class Organization{
 
 		//create query template
 		$query = "SELECT orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip
-						FROM organization WHERE orgCity = :orgCity";
+						FROM organization WHERE orgCity LIKE :orgCity";
 		$statement = $pdo->prepare($query);
 
 		//bind the city value to the placeholder in the template
@@ -659,6 +651,7 @@ class Organization{
 			//rethrow the exception if retrieval failed
 			throw(new PDOException($exception->getMessage(), 0, $exception));
 		}
+
 		return $retrievedOrgs;
 	}
 
@@ -680,7 +673,7 @@ class Organization{
 
 		//create query template
 		$query = "SELECT orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip
-						FROM organization WHERE orgName = :orgName";
+						FROM organization WHERE orgName LIKE :orgName";
 		$statement = $pdo->prepare($query);
 
 		//bind the name value to the placeholder in the template
@@ -716,7 +709,7 @@ class Organization{
 
 		//create query template
 		$query = "SELECT orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip
-						FROM organization WHERE orgState = :orgState";
+						FROM organization WHERE orgState LIKE :orgState";
 		$statement = $pdo->prepare($query);
 
 		//bind the state value to the placeholder in the template
@@ -752,7 +745,7 @@ class Organization{
 
 		//create query template
 		$query = "SELECT orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip
-						FROM organization WHERE orgType = :orgType";
+						FROM organization WHERE orgType LIKE :orgType";
 		$statement = $pdo->prepare($query);
 
 		//bind the type value to the placeholder in the template
@@ -788,7 +781,7 @@ class Organization{
 
 		//create query template
 		$query = "SELECT orgId, orgAddress1, orgAddress2, orgCity, orgDescription, orgHours, orgName, orgPhone, orgState, orgType, orgZip
-						FROM organization WHERE orgZip = :orgZip";
+						FROM organization WHERE orgZip LIKE :orgZip";
 		$statement = $pdo->prepare($query);
 
 		//bind the type value to the placeholder in the template
