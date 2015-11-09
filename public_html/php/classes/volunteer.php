@@ -203,16 +203,14 @@ class Volunteer {
 	 **/
 	public function setVolEmailActivation($newVolEmailActivation) {
 		//verify the activation code is valid
+		$newVolEmailActivation = trim($newVolEmailActivation);
 		$newVolEmailActivation = filter_var($newVolEmailActivation, FILTER_SANITIZE_STRING);
-		if(strlen($newVolEmailActivation) < 16) {
+		if(empty($newVolEmailActivation) === true) {
 			throw(new InvalidArgumentException("activation code is insufficient length or insecure"));
 		}
-		if(empty($newVolEmailActivation) === true) {
-			throw(new InvalidArgumentException("this code is empty or insecure"));
- 		}
 
 		//verify the code will fit in the database
-		if(strlen($newVolEmailActivation) > 16) {
+		if(strlen($newVolEmailActivation) !== 16) {
 				throw(new RangeException("activation code is too large"));
 			}
 
