@@ -256,7 +256,7 @@ class Administrator {
 		$newAdminEmail = trim($newAdminEmail);
 		$newAdminEmail = filter_var($newAdminEmail, FILTER_SANITIZE_EMAIL);
 		if (empty($newAdminEmail) ===true) {
-			Throw(new InvalidArgumentException ("There is no content in this email"));
+			throw(new InvalidArgumentException ("There is no content in this email"));
 		}
 
 		//Verify that the Administrator's Email message is no more than 128 characters
