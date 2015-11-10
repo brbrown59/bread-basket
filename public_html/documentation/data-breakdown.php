@@ -15,10 +15,8 @@
 			<li>adminEmail</li>
 			<li>adminEmailActivation</li>
 			<li>adminFirstName</li>
-			<li>adminHash</li>
 			<li>adminLastName</li>
 			<li>adminPhone</li>
-			<li>adminSalt</li>
 		</ul>
 
 		<p>Listing (recursive 1 to n)</p>
@@ -64,8 +62,10 @@
 			<li>volEmail</li>
 			<li>volEmailActivation</li>
 			<li>volFirstName</li>
+			<li>volHash</li>
 			<li>volLastName</li>
 			<li>volPhone</li>
+			<li>volSalt</li>
 		</ul>
 
 	</body>
