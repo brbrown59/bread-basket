@@ -343,7 +343,7 @@ protected $organization = null;
 	 * test for grabbing a listing by a listing Type Id that doesn't exist
 	 */
 	public function testGetInvalidListingTypeId() {
-		$listing = Listing::getListingByListingListingTypeId($this->getPDO(), 1);
+		$listing = Listing::getListingByTypeId($this->getPDO(), 1);
 		$this->assertSame($listing->getSize(), 0);
 	}
 
