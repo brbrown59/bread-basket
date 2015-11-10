@@ -80,5 +80,4 @@ $this->assertSame($pdoListing->getListingPostTime(), $this->VALID_DATETIME);
 $this->assertSame($pdoListing->getListingTypeId(), $this->VALID_TYPE);
 }
 
-
 }
