@@ -41,6 +41,11 @@ class Volunteer {
 	 **/
 	private $volFirstName;
 	/**
+	 * hash for on the Volunteer password
+	 * @var string $volHash
+	 */
+	private $volHash;
+	/**
 	 * last name of Volunteer
 	 * @var string $volLastName
 	 **/
@@ -50,6 +55,11 @@ class Volunteer {
 	 * @var string $volPhone
 	 **/
 	private $volPhone;
+	/**
+	 * id for the salt on the Volunteer password
+	 * @var string $volSalt
+	 **/
+	private $volSalt;
 
 	/**
 	 * constructor for this Volunteer
@@ -59,21 +69,25 @@ class Volunteer {
 	 * @param string $newVolEmail email of the Volunteer
 	 * @param int $newVolEmailActivation activation key for Volunteer email, null if email confirmed
 	 * @param string $newVolFirstName string containing first name of the Volunteer
+	 * @param string $newVolHash string containing the hash for the Volunteer password
 	 * @param string $newVolLastName string containing last name of the Volunteer
 	 * @param string $newVolPhone string containing the US phone number associated with the Volunteer
+	 * @param string $newVolSalt string containing the salt for the Volunteer password
 	 * @throws InvalidArgumentException if data types are invalid or values are insecure
 	 * @throws RangeException if data values are out of bounds
 	 * @throws Exception if some other exception is thrown
 	 **/
-	public function __construct($newVolId, $newOrgId, $newVolEmail, $newVolEmailActivation, $newVolFirstName, $newVolLastName, $newVolPhone) {
+	public function __construct($newVolId, $newOrgId, $newVolEmail, $newVolEmailActivation, $newVolFirstName, $newVolHash, $newVolLastName, $newVolPhone, $newVolSalt) {
 		try {
 			$this->setVolId($newVolId);
 			$this->setOrgId($newOrgId);
 			$this->setVolEmail($newVolEmail);
 			$this->setVolEmailActivation($newVolEmailActivation);
 			$this->setVolFirstName($newVolFirstName);
+			$this->setVolHash($newVolHash);
 			$this->setVolLastName($newVolLastName);
 			$this->setVolPhone($newVolPhone);
+			$this->setVolSalt($newVolSalt);
 
 		} catch(InvalidArgumentException $invalidArgument) {
 			//rethrow the exception to the caller
@@ -260,6 +274,34 @@ class Volunteer {
 		$this->volFirstName = $newVolFirstName;
 	}
 
+	/**accessor for volunteer hash
+	 * @return string value of hash
+	 */
+	public function getVolHash() {
+		return ($this->volHash);
+	}
+
+	/** mutator For volunteer hash; volHash
+	 * @param String $newVolHash with ctype xdigit with a string of 128
+	 * @throws InvalidArgumentException if the hash is empty or insecure
+	 * @throws RangeException if $newVolHash is is not 128.
+	 */
+	public function setVolHash($newVolHash) {
+		//verify the hash is exactly a string of 128
+		if((ctype_xdigit($newVolHash)) === false) {
+			if(empty($newVolHash) === true) {
+				throw(new InvalidArgumentException ("hash is empty or insecure"));
+			}
+			if(strlen($newVolHash) !== 128) {
+				throw(new RangeException("has is not a valid length"));
+			}
+		}
+		//Store volunteer hash
+		$this->volHash = $newVolHash;
+	}
+
+
+
 	/**
 	 * accessor method for vol last name
 	 *
@@ -327,6 +369,34 @@ class Volunteer {
 	}
 
 	/**
+	 * accessor for volunteer salt
+	 * @return string value of salt
+	 */
+	public function getVolSalt() {
+		return ($this->volSalt);
+	}
+
+	/**
+	 * mutator method for volunteer salt
+	 *
+	 * @param string $newVolSalt
+	 * @throws InvalidArgumentException if salt is empty or insecure
+	 * @throws RangeException if salt is not exactly 64 digits
+	 **/
+	public function setVolSalt($newVolSalt) {
+		//verify salt is a string of 64
+		if((ctype_xdigit($newVolSalt)) === false) {
+			if(empty($newVolSalt) === true) {
+				throw (new InvalidArgumentException("salt is empty or insecure"));
+			}
+			if(strlen($newVolSalt) !== 64) {
+				throw (new RangeException("salt is not 64 characters"));
+			}
+		}
+		$this->volSalt = $newVolSalt;
+	}
+
+	/**
 	 * inserts this Volunteer into mySQL
 	 *
 	 * @param PDO $pdo PDO connection object
@@ -339,11 +409,11 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "INSERT INTO volunteer(orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone) VALUES(:orgId, :volEmail, :volEmailActivation, :volFirstName, :volLastName, :volPhone)";
+		$query = "INSERT INTO volunteer(orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt) VALUES(:orgId, :volEmail, :volEmailActivation, :volFirstName, :volHash, :volLastName, :volPhone, :volSalt)";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = array("orgId" => $this->orgId, "volEmail" => $this->volEmail, "volEmailActivation" => $this->volEmailActivation, "volFirstName" => $this->volFirstName, "volLastName" => $this->volLastName, "volPhone" => $this->volPhone);
+		$parameters = array("orgId" => $this->orgId, "volEmail" => $this->volEmail, "volEmailActivation" => $this->volEmailActivation, "volFirstName" => $this->volFirstName, "volHash" => $this->volHash, "volLastName" => $this->volLastName, "volPhone" => $this->volPhone, "volSalt" => $this->volSalt);
 		$statement->execute($parameters);
 
 		//update the null volId with what mySQL just gave us
@@ -380,15 +450,15 @@ class Volunteer {
 	public function update(PDO $pdo) {
 		//enforce the volID is not null (don't update a volunteer that hasn't been inserted)
 		if($this->volId === null) {
-			throw(new PDOException("unable to update a volunteer that doesn not exist"));
+			throw(new PDOException("unable to update a volunteer that does not exist"));
 		}
 
 		//create query tempalte
-		$query = "UPDATE volunteer SET orgId = :orgId, volEmail = :volEmail, volEmailActivation =:volEmailActivation, volFirstName = :volFirstName, volLastName = :volLastName, volPhone = :volPhone";
+		$query = "UPDATE volunteer SET orgId = :orgId, volEmail = :volEmail, volEmailActivation =:volEmailActivation, volFirstName = :volFirstName, volHash = :volHash, volLastName = :volLastName, volPhone = :volPhone, volSalt = :volSalt";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = array("orgId" => $this->orgId, "volEmail" => $this->volEmail, "volEmailActivation" => $this->volEmailActivation, "volFirstName" => $this->volFirstName, "volLastName" => $this->volLastName, "volPhone" => $this->volPhone);
+		$parameters = array("orgId" => $this->orgId, "volEmail" => $this->volEmail, "volEmailActivation" => $this->volEmailActivation, "volFirstName" => $this->volFirstName, "volHash" => $this->volHash, "volLastName" => $this->volLastName, "volPhone" => $this->volPhone, "volSalt" => $this->volSalt);
 		$statement->execute($parameters);
 	}
 
@@ -411,7 +481,7 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone FROM volunteer WHERE volId = :volId";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt FROM volunteer WHERE volId = :volId";
 		$statement = $pdo->prepare($query);
 
 		//bind the volunteer id to the place holder in the template
@@ -424,7 +494,7 @@ class Volunteer {
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"], $row["volFirstName"], $row["volLastName"], $row["volPhone"]);
+				$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"], $row["volFirstName"], $row["volHash"], $row["volLastName"],$row["volPhone"], $row["volSalt"]);
 			}
 		} catch(Exception $exception) {
 			//if the row couldn't be converted, rethrow it
@@ -449,8 +519,7 @@ class Volunteer {
 		//while rows can still be retrieved from the result
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"],
-					$row["volFirstName"], $row["volLastName"], $row["volPhone"]);
+				$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"], $row["volFirstName"], $row["volHash"], $row["volLastName"],$row["volPhone"], $row["volSalt"]);
 				//place result in the current field, then advance the key
 				$retrievedVol[$retrievedVol->key()] = $volunteer;
 				$retrievedVol->next();
@@ -481,7 +550,7 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone FROM volunteer WHERE orgId = :orgId ";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt FROM volunteer WHERE orgId = :orgId ";
 		$statement = $pdo->prepare($query);
 
 		//bind the id value to the placeholder in the template
@@ -515,7 +584,7 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone FROM volunteer WHERE volEmail = :volEmail ";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt FROM volunteer WHERE volEmail = :volEmail ";
 		$statement = $pdo->prepare($query);
 
 		//bind the id value to the placeholder in the template
@@ -549,7 +618,7 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone FROM volunteer WHERE volPhone = :volPhone ";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt FROM volunteer WHERE volPhone = :volPhone ";
 		$statement = $pdo->prepare($query);
 
 		//bind the id value to the placeholder in the template
@@ -591,7 +660,7 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone FROM volunteer WHERE volFirstName = :volFirstName AND volLastName = :volLastName ";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt FROM volunteer WHERE volFirstName = :volFirstName AND volLastName = :volLastName ";
 		$statement = $pdo->prepare($query);
 
 		//bind the first name value to the placeholder in the template
@@ -618,7 +687,7 @@ class Volunteer {
 	public static function getAllVolunteers(PDO $pdo) {
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone FROM volunteer";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt FROM volunteer";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 

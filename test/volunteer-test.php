@@ -42,6 +42,11 @@ class VolunteerTest extends BreadBasketTest {
 	 **/
 	protected $VALID_FIRST_NAME = "Kathryn";
 	/**
+	 * valid hash
+	 * @var string $VALID_HASH
+	 */
+	protected $VALID_HASH;
+	/**
 	 * valid last name
 	 * @var string $VALID_LAST_NAME
 	 **/
@@ -51,13 +56,22 @@ class VolunteerTest extends BreadBasketTest {
 	 * @var string $VALID_PHONE
 	 **/
 	protected $VALID_PHONE = "5053041090";
+	/**
+	 * valid salt
+	 * @var string $VALID_SALT
+	 */
+	protected $VALID_SALT;
 
 	/**
-	 * set up for valid organization
+	 * set up for dependent objects before running each test
 	 */
 	public final function setUp() {
 		//run default setUp() method first
 		parent::setUp();
+
+		//create a salt and hash for test
+		$this->VALID_SALT = bin2hex(openssl_random_pseudo_bytes(32));
+		$this->VALID_HASH = $this->VALID_HASH = hash_pbkdf2("sha512", "password4321", $this->VALID_SALT, 262144, 128);
 
 		//create a valid organization to reference in test
 		$this->organization = new Organization(null, "23 Star Trek Rd", "Suit 2", "Bloomington", "Coffee, black", "24/7", "Enterprise", "5051234567", "NM", "G", "87106" );
@@ -74,7 +88,7 @@ class VolunteerTest extends BreadBasketTest {
 		$numRows = $this->getConnection()->getRowCount("volunteer");
 
 		//create a new Volunteer and insert into mySQL
-		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_HASH, $this->VALID_LAST_NAME, $this->VALID_PHONE, $this->VALID_SALT);
 		$volunteer->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
@@ -84,8 +98,10 @@ class VolunteerTest extends BreadBasketTest {
 		$this->assertSame($pdoVolunteer->getVolEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoVolunteer->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 		$this->assertSame($pdoVolunteer->getVolFirstName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoVolunteer->getVolHash(), $this->VALID_HASH);
 		$this->assertSame($pdoVolunteer->getVolLastName(), $this->VALID_LAST_NAME);
 		$this->assertSame($pdoVolunteer->getVolPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoVolunteer->getVolSalt(), $this->VALID_SALT);
 	}
 
 	/**
@@ -95,7 +111,7 @@ class VolunteerTest extends BreadBasketTest {
 	 **/
 	public function testInsertInvalidVolunteer() {
 		//create a volunteer wiht a non null volId and watch it fail
-		$volunteer = new Volunteer(BreadBasketTest::INVALID_KEY, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(BreadBasketTest::INVALID_KEY, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_HASH, $this->VALID_LAST_NAME, $this->VALID_PHONE, $this->VALID_SALT);
 		$volunteer->insert($this->getPDO());
 	}
 
@@ -107,7 +123,7 @@ class VolunteerTest extends BreadBasketTest {
 		$numRows = $this->getConnection()->getRowCount("volunteer");
 
 		// create a new Volunteer and insert to into mySQL
-		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_HASH, $this->VALID_LAST_NAME, $this->VALID_PHONE, $this->VALID_SALT);
 		$volunteer->insert($this->getPDO());
 
 		// edit the Volunteer and update it in mySQL
@@ -121,8 +137,10 @@ class VolunteerTest extends BreadBasketTest {
 		$this->assertSame($pdoVolunteer->getVolEmail(), $this->VALID_EMAIL_ALT);
 		$this->assertSame($pdoVolunteer->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 		$this->assertSame($pdoVolunteer->getVolFirstName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoVolunteer->getVolHash(), $this->VALID_HASH);
 		$this->assertSame($pdoVolunteer->getVolLastName(), $this->VALID_LAST_NAME);
 		$this->assertSame($pdoVolunteer->getVolPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoVolunteer->getVolSalt(), $this->VALID_SALT);
 	}
 
 	/**
@@ -132,7 +150,7 @@ class VolunteerTest extends BreadBasketTest {
 	 **/
 	public function testUpdateInvalidVolunteer() {
 		//create a Volunteer and try to update it without actually inserting it
-		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME,$this->VALID_HASH, $this->VALID_LAST_NAME, $this->VALID_PHONE, $this->VALID_SALT);
 		$volunteer->update($this->getPDO());
 	}
 
@@ -144,7 +162,7 @@ class VolunteerTest extends BreadBasketTest {
 		$numRows = $this->getConnection()->getRowCount("volunteer");
 
 		// create a new Volunteer and insert to into mySQL
-		$volunteer = new Volunteer(null,$this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(null,$this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_HASH, $this->VALID_LAST_NAME, $this->VALID_PHONE, $this->VALID_SALT);
 		$volunteer->insert($this->getPDO());
 
 		//delete the Volunteer from mySQL
@@ -164,7 +182,7 @@ class VolunteerTest extends BreadBasketTest {
 	 **/
 	public function testDeleteInvalidVolunteer() {
 		// create a Volunteer and try to delete it without actually inserting it
-		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_HASH, $this->VALID_LAST_NAME, $this->VALID_PHONE, $this->VALID_SALT);
 		$volunteer->delete($this->getPDO());
 	}
 
@@ -177,7 +195,7 @@ class VolunteerTest extends BreadBasketTest {
 		$numRows = $this->getConnection()->getRowCount("volunteer");
 
 		// create a new Volunteer and insert to into mySQL
-		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_HASH, $this->VALID_LAST_NAME, $this->VALID_PHONE, $this->VALID_SALT);
 		$volunteer->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -187,8 +205,10 @@ class VolunteerTest extends BreadBasketTest {
 		$this->assertSame($pdoVolunteer->getVolEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoVolunteer->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 		$this->assertSame($pdoVolunteer->getVolFirstName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoVolunteer->getVolHash(), $this->VALID_HASH);
 		$this->assertSame($pdoVolunteer->getVolLastName(), $this->VALID_LAST_NAME);
 		$this->assertSame($pdoVolunteer->getVolPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoVolunteer->getVolSalt(), $this->VALID_SALT);
 	}
 
 	/**
@@ -208,7 +228,7 @@ class VolunteerTest extends BreadBasketTest {
 		$numRows = $this->getConnection()->getRowCount("volunteer");
 
 		// create a new Volunteer and insert to into mySQL
-		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_HASH, $this->VALID_LAST_NAME, $this->VALID_PHONE, $this->VALID_SALT);
 		$volunteer->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -218,8 +238,10 @@ class VolunteerTest extends BreadBasketTest {
 		$this->assertSame($pdoVolunteer[0]->getVolEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoVolunteer[0]->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 		$this->assertSame($pdoVolunteer[0]->getVolFirstName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoVolunteer[0]->getVolHash(), $this->VALID_HASH);
 		$this->assertSame($pdoVolunteer[0]->getVolLastName(), $this->VALID_LAST_NAME);
 		$this->assertSame($pdoVolunteer[0]->getVolPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoVolunteer[0]->getVolSalt(), $this->VALID_SALT);
 	}
 
 	/**
@@ -239,7 +261,7 @@ class VolunteerTest extends BreadBasketTest {
 			$numRows = $this->getConnection()->getRowCount("volunteer");
 
 			// create a new Volunteer and insert to into mySQL
-			$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+			$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_HASH, $this->VALID_LAST_NAME, $this->VALID_PHONE, $this->VALID_SALT);
 			$volunteer->insert($this->getPDO());
 
 			// grab the data from mySQL and enforce the fields match our expectations
@@ -249,8 +271,10 @@ class VolunteerTest extends BreadBasketTest {
 			$this->assertSame($pdoVolunteer[0]->getVolEmail(), $this->VALID_EMAIL);
 			$this->assertSame($pdoVolunteer[0]->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 			$this->assertSame($pdoVolunteer[0]->getVolFirstName(), $this->VALID_FIRST_NAME);
+			$this->assertSame($pdoVolunteer[0]->getVolHash(), $this->VALID_HASH);
 			$this->assertSame($pdoVolunteer[0]->getVolLastName(), $this->VALID_LAST_NAME);
 			$this->assertSame($pdoVolunteer[0]->getVolPhone(), $this->VALID_PHONE);
+			$this->assertSame($pdoVolunteer[0]->getVolSalt(), $this->VALID_SALT);
 		}
 
 	/**
@@ -270,7 +294,7 @@ class VolunteerTest extends BreadBasketTest {
 		$numRows = $this->getConnection()->getRowCount("volunteer");
 
 		// create a new Volunteer and insert to into mySQL
-		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_HASH, $this->VALID_LAST_NAME, $this->VALID_PHONE, $this->VALID_SALT);
 		$volunteer->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -280,8 +304,10 @@ class VolunteerTest extends BreadBasketTest {
 		$this->assertSame($pdoVolunteer[0]->getVolEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoVolunteer[0]->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 		$this->assertSame($pdoVolunteer[0]->getVolFirstName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoVolunteer[0]->getVolHash(), $this->VALID_HASH);
 		$this->assertSame($pdoVolunteer[0]->getVolLastName(), $this->VALID_LAST_NAME);
 		$this->assertSame($pdoVolunteer[0]->getVolPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoVolunteer[0]->getVolSalt(), $this->VALID_SALT);
 	}
 
 	/**
@@ -301,7 +327,7 @@ class VolunteerTest extends BreadBasketTest {
 		$numRows = $this->getConnection()->getRowCount("volunteer");
 
 		// create a new Volunteer and insert to into mySQL
-		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_HASH, $this->VALID_LAST_NAME, $this->VALID_PHONE, $this->VALID_SALT);
 		$volunteer->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -311,8 +337,10 @@ class VolunteerTest extends BreadBasketTest {
 		$this->assertSame($pdoVolunteer[0]->getVolEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoVolunteer[0]->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 		$this->assertSame($pdoVolunteer[0]->getVolFirstName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoVolunteer[0]->getVolHash(), $this->VALID_HASH);
 		$this->assertSame($pdoVolunteer[0]->getVolLastName(), $this->VALID_LAST_NAME);
 		$this->assertSame($pdoVolunteer[0]->getVolPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoVolunteer[0]->getVolSalt(), $this->VALID_SALT);
 	}
 
 	/**
