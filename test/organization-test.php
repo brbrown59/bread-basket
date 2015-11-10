@@ -8,7 +8,7 @@ require_once(dirname(__DIR__) . "/public_html/php/classes/organization.php");
 /**
  * Full PHPUnit test for the Organization class
  *
- * This is a complete PHPUnit test of the listing type class.  it is complete because *all* mySQL/PDO enabled methods are tested
+ * This is a complete PHPUnit test of the organization class.  it is complete because *all* mySQL/PDO enabled methods are tested
  * for both valid and invalid inputs
  *
  * @see Organization
