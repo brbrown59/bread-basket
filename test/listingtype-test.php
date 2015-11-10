@@ -113,4 +113,20 @@ class ListingTypeTest extends BreadBasketTest {
 		$listingtype = new ListingType(null, $this->VALID_TYPE);
 		$listingtype->delete($this->getPDO);
 	}
+
+	/**
+	 * test inserting an organization and regrabbing it from mySQL
+	 */
+	public function testGetValidListingTypeById() {
+		//count the rows in the database
+		$numRows = $this->getConnection()->getRowCount("listingtype");
+
+		$listingtype = new ListingType(null, $this->VALID_TYPE);
+		$listingtype->insert($this->getPDO());
+
+		//grab data from SQL and ensure it matches
+		$pdoListingType = ListingType::getListingTypeById($this->getPDO(), $listingtype->getListingTypeId());
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("listingtype"));
+		$this->assertSame($pdoListingType->getListingTypeInfo(), $this->VALID_TYPE);
+	}
 }
