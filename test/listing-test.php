@@ -75,7 +75,7 @@ protected $organization = null;
 		$this->organization = new Organization(null, "23 Star Trek Rd", "Suit 2", "Bloomington", "Coffee, black", "24/7", "Enterprise", "5051234567", "NM", "G", "87106" );
 		$this->organization->insert($this->getPDO());
 		//create a valid Listing Type Id to reference in test
-		$this->listingType = new Listingtype(null, "Refrigerated");
+		$this->listingType = new ListingType(null, "Refrigerated");
 		$this->listingType->insert($this->getPDO());
 	}
 
@@ -88,7 +88,7 @@ protected $organization = null;
 
 	//create a new listing and insert into mySQL
 		$listing = new Listing(null, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->listingTypeId);
+				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 
 		//grab data from SQL and ensure it matches
@@ -101,7 +101,7 @@ protected $organization = null;
 		$this->assertSame($pdoListing->getListingMemo(), $this->VALID_MEMO);
 		$this->assertSame($pdoListing->getParentId(), $this->VALID_PARENT_ID);
 		$this->assertSame($pdoListing->getListingPostTime(), $this->VALID_DATETIME);
-		$this->assertSame($pdoListing->getListingTypeId(), $this->listingType->listingTypeId);
+		$this->assertSame($pdoListing->getListingTypeId(), $this->listingType->getlistingTypeId());
 	}
 
 	/**
@@ -112,7 +112,7 @@ protected $organization = null;
 	public function testInsertInvalidListing() {
 		//create listing with non-null id, and hope it fails
 		$listing = new Listing(BreadBasketTest::INVALID_KEY, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->listingTypeId);
+				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 	}
 
@@ -122,7 +122,7 @@ protected $organization = null;
 
 		//create a new listing and insert into mySQL
 		$listing = new Listing(null, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->listingTypeId);
+				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 
 		//edit the listing and update in mySQL
@@ -139,7 +139,7 @@ protected $organization = null;
 		$this->assertSame($pdoListing->getListingMemo(), $this->VALID_MEMO);
 		$this->assertSame($pdoListing->getParentId(), $this->VALID_PARENT_ID);
 		$this->assertSame($pdoListing->getListingPostTime(), $this->VALID_DATETIME);
-		$this->assertSame($pdoListing->getListingTypeId(), $this->listingType->listingTypeId);
+		$this->assertSame($pdoListing->getListingTypeId(), $this->listingType->getlistingTypeId());
 	}
 
 	/**
@@ -150,7 +150,7 @@ protected $organization = null;
 	public function testUpdateInvalidListing() {
 		//create listing with non-null id, and hope it fails
 		$listing = new Listing(null, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->listingTypeId);
+				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->update($this->getPDO());
 	}
 
@@ -160,7 +160,7 @@ protected $organization = null;
 
 		//create a new listing and insert into mySQL
 		$listing = new Listing(null, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->listingTypeId);
+				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 
 		//delete the listing in mySQL
@@ -179,7 +179,7 @@ protected $organization = null;
 	 */
 	public function testDeleteInvalidListing() {
 		$listing = new Listing(null, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->listingTypeId);
+				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->delete($this->getPDO());
 	}
 
@@ -192,7 +192,7 @@ protected $organization = null;
 
 		//create a new listing and insert into mySQL
 		$listing = new Listing(null, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->listingTypeId);
+				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 
 		//grab data from SQL and ensure it matches
@@ -205,7 +205,7 @@ protected $organization = null;
 		$this->assertSame($pdoListing->getListingMemo(), $this->VALID_MEMO);
 		$this->assertSame($pdoListing->getParentId(), $this->VALID_PARENT_ID);
 		$this->assertSame($pdoListing->getListingPostTime(), $this->VALID_DATETIME);
-		$this->assertSame($pdoListing->getListingTypeId(), $this->listingType->listingTypeId);
+		$this->assertSame($pdoListing->getListingTypeId(), $this->listingType->getlistingTypeId());
 	}
 
 	/**
@@ -221,7 +221,7 @@ protected $organization = null;
 		$numRows = $this->getConnection()->getRowCount("listing");
 
 		//create a new listing and insert into mySQL
-		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO, $this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->listingTypeId);
+		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO, $this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getListingTypeId());
 		$listing->insert($this->getPDO());
 
 		//grab data from SQL and ensure it matches
@@ -234,7 +234,7 @@ protected $organization = null;
 		$this->assertSame($pdoListing[0]->getListingMemo(), $this->VALID_MEMO);
 		$this->assertSame($pdoListing[0]->getParentId(), $this->VALID_PARENT_ID);
 		$this->assertSame($pdoListing[0]->getListingPostTime(), $this->VALID_DATETIME);
-		$this->assertSame($pdoListing[0]->getListingTypeId(), $this->listingType->listingTypeId);
+		$this->assertSame($pdoListing[0]->getListingTypeId(), $this->listingType->getlistingTypeId());
 	}
 
 	/**
@@ -254,7 +254,7 @@ protected $organization = null;
 
 		//create a new listing and insert into mySQL
 		$listing = new Listing(null, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->listingTypeId);
+				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 
 		//grab data from SQL and ensure it matches
@@ -267,7 +267,7 @@ protected $organization = null;
 		$this->assertSame($pdoListing[0]->getListingMemo(), $this->VALID_MEMO);
 		$this->assertSame($pdoListing[0]->getParentId(), $this->VALID_PARENT_ID);
 		$this->assertSame($pdoListing[0]->getListingPostTime(), $this->VALID_DATETIME);
-		$this->assertSame($pdoListing[0]->getListingTypeId(), $this->listingType->listingTypeId);
+		$this->assertSame($pdoListing[0]->getListingTypeId(), $this->listingType->getlistingTypeId());
 	}
 
 	/**
@@ -287,7 +287,7 @@ protected $organization = null;
 
 		//create a new listing and insert into mySQL
 		$listing = new Listing(null, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-			$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->listingTypeId);
+			$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 
 		//grab data from SQL and ensure it matches
@@ -300,7 +300,7 @@ protected $organization = null;
 		$this->assertSame($pdoListing[0]->getListingMemo(), $this->VALID_MEMO);
 		$this->assertSame($pdoListing[0]->getParentId(), $this->VALID_PARENT_ID);
 		$this->assertSame($pdoListing[0]->getListingPostTime(), $this->VALID_DATETIME);
-		$this->assertSame($pdoListing[0]->getListingTypeId(), $this->listingType->listingTypeId);
+		$this->assertSame($pdoListing[0]->getListingTypeId(), $this->listingType->getlistingTypeId());
 	}
 
 	/**
@@ -322,11 +322,11 @@ protected $organization = null;
 
 		//create a new listing and insert into mySQL
 		$listing = new Listing(null, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-			$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->listingTypeId);
+			$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 
 		//grab data from SQL and ensure it matches
-		$pdoListing = Listing::getListingByListingTypeId($this->getPDO(), $this->listingType->listingTypeId);
+		$pdoListing = Listing::getListingByListingTypeId($this->getPDO(), $this->listingType->getlistingTypeId());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("listing"));
 		$this->assertSame($pdoListing[0]->getOrgId(), $this->VALID_PARENT_ID);
 		$this->assertSame($pdoListing[0]->getListingClaimedBy(), $this->VALID_CLAIMEDBY);
@@ -335,7 +335,7 @@ protected $organization = null;
 		$this->assertSame($pdoListing[0]->getListingMemo(), $this->VALID_MEMO);
 		$this->assertSame($pdoListing[0]->getParentId(), $this->VALID_PARENT_ID);
 		$this->assertSame($pdoListing[0]->getListingPostTime(), $this->VALID_DATETIME);
-		$this->assertSame($pdoListing[0]->getListingTypeId(), $this->listingType->listingTypeId);
+		$this->assertSame($pdoListing[0]->getListingTypeId(), $this->listingType->getlistingTypeId());
 	}
 
 	/**
