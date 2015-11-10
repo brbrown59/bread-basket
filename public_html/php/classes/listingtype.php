@@ -117,4 +117,142 @@ class ListingType {
 		//convert to int and store
 		$this->listingTypeInfo = $newListingTypeInfo;
 	}
+
+	/**
+	 * function to insert the new listing type into the database
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @throws PDOException when mySQL related errors occur
+	 */
+	public function insert (PDO $pdo) {
+		//if the listingTypeId is not null, this is not a new entry: don't insert into the database
+		if($this->listingTypeId !== null) {
+			throw(new PDOException("not a new organization"));
+		}
+
+		//create query template
+		$query = "INSERT INTO listingType(listingTypeId, listingType) VALUES (:listingTypeId, :listingType)";
+		$statement = $pdo->prepare($query);
+
+		//bind member variables to the placeholders in the template
+		$parameters = array("listingTypeId" => $this->listingTypeId, "listingType" => $this->listingTypeInfo);
+		$statement->execute($parameters);
+
+		//update the class with the mySQL-assigned id
+		$this->listingTypeId = intval($pdo->lastInsertId());
+	}
+
+	/**
+	 * function to delete a listing type from the database
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @throws PDOException when mySQL related errors occur
+	 */
+	public function delete(PDO $pdo) {
+		//ensure the listing type we are trying to delete exists in the database
+		if($this->listingTypeId === null) {
+			throw (new PDOException("unable to delete a listing type that does not exist"));
+		}
+
+		//create query template
+		$query = "DELETE FROM listingType WHERE listingTypeId = :listingTypeId";
+		$statement = $pdo->prepare($query);
+
+		//bind the values to their placeholders in the template, and execute
+		$parameters = array("listingTypeId" => $this->listingTypeId);
+		$statement->execute($parameters);
+	}
+
+	public function update (PDO $pdo) {
+		//ensure listing type is in the database
+		if($this->listingTypeId === null) {
+			throw(new PDOException("unable to update a listing type that does not exist"));
+		}
+
+		//create query template
+		$query = "UPDATE listingType SET listingType = :listingType WHERE listingTypeId = :listingTypeId";
+		$statement = $pdo->prepare($query);
+
+		//bind member variables to the placeholders in the template
+		$parameters = array("listingType" => $this->listingTypeInfo, "listingTypeId" => $this->listingTypeId);
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * function to retrieve listing types by listing id
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @param int $listingTypeId listingTypeId id to search for
+	 * @return mixed organization if found or null if not found
+	 * @throws PDOException if mySQL related errors occur
+	 */
+	public static function getListingTypeById(PDO $pdo, $listingTypeId) {
+		//verify that the id to search for is valid
+		$listingTypeId = filter_var($listingTypeId, FILTER_VALIDATE_INT);
+		if($listingTypeId === false) {
+			throw new PDOException("listing type id is not an integer");
+		}
+		if($listingTypeId <= 0) {
+			throw new PDOException("listing type is not positive");
+		}
+
+		//create query template
+		$query = "SELECT listingTypeId, listingType FROM listingType WHERE listingTypeId = :listingTypeId";
+		$statement = $pdo->prepare($query);
+
+		//bind member variables to the placeholders in the template
+		$parameters = array("listingTypeId" => $listingTypeId);
+		$statement->execute($parameters);
+
+		//grab result from mysql
+		try {
+			$listingType = null;
+			//set fetch mode to retrieve the result as an array indexed by column name
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+
+			//if fetch successful, store in a new object
+			if($row !== false) {
+				$listingType = new ListingType($row["listingTypeId"], $row["listingType"]);
+			}
+		} catch(Exception $exception) {
+			//rethrow the exception if the retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $listingType;
+	}
+
+	/**
+	 * retrieves all listingtypes
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @return SplFixedArray all organizations
+	 * @throws PDOException if mySQL errors occur
+	 */
+	public static function getAllListingTypes(PDO $pdo) {
+		//create query template and execute
+		$query = "SELECT listingTypeId, listingType FROM listingType";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+
+		//build an array of the retrieved results
+		//build an array of tweets, as an SPLFixedArray object
+		//set the size of the object to the number of retrieved rows
+		$retrievedTypes = new SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(PDO::FETCH_ASSOC);
+
+		//while rows can still be retrieved from the result
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$listingType = new ListingType($row["listingTypeId"], $row["listingTypeInfo"]);
+				//place result in the current field, then advance the key
+				$retrievedTypes[$retrievedTypes->key()] = $listingType;
+				$retrievedTypes->next();
+			} catch(Exception $exception) {
+				//rethrow the exception if retrieval failed
+				throw(new PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return $retrievedTypes;
+	}
 }
