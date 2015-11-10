@@ -19,7 +19,7 @@ class VolunteerTest extends BreadBasketTest {
 	 * valid org id to use
 	 * @var int $VALID_ORG_ID
 	 */
-	protected $VALID_ORG_ID = "1";
+	protected $organization = null;
 	/**
 	 * valid email to use
 	 * @var string $VALID_EMAIL
@@ -50,6 +50,20 @@ class VolunteerTest extends BreadBasketTest {
 	 * @var string $VALID_PHONE
 	 **/
 	protected $VALID_PHONE = "5053041090";
+
+	/**
+	 * set up for valid organization
+	 */
+	public final function setUp() {
+		//run default setUp() method first
+		parent::setUp();
+
+		//create a valid organization to reference in test
+		$this->organization = new Organization(null);
+		$this->organization->insert($this->getPDO());
+
+	}
+
 
 	/**
 	 * test inserting a valid Volunteer and verity that the actual mySQL data matches
