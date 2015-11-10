@@ -155,10 +155,6 @@ class Administrator {
 	}
 
 
-
-
-
-
 	/**
 	 * Accessor method for the Volunteer Id
 	 * @return integer value of Volunteer Id

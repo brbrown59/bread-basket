@@ -57,6 +57,7 @@ class Volunteer {
 	private $volPhone;
 	/**
 	 * id for the salt on the Volunteer password
+	 * @var string $volSalt
 	 **/
 	private $volSalt;
 
@@ -395,7 +396,6 @@ class Volunteer {
 		$this->volSalt = $newVolSalt;
 	}
 
-
 	/**
 	 * inserts this Volunteer into mySQL
 	 *
@@ -409,11 +409,11 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "INSERT INTO volunteer(orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone) VALUES(:orgId, :volEmail, :volEmailActivation, :volFirstName, :volLastName, :volPhone)";
+		$query = "INSERT INTO volunteer(orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt) VALUES(:orgId, :volEmail, :volEmailActivation, :volFirstName, :volHash, :volLastName, :volPhone, :volSalt)";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = array("orgId" => $this->orgId, "volEmail" => $this->volEmail, "volEmailActivation" => $this->volEmailActivation, "volFirstName" => $this->volFirstName, "volLastName" => $this->volLastName, "volPhone" => $this->volPhone);
+		$parameters = array("orgId" => $this->orgId, "volEmail" => $this->volEmail, "volEmailActivation" => $this->volEmailActivation, "volFirstName" => $this->volFirstName, "volHash" => $this->volHash, "volLastName" => $this->volLastName, "volPhone" => $this->volPhone, "volSalt" => $this->volSalt);
 		$statement->execute($parameters);
 
 		//update the null volId with what mySQL just gave us
