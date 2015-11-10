@@ -6,6 +6,8 @@
  * @author Carlos Beraun AKA CarlosMacUser cberaun2@cnm.edu
  **/
 
+require_once("autoloader.php");
+
 class Administrator {
 	/**
 	 * Id for this Administrator: this is the primary key
