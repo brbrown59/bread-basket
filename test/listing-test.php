@@ -87,7 +87,7 @@ protected $organization = null;
 		$numRows = $this->getConnection()->getRowCount("listing");
 
 	//create a new listing and insert into mySQL
-		$listing = new Listing(null, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
+		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
 				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 
@@ -111,7 +111,7 @@ protected $organization = null;
 	 */
 	public function testInsertInvalidListing() {
 		//create listing with non-null id, and hope it fails
-		$listing = new Listing(BreadBasketTest::INVALID_KEY, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
+		$listing = new Listing(BreadBasketTest::INVALID_KEY, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
 				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 	}
@@ -121,7 +121,7 @@ protected $organization = null;
 		$numRows = $this->getConnection()->getRowCount("listing");
 
 		//create a new listing and insert into mySQL
-		$listing = new Listing(null, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
+		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
 				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 
@@ -149,7 +149,7 @@ protected $organization = null;
 	 */
 	public function testUpdateInvalidListing() {
 		//create listing with non-null id, and hope it fails
-		$listing = new Listing(null, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
+		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
 				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->update($this->getPDO());
 	}
@@ -159,7 +159,7 @@ protected $organization = null;
 		$numRows = $this->getConnection()->getRowCount("listing");
 
 		//create a new listing and insert into mySQL
-		$listing = new Listing(null, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
+		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
 				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 
@@ -178,7 +178,7 @@ protected $organization = null;
 	 * @expectedException PDOException
 	 */
 	public function testDeleteInvalidListing() {
-		$listing = new Listing(null, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
+		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
 				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->delete($this->getPDO());
 	}
@@ -191,7 +191,7 @@ protected $organization = null;
 		$numRows = $this->getConnection()->getRowCount("listing");
 
 		//create a new listing and insert into mySQL
-		$listing = new Listing(null, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
+		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
 				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 
@@ -253,7 +253,7 @@ protected $organization = null;
 		$numRows = $this->getConnection()->getRowCount("listing");
 
 		//create a new listing and insert into mySQL
-		$listing = new Listing(null, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
+		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
 				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 
@@ -286,7 +286,7 @@ protected $organization = null;
 		$numRows = $this->getConnection()->getRowCount("listing");
 
 		//create a new listing and insert into mySQL
-		$listing = new Listing(null, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
+		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
 			$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 
@@ -321,7 +321,7 @@ protected $organization = null;
 		$numRows = $this->getConnection()->getRowCount("listing");
 
 		//create a new listing and insert into mySQL
-		$listing = new Listing(null, $this->organization->getOrgId, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
+		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
 			$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 
