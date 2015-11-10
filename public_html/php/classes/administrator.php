@@ -532,7 +532,100 @@ class Administrator {
 
 
 
+	/**
+	 * Update this Administrator in mySQL
+	 *
+	 * @param PDO $pdo PDO connection object
+	 * @throw PDOException when mySQL related errors occur
+	 */
+	Public function update(PDO $pdo){
+		//Enforce the Administrator is null(i.e, do not update a administrator that hasn't been inserted)
+		if($this->adminId === null) {
+			throw(new PDOException("Unable to update Administrator that does not exist"));
+		}
 
+		//Create Query Template
+		$query ="UPDATE administrator SET volId = :volId, orgId = :ordId, adminEmail = :adminEmail,  adminEmailActivation= :adminEmailActivation, adminFirstName  = :adminFirstName,  adminHash= :adminHash, adminLastName = :adminLastName,  adminPhone= :adminPhone,  adminPhone= :adminPhone,  adminSalt= :adminSalt";
+		$statement = $pdo->prepare($query);
+
+		//Bind the Variables tot he place holder in the template.
+		$parameters = array("volId"=> $this->volId, "orgId"=> $this->orgId, "adminEmail"=> $this->adminEmail, "adminEmailActivation"=> $this->adminEmailActivation, "adminFirstName"=> $this->adminFirstName, "adminHash"=> $this->adminHash, "dminLastName"=> $this->adminLastName, "adminPhone"=> $this->adminPhone, "adminPhone"=> $this->adminPhone, "adminSalt"=> $this->adminSalt);
+		$statement->execute($parameters);
+	}
+
+
+
+	/**
+	 * Get Administrator by adminId
+	 *
+	 * @param PDO $pdo PDO connection object
+	 * @param int $adminId Administrator Id to search for
+	 * @return mixed Administrator found or null if not found
+	 * @throw PDOException when mySQL related errors occur
+	 */
+
+	public static function getAdministratorByAdminId(PDO $pdo, $adminId) {
+		//sanitize the adminId before searching
+		$adminId = Filter_var($adminId, FILTER_VALIDATE_INT);
+		if($adminId === false) {
+			throw(new PDOException("Administrator ID is not a integer"));
+		}
+		if($adminId <= 0) {
+			throw(new PDOException("Administrator ID is not Positive"));
+		}
+		//create query template
+		$query = "SELECT adminId, volId, orgId, adminEmail, adminEmailActivation, adminFirstName, adminHash, adminLastName, adminPhone, adminPhone, adminSalt FROM administrator WHERE adminId = :adminId";
+		$statement = $pdo->prepare($query);
+
+		//Bind the administraotr id to the place holder in the template
+		$parameters = array("adminId" => $adminId);
+		$statement->execute($parameters);
+
+		//grab the administrator from mySQL
+		try {
+			$administrator = null;
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminHash"], $row["adminLastName"], $row["adminPhone"], $row["adminSalt"]);
+			}
+		}catch(Exception $exception){
+			//if the row could not be converted, rethrow it
+			throw(new PDOException($exception->getmessage(),0, $exception));
+		}
+		return($administrator);
+
+	}
+
+	/**
+	 * Get all Administrators
+	 *
+	 * @param PDO $pdo connection object
+	 * @return SplFixedArray all Administrators found
+	 * @throws PDOException when mySQL reaalted errors occur
+	 */
+	public static function getAllAdministrators(PDO $pdo){
+		//create query template
+		$query = "SELECT adminId, volId, orgId, adminEmail, adminEmailActivation, adminFirstName, adminHash, adminLastName, adminPhone, adminPhone, adminSalt FROM administrator";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+
+		//Build an array of Administrators
+		$administrators = new SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false){
+			try{
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminHash"], $row["adminLastName"], $row["adminPhone"], $row["adminSalt"]);
+				$administrators[$administrators->key()] = $administrator;
+				$administrators->next();
+			} catch(Exception $exception){
+				//if the row could not be converted, rethrow it.
+				throw(new PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+
+		return($administrators);
+	}
 
 
 }
