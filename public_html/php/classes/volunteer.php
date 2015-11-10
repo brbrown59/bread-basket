@@ -514,7 +514,7 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "SELECT volId, orgId, volFirstName, volLastName, volPhone FROM volunteer WHERE volEmail = :volEmail ";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone FROM volunteer WHERE volEmail = :volEmail ";
 		$statement = $pdo->prepare($query);
 
 		//bind the id value to the placeholder in the template
