@@ -57,7 +57,7 @@ class ListingTypeTest extends BreadBasketTest {
 	 */
 	public function testUpdateValidListingType() {
 		//count the rows in the database
-		$numRows = $this->getConnection()->getRowCount("listingtype");
+		$numRows = $this->getConnection()->getRowCount("listingType");
 
 		$listingtype = new ListingType(null, $this->VALID_TYPE);
 		$listingtype->insert($this->getPDO());
@@ -67,7 +67,7 @@ class ListingTypeTest extends BreadBasketTest {
 
 		//grab data from SQL and ensure it matches
 		$pdoListingType = ListingType::getListingTypeById($this->getPDO(), $listingtype->getListingTypeId());
-		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("listingtype"));
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("listingType"));
 		$this->assertSame($pdoListingType->getListingTypeInfo(), $this->VALID_TYPE);
 	}
 
@@ -87,20 +87,20 @@ class ListingTypeTest extends BreadBasketTest {
 	 */
 	public function testDeleteValidListingType() {
 		//count the number of rows currently in the database
-		$numRows = $this->getConnection()->getRowCount("listingtype");
+		$numRows = $this->getConnection()->getRowCount("listingType");
 
 		//create the object and insert into mysql
 		$listingtype = new ListingType(null, $this->VALID_TYPE);
 		$listingtype->insert($this->getPDO());
 
 		//confirm the row was added, then delete it
-		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("listingtype"));
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("listingType"));
 		$listingtype->delete($this->getPDO());
 
 		//grab data from mysql and ensure it doesn't exist
 		$pdoListingType = ListingType::getListingTypeById($this->getPDO(), $listingtype->getListingTypeId());
 		$this->assertNull($pdoListingType);
-		$this->assertSame($numRows, $this->getConnection()->getRowCount("listingtype"));
+		$this->assertSame($numRows, $this->getConnection()->getRowCount("listingType"));
 	}
 
 	/**
@@ -119,14 +119,14 @@ class ListingTypeTest extends BreadBasketTest {
 	 */
 	public function testGetValidListingTypeById() {
 		//count the rows in the database
-		$numRows = $this->getConnection()->getRowCount("listingtype");
+		$numRows = $this->getConnection()->getRowCount("listingType");
 
 		$listingtype = new ListingType(null, $this->VALID_TYPE);
 		$listingtype->insert($this->getPDO());
 
 		//grab data from SQL and ensure it matches
 		$pdoListingType = ListingType::getListingTypeById($this->getPDO(), $listingtype->getListingTypeId());
-		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("listingtype"));
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("listingType"));
 		$this->assertSame($pdoListingType->getListingTypeInfo(), $this->VALID_TYPE);
 	}
 }
