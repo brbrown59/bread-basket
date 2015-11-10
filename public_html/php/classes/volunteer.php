@@ -519,8 +519,7 @@ class Volunteer {
 		//while rows can still be retrieved from the result
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"],
-					$row["volFirstName"], $row["volLastName"], $row["volPhone"]);
+				$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"], $row["volFirstName"], $row["volHash"], $row["volLastName"],$row["volPhone"], $row["volSalt"]);
 				//place result in the current field, then advance the key
 				$retrievedVol[$retrievedVol->key()] = $volunteer;
 				$retrievedVol->next();
@@ -551,7 +550,7 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone FROM volunteer WHERE orgId = :orgId ";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt FROM volunteer WHERE orgId = :orgId ";
 		$statement = $pdo->prepare($query);
 
 		//bind the id value to the placeholder in the template
@@ -585,7 +584,7 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone FROM volunteer WHERE volEmail = :volEmail ";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt FROM volunteer WHERE volEmail = :volEmail ";
 		$statement = $pdo->prepare($query);
 
 		//bind the id value to the placeholder in the template
@@ -619,7 +618,7 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone FROM volunteer WHERE volPhone = :volPhone ";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt FROM volunteer WHERE volPhone = :volPhone ";
 		$statement = $pdo->prepare($query);
 
 		//bind the id value to the placeholder in the template
@@ -661,7 +660,7 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone FROM volunteer WHERE volFirstName = :volFirstName AND volLastName = :volLastName ";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt FROM volunteer WHERE volFirstName = :volFirstName AND volLastName = :volLastName ";
 		$statement = $pdo->prepare($query);
 
 		//bind the first name value to the placeholder in the template
@@ -688,7 +687,7 @@ class Volunteer {
 	public static function getAllVolunteers(PDO $pdo) {
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone FROM volunteer";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt FROM volunteer";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
