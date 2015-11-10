@@ -1,5 +1,6 @@
 <?php
-require_once("../traits/date-parsing-trait.php");
+require_once(dirname(__DIR__) . "/traits/date-parsing-trait.php");
+
 /**
  * autoloader function to include other classes
  */

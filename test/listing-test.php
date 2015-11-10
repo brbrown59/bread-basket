@@ -3,8 +3,10 @@
 require_once("bread-basket.php");
 require_once("../public_html/php/classes/organization.php");
 
+
 //grab the class to test
 require_once(dirname(__DIR__) . "/public_html/php/classes/listing.php");
+require_once(dirname(__DIR__) . "/public_html/php/traits/date-parsing-trait.php");
 
 /**
  * Full PHPUnit test for the Listing class
@@ -58,7 +60,7 @@ protected $organization = null;
 	protected $VALID_DATETIME = "20115-02-15 18:25:00";
 	/**
 	 * valid listing type to use
-	 * @var Int $VALID_TYPE TODO CHANGE TO FOREIGN KEY
+	 * @var Int 	protected $listingType = null;
 	 **/
 	protected $listingType = null;
 
@@ -72,20 +74,11 @@ protected $organization = null;
 		//create a valid organization to reference in test
 		$this->organization = new Organization(null, "23 Star Trek Rd", "Suit 2", "Bloomington", "Coffee, black", "24/7", "Enterprise", "5051234567", "NM", "G", "87106" );
 		$this->organization->insert($this->getPDO());
-
-	}
-	/**
-	 * set up for valid Listing Type Id TODO where does setUp get set up??
-	 */
-	public final function setUp2() {
-		//run default setUp() method first
-		parent::setUp2();
-
 		//create a valid Listing Type Id to reference in test
-		$this->listingType = new ListingType(null, "Refrigerated");
+		$this->listingType = new Listingtype(null, "Refrigerated");
 		$this->listingType->insert($this->getPDO());
-
 	}
+
 	/**
 	 * test inserting a valid listing and verify that the actual mySQL data matches
 	 **/
@@ -228,8 +221,7 @@ protected $organization = null;
 		$numRows = $this->getConnection()->getRowCount("listing");
 
 		//create a new listing and insert into mySQL
-		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-				$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->listingTypeId);
+		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO, $this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->listingType->listingTypeId);
 		$listing->insert($this->getPDO());
 
 		//grab data from SQL and ensure it matches
