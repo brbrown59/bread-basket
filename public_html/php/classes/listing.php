@@ -501,6 +501,49 @@ class Listing {
 	}
 
 	/**
+	 * gets the listing by listingId
+	 *
+	 * @param PDO $pdo pointer to PDO connection
+	 * @param int $listingId listing id to search for
+	 * @return mixed listing found or null if not found
+	 * @throws PDO Exceptions when my SQL related errors occur
+	 **/
+	public static function getListingByListingId(PDO $pdo, $listingId) {
+		//sanitize the orgId before searching
+		$listingId = filter_var($listingId, FILTER_VALIDATE_INT);
+		if($listingId === false) {
+			throw(new PDOException("listing id is not a valid integer"));
+		}
+
+		//verify the organization id is positive
+		if($listingId <= 0) {
+			throw(new PDOException("listing id is not positive"));
+		}
+
+		//create query template
+		$query = "SELECT listingId,orgId,listingClaimedBy,listingClosed,listingCost,listingMemo,listingParentId,listingPostTime,listingTypeId FROM listing WHERE listingId = :listingId";
+		$statement = $pdo->prepare($query);
+
+		//bind the listing id to the place holder in the template
+		$parameters = array("listingId" => $listingId);
+		$statement->execute($parameters);
+
+		//grab the listing from mySQL
+		try {
+			$listing = null;
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$listing = new Listing($row["listingId"], $row["orgId"], $row["listingClaimedBy"], $row["listingClosed"], $row["listingCost"], $row["listingMemo"], $row["listingParentId"], $row["listingPostTime"], $row["listingType"]);
+			}
+		} catch(Exception $exception) {
+			//if the row couldn't be converted, rethrow it
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($listing);
+	}
+
+	/**
 	 * gets the listing by orgId
 	 *
 	 * @param PDO $pdo pointer to PDO connection
@@ -528,19 +571,18 @@ class Listing {
 		$parameters = array("orgId" => $orgId);
 		$statement->execute($parameters);
 
-		//grab the listing from mySQL
+//bind the name value to the placeholder in the template
+		$parameters = array("orgId" => $orgId);
+		$statement->execute($parameters);
+
+//call the function to build an array of the retrieved results
 		try {
-			$listing = null;
-			$statement->setFetchMode(PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$listing = new listing($row["listingId"], $row["orgId"], $row["listingClaimedBy"], $row["listingClosed"], $row["listingCost"], $row["listingMemo"], $row["listingParentId"], $row["listingPostTime"], $row["listingType"]);
-			}
+			$retrievedListings = Listing::storeSQLResultsInArray($statement);
 		} catch(Exception $exception) {
-			//if the row couldn't be converted, rethrow it
+//rethrow the exception if retrieval failed
 			throw(new PDOException($exception->getMessage(), 0, $exception));
 		}
-		return ($listing);
+		return $retrievedListings;
 	}
 
 	/**

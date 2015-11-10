@@ -16,6 +16,11 @@ require_once(dirname(__DIR__) . "/public_html/php/classes/listing.php");
  **/
 class ListingTest extends BreadBasketTest {
 	/**
+	 * valid org Id by to use
+	 * @var Int $VALID_ORGID
+	 **/
+	protected $VALID_ORGID = "123459";
+	/**
 	 * valid listing claimed by to use
 	 * @var Int $VALID_CLAIMEDBY
 	 **/
@@ -29,17 +34,17 @@ class ListingTest extends BreadBasketTest {
 	 * valid listing cost
 	 * @var Double $VALID_COST
 	 **/
-	protected $VALID_COST = 2594.259960;
+	protected $VALID_COST = 94.25;
 	/**
 	 * valid listing memo
 	 * @var String $VALID_MEMO
 	 **/
-	protected $VALID_DESCRIPTION = "We have lots of tomatoes. Come and get them";
+	protected $VALID_MEMO = "We have lots of tomatoes. Come and get them";
 	/**
 	 * valid parentId
 	 * @var Int $VALID_PARENT_ID
 	 */
-	protected $VALID_PRARENT_ID = "5554268";
+	protected $VALID_PARENT_ID = "5554268";
 /**
  * valid listingPostTime
  * @var DATETIME $VALID_DATETIME
@@ -55,7 +60,25 @@ class ListingTest extends BreadBasketTest {
 	 **/
 	public function testInsertValidListing() {
 		//get the count of the number of rows in the database
-		$numRows = $this->getConnection()
-	}
+		$numRows = $this->getConnection()->getRowCount("listing");
+
+	//create a new listing and insert into mySQL
+$listing = new Listing(null, $this->VALID_ORGID, $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
+$this->VALID_PARENT_ID, $this->VALID_DATETIME, $this->VALID_TYPE);
+$listing->insert($this->getPDO());
+
+	//grab data from SQL and ensure it matches
+$pdoListing = Listing::getListingByListingId($this->getPDO(), $listing->getListingId());
+$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("listing"));
+$this->assertSame($pdoListing->getOrgId(), $this->VALID_ORGID);
+$this->assertSame($pdoListing->getListingClaimedBy(), $this->VALID_CLAIMEDBY);
+$this->assertSame($pdoListing->getListingClosed(), $this->VALID_LISTINGCLOSED);
+$this->assertSame($pdoListing->getListingCost(), $this->VALID_COST);
+$this->assertSame($pdoListing->getListingMemo(), $this->VALID_MEMO);
+$this->assertSame($pdoListing->getParentId(), $this->VALID_PARENT_ID);
+$this->assertSame($pdoListing->getListingPostTime(), $this->VALID_DATETIME);
+$this->assertSame($pdoListing->getListingTypeId(), $this->VALID_TYPE);
+}
+
 
 }
