@@ -187,7 +187,7 @@ class VolunteerTest extends BreadBasketTest {
 		$this->assertSame($pdoVolunteer->getVolEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoVolunteer->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 		$this->assertSame($pdoVolunteer->getVolFirstName(), $this->VALID_FIRST_NAME);
-		$this->assertSame($pdoVolunteer->getVolLastName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoVolunteer->getVolLastName(), $this->VALID_LAST_NAME);
 		$this->assertSatme($pdoVolunteer->getVolPhone(), $this->VALID_PHONE);
 	}
 
@@ -215,10 +215,10 @@ class VolunteerTest extends BreadBasketTest {
 		$pdoVolunteer = Volunteer::getVolunteerByOrgId($this->getPDO(), $volunteer->getOrgId());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("volunteer"));
 		$this->assertSame($pdoVolunteer[0]->getOrgId(), $this->VALID_ORG_ID);
-		$this->assertSame($pdoVolunteer[0]->getVolEmail(), $this->VALID_EMAIL_ALT);
+		$this->assertSame($pdoVolunteer[0]->getVolEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoVolunteer[0]->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 		$this->assertSame($pdoVolunteer[0]->getVolFirstName(), $this->VALID_FIRST_NAME);
-		$this->assertSame($pdoVolunteer[0]->getVolLastName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoVolunteer[0]->getVolLastName(), $this->VALID_LAST_NAME);
 		$this->assertSame($pdoVolunteer[0]->getVolPhone(), $this->VALID_PHONE);
 	}
 
@@ -246,10 +246,10 @@ class VolunteerTest extends BreadBasketTest {
 			$pdoVolunteer = Volunteer::getVolunteerByVolEmail($this->getPDO(), $volunteer->getVolEmail());
 			$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("volunteer"));
 			$this->assertSame($pdoVolunteer[0]->getOrgId(), $this->VALID_ORG_ID);
-			$this->assertSame($pdoVolunteer[0]->getVolEmail(), $this->VALID_EMAIL_ALT);
+			$this->assertSame($pdoVolunteer[0]->getVolEmail(), $this->VALID_EMAIL);
 			$this->assertSame($pdoVolunteer[0]->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 			$this->assertSame($pdoVolunteer[0]->getVolFirstName(), $this->VALID_FIRST_NAME);
-			$this->assertSame($pdoVolunteer[0]->getVolLastName(), $this->VALID_FIRST_NAME);
+			$this->assertSame($pdoVolunteer[0]->getVolLastName(), $this->VALID_LAST_NAME);
 			$this->assertSame($pdoVolunteer[0]->getVolPhone(), $this->VALID_PHONE);
 		}
 
@@ -277,10 +277,10 @@ class VolunteerTest extends BreadBasketTest {
 		$pdoVolunteer = Volunteer::getVolunteerByVolFirstAndLastName($this->getPDO(), $volunteer->getVolFirstName(), $volunteer->getVolLastName());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("volunteer"));
 		$this->assertSame($pdoVolunteer[0]->getOrgId(), $this->VALID_ORG_ID);
-		$this->assertSame($pdoVolunteer[0]->getVolEmail(), $this->VALID_EMAIL_ALT);
+		$this->assertSame($pdoVolunteer[0]->getVolEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoVolunteer[0]->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 		$this->assertSame($pdoVolunteer[0]->getVolFirstName(), $this->VALID_FIRST_NAME);
-		$this->assertSame($pdoVolunteer[0]->getVolLastName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoVolunteer[0]->getVolLastName(), $this->VALID_LAST_NAME);
 		$this->assertSame($pdoVolunteer[0]->getVolPhone(), $this->VALID_PHONE);
 	}
 
@@ -308,10 +308,10 @@ class VolunteerTest extends BreadBasketTest {
 		$pdoVolunteer = Volunteer::getVolunteerByVolPhone($this->getPDO(), $volunteer->getVolPhone());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("volunteer"));
 		$this->assertSame($pdoVolunteer[0]->getOrgId(), $this->VALID_ORG_ID);
-		$this->assertSame($pdoVolunteer[0]->getVolEmail(), $this->VALID_EMAIL_ALT);
+		$this->assertSame($pdoVolunteer[0]->getVolEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoVolunteer[0]->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 		$this->assertSame($pdoVolunteer[0]->getVolFirstName(), $this->VALID_FIRST_NAME);
-		$this->assertSame($pdoVolunteer[0]->getVolLastName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoVolunteer[0]->getVolLastName(), $this->VALID_LAST_NAME);
 		$this->assertSame($pdoVolunteer[0]->getVolPhone(), $this->VALID_PHONE);
 	}
 
