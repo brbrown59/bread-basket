@@ -589,11 +589,7 @@ class Volunteer {
 		$statement = $pdo->prepare($query);
 
 		//bind the first name value to the placeholder in the template
-		$parameters = array("volFirstName" => $volFirstName);
-		$statement->execute($parameters);
-
-		//bind the last name value to the placeholder in the template
-		$parameters = array("volLastName" => $volLastName);
+		$parameters = array("volFirstName" => $volFirstName, "volLastName" => $volLastName);
 		$statement->execute($parameters);
 
 		//call the function to build and array of the retrieved values
