@@ -274,9 +274,10 @@ protected $organization = null;
 	 * test for grabbing a listing by a parent id that doesn't exist
 	 */
 	public function testGetInvalidListingParentId() {
-		$listing = Listing::getListingByListingParentId($this->getPDO(), "100000000000000000000");
+		$listing = Listing::getListingByParentId($this->getPDO(), "100000000000000000000");
 		$this->assertSame($listing->getSize(), 0);
 	}
+
 
 	/**test for grabbing a listing by listingPostTime
 	 *
