@@ -541,6 +541,127 @@ class Administrator {
 		return $retrievedAdmin;
 	}
 
+	/**
+	 * get administrator by organization id
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @param int $orgId organization this administrators is associated with
+	 * @return SplFixedArray all administrators found for this content
+	 * @throws PDOException if mySQL related errors occur
+	 **/
+	public static function getAdministratorByOrgId(PDO $pdo, $orgId) {
+		//sanitize the input
+		$orgId = filter_var($orgId, FILTER_VALIDATE_INT);
+		if(empty($orgId) === true) {
+			throw(new PDOException("org id is not an integer"));
+		}
+		if($orgId <= 0) {
+			throw(new PDOException("org id is not positive"));
+		}
+
+		//create query template
+		$query = "SELECT adminId, volId, orgId, adminEmail, adminEmailActivation, adminFirstName, adminLastName, adminPhone, adminPhone FROM administrator WHERE orgId = :orgId";
+		$statement = $pdo->prepare($query);
+
+		//bind the id value to the placeholder in the template
+		$parameters = array("orgId" => $orgId);
+		$statement->execute($parameters);
+
+		//call the function to build and array of the retrieved values
+		try {
+			$retrievedAdmin = Administrator::storeSQLResultsInArray($statement);
+		} catch(Exception $exception) {
+			//rethrow the exception if the retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $retrievedAdmin;
+	}
+
+
+
+	/**
+	 * Get Administrator by volId
+	 *
+	 * @param PDO $pdo PDO connection object
+	 * @param int $volId Administrator Id to search for
+	 * @return mixed Administrator found or null if not found
+	 * @throw PDOException when mySQL related errors occur
+	 */
+
+	public static function getAdministratorByVolId(PDO $pdo, $volId) {
+		//sanitize the adminId before searching
+		$volId = Filter_var($volId, FILTER_VALIDATE_INT);
+		if(empty($volId) === true) {
+			throw(new PDOException("Volunteer ID is not a integer"));
+		}
+		if($volId <= 0) {
+			throw(new PDOException("Administrator ID is not Positive"));
+		}
+		//create query template
+		$query = "SELECT adminId, volId, orgId, adminEmail, adminEmailActivation, adminFirstName, adminLastName, adminPhone, adminPhone FROM administrator WHERE volId = :volId";
+		$statement = $pdo->prepare($query);
+
+		//Bind the administrator id to the place holder in the template
+		$parameters = array("volId" => $volId);
+		$statement->execute($parameters);
+
+		//grab the administrator from mySQL
+		try {
+			$administrator = null;
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
+			}
+		}catch(Exception $exception){
+			//if the row could not be converted, rethrow it
+			throw(new PDOException($exception->getmessage(),0, $exception));
+		}
+		return($administrator);
+
+	}
+
+
+	/**
+	 * Get Administrator by adminEmail
+	 *
+	 * @param PDO $pdo PDO connection object
+	 * @param int $adminEmail Administrator email to search for
+	 * @return mixed adminEmail found or null if not found
+	 * @throw PDOException when mySQL related errors occur
+	 */
+
+	public static function getAdministratorByAdminEmail(PDO $pdo, $adminEmail) {
+		//sanitize the adminId before searching
+		$adminEmail = Filter_var($adminEmail, FILTER_SANITIZE_EMAIL);
+		if (empty($adminEmail) === true) {
+			throw(new PDOException("Email is Not VAlid"));
+		}
+
+		//create query template
+		$query = "SELECT adminId, volId, orgId, adminEmail, adminEmailActivation, adminFirstName, adminLastName, adminPhone, adminPhone FROM administrator WHERE adminEmail = :adminEmail";
+		$statement = $pdo->prepare($query);
+
+		//Bind the administraotr email to the place holder in the template
+		$parameters = array("adminEmail" => $adminEmail);
+		$statement->execute($parameters);
+
+		//grab the administrator email from mySQL
+		try {
+			$administrator = null;
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
+			}
+		}catch(Exception $exception){
+			//if the row could not be converted, rethrow it
+			throw(new PDOException($exception->getmessage(),0, $exception));
+		}
+		return($administrator);
+
+	}
+
 
 
 	/**
