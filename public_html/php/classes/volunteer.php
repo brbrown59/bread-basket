@@ -368,6 +368,35 @@ class Volunteer {
 	}
 
 	/**
+	 * accessor for volunteer salt
+	 * @return string value of salt
+	 */
+	public function getVolSalt() {
+		return ($this->volSalt);
+	}
+
+	/**
+	 * mutator method for volunteer salt
+	 *
+	 * @param string $newVolSalt
+	 * @throws InvalidArgumentException if salt is empty or insecure
+	 * @throws RangeException if salt is not exactly 64 digits
+	 **/
+	public function setVolSalt($newVolSalt) {
+		//verify salt is a string of 64
+		if((ctype_xdigit($newVolSalt)) === false) {
+			if(empty($newVolSalt) === true) {
+				throw (new InvalidArgumentException("salt is empty or insecure"));
+			}
+			if(strlen($newVolSalt) !== 64) {
+				throw (new RangeException("salt is not 64 characters"));
+			}
+		}
+		$this->volSalt = $newVolSalt;
+	}
+
+
+	/**
 	 * inserts this Volunteer into mySQL
 	 *
 	 * @param PDO $pdo PDO connection object
