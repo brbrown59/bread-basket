@@ -60,7 +60,7 @@ class VolunteerTest extends BreadBasketTest {
 		parent::setUp();
 
 		//create a valid organization to reference in test
-		$this->organization = new Organization(null, "23 Star Trek Rd", "Suit 2", "Bloomington", "Coffee, black", "24/7", "Voyager", "5051234567", "Indiana", "F", "87106" );
+		$this->organization = new Organization(null, "23 Star Trek Rd", "Suit 2", "Bloomington", "Coffee, black", "24/7", "Voyager", "5051234567", "NM", "F", "87106" );
 		$this->organization->insert($this->getPDO());
 
 	}
