@@ -61,9 +61,9 @@ class Volunteer {
 	 * @param string $newVolFirstName string containing first name of the Volunteer
 	 * @param string $newVolLastName string containing last name of the Volunteer
 	 * @param string $newVolPhone string containing the US phone number associated with the Volunteer
-	 * @throws InvalidArgumentException
-	 * @throws RangeException
-	 * @throws Exception
+	 * @throws InvalidArgumentException if data types are invalid or values are insecure
+	 * @throws RangeException if data values are out of bounds
+	 * @throws Exception if some other exception is thrown
 	 **/
 	public function __construct($newVolId, $newOrgId, $newVolEmail, $newVolEmailActivation, $newVolFirstName, $newVolLastName, $newVolPhone) {
 		try {
