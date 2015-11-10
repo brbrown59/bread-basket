@@ -45,11 +45,6 @@ class Administrator {
 	 */
 	private $adminFirstName;
 
-	/**
-	 * Id for the hash on The Administrator password
-	 * @var string $adminHash
-	 */
-	private $adminHash;
 
 	/**
 	 * Id for the The Administrator users Last Name
@@ -63,11 +58,7 @@ class Administrator {
 	 */
 	private $adminPhone;
 
-	/**
-	 * Id for thr encrypted Administrator password salt data.
-	 * @var string $admin
-	 */
-	private $adminSalt;
+
 
 	/**
 	 * Constructors for this Administrator ID
@@ -78,15 +69,13 @@ class Administrator {
 	 * @param $newAdminEmail
 	 * @param $newAdminEmailActivation
 	 * @param $newAdminFirstName
-	 * @param $newAdminHash
 	 * @param $newAdminLastName
 	 * @param $newAdminPhone
-	 * @param $newAdminSalt
 	 * @throws Exception
 	 *
 	 */
 
-	public function __construct($newAdminId, $newVolId, $newOrgId, $newAdminEmail, $newAdminEmailActivation, $newAdminFirstName, $newAdminHash, $newAdminLastName, $newAdminPhone, $newAdminSalt) {
+	public function __construct($newAdminId, $newVolId, $newOrgId, $newAdminEmail, $newAdminEmailActivation, $newAdminFirstName, $newAdminLastName, $newAdminPhone) {
 		try {
 			$this->setAdminId($newAdminId);
 			$this->setVolId($newVolId);
@@ -94,9 +83,7 @@ class Administrator {
 			$this->setAdminEmailId($newAdminEmail);
 			$this->setAdminEmailActivation($newAdminEmailActivation);
 			$this->setAdminFirstName($newAdminFirstName);
-			$this->setAdminHash($newAdminHash);
 			$this->setAdminPhone($newAdminPhone);
-			$this->setAdminSalt($newAdminSalt);
 
 
 		} catch(invalidArgumentException $invalidArgument) {
@@ -244,7 +231,7 @@ class Administrator {
 	/**
 	 * Mutator method for Administrator Email; adminEmail
 	 *
-	 * @param String $adminEmailId new Administrator Email
+	 * @param String $newAdminEmail new Administrator Email
 	 * @throw InvalidArgumentException if $newAdminEmailId is not a string
 	 * @throw rangeException if $newAdminEmail is more than 128 characters
 	 */
@@ -281,7 +268,7 @@ class Administrator {
 
 	/**
 	 * Mutator for Administrator Email Activation; adminEmailActivation
-	 * @return string $newAdminEmailActivation
+	 * @param String $newAdminEmailActivation new admin email activation
 	 * @throw InvalidArgumentException
 	 */
 	public function setAdminEmailActivation($newAdminEmailActivation){
@@ -335,36 +322,6 @@ class Administrator {
 		$this->adminFirstName = $newAdminFirstName;
 	}
 
-
-
-
-
-	/**Accessor for Administrator Hash
-	 * @return string value of hash
-	 */
-	public function getAdminHash() {
-		return ($this->adminHash);
-	}
-
-	/** Mutator For Administrator Hash; adminHash
-	 * @param String $newAdminHash new Value for password
-	 * @throw InvalidArgumentException if $newAdminHash is not a string.
-	 * @throw RangeException if $newAdminHas is too long.
-	 */
-	public function setAdminHash($newAdminHash) {
-		// Verify that Hash is correct.
-		$newAdminHash = trim($newAdminHash);
-		$newAdminHash = filter_var($newAdminHash, FILTER_SANITIZE_STRING);
-		if(empty ($newAdminHash) === true) {
-			throw(new InvalidArgumentException ("Password is incorrect"));
-		}
-		//verify the hash will fit into the database.
-		if(strlen($newAdminHash) !== 128) {
-			throw(new RangeException("Password is not verified"));
-		}
-		//Store Administrator Hash
-		$this->adminHash = $newAdminHash;
-	}
 
 
 
@@ -439,44 +396,6 @@ class Administrator {
 
 
 
-
-	/**
-	 *Accessor the Administrator Salt
-	 * @return string value for Administrator salt
-	 */
-
-	public function getAdminSalt() {
-		return($this->adminSalt);
-	}
-
-	/**
-	 * Mutator method for Administrator salt; adminSalt
-	 * @param string $newAdminSalt new value of Administrator salt.
-	 * @throw InvalidArgumentException if $newAdminSalt is not a string
-	 * @throw RangeException if $newAdminSalt us not 64 characters
-	 */
-
-	public function setAdminSalt($newAdminSalt){
-		//Verify Administrator salt is correct
-		$newAdminSalt = trim($newAdminSalt);
-		$newAdminSalt = filter_var($newAdminSalt, FILTER_SANITIZE_STRING);
-		if(empty($newAdminSalt) === true) {
-			throw(new InvalidArgumentException("Password is incorrect"));
-		}
-		//Verify Administrator salt is correct length
-		if(strlen($newAdminSalt) !== 64) {
-			throw(new RangeException("Password is not valid"));
-		}
-		//Store the Administrator Salt content.
-		$this->adminSalt = $newAdminSalt;
-	}
-
-
-
-
-
-
-
 	/**
 	 * Insert Administrator into mySQL; adminId
 	 *
@@ -498,10 +417,8 @@ class Administrator {
 		$statement->execute($parameters);
 
 		//Update the null adminId whith what mySQl just gave us.
-		$this->admin = intval($pdo->lastInsertId() );
+		$this->adminId = intval($pdo->lastInsertId() );
 	}
-
-
 
 
 
@@ -543,11 +460,11 @@ class Administrator {
 		}
 
 		//Create Query Template
-		$query ="UPDATE administrator SET volId = :volId, orgId = :ordId, adminEmail = :adminEmail,  adminEmailActivation= :adminEmailActivation, adminFirstName  = :adminFirstName,  adminHash= :adminHash, adminLastName = :adminLastName,  adminPhone= :adminPhone,  adminPhone= :adminPhone,  adminSalt= :adminSalt";
+		$query ="UPDATE administrator SET volId = :volId, orgId = :ordId, adminEmail = :adminEmail,  adminEmailActivation= :adminEmailActivation, adminFirstName  = :adminFirstName,  adminLastName = :adminLastName,  adminPhone= :adminPhone,  adminPhone= :adminPhone";
 		$statement = $pdo->prepare($query);
 
 		//Bind the Variables tot he place holder in the template.
-		$parameters = array("volId"=> $this->volId, "orgId"=> $this->orgId, "adminEmail"=> $this->adminEmail, "adminEmailActivation"=> $this->adminEmailActivation, "adminFirstName"=> $this->adminFirstName, "adminHash"=> $this->adminHash, "dminLastName"=> $this->adminLastName, "adminPhone"=> $this->adminPhone, "adminPhone"=> $this->adminPhone, "adminSalt"=> $this->adminSalt);
+		$parameters = array("volId"=> $this->volId, "orgId"=> $this->orgId, "adminEmail"=> $this->adminEmail, "adminEmailActivation"=> $this->adminEmailActivation, "adminFirstName"=> $this->adminFirstName, "dminLastName"=> $this->adminLastName, "adminPhone"=> $this->adminPhone);
 		$statement->execute($parameters);
 	}
 
@@ -572,7 +489,7 @@ class Administrator {
 			throw(new PDOException("Administrator ID is not Positive"));
 		}
 		//create query template
-		$query = "SELECT adminId, volId, orgId, adminEmail, adminEmailActivation, adminFirstName, adminHash, adminLastName, adminPhone, adminPhone, adminSalt FROM administrator WHERE adminId = :adminId";
+		$query = "SELECT adminId, volId, orgId, adminEmail, adminEmailActivation, adminFirstName, adminLastName, adminPhone, adminPhone FROM administrator WHERE adminId = :adminId";
 		$statement = $pdo->prepare($query);
 
 		//Bind the administraotr id to the place holder in the template
@@ -585,7 +502,7 @@ class Administrator {
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminHash"], $row["adminLastName"], $row["adminPhone"], $row["adminSalt"]);
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
 			}
 		}catch(Exception $exception){
 			//if the row could not be converted, rethrow it
@@ -604,7 +521,7 @@ class Administrator {
 	 */
 	public static function getAllAdministrators(PDO $pdo){
 		//create query template
-		$query = "SELECT adminId, volId, orgId, adminEmail, adminEmailActivation, adminFirstName, adminHash, adminLastName, adminPhone, adminPhone, adminSalt FROM administrator";
+		$query = "SELECT adminId, volId, orgId, adminEmail, adminEmailActivation, adminFirstName, adminLastName, adminPhone, adminPhone FROM administrator";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
@@ -613,7 +530,7 @@ class Administrator {
 		$statement->setFetchMode(PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false){
 			try{
-				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminHash"], $row["adminLastName"], $row["adminPhone"], $row["adminSalt"]);
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
 				$administrators[$administrators->key()] = $administrator;
 				$administrators->next();
 			} catch(Exception $exception){
