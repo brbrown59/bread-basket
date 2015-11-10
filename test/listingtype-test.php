@@ -78,7 +78,7 @@ class ListingTypeTest extends BreadBasketTest {
 	 */
 	public function testUpdateInvalidListingType() {
 		//create a listing type and update without inserting it
-		$listingtype = new ListingType(BreadBasketTest::INVALID_KEY, $this->VALID_TYPE);
+		$listingtype = new ListingType(null, $this->VALID_TYPE);
 		$listingtype->update($this->getPDO());
 	}
 
