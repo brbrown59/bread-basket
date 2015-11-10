@@ -81,7 +81,7 @@ class AdministratorTest extends BreadBasketTest {
 	/**
 	 * set up for valid Administrator
 	 */
-	public final function setUP() {
+	public final function setUp() {
 		//run default setUp() method first
 		parent::setUp();
 

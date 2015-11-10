@@ -512,6 +512,37 @@ class Administrator {
 
 	}
 
+
+	/**
+	 * function to store multiple database results into an SplFixedArray
+	 *
+	 * @param PDOStatement $statement pdo statement object
+	 * @return SPLFixedArray all administrators obtained from database
+	 * @throws PDOException if mySQL related errors occur
+	 */
+	public static function storeSQLResultsInArray(PDOStatement $statement) {
+		//build an array of organizations, as an SPLFixedArray object
+		//set the size of the object to the number of retrieved rows
+		$retrievedAdmin = new SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(PDO::FETCH_ASSOC);
+
+		//while rows can still be retrieved from the result
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
+				//place result in the current field, then advance the key
+				$retrievedAdmin[$retrievedAdmin->key()] = $administrator;
+				$retrievedAdmin->next();
+			} catch(Exception $exception) {
+				//rethrow the exception if retrieval failed
+				throw(new PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return $retrievedAdmin;
+	}
+
+
+
 	/**
 	 * Get all Administrators
 	 *
