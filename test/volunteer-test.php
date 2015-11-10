@@ -4,6 +4,7 @@ require_once("bread-basket.php");
 
 //grab the class under scrutiny
 require_once(dirname(__DIR__) . "/public_html/php/classes/volunteer.php");
+require_once(dirname(__DIR__) . "/public_html/php/classes/organization.php");
 
 /**
  * full PHP unit test for the Volunteer class
@@ -17,9 +18,9 @@ require_once(dirname(__DIR__) . "/public_html/php/classes/volunteer.php");
 class VolunteerTest extends BreadBasketTest {
 	/**
 	 * valid org id to use
-	 * @var int $ORG_ID
-	 **/
-	protected $VALID_ORG_ID = "1";
+	 * @var int $VALID_ORG_ID
+	 */
+	protected $organization = null;
 	/**
 	 * valid email to use
 	 * @var string $VALID_EMAIL
@@ -34,7 +35,7 @@ class VolunteerTest extends BreadBasketTest {
 	 * valid activation key to use
 	 * @var string $VALID_EMAIL_ACTIVATION
 	 **/
-	protected $VALID_EMAIL_ACTIVATION = "12345678ABCDEFGH";
+	protected $VALID_EMAIL_ACTIVATION = "1234567898765432";
 	/**
 	 * valid first name
 	 * @var string $VALID_FIRST_NAME
@@ -52,6 +53,19 @@ class VolunteerTest extends BreadBasketTest {
 	protected $VALID_PHONE = "5053041090";
 
 	/**
+	 * set up for valid organization
+	 */
+	public final function setUp() {
+		//run default setUp() method first
+		parent::setUp();
+
+		//create a valid organization to reference in test
+		$this->organization = new Organization();
+
+	}
+
+
+	/**
 	 * test inserting a valid Volunteer and verity that the actual mySQL data matches
 	 **/
 	public function testInsertValidVolunteer() {
@@ -59,7 +73,7 @@ class VolunteerTest extends BreadBasketTest {
 		$numRows = $this->getConnection()->getRowCount("volunteer");
 
 		//create a new Volunteer and insert into mySQL
-		$volunteer = new Volunteer(null, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
 		$volunteer->insert($this->getPDO());
 
 		//grab the data from mySQL and enforce the fields match our expectations
@@ -80,7 +94,7 @@ class VolunteerTest extends BreadBasketTest {
 	 **/
 	public function testInsertInvalidVolunteer() {
 		//create a volunteer wiht a non null volId and watch it fail
-		$volunteer = new Volunteer(BreadBasketTest::INVALID_KEY, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(BreadBasketTest::INVALID_KEY, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
 		$volunteer->insert($this->getPDO());
 	}
 
@@ -92,7 +106,7 @@ class VolunteerTest extends BreadBasketTest {
 		$numRows = $this->getConnection()->getRowCount("volunteer");
 
 		// create a new Volunteer and insert to into mySQL
-		$volunteer = new Volunteer(null, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
 		$volunteer->insert($this->getPDO());
 
 		// edit the Volunteer and update it in mySQL
@@ -117,7 +131,7 @@ class VolunteerTest extends BreadBasketTest {
 	 **/
 	public function testUpdateInvalidVolunteer() {
 		//create a Volunteer and try to update it without actually inserting it
-		$volunteer = new Volunteer(null, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
 		$volunteer->update($this->getPDO());
 	}
 
@@ -129,7 +143,7 @@ class VolunteerTest extends BreadBasketTest {
 		$numRows = $this->getConnection()->getRowCount("volunteer");
 
 		// create a new Volunteer and insert to into mySQL
-		$volunteer = new Volunteer(null, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(null,$this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
 		$volunteer->insert($this->getPDO());
 
 		//delete the Volunteer from mySQL
@@ -149,7 +163,7 @@ class VolunteerTest extends BreadBasketTest {
 	 **/
 	public function testDeleteInvalidVolunteer() {
 		// create a Volunteer and try to delete it without actually inserting it
-		$volunteer = new Volunteer(null, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
 		$volunteer->delete($this->getPDO());
 	}
 
@@ -162,7 +176,7 @@ class VolunteerTest extends BreadBasketTest {
 		$numRows = $this->getConnection()->getRowCount("volunteer");
 
 		// create a new Volunteer and insert to into mySQL
-		$volunteer = new Volunteer(null, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
 		$volunteer->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -193,7 +207,7 @@ class VolunteerTest extends BreadBasketTest {
 		$numRows = $this->getConnection()->getRowCount("volunteer");
 
 		// create a new Volunteer and insert to into mySQL
-		$volunteer = new Volunteer(null, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
 		$volunteer->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -224,7 +238,7 @@ class VolunteerTest extends BreadBasketTest {
 			$numRows = $this->getConnection()->getRowCount("volunteer");
 
 			// create a new Volunteer and insert to into mySQL
-			$volunteer = new Volunteer(null, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+			$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
 			$volunteer->insert($this->getPDO());
 
 			// grab the data from mySQL and enforce the fields match our expectations
@@ -255,7 +269,7 @@ class VolunteerTest extends BreadBasketTest {
 		$numRows = $this->getConnection()->getRowCount("volunteer");
 
 		// create a new Volunteer and insert to into mySQL
-		$volunteer = new Volunteer(null, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
 		$volunteer->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -286,7 +300,7 @@ class VolunteerTest extends BreadBasketTest {
 		$numRows = $this->getConnection()->getRowCount("volunteer");
 
 		// create a new Volunteer and insert to into mySQL
-		$volunteer = new Volunteer(null, $this->VALID_ORG_ID, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
 		$volunteer->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations

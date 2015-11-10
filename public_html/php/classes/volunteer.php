@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * autoloader function to include other classes
+ */
+require_once("autoloader.php");
+
+/**
  * Volunteer is a small user attached to a receiving organization. They do not have access to the organization profile
  * They receive notifications about donations and have the ability to claim donations and pickup donations. They are managed
  * by the admin of the organization they're associated with.
@@ -55,6 +60,9 @@ class Volunteer {
 	 * @param string $newVolFirstName string containing first name of the Volunteer
 	 * @param string $newVolLastName string containing last name of the Volunteer
 	 * @param string $newVolPhone string containing the US phone number associated with the Volunteer
+	 * @throws InvalidArgumentException
+	 * @throws RangeException
+	 * @throws Exception
 	 **/
 	public function __construct($newVolId, $newOrgId, $newVolEmail, $newVolEmailActivation, $newVolFirstName, $newVolLastName, $newVolPhone) {
 		try {
@@ -66,9 +74,9 @@ class Volunteer {
 			$this->setVolLastName($newVolLastName);
 			$this->setVolPhone($newVolPhone);
 
-		} catch(InvalidArgumentException $invalidArugument) {
+		} catch(InvalidArgumentException $invalidArgument) {
 			//rethrow the exception to the caller
-			throw(new InvalidArgumentException($invalidArugument->getMessage(),0, $invalidArugument));
+			throw(new InvalidArgumentException($invalidArgument->getMessage(),0, $invalidArgument));
 
 		} catch(RangeException $range) {
 			//rethrow the exception to the caller
@@ -202,18 +210,17 @@ class Volunteer {
 	 * @throws InvalidArgumentException if activation code is not a string or insecure
 	 **/
 	public function setVolEmailActivation($newVolEmailActivation) {
-
-		//sanitize the activation code
+		//verify the activation code is valid
+		$newVolEmailActivation = trim($newVolEmailActivation);
 		$newVolEmailActivation = filter_var($newVolEmailActivation, FILTER_SANITIZE_STRING);
 		if(empty($newVolEmailActivation) === true) {
-			throw(new InvalidArgumentException("this code is empty or insecure"));
+			throw(new InvalidArgumentException("activation code is insufficient length or insecure"));
 		}
 
-		//verify the activation code is valid
-		$newVolEmailActivation = ctype_xdigit($this->$newVolEmailActivation);
-		if($newVolEmailActivation !== true) {
-			throw(new RangeException("this code is not a valid hex code"));
-		}
+		//verify the code will fit in the database
+		if(strlen($newVolEmailActivation) !== 16) {
+				throw(new RangeException("activation code is too large"));
+			}
 
 		//store activation code
 		$this->volEmailActivation = $newVolEmailActivation;
@@ -331,7 +338,7 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "INSERT INTO volunteer(orgId,volEmail, volEmailActivation, volFirstName, volLastName, volPhone) VALUES(:orgId, :volEmail, :volEmailActivation, :volFirstName, :volLastName, :volPhone)";
+		$query = "INSERT INTO volunteer(orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone) VALUES(:orgId, :volEmail, :volEmailActivation, :volFirstName, :volLastName, :volPhone)";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
@@ -477,7 +484,6 @@ class Volunteer {
 		$statement = $pdo->prepare($query);
 
 		//bind the id value to the placeholder in the template
-		$orgId = $orgId;
 		$parameters = array("orgId" => $orgId);
 		$statement->execute($parameters);
 
@@ -588,11 +594,7 @@ class Volunteer {
 		$statement = $pdo->prepare($query);
 
 		//bind the first name value to the placeholder in the template
-		$parameters = array("volFirstName" => $volFirstName);
-		$statement->execute($parameters);
-
-		//bind the last name value to the placeholder in the template
-		$parameters = array("volLastName" => $volLastName);
+		$parameters = array("volFirstName" => $volFirstName, "volLastName" => $volLastName);
 		$statement->execute($parameters);
 
 		//call the function to build and array of the retrieved values

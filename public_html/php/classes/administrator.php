@@ -29,7 +29,7 @@ class Administrator {
 	 * Id for the The Administrator Email address.
 	 * @var string $adminEmail
 	 */
-	private $adminEmailId;
+	private $adminEmail;
 
 	/**
 	 * Id for the activation of Administrators Email address.
@@ -84,7 +84,7 @@ class Administrator {
 	 *
 	 */
 
-	public function __construct($newAdminId, $newVolId, $newOrgId, $newAdminEmailId, $newAdminEmailActivation, $newAdminFirstNameId, $newAdminHashId, $newAdminLastNameId, $newAdminPhoneId, $newAdminSaltId) {
+	public function __construct($newAdminId, $newVolId, $newOrgId, $newAdminEmail, $newAdminEmailActivation, $newAdminFirstName, $newAdminHash, $newAdminLastName, $newAdminPhone, $newAdminSalt) {
 		try {
 			$this->setAdminId($newAdminId);
 			$this->setVolId($newVolId);
@@ -240,32 +240,32 @@ class Administrator {
 	 * @return string value for adminEmail Id
 	 */
 	public function getAdminEmailId() {
-		return($this->adminEmailId);
+		return($this->adminEmail);
 	}
 
 	/**
-	 * Mutator method for Administrator Email; adminEmailId
+	 * Mutator method for Administrator Email; adminEmail
 	 *
 	 * @param String $adminEmailId new Administrator Email
 	 * @throw InvalidArgumentException if $newAdminEmailId is not a string
-	 * @throw rangeException if $newAdminEmailId is more than 128 characters
+	 * @throw rangeException if $newAdminEmail is more than 128 characters
 	 */
-	public function setAdminEmailId($newAdminEmailId){
+	public function setAdminEmailId($newAdminEmail){
 
 		//Verify the Email for Administrator is valid; adminEmailId
-		$newAdminEmailId = trim($newAdminEmailId);
-		$newAdminEmailId = filter_var($newAdminEmailId, FILTER_SANITIZE_EMAIL);
-		if (empty($newAdminEmailId) ===true) {
-			Throw(new InvalidArgumentException ("There is no content in this email"));
+		$newAdminEmail = trim($newAdminEmail);
+		$newAdminEmail = filter_var($newAdminEmail, FILTER_SANITIZE_EMAIL);
+		if (empty($newAdminEmail) ===true) {
+			throw(new InvalidArgumentException ("There is no content in this email"));
 		}
 
 		//Verify that the Administrator's Email message is no more than 128 characters
-		if(strlen($newAdminEmailId) > 128){
+		if(strlen($newAdminEmail) > 128){
 			throw(new RangeException("Maximum amount of characters has been exceeded"));
 		}
 
 		//Convert and store this Administrator Email; adminEmailId
-		$this->adminEmailId = $newAdminEmailId;
+		$this->adminEmail = $newAdminEmail;
 	}
 
 
