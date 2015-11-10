@@ -289,12 +289,11 @@ class Volunteer {
 	public function setVolHash($newVolHash) {
 		//verify the hash is exactly a string of 128
 		if((ctype_xdigit($newVolHash)) === false) {
-			if(empty($newVolHash) === true) {
 				throw(new InvalidArgumentException ("hash is empty or insecure"));
 			}
-			if(strlen($newVolHash) !== 128) {
-				throw(new RangeException("has is not a valid length"));
-			}
+
+		if(strlen($newVolHash) !== 128) {
+			throw(new RangeException("has is not a valid length"));
 		}
 		//Store volunteer hash
 		$this->volHash = $newVolHash;
