@@ -41,6 +41,11 @@ class Volunteer {
 	 **/
 	private $volFirstName;
 	/**
+	 * hash for on the Volunteer password
+	 * @var string $volHash
+	 */
+	private $volHash;
+	/**
 	 * last name of Volunteer
 	 * @var string $volLastName
 	 **/
@@ -50,6 +55,10 @@ class Volunteer {
 	 * @var string $volPhone
 	 **/
 	private $volPhone;
+	/**
+	 * id for the salt on the Volunteer password
+	 **/
+	private $volSalt;
 
 	/**
 	 * constructor for this Volunteer
@@ -59,21 +68,25 @@ class Volunteer {
 	 * @param string $newVolEmail email of the Volunteer
 	 * @param int $newVolEmailActivation activation key for Volunteer email, null if email confirmed
 	 * @param string $newVolFirstName string containing first name of the Volunteer
+	 * @param string $newVolHash string containing the hash for the Volunteer password
 	 * @param string $newVolLastName string containing last name of the Volunteer
 	 * @param string $newVolPhone string containing the US phone number associated with the Volunteer
+	 * @param string $newVolSalt string containing the salt for the Volunteer password
 	 * @throws InvalidArgumentException if data types are invalid or values are insecure
 	 * @throws RangeException if data values are out of bounds
 	 * @throws Exception if some other exception is thrown
 	 **/
-	public function __construct($newVolId, $newOrgId, $newVolEmail, $newVolEmailActivation, $newVolFirstName, $newVolLastName, $newVolPhone) {
+	public function __construct($newVolId, $newOrgId, $newVolEmail, $newVolEmailActivation, $newVolFirstName, $newVolHash, $newVolLastName, $newVolPhone, $newVolSalt) {
 		try {
 			$this->setVolId($newVolId);
 			$this->setOrgId($newOrgId);
 			$this->setVolEmail($newVolEmail);
 			$this->setVolEmailActivation($newVolEmailActivation);
 			$this->setVolFirstName($newVolFirstName);
+			$this->setVolHash($newVolHash);
 			$this->setVolLastName($newVolLastName);
 			$this->setVolPhone($newVolPhone);
+			$this->setVolSalt($newVolSalt);
 
 		} catch(InvalidArgumentException $invalidArgument) {
 			//rethrow the exception to the caller
@@ -259,6 +272,34 @@ class Volunteer {
 		//store the first name
 		$this->volFirstName = $newVolFirstName;
 	}
+
+	/**accessor for volunteer hash
+	 * @return string value of hash
+	 */
+	public function getVolHash() {
+		return ($this->volHash);
+	}
+
+	/** mutator For volunteer hash; volHash
+	 * @param String $newVolHash with ctype xdigit with a string of 128
+	 * @throws InvalidArgumentException if the hash is empty or insecure
+	 * @throws RangeException if $newVolHash is is not 128.
+	 */
+	public function setVolHash($newVolHash) {
+		//verify the hash is exactly a string of 128
+		if((ctype_xdigit($newVolHash)) === false) {
+			if(empty($newVolHash) === true) {
+				throw(new InvalidArgumentException ("hash is empty or insecure"));
+			}
+			if(strlen($newVolHash) !== 128) {
+				throw(new RangeException("has is not a valid length"));
+			}
+		}
+		//Store volunteer hash
+		$this->volHash = $newVolHash;
+	}
+
+
 
 	/**
 	 * accessor method for vol last name
