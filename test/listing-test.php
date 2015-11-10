@@ -51,7 +51,11 @@ class ListingTest extends BreadBasketTest {
 	 **/
 	protected $VALID_TYPE = "3";
 	/**
-	 * test inserting a valid listing and verify that the actual mySQL
-	 */
+	 * test inserting a valid listing and verify that the actual mySQL data matches
+	 **/
+	public function testInsertValidListing() {
+		//get the count of the number of rows in the database
+		$numRows = $this->getConnection()
+	}
 
 }
