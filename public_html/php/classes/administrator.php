@@ -231,7 +231,7 @@ class Administrator {
 	/**
 	 * Mutator method for Administrator Email; adminEmail
 	 *
-	 * @param String $adminEmailId new Administrator Email
+	 * @param String $newAdminEmail new Administrator Email
 	 * @throw InvalidArgumentException if $newAdminEmailId is not a string
 	 * @throw rangeException if $newAdminEmail is more than 128 characters
 	 */
@@ -268,7 +268,7 @@ class Administrator {
 
 	/**
 	 * Mutator for Administrator Email Activation; adminEmailActivation
-	 * @return string $newAdminEmailActivation
+	 * @param String $newAdminEmailActivation new admin email activation
 	 * @throw InvalidArgumentException
 	 */
 	public function setAdminEmailActivation($newAdminEmailActivation){
@@ -417,7 +417,7 @@ class Administrator {
 		$statement->execute($parameters);
 
 		//Update the null adminId whith what mySQl just gave us.
-		$this->admin = intval($pdo->lastInsertId() );
+		$this->adminId = intval($pdo->lastInsertId() );
 	}
 
 
