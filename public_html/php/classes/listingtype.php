@@ -33,6 +33,29 @@ class ListingType {
 	}
 
 	/**
+	 * ListingType constructor.
+	 * @param $newListingTypeId
+	 * @param $newListingTypeInfo
+	 * @throws InvalidArgumentException if data types are invalid or insecure
+	 * @throws RangeException if data values are out of bounds
+	 * @throws Exception if some other exception is thrown
+	 */
+
+	public function __construct($newListingTypeId, $newListingTypeInfo) {
+		try {
+			$this->setListingTypeId($newListingTypeId);
+			$this->setListingTypeInfo($newListingTypeInfo);
+			//rethrow any exceptions to their callers
+		} catch(InvalidArgumentException $invalidArgument) {
+			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
+		} catch(RangeException $range) {
+			throw(new RangeException($range->getMessage(), 0, $range));
+		} catch(Exception $exception) {
+			throw(new Exception($exception->getMessage(), 0, $exception));
+		}
+	}
+
+	/**
 	 * mutator method for the listing type id
 	 *
 	 * @param mixed $newListingTypeId new value of the listing type id
@@ -57,7 +80,41 @@ class ListingType {
 			throw(new RangeException("listing type id is not positive"));
 		}
 
-		//convert to int and sore
+		//convert to int and store
 		$this->listingTypeId = intval($newListingTypeId);
+	}
+
+	/**
+	 * accessor method for the listing type information
+	 *
+	 * @return String value of listing type information
+	 */
+	public function getListingTypeInfo() {
+		return($this->listingTypeId);
+	}
+
+	/**
+	 * mutator method for the listing type id
+	 *
+	 * @param mixed $newListingTypeInfo new value of the listing type info
+	 * @throws InvalidArgumentException if $newListingTypeInfo is not an integer
+	 * @throws RangeException if $newListingTypeInfo is not positive
+	 */
+	public function setListingTypeInfo($newListingTypeInfo) {
+
+		//verify the id is valid and secure
+		$newListingTypeInfo = trim($newListingTypeInfo);
+		$newListingTypeInfo = filter_var($newListingTypeInfo, FILTER_SANITIZE_STRING);
+		if(empty($newListingTypeInfo) === true) {
+			throw(new InvalidArgumentException("listing type is not valid or insecure"));
+		}
+
+		//verify the id is positive
+		if(strlen($newListingTypeInfo) > 32) {
+			throw(new RangeException("listing type is too large"));
+		}
+
+		//convert to int and store
+		$this->listingTypeInfo = $newListingTypeInfo;
 	}
 }
