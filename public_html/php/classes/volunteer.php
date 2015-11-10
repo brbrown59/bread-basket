@@ -330,7 +330,7 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "INSERT INTO volunteer(volEmail, volEmailActivation, volFirstName, volLastName, volPhone) VALUES(:orgId, :volEmail, :volEmailActivation, :volFirstName, :volLastName, :volPhone)";
+		$query = "INSERT INTO volunteer(orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone) VALUES(:orgId, :volEmail, :volEmailActivation, :volFirstName, :volLastName, :volPhone)";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
@@ -375,7 +375,7 @@ class Volunteer {
 		}
 
 		//create query tempalte
-		$query = "UPDATE volunteer SET volEmail = :volEmail, volEmailActivation =:volEmailActivation, volFirstName = :volFirstName, volLastName = :volLastName, volPhone = :volPhone";
+		$query = "UPDATE volunteer SET orgId = :orgId, volEmail = :volEmail, volEmailActivation =:volEmailActivation, volFirstName = :volFirstName, volLastName = :volLastName, volPhone = :volPhone";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
