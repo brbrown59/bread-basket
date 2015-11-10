@@ -86,7 +86,7 @@ class AdministratorTest extends BreadBasketTest {
 		parent::setUp();
 
 		//create a valid Administrator to reference in test
-		$this->administrator = new Administrator(null, "sample001", "sample002", "sample003", "sample004", "sample005", "sample006",  );
+		$this->administrator = new Administrator(null, "sample001", "sample002", "sample003", "sample004", "sample005", "sample006");
 		$this->administrator->insert($this->getPDO());
 	}
 
