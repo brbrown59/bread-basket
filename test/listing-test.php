@@ -57,7 +57,7 @@ protected $organization = null;
 	 * valid listingPostTime
 	 * @var DATETIME $VALID_DATETIME
 	 **/
-	protected $VALID_DATETIME = "20115-02-15 18:25:00";
+	protected $VALID_DATETIME = "2015-02-15 18:25:00";
 	/**
 	 * valid listing type to use
 	 * @var Int 	protected $listingType = null;
