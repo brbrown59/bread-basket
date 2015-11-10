@@ -385,12 +385,10 @@ class Volunteer {
 	public function setVolSalt($newVolSalt) {
 		//verify salt is a string of 64
 		if((ctype_xdigit($newVolSalt)) === false) {
-			if(empty($newVolSalt) === true) {
 				throw (new InvalidArgumentException("salt is empty or insecure"));
 			}
-			if(strlen($newVolSalt) !== 64) {
-				throw (new RangeException("salt is not 64 characters"));
-			}
+		if(strlen($newVolSalt) !== 64) {
+			throw (new RangeException("salt is not 64 characters"));
 		}
 		$this->volSalt = $newVolSalt;
 	}
