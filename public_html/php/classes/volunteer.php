@@ -6,13 +6,14 @@
 require_once("autoloader.php");
 
 /**
+ * Volunteer Class
+ *
  * Volunteer is a small user attached to a receiving organization. They do not have access to the organization profile
  * They receive notifications about donations and have the ability to claim donations and pickup donations. They are managed
  * by the admin of the organization they're associated with.
  *
  * @author Kimberly Keller <kimberly@gravitaspublications.com>
  **/
-
 class Volunteer {
 	/**
 	 * id for this Volunteer; this is the primary key
@@ -60,9 +61,9 @@ class Volunteer {
 	 * @param string $newVolFirstName string containing first name of the Volunteer
 	 * @param string $newVolLastName string containing last name of the Volunteer
 	 * @param string $newVolPhone string containing the US phone number associated with the Volunteer
-	 * @throws InvalidArgumentException
-	 * @throws RangeException
-	 * @throws Exception
+	 * @throws InvalidArgumentException if data types are invalid or values are insecure
+	 * @throws RangeException if data values are out of bounds
+	 * @throws Exception if some other exception is thrown
 	 **/
 	public function __construct($newVolId, $newOrgId, $newVolEmail, $newVolEmailActivation, $newVolFirstName, $newVolLastName, $newVolPhone) {
 		try {
@@ -76,7 +77,7 @@ class Volunteer {
 
 		} catch(InvalidArgumentException $invalidArgument) {
 			//rethrow the exception to the caller
-			throw(new InvalidArgumentException($invalidArgument->getMessage(),0, $invalidArgument));
+			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 
 		} catch(RangeException $range) {
 			//rethrow the exception to the caller
@@ -94,7 +95,7 @@ class Volunteer {
 	 * @return mixed value for volunteer id
 	 **/
 	public function getVolId() {
-		return($this->volId);
+		return ($this->volId);
 	}
 
 	/**
@@ -133,7 +134,7 @@ class Volunteer {
 	 * @return int value of org id
 	 **/
 	public function getOrgId() {
-		return($this->orgId);
+		return ($this->orgId);
 	}
 
 	/**
@@ -166,7 +167,7 @@ class Volunteer {
 	 * @return string value of vol email
 	 **/
 	public function getVolEmail() {
-		return($this->volEmail);
+		return ($this->volEmail);
 	}
 
 	/**
@@ -200,7 +201,7 @@ class Volunteer {
 	 * @return string value of activation code
 	 **/
 	public function getVolEmailActivation() {
-		return($this->volEmailActivation);
+		return ($this->volEmailActivation);
 	}
 
 	/**
@@ -219,8 +220,8 @@ class Volunteer {
 
 		//verify the code will fit in the database
 		if(strlen($newVolEmailActivation) !== 16) {
-				throw(new RangeException("activation code is too large"));
-			}
+			throw(new RangeException("activation code is too large"));
+		}
 
 		//store activation code
 		$this->volEmailActivation = $newVolEmailActivation;
@@ -232,7 +233,7 @@ class Volunteer {
 	 * @return string value for first name
 	 **/
 	public function getVolFirstName() {
-		return($this->volFirstName);
+		return ($this->volFirstName);
 	}
 
 	/**
@@ -265,7 +266,7 @@ class Volunteer {
 	 * @returns string value of last name
 	 **/
 	public function getVolLastName() {
-		return($this->volLastName);
+		return ($this->volLastName);
 	}
 
 	/**
@@ -298,7 +299,7 @@ class Volunteer {
 	 * @returns string value of phone number
 	 **/
 	public function getVolPhone() {
-		return($this->volPhone);
+		return ($this->volPhone);
 	}
 
 	/**
@@ -307,7 +308,7 @@ class Volunteer {
 	 * @param string $newVolPhone
 	 * @throws InvalidArgumentException if $$newVolPhone is not a string or insecure
 	 * @throws RangeException if $newVolPhone is more than 32 characters
-	**/
+	 **/
 	public function setVolPhone($newVolPhone) {
 		//verify that the phone number is secure
 		$newVolPhone = trim($newVolPhone);
@@ -429,7 +430,7 @@ class Volunteer {
 			//if the row couldn't be converted, rethrow it
 			throw(new PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($volunteer);
+		return ($volunteer);
 	}
 
 	/**
@@ -448,8 +449,8 @@ class Volunteer {
 		//while rows can still be retrieved from the result
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$volunteer = new Volunteer($row["volId"], $row["ordId"], $row["volEmail"], $row["volEmailActivation"],
-						$row["volFirstName"], $row["volLastName"], $row["volPhone"]);
+				$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"],
+					$row["volFirstName"], $row["volLastName"], $row["volPhone"]);
 				//place result in the current field, then advance the key
 				$retrievedVol[$retrievedVol->key()] = $volunteer;
 				$retrievedVol->next();
@@ -480,7 +481,7 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "SELECT volId, volEmail, volFirstName, volLastName, volPhone FROM volunteer WHERE orgId = :orgId ";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone FROM volunteer WHERE orgId = :orgId ";
 		$statement = $pdo->prepare($query);
 
 		//bind the id value to the placeholder in the template
@@ -514,7 +515,7 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "SELECT volId, orgId, volFirstName, volLastName, volPhone FROM volunteer WHERE volEmail = :volEmail ";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone FROM volunteer WHERE volEmail = :volEmail ";
 		$statement = $pdo->prepare($query);
 
 		//bind the id value to the placeholder in the template
@@ -548,7 +549,7 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volFirstName, volLastName FROM volunteer WHERE volPhone = :volPhone ";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone FROM volunteer WHERE volPhone = :volPhone ";
 		$statement = $pdo->prepare($query);
 
 		//bind the id value to the placeholder in the template
@@ -590,7 +591,7 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volPhone FROM volunteer WHERE volFirstName = :volFirstName AND volLastName = :volLastName ";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone FROM volunteer WHERE volFirstName = :volFirstName AND volLastName = :volLastName ";
 		$statement = $pdo->prepare($query);
 
 		//bind the first name value to the placeholder in the template
@@ -617,7 +618,7 @@ class Volunteer {
 	public static function getAllVolunteers(PDO $pdo) {
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, VolFirstName, VolLastName, volPhone FROM volunteer";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone FROM volunteer";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
