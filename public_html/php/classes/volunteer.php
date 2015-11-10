@@ -476,7 +476,6 @@ class Volunteer {
 		$statement = $pdo->prepare($query);
 
 		//bind the id value to the placeholder in the template
-		$orgId = $orgId;
 		$parameters = array("orgId" => $orgId);
 		$statement->execute($parameters);
 
