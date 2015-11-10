@@ -236,7 +236,6 @@ class ListingType {
 		$statement->execute();
 
 		//build an array of the retrieved results
-		//build an array of tweets, as an SPLFixedArray object
 		//set the size of the object to the number of retrieved rows
 		$retrievedTypes = new SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(PDO::FETCH_ASSOC);
