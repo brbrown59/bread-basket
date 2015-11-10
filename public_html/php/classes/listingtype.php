@@ -90,7 +90,7 @@ class ListingType {
 	 * @return String value of listing type information
 	 */
 	public function getListingTypeInfo() {
-		return($this->listingTypeId);
+		return($this->listingTypeInfo);
 	}
 
 	/**
@@ -109,12 +109,12 @@ class ListingType {
 			throw(new InvalidArgumentException("listing type is not valid or insecure"));
 		}
 
-		//verify the id is positive
+		//verify the listing type will fit in the database
 		if(strlen($newListingTypeInfo) > 32) {
 			throw(new RangeException("listing type is too large"));
 		}
 
-		//convert to int and store
+		//store info in database
 		$this->listingTypeInfo = $newListingTypeInfo;
 	}
 
@@ -173,7 +173,7 @@ class ListingType {
 		$query = "UPDATE listingType SET listingType = :listingType WHERE listingTypeId = :listingTypeId";
 		$statement = $pdo->prepare($query);
 
-		//bind member variables to the placeholders in the template
+		//bind member variables to the placeholders in the template, and execute
 		$parameters = array("listingType" => $this->listingTypeInfo, "listingTypeId" => $this->listingTypeId);
 		$statement->execute($parameters);
 	}

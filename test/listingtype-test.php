@@ -32,14 +32,14 @@ class ListingTypeTest extends BreadBasketTest {
 	*/
 	public function testInsertValidListingType() {
 		//count the rows in the database
-		$numRows = $this->getConnection()->getRowCount("listingtype");
+		$numRows = $this->getConnection()->getRowCount("listingType");
 
 		$listingtype = new ListingType(null, $this->VALID_TYPE);
 		$listingtype->insert($this->getPDO());
 
 		//grab data from SQL and ensure it matches
 		$pdoListingType = ListingType::getListingTypeById($this->getPDO(), $listingtype->getListingTypeId());
-		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("listingtype"));
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("listingType"));
 		$this->assertSame($pdoListingType->getListingTypeInfo(), $this->VALID_TYPE);
 	}
 
@@ -68,7 +68,7 @@ class ListingTypeTest extends BreadBasketTest {
 		//grab data from SQL and ensure it matches
 		$pdoListingType = ListingType::getListingTypeById($this->getPDO(), $listingtype->getListingTypeId());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("listingType"));
-		$this->assertSame($pdoListingType->getListingTypeInfo(), $this->VALID_TYPE);
+		$this->assertSame($pdoListingType->getListingTypeInfo(), $this->VALID_TYPE_2);
 	}
 
 	/**
@@ -111,7 +111,7 @@ class ListingTypeTest extends BreadBasketTest {
 	public function testDeleteInvalidListingType() {
 		//create listingtype and delete without actually inserting it
 		$listingtype = new ListingType(null, $this->VALID_TYPE);
-		$listingtype->delete($this->getPDO);
+		$listingtype->delete($this->getPDO());
 	}
 
 	/**
