@@ -450,15 +450,15 @@ class Volunteer {
 	public function update(PDO $pdo) {
 		//enforce the volID is not null (don't update a volunteer that hasn't been inserted)
 		if($this->volId === null) {
-			throw(new PDOException("unable to update a volunteer that doesn not exist"));
+			throw(new PDOException("unable to update a volunteer that does not exist"));
 		}
 
 		//create query tempalte
-		$query = "UPDATE volunteer SET orgId = :orgId, volEmail = :volEmail, volEmailActivation =:volEmailActivation, volFirstName = :volFirstName, volLastName = :volLastName, volPhone = :volPhone";
+		$query = "UPDATE volunteer SET orgId = :orgId, volEmail = :volEmail, volEmailActivation =:volEmailActivation, volFirstName = :volFirstName, volHash = :volHash, volLastName = :volLastName, volPhone = :volPhone, volSalt = :volSalt";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = array("orgId" => $this->orgId, "volEmail" => $this->volEmail, "volEmailActivation" => $this->volEmailActivation, "volFirstName" => $this->volFirstName, "volLastName" => $this->volLastName, "volPhone" => $this->volPhone);
+		$parameters = array("orgId" => $this->orgId, "volEmail" => $this->volEmail, "volEmailActivation" => $this->volEmailActivation, "volFirstName" => $this->volFirstName, "volHash" => $this->volHash, "volLastName" => $this->volLastName, "volPhone" => $this->volPhone, "volSalt" => $this->volSalt);
 		$statement->execute($parameters);
 	}
 
@@ -481,7 +481,7 @@ class Volunteer {
 		}
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volLastName, volPhone FROM volunteer WHERE volId = :volId";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt FROM volunteer WHERE volId = :volId";
 		$statement = $pdo->prepare($query);
 
 		//bind the volunteer id to the place holder in the template
@@ -494,7 +494,7 @@ class Volunteer {
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"], $row["volFirstName"], $row["volLastName"], $row["volPhone"]);
+				$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"], $row["volFirstName"], $row["volHash"], $row["volLastName"],$row["volPhone"], $row["volSalt"]);
 			}
 		} catch(Exception $exception) {
 			//if the row couldn't be converted, rethrow it
