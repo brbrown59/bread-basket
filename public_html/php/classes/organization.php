@@ -596,7 +596,7 @@ class Organization{
 	 * @throws PDOException if mySQL related errors occur
 	 */
 	public static function storeSQLResultsInArray(PDOStatement $statement) {
-		//build an array of tweets, as an SPLFixedArray object
+		//build an array of organizations, as an SPLFixedArray object
 		//set the size of the object to the number of retrieved rows
 		$retrievedOrgs = new SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(PDO::FETCH_ASSOC);
