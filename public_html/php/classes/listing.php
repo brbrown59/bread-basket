@@ -1,5 +1,9 @@
 <?php
 require_once("../traits/date-parsing-trait.php");
+/**
+ * autoloader function to include other classes
+ */
+require_once("autoloader.php");
 
 /**
  * Listing entity
@@ -548,7 +552,7 @@ class Listing {
 	 *
 	 * @param PDO $pdo pointer to PDO connection
 	 * @param int $orgId organization id to search for
-	 * @return mixed listing found or null if not found
+	 * @return mixed SPLFixedArray if found or null if not found
 	 * @throws PDO Exceptions when my SQL related errors occur
 	 **/
 	public static function getListingByOrgId(PDO $pdo, $orgId) {
