@@ -448,7 +448,7 @@ class Volunteer {
 		//while rows can still be retrieved from the result
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$volunteer = new Volunteer($row["volId"], $row["ordId"], $row["volEmail"], $row["volEmailActivation"],
+				$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"],
 						$row["volFirstName"], $row["volLastName"], $row["volPhone"]);
 				//place result in the current field, then advance the key
 				$retrievedVol[$retrievedVol->key()] = $volunteer;
