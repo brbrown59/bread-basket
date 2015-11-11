@@ -56,10 +56,19 @@
 				</div>
 			</header>
 			<main>
-				<div class="container-fluid">
+				<div class="container">
 					<div class="row">
-						<div class="col-md-12">
-							<h1>Detail</h1>
+						<div class="col-md-6">
+							<h1>Details</h1>
+						</div>
+						<div class="col-md-6">
+							<button type="button" class="btn btn-default">
+								<a href="#">
+									<span class="glyphicon glyphicon-triangle-left"></span>
+									All Listings
+								</a>
+							</button>
+
 						</div>
 					</div>
 				</div>
