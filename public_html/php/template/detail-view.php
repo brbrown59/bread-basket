@@ -34,7 +34,7 @@
 						<div class="navbar-header">
 							<button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#my-navbar" aria-expanded="false">
 								<span class="sr-only">Main Menu</span>
-								<span class="glyphicon glyphicon-menu-down"></span>
+								<span class="glyphicon glyphicon-th-large"></span>
 							</button>
 							<a href="#" class="navbar-brand">
 								<span class="glyphicon glyphicon-grain"></span>
@@ -43,7 +43,7 @@
 						</div>
 
 						<!--nav links are grouped together here-->
-						<div class="collapse navbar-collapse navbar-right" id="my navbar">
+						<div class="collapse navbar-collapse navbar-right" id="my-navbar">
 							<ul class="nav navbar-nav">
 								<li><a href="#">Home</a></li>
 								<li><a href="#">Listings</a></li>
