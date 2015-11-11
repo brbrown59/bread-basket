@@ -12,6 +12,7 @@
 		<!--optional theme-->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
 		<!--bread basket custom stylesheets-->
+		<link rel="stylesheet" href="../../css/custom-style.css"/>
 
 		<!--HTML5 shiv and Respond.js for IE8 support of HTML5 elements and media queries-->
 		<!--WARNING: Respond.js doesn't work if you view the page via file://-->
@@ -55,6 +56,7 @@
 					</nav>
 				</div>
 			</header>
+			<!--main content-->
 			<main>
 				<!--this container houses the h1 tag/headline and the back to listing button-->
 				<div class="container">
@@ -125,7 +127,7 @@
 								<div class="col-md-4">
 									<h5>Contact</h5>
 									<p>Kathryn Janeway</p>
-									<p>(505) 333-4444</p>
+									<p>(505) 333-4444 ext. 555</p>
 								</div>
 								<div class="col-md-4">
 									<h5>Hours</h5>
@@ -135,24 +137,45 @@
 						</div>
 					</div>
 				</div>
-				v<!--this container houses the picture and google api location-->
+				<!--this container houses the picture and google api location-->
 				<div class="container">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="text-box">
 								<h3><span class="glyphicon glyphicon-picture"></span> Picture</h3>
+								<img class="img-responsive" src="../../img/grapefruit.jpg" alt="picture of donation"/>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="text-box">
 								<h3><span class="glyphicon glyphicon-pushpin"></span> Location</h3>
+								<img class="img-responsive" src="../../img/map-placeholder.png" alt="picture of donation"/>
 							</div>
 						</div>
 					</div>
 				</div>
-
-
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<button class="btn btn-success btn-lg pull-right">Claim Listing</button>
+						</div>
+						<div class="col-md-6">
+							<button class="btn btn-danger btn-lg">Cancel Claim</button>
+						</div>
+					</div>
+				</div>
+				</div>
 			</main>
+			<!--footer-->
+			<footer>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12">
+							IMMA FOOTER
+						</div>
+					</div>
+				</div>
+			</footer>
 		</div>
 
 
