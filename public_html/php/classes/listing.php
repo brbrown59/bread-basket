@@ -454,7 +454,7 @@ class Listing {
 
 		//bind the member variables to the place holders in the template
 		$formattedDate = $this->listingPostTime->format("Y-m-d H:i:s");
-		$parameters = array("listingId" => $this->listingId, "orgId" => $this->orgId, "listingClaimedBy" => $this->listingClaimedBy, "listingClosed" => $this->listingClosed, "listingCost" => $this->listingCost, "listingMemo" => $this->listingMemo, "listingParentId" => $this->listingParentId, "listingPostTime" => $formattedDate, "listingTypeId" => $this->listingType);
+		$parameters = array("listingId" => $this->listingId, "orgId" => $this->orgId, "listingClaimedBy" => $this->listingClaimedBy, "listingClosed" => $this->listingClosed, "listingCost" => $this->listingCost, "listingMemo" => $this->listingMemo, "listingParentId" => $this->listingParentId, "listingPostTime" => $formattedDate, "listingTypeId" => $this->listingTypeId);
 		$statement->execute($parameters);
 
 		//update the null listingId with what mySQL just gave us
@@ -501,7 +501,7 @@ class Listing {
 
 		//bind the member variables to the place holders in the template
 		$formattedDate = $this->listingPostTime->format("Y-m-d H:i:s");
-		$parameters = array("orgId" => $this->orgId, "listingClaimedBy" => $this->listingClaimedBy, "listingClosed" => $this->listingClosed, "listingCost" => $this->listingCost, "listingMemo" => $this->listingMemo, "listingParentId" => $this->listingParentId, "listingPostTime" => $formattedDate, "listingType" => $this->listingType, "listingId" => $this->listingId);
+		$parameters = array("orgId" => $this->orgId, "listingClaimedBy" => $this->listingClaimedBy, "listingClosed" => $this->listingClosed, "listingCost" => $this->listingCost, "listingMemo" => $this->listingMemo, "listingParentId" => $this->listingParentId, "listingPostTime" => $formattedDate, "listingType" => $this->listingTypeId, "listingId" => $this->listingId);
 		$statement->execute($parameters);
 	}
 
@@ -539,7 +539,7 @@ class Listing {
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$listing = new Listing($row["listingId"], $row["orgId"], $row["listingClaimedBy"], $row["listingClosed"], $row["listingCost"], $row["listingMemo"], $row["listingParentId"], $row["listingPostTime"], $row["listingType"]);
+				$listing = new Listing($row["listingId"], $row["orgId"], $row["listingClaimedBy"], $row["listingClosed"], $row["listingCost"], $row["listingMemo"], $row["listingParentId"], $row["listingPostTime"], $row["listingTypeId"]);
 			}
 		} catch(Exception $exception) {
 			//if the row couldn't be converted, rethrow it
