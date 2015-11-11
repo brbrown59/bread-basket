@@ -9,60 +9,35 @@ require_once(dirname(__DIR__) . "/public_html/php/classes/listing.php");
 require_once(dirname(__DIR__) . "/public_html/php/traits/date-parsing-trait.php");
 
 /**
- * Full PHPUnit test for the Listing class
+ * Full PHPUnit test for the Message class
  *
- * This is a complete PHPUnit test of the listing class.  it is complete because *all* mySQL/PDO enabled methods are tested
+ * This is a complete PHPUnit test of the message class.  It is complete because *all* mySQL/PDO enabled methods are tested
  * for both valid and invalid inputs
  *
- * @see Listing
+ * @see Message
  * @author Tamra Fenstermaker <fenstermaker505@gmail.com>
  **/
-class ListingTest extends BreadBasketTest {
+class MessageTest extends BreadBasketTest {
+	/**
+	 * valid message id to use
+	 * @var Int $VALID_MESSAGE_ID
+	 **/
+	protected $VALID_MESSAGE_ID = 123459;
+	/**
+	 * valid listing Id by to use
+	 * @var Int $VALID_LISTING_ID = $this->listing->getListingId()
+	 **/
+	protected $listing = null;
 	/**
 	 * valid org Id by to use
-	 * @var Int $VALID_ORGID = $this->organization->getOrgId()
+	 * @var Int $VALID_ORGID = $this->organization->getOrgId
 	 **/
-protected $organization = null;
+	protected $organization = null;
 	/**
-	 * valid listing claimed by to use
-	 * @var Int $VALID_CLAIMEDBY
+	 * valid message text
+	 * @var String $VALID_MESSAGE_TEXT
 	 **/
-	protected $VALID_CLAIMEDBY = 123459;
-	/**
-	 * valid listing closed
-	 * @var Bool $VALID_LISTINGCLOSED
-	 **/
-	protected $VALID_LISTINGCLOSED = TRUE;
-	/**
-	 * valid listing cost
-	 * @var Double $VALID_COST
-	 **/
-	protected $VALID_COST = 94.25;
-	/**
-	 * a second valid listing cost, for updating
-	 * @var Double $VALID_COST_2
-	 */
-	protected $VALID_COST_2 = 211.53;
-	/**
-	 * valid listing memo
-	 * @var String $VALID_MEMO
-	 **/
-	protected $VALID_MEMO = "We have lots of tomatoes. Come and get them";
-	/**
-	 * valid parentId
-	 * @var Int $VALID_PARENT_ID
-	 */
-	protected $VALID_PARENT_ID = 5554268;
-	/**
-	 * valid listingPostTime
-	 * @var DATETIME $VALID_DATETIME
-	 **/
-	protected $valid_datetime = null;
-	/**
-	 * valid listing type to use
-	 * @var Int 	protected $listingType = null;
-	 **/
-	protected $listingType = null;
+	protected $VALID_MESSAGE_TEXT = "We have lots of tomatoes. Come and get them";
 
 	/**
 	 * set up for valid organization
@@ -72,13 +47,11 @@ protected $organization = null;
 		parent::setUp();
 
 		//create a valid organization to reference in test
-		$this->organization = new Organization(null, "88 Spring", "Suit 2", "ABQ", "Home2", "24/7", "2", "5051234567", "NM", "G", "87106" );
+		$this->organization = new Organization(null, "89 Spring", "Suit 2", "ABQ", "Home2", "24/7", "2", "5051234567", "NM", "G", "87106" );
 		$this->organization->insert($this->getPDO());
-		//create a valid Listing Type Id to reference in test
-		$this->listingType = new ListingType(null, "Refrigerated");
-		$this->listingType->insert($this->getPDO());
-
-		$this->valid_datetime = DateTime::createFromFormat("Y-m-d H:i:s", "2012-07-08 11:14:15");
+		//create a valid Listing Id to reference in test
+		$this->listing = new Listing(null, 52, 33, true, 23.00, "We have apples", 102, "2012-07-08 11:14:15","B");
+		$this->listing->insert($this->getPDO());
 	}
 
 	/**
@@ -89,9 +62,9 @@ protected $organization = null;
 		$numRows = $this->getConnection()->getRowCount("listing");
 
 
-	//create a new listing and insert into mySQL
+		//create a new listing and insert into mySQL
 		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-				$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
+			$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 
 		//grab data from SQL and ensure it matches
@@ -116,7 +89,7 @@ protected $organization = null;
 	public function testInsertInvalidListing() {
 		//create listing with non-null id, and hope it fails
 		$listing = new Listing(BreadBasketTest::INVALID_KEY, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-				$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
+			$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 	}
 
@@ -126,7 +99,7 @@ protected $organization = null;
 
 		//create a new listing and insert into mySQL
 		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-				$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
+			$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 
 		//edit the listing and update in mySQL
@@ -155,7 +128,7 @@ protected $organization = null;
 	public function testUpdateInvalidListing() {
 		//create listing with non-null id, and hope it fails
 		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-				$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
+			$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
 		$listing->update($this->getPDO());
 	}
 
@@ -165,7 +138,7 @@ protected $organization = null;
 
 		//create a new listing and insert into mySQL
 		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-				$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
+			$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 
 		//delete the listing in mySQL
@@ -184,7 +157,7 @@ protected $organization = null;
 	 */
 	public function testDeleteInvalidListing() {
 		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-				$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
+			$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
 		$listing->delete($this->getPDO());
 	}
 
@@ -197,7 +170,7 @@ protected $organization = null;
 
 		//create a new listing and insert into mySQL
 		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-				$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
+			$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 
 		//grab data from SQL and ensure it matches
@@ -260,7 +233,7 @@ protected $organization = null;
 
 		//create a new listing and insert into mySQL
 		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-				$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
+			$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
 		$listing->insert($this->getPDO());
 
 		//grab data from SQL and ensure it matches
