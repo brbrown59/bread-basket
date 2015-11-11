@@ -72,7 +72,7 @@ protected $organization = null;
 		parent::setUp();
 
 		//create a valid organization to reference in test
-		$this->organization = new Organization(null, "86 Spring", "Suit 2", "Rio Rancho", "Home2", "24/7", "2", "5051234567", "NM", "G", "87106" );
+		$this->organization = new Organization(null, "88 Spring", "Suit 2", "ABQ", "Home2", "24/7", "2", "5051234567", "NM", "G", "87106" );
 		$this->organization->insert($this->getPDO());
 		//create a valid Listing Type Id to reference in test
 		$this->listingType = new ListingType(null, "Refrigerated");
@@ -136,7 +136,7 @@ protected $organization = null;
 		//grab data from SQL and ensure it matches
 		$pdoListing = Listing::getListingByListingId($this->getPDO(), $listing->getListingId());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("listing"));
-		$this->assertSame($pdoListing->getOrgId(), $this->organization->getOrgId);
+		$this->assertSame($pdoListing->getOrgId(), $this->organization->getOrgId());
 		$this->assertSame($pdoListing->getListingClaimedBy(), $this->VALID_CLAIMEDBY);
 		$this->assertSame($pdoListing->getListingClosed(), $this->VALID_LISTINGCLOSED);
 		$this->assertSame($pdoListing->getListingCost(), $this->VALID_COST_2);
@@ -280,7 +280,7 @@ protected $organization = null;
 	 * test for grabbing a listing by a parent id that doesn't exist
 	 */
 	public function testGetInvalidListingParentId() {
-		$listing = Listing::getListingByParentId($this->getPDO(), "100000000000000000000");
+		$listing = Listing::getListingByParentId($this->getPDO(), 1000001);
 		$this->assertSame($listing->getSize(), 0);
 	}
 
@@ -300,14 +300,14 @@ protected $organization = null;
 		//grab data from SQL and ensure it matches
 		$pdoListing = Listing::getListingByListingPostTime($this->getPDO(), $this->valid_datetime);
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("listing"));
-		$this->assertSame($pdoListing[0]->getOrgId(), $this->VALID_PARENT_ID);
+		$this->assertSame($pdoListing[0]->getOrgId(), $this->organization->getOrgId());
 		$this->assertSame($pdoListing[0]->getListingClaimedBy(), $this->VALID_CLAIMEDBY);
 		$this->assertSame($pdoListing[0]->getListingClosed(), $this->VALID_LISTINGCLOSED);
 		$this->assertSame($pdoListing[0]->getListingCost(), $this->VALID_COST);
 		$this->assertSame($pdoListing[0]->getListingMemo(), $this->VALID_MEMO);
-		$this->assertSame($pdoListing[0]->getListingParentId(), $this->V);
+		$this->assertSame($pdoListing[0]->getListingParentId(), $this->VALID_PARENT_ID);
 		//Changed to assertEquals because this is an object and assertSame checks an object position in memory
-		$this->assertEquals($pdoListing->getListingPostTime(), $this->valid_datetime);
+		$this->assertEquals($pdoListing[0]->getListingPostTime(), $this->valid_datetime);
 		$this->assertSame($pdoListing[0]->getListingTypeId(), $this->listingType->getlistingTypeId());
 	}
 

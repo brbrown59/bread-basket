@@ -489,8 +489,7 @@ class Listing {
 	 * @param PDO $pdo pointer to PDO connection
 	 * @throws PDOException when mySQL related errors occur
 	 **/
-	public
-	function update(PDO $pdo) {
+	public function update(PDO $pdo) {
 		//enforce the listingId is not null (i.e., don't update a listing that hasn't been inserted)
 		if($this->listingId === null) {
 			throw(new PDOException("unable to update a listing that does not exist"));
@@ -501,7 +500,8 @@ class Listing {
 
 		//bind the member variables to the place holders in the template
 		$formattedDate = $this->listingPostTime->format("Y-m-d H:i:s");
-		$parameters = array("orgId" => $this->orgId, "listingClaimedBy" => $this->listingClaimedBy, "listingClosed" => $this->listingClosed, "listingCost" => $this->listingCost, "listingMemo" => $this->listingMemo, "listingParentId" => $this->listingParentId, "listingPostTime" => $formattedDate, "listingType" => $this->listingTypeId, "listingId" => $this->listingId);
+
+		$parameters = array("orgId" => $this->orgId, "listingClaimedBy" => $this->listingClaimedBy, "listingClosed" => $this->listingClosed, "listingCost" => $this->listingCost, "listingMemo" => $this->listingMemo, "listingParentId" => $this->listingParentId, "listingPostTime" => $formattedDate, "listingTypeId" => $this->listingTypeId, "listingId" => $this->listingId);
 		$statement->execute($parameters);
 	}
 
@@ -650,8 +650,11 @@ class Listing {
 		$query = "SELECT listingId,orgId,listingClaimedBy,listingClosed,listingCost,listingMemo,listingParentId,listingPostTime,listingTypeId FROM listing WHERE listingPostTime = :listingPostTime";
 		$statement = $pdo->prepare($query);
 
+		//formating date to string
+		$formattedDate = $listingPostTime->format("Y-m-d H:i:s");
+
 		//bind the name value to the placeholder in the template
-		$parameters = array("listingPostTime" => $listingPostTime);
+		$parameters = array("listingPostTime" => $formattedDate);
 		$statement->execute($parameters);
 
 		//call the function to build an array of the retrieved results
