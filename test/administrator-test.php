@@ -91,7 +91,7 @@ class AdministratorTest extends BreadBasketTest {
 		$hash= $hash = hash_pbkdf2("sha512", "passwordSample", $salt, 262144, 128);
 
 		//create a valid organization to reference in test
-		$this->organization = new Organization(null, "200 copper Rd", "apt 2", "springfield", "tea, green", "9-5", "Bigship", "5053217654", "CO", "P", "87110" );
+		$this->organization = new Organization(null, "200 copper Rd", "apt 2", "springfield", "tea, green", "9-5", "Bigship", "5053217654", "CO", "R", "87110" );
 		$this->organization->insert($this->getPDO());
 
 		//create a valid Volunteer to reference in test
