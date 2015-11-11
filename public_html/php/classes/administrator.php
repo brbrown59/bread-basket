@@ -418,7 +418,7 @@ class Administrator {
 		$statement->execute($parameters);
 
 		//Update the null adminId whith what mySQl just gave us.
-		$this->adminId = intval($pdo->lastInsertId() );
+		$this->adminId = intval($pdo->lastInsertId());
 	}
 
 
