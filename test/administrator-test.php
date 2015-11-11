@@ -113,14 +113,14 @@ class AdministratorTest extends BreadBasketTest {
 
 		//grab data from SQL and esure it matches.
 		$pdoAdministrator = Administrator::getAdministratorByAdminId($this->getPDO(), $administrator->getAdminId() );
-		$this->assertsame($numRows + 1, $this->getConnection() ->getRowCount("administrator"));
-		$this->assertsame($pdoAdministrator->getVolId(),$this->volunteer->getVolId() );
-		$this->assertsame($pdoAdministrator->getorgId(),$this->organization->getOrgId() );
-		$this->assertsame($pdoAdministrator->getAdminEmail(),$this->VALID_EMAIL);
-		$this->assertsame($pdoAdministrator->getAdminEmailActivation(),$this->VALID_EMAIL_ACTIVATION);
-		$this->assertsame($pdoAdministrator->getAdminFirstName(),$this->VALID_FIRST_NAME);
-		$this->assertsame($pdoAdministrator->getAdminLastName(),$this->VALID_LAST_NAME);
-		$this->assertsame($pdoAdministrator->getAdminPhone(),$this->VALID_PHONE);
+		$this->assertSame($numRows + 1, $this->getConnection() ->getRowCount("administrator"));
+		$this->assertSame($pdoAdministrator->getVolId(),$this->volunteer->getVolId() );
+		$this->assertSame($pdoAdministrator->getorgId(),$this->organization->getOrgId() );
+		$this->assertSame($pdoAdministrator->getAdminEmail(),$this->VALID_EMAIL);
+		$this->assertSame($pdoAdministrator->getAdminEmailActivation(),$this->VALID_EMAIL_ACTIVATION);
+		$this->assertSame($pdoAdministrator->getAdminFirstName(),$this->VALID_FIRST_NAME);
+		$this->assertSame($pdoAdministrator->getAdminLastName(),$this->VALID_LAST_NAME);
+		$this->assertSame($pdoAdministrator->getAdminPhone(),$this->VALID_PHONE);
 	}
 
 	/**
@@ -385,7 +385,7 @@ class AdministratorTest extends BreadBasketTest {
 		$administrator->insert($this->getPDO());
 
 		//Grab the data from SQL and Enforce the fields match our expectations
-		$pdoAdministrator = Administrator::getAdministratorByAdminphone($this->getPDO(), $administrator->getAdminPhone();
+		$pdoAdministrator = Administrator::getAdministratorByAdminphone($this->getPDO(), $administrator->getAdminPhone());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("administrator"));
 		$this->assertSame($pdoAdministrator[0]->getVolId(), $this->volunteer->getVolId());
 		$this->assertSame($pdoAdministrator[0]->getorgId(), $this->organization->getOrgId());
