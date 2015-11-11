@@ -213,7 +213,7 @@ class Administrator {
 		}
 
 		//convert and store the Organization Id
-		$this->adminId = intval($newOrgId);
+		$this->orgId = intval($newOrgId);
 	}
 
 
@@ -394,9 +394,6 @@ class Administrator {
 
 	}
 
-
-
-
 	/**
 	 * Insert Administrator into mySQL; adminId
 	 *
@@ -417,7 +414,7 @@ class Administrator {
 		$parameters = array("volId" => $this->volId, "orgId" => $this->orgId, "adminEmail" => $this->adminEmail, "adminEmailActivation" => $this->adminEmailActivation, "adminFirstName" => $this->adminFirstName, "adminLastName" => $this->adminLastName, "adminPhone" => $this->adminPhone);
 		$statement->execute($parameters);
 
-		//Update the null adminId whith what mySQl just gave us.
+		//Update the null adminId with what mySQl just gave us.
 		$this->adminId = intval($pdo->lastInsertId());
 	}
 

@@ -29,6 +29,11 @@ class AdministratorTest extends BreadBasketTest {
 	 */
 	protected $volunteer = null;
 
+	/**
+	 * valid admin id to use
+	 * @var int $ADMIN_ID
+	 */
+	protected $ADMIN_ID = null;
 
 	/**
 	 * valid admin id to use
@@ -110,11 +115,11 @@ class AdministratorTest extends BreadBasketTest {
 
 		//create a new administrator and insert into mySQL
 		$administrator = new Administrator(null, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
-		$administrator->insert($this->getPDO() );
+		$administrator->insert($this->getPDO());
 
-		//grab data from SQL and esure it matches.
+		//grab data from SQL and ensure it matches.
 		$pdoAdministrator = Administrator::getAdministratorByAdminId($this->getPDO(), $administrator->getAdminId());
-		$this->assertSame($numRows + 1, $this->getConnection() ->getRowCount("administrator"));
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("administrator"));
 		$this->assertSame($pdoAdministrator->getVolId(),$this->volunteer->getVolId());
 		$this->assertSame($pdoAdministrator->getorgId(),$this->organization->getOrgId());
 		$this->assertSame($pdoAdministrator->getAdminEmail(),$this->VALID_EMAIL);
