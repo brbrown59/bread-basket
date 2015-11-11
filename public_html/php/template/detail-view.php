@@ -52,10 +52,18 @@
 								<li><a href="#">Help</a></li>
 							</ul>
 						</div>
-
 					</nav>
 				</div>
 			</header>
+			<main>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12">
+							<h1>Details</h1>
+						</div>
+					</div>
+				</div>
+			</main>
 		</div>
 
 
