@@ -171,7 +171,7 @@ class AdministratorTest extends BreadBasketTest {
 	/**
 	 * test updating a Administrator that does not exist
 	 *
-	 * @expectedExceptions PDOException
+	 * @expectedException PDOException
 	 */
 	public function testUpdateInvalidAdministrator() {
 		//creata a Administrator and try to update it without actually inserting it.
