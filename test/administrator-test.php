@@ -174,7 +174,7 @@ class AdministratorTest extends BreadBasketTest {
 	 * @expectedException PDOException
 	 */
 	public function testUpdateInvalidAdministrator() {
-		//creata a Administrator and try to update it without actually inserting it.
+		//create a Administrator and try to update it without actually inserting it.
 		$administrator = new Administrator(null, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
 		$administrator->update($this->getPDO());
 	}
