@@ -73,21 +73,22 @@
 						</div>
 					</div>
 				</div>
+				<hr>
 				<div class="container">
 					<div class="row">
 						<div class="col-md-4">
 							<div class="text-box">
-								<h3>one</h3>
+								<h3><span class="glyphicon glyphicon-usd"></span> 1,000,000,000</h3>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="text-box">
-								<h3>one</h3>
+								<h3><span class="glyphicon glyphicon-list-alt"></span> Perishable</h3>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="text-box">
-								<h3>one</h3>
+								<h3><span class="glyphicon glyphicon-calendar"></span> 11/11/22</h3>
 							</div>
 						</div>
 
