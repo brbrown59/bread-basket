@@ -253,13 +253,13 @@ class AdministratorTest extends BreadBasketTest {
 
 		$pdoAdministrator = Administrator::getAdministratorByVolId($this->getPDO(), $administrator->getVolId());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("administrator"));
-		$this->assertSame($pdoAdministrator[0]->getVolId(), $this->volunteer->getVolId());
-		$this->assertSame($pdoAdministrator[0]->getorgId(), $this->organization->getOrgId());
-		$this->assertSame($pdoAdministrator[0]->getAdminEmail(), $this->VALID_EMAIL);
-		$this->assertSame($pdoAdministrator[0]->getAdminEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
-		$this->assertSame($pdoAdministrator[0]->getAdminFirstName(), $this->VALID_FIRST_NAME);
-		$this->assertSame($pdoAdministrator[0]->getAdminLastName(), $this->VALID_LAST_NAME);
-		$this->assertSame($pdoAdministrator[0]->getAdminPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoAdministrator->getVolId(), $this->volunteer->getVolId());
+		$this->assertSame($pdoAdministrator->getorgId(), $this->organization->getOrgId());
+		$this->assertSame($pdoAdministrator->getAdminEmail(), $this->VALID_EMAIL);
+		$this->assertSame($pdoAdministrator->getAdminEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
+		$this->assertSame($pdoAdministrator->getAdminFirstName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoAdministrator->getAdminLastName(), $this->VALID_LAST_NAME);
+		$this->assertSame($pdoAdministrator->getAdminPhone(), $this->VALID_PHONE);
 	}
 
 	/**
@@ -268,7 +268,7 @@ class AdministratorTest extends BreadBasketTest {
 	public function testGetInvalidAdministratorByVolId() {
 		//grab an organization that does not exist
 		$administrator = Administrator::getAdministratorByVolId($this->getPDO(), "10000000000000000");
-		$this->assertSame($administrator->getSize(), 0);
+		$this->assertNull($administrator);
 	}
 
 
@@ -321,13 +321,13 @@ class AdministratorTest extends BreadBasketTest {
 
 		$pdoAdministrator = Administrator::getAdministratorByAdminEmail($this->getPDO(), $administrator->getAdminEmail());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("administrator"));
-		$this->assertSame($pdoAdministrator[0]->getVolId(), $this->volunteer->getVolId());
-		$this->assertSame($pdoAdministrator[0]->getorgId(), $this->organization->getOrgId());
-		$this->assertSame($pdoAdministrator[0]->getAdminEmail(), $this->VALID_EMAIL);
-		$this->assertSame($pdoAdministrator[0]->getAdminEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
-		$this->assertSame($pdoAdministrator[0]->getAdminFirstName(), $this->VALID_FIRST_NAME);
-		$this->assertSame($pdoAdministrator[0]->getAdminLastName(), $this->VALID_LAST_NAME);
-		$this->assertSame($pdoAdministrator[0]->getAdminPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoAdministrator->getVolId(), $this->volunteer->getVolId());
+		$this->assertSame($pdoAdministrator->getorgId(), $this->organization->getOrgId());
+		$this->assertSame($pdoAdministrator->getAdminEmail(), $this->VALID_EMAIL);
+		$this->assertSame($pdoAdministrator->getAdminEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
+		$this->assertSame($pdoAdministrator->getAdminFirstName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoAdministrator->getAdminLastName(), $this->VALID_LAST_NAME);
+		$this->assertSame($pdoAdministrator->getAdminPhone(), $this->VALID_PHONE);
 	}
 
 
@@ -337,7 +337,7 @@ class AdministratorTest extends BreadBasketTest {
 	public function testGetInvalidAdministratorByAdminEmail(){
 		//grab an email that does not exist
 		$administrator = Administrator::getAdministratorByAdminEmail($this->getPDO(), "invalidadmin@email.com");
-		$this->assertSame($administrator->getSize(), 0);
+		$this->assertNull($administrator);
 	}
 
 
