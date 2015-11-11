@@ -95,7 +95,7 @@ class AdministratorTest extends BreadBasketTest {
 		$this->organization->insert($this->getPDO());
 
 		//create a valid Volunteer to reference in test
-		$this->volunteer = new Volunteer(null, null, "adminEmail@email.com", "1234567898765432", "firstName", $hash, "lastName", "5051234567", $salt);
+		$this->volunteer = new Volunteer(null, $this->organization->getOrgId(), "adminEmail@email.com", "1234567898765432", "firstName", $hash, "lastName", "5051234567", $salt);
 		$this->volunteer->insert($this->getPDO());
 	}
 
@@ -268,7 +268,7 @@ class AdministratorTest extends BreadBasketTest {
 	public function testGetInvalidAdministratorByVolId() {
 		//grab an organization that does not exist
 		$administrator = Administrator::getAdministratorByVolId($this->getPDO(), "10000000000000000");
-		$this->assertSame($administrator->getsaize(), 0);
+		$this->assertSame($administrator->getSize(), 0);
 	}
 
 
@@ -302,7 +302,7 @@ class AdministratorTest extends BreadBasketTest {
 	public function testGetInvalidAdministratorByOrgId() {
 		//grab an organization that does not exist
 		$administrator = Administrator::getAdministratorByOrgId($this->getPDO(), "10000000000000000");
-		$this->assertSame($administrator->getsaize(), 0);
+		$this->assertSame($administrator->getSize(), 0);
 	}
 
 
