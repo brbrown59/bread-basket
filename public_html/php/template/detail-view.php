@@ -156,15 +156,15 @@
 				</div>
 				<div class="container">
 					<div class="row row-padding">
-						<div class="col-sm-6">
-							<button class="btn btn-success btn-lg text-center">Claim Listing</button>
+						<div class="col-sm-6 text-center">
+							<button class="btn btn-success btn-lg ">Claim Listing</button>
 						</div>
-						<div class="col-sm-6">
-							<button class="btn btn-danger btn-lg text-center">Cancel Claim</button>
+						<div class="col-sm-6 text-center">
+							<button class="btn btn-danger btn-lg ">Cancel Claim</button>
 						</div>
 					</div>
 				</div>
-				</div>
+
 			</main>
 			<!--footer-->
 			<footer>
