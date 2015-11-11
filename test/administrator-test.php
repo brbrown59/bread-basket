@@ -93,7 +93,7 @@ class AdministratorTest extends BreadBasketTest {
 
 
 	/**
-	 * set up for valid organization
+	 * set up for valid organization and volunteer
 	 */
 	public final function setUP() {
 		//run default setUp() method first
