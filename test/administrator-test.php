@@ -88,10 +88,10 @@ class AdministratorTest extends BreadBasketTest {
 
 		//create a salt and hash for test
 		$salt= bin2hex(openssl_random_pseudo_bytes(32));
-		$hash= $hash = hash_pbkdf2("sha512", "password4321", $salt, 262144, 128);
+		$hash= $hash = hash_pbkdf2("sample001", "passwordSample", $salt, 262144, 128);
 
 		//create a valid organization to reference in test
-		$this->organization = new Organization(null, "23 Star Trek Rd", "Suit 2", "Bloomington", "Coffee, black", "24/7", "Enterprise", "5051234567", "NM", "G", "87106" );
+		$this->organization = new Organization(null, "200 copper Rd", "apt 2", "springfield", "tea, green", "9-5", "Bigship", "5053217654", "CO", "P", "87110" );
 		$this->organization->insert($this->getPDO());
 
 		//create a valid Volunteer to reference in test

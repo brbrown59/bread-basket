@@ -109,7 +109,7 @@ class Administrator {
 
 
 	/**
-	 * Accessor method for the Aministrator Id
+	 * Accessor method for the Administrator Id
 	 */
 	Public function getAdminId() {
 		return ($this->adminId);
@@ -129,7 +129,7 @@ class Administrator {
 		//Verify the Administrator Id is valid
 		$newAdminId = filter_var($newAdminId, FILTER_VALIDATE_INT);
 		if($newAdminId === false) {
-			throw(new InvalidArgumentException("This Administrator IS is not a valid iteger"));
+			throw(new InvalidArgumentException("This Administrator IS is not a valid integer"));
 		}
 
 		//verify the Administrator ID is positive
@@ -191,7 +191,7 @@ class Administrator {
 
 	/**Mutator for Organization ID
 	 * @param Integer ; $newOrgId new value of Organization Id
-	 * @throw InvalidAgrumentException if the new Organization Id is not an Integer.
+	 * @throw InvalidArgumentException if the new Organization Id is not an Integer.
 	 **/
 	Public function setOrgId($newOrgId) {
 		//base case
