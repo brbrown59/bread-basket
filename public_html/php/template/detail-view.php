@@ -76,24 +76,74 @@
 				<hr>
 				<div class="container">
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="text-box">
-								<h3><span class="glyphicon glyphicon-usd"></span> 1,000,000,000</h3>
+								<h3><span class="glyphicon glyphicon-ok"></span> Open</h3>
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="text-box">
 								<h3><span class="glyphicon glyphicon-list-alt"></span> Perishable</h3>
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="text-box">
-								<h3><span class="glyphicon glyphicon-calendar"></span> 11/11/22</h3>
+								<h3><span class="glyphicon glyphicon-calendar"></span> 11/11/22 14:45</h3>
 							</div>
 						</div>
-
+						<div class="col-md-3">
+							<div class="text-box">
+								<h3><span class="glyphicon glyphicon-usd"></span> 1,000,000,000</h3>
+							</div>
+						</div>
 					</div>
 				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="text-box">
+								<h3><span class="glyphicon glyphicon-send"></span> Memo</h3>
+								<p>MEMO TEXT Offal ethical tacos, iPhone migas neutra vice yr freegan green juice williamsburg bicycle rights cardigan pork belly.
+									Retro poutine irony chartreuse craft beer you probably haven't heard of them. Polaroid vice chicharrones, whatever tacos PBR&B
+									umami single-origin coffee gluten-free mixtape portland. Readymade vegan pop-up, pug scenester hammock 8-bit flexitarian master cleanse.
+								</p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="text-box">
+								<h3><span class="glyphicon glyphicon-home"></span> Hippy Grocery</h3>
+								<div class="col-md-4">
+									<h5>Address</h5>
+									<p>123 Street Albuquerque, NM 87106</p>
+								</div>
+								<div class="col-md-4">
+									<h5>Contact</h5>
+									<p>ADMIN NAME</p>
+									<p>ADMIN PHONE</p>
+								</div>
+								<div class="col-md-4">
+									<h5>Hours</h5>
+									<p>9am-5pm</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="text-box">
+								<h3><span class="glyphicon glyphicon-picture"></span> Picture</h3>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="text-box">
+								<h3><span class="glyphicon glyphicon-pushpin"></span> Location</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+
 
 			</main>
 		</div>
