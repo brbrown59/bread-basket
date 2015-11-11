@@ -83,10 +83,11 @@ class Administrator {
 			$this->setAdminEmailId($newAdminEmail);
 			$this->setAdminEmailActivation($newAdminEmailActivation);
 			$this->setAdminFirstName($newAdminFirstName);
+			$this->setAdminLastName($newAdminLastName);
 			$this->setAdminPhone($newAdminPhone);
 
 
-		} catch(invalidArgumentException $invalidArgument) {
+		} catch(InvalidArgumentException $invalidArgument) {
 			// rethrow the exception to the user
 			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 
@@ -109,7 +110,7 @@ class Administrator {
 
 
 	/**
-	 * Accessor method for the Aministrator Id
+	 * Accessor method for the Administrator Id
 	 */
 	Public function getAdminId() {
 		return ($this->adminId);
@@ -129,7 +130,7 @@ class Administrator {
 		//Verify the Administrator Id is valid
 		$newAdminId = filter_var($newAdminId, FILTER_VALIDATE_INT);
 		if($newAdminId === false) {
-			throw(new InvalidArgumentException("This Administrator IS is not a valid iteger"));
+			throw(new InvalidArgumentException("This Administrator IS is not a valid integer"));
 		}
 
 		//verify the Administrator ID is positive
@@ -191,7 +192,7 @@ class Administrator {
 
 	/**Mutator for Organization ID
 	 * @param Integer ; $newOrgId new value of Organization Id
-	 * @throw InvalidAgrumentException if the new Organization Id is not an Integer.
+	 * @throw InvalidArgumentException if the new Organization Id is not an Integer.
 	 **/
 	Public function setOrgId($newOrgId) {
 		//base case
@@ -276,12 +277,12 @@ class Administrator {
 		//Verify Administrator Email is Valid;adminEmailActivation
 		$newAdminEmailActivation = filter_var($newAdminEmailActivation, FILTER_SANITIZE_STRING);
 		if(strlen($newAdminEmailActivation) < 16) {
-			throw(new InvalidArgumentException("activation code is insufficient or insecure pkk"));
+			throw(new InvalidArgumentException("activation code is insufficient or insecure"));
 		}
 
 		//Verify Administrator Email "will fit in the DATABASE" pkk;adminEmailActivation
 		if(strlen($newAdminEmailActivation) > 16) {
-			throw(new RangeException("Activation Code is too large pkk"));
+			throw(new RangeException("Activation Code is too large"));
 		}
 
 		//Store Activation for Administrator Email;adminEmailActivation
@@ -409,15 +410,15 @@ class Administrator {
 		}
 
 		//Create Query Template.
-		$query = "INSERT INTO administrator(volId, orgId, adminEmail, adminEmailActivation, adminFirstName, adminHash, adminLastName, adminPhone, adminPhone, adminSalt) VALUES(:volId, :orgId, :adminEmail, :adminEmailActivation, :adminFirstName, :adminHash, :adminLastName, :adminPhone, :adminPhone, :adminSalt)";
+		$query = "INSERT INTO administrator(volId, orgId, adminEmail, adminEmailActivation, adminFirstName, adminLastName, adminPhone) VALUES(:volId, :orgId, :adminEmail, :adminEmailActivation, :adminFirstName, :adminLastName, :adminPhone)";
 		$statement = $pdo->prepare($query);
 
 		//Blind the member variables to the place holder in the template.
-		$parameters = array("volId" => $this->volId, "orgId" => $this->orgId, "adminEmail" => $this->adminEmail, "adminEmailActivation" => $this->adminEmailActivation, "adminFirstName" => $this->adminFirstName, "adminHash" => $this->adminHash, "adminLastName" => $this->adminLastName, "adminPhone" => $this->adminPhone, "adminPhone" => $this->adminPhone, "adminSalt" => $this->adminSalt);
+		$parameters = array("volId" => $this->volId, "orgId" => $this->orgId, "adminEmail" => $this->adminEmail, "adminEmailActivation" => $this->adminEmailActivation, "adminFirstName" => $this->adminFirstName, "adminLastName" => $this->adminLastName, "adminPhone" => $this->adminPhone);
 		$statement->execute($parameters);
 
 		//Update the null adminId whith what mySQl just gave us.
-		$this->adminId = intval($pdo->lastInsertId() );
+		$this->adminId = intval($pdo->lastInsertId());
 	}
 
 
@@ -511,6 +512,158 @@ class Administrator {
 		return($administrator);
 
 	}
+
+
+	/**
+	 * function to store multiple database results into an SplFixedArray
+	 *
+	 * @param PDOStatement $statement pdo statement object
+	 * @return SPLFixedArray all administrators obtained from database
+	 * @throws PDOException if mySQL related errors occur
+	 */
+	public static function storeSQLResultsInArray(PDOStatement $statement) {
+		//build an array of organizations, as an SPLFixedArray object
+		//set the size of the object to the number of retrieved rows
+		$retrievedAdmin = new SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(PDO::FETCH_ASSOC);
+
+		//while rows can still be retrieved from the result
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
+				//place result in the current field, then advance the key
+				$retrievedAdmin[$retrievedAdmin->key()] = $administrator;
+				$retrievedAdmin->next();
+			} catch(Exception $exception) {
+				//rethrow the exception if retrieval failed
+				throw(new PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return $retrievedAdmin;
+	}
+
+	/**
+	 * get administrator by organization id
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @param int $orgId organization this administrators is associated with
+	 * @return SplFixedArray all administrators found for this content
+	 * @throws PDOException if mySQL related errors occur
+	 **/
+	public static function getAdministratorByOrgId(PDO $pdo, $orgId) {
+		//sanitize the input
+		$orgId = filter_var($orgId, FILTER_VALIDATE_INT);
+		if(empty($orgId) === true) {
+			throw(new PDOException("org id is not an integer"));
+		}
+		if($orgId <= 0) {
+			throw(new PDOException("org id is not positive"));
+		}
+
+		//create query template
+		$query = "SELECT adminId, volId, orgId, adminEmail, adminEmailActivation, adminFirstName, adminLastName, adminPhone, adminPhone FROM administrator WHERE orgId = :orgId";
+		$statement = $pdo->prepare($query);
+
+		//bind the id value to the placeholder in the template
+		$parameters = array("orgId" => $orgId);
+		$statement->execute($parameters);
+
+		//call the function to build and array of the retrieved values
+		try {
+			$retrievedAdmin = Administrator::storeSQLResultsInArray($statement);
+		} catch(Exception $exception) {
+			//rethrow the exception if the retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $retrievedAdmin;
+	}
+
+
+
+	/**
+	 * Get Administrator by volId
+	 *
+	 * @param PDO $pdo PDO connection object
+	 * @param int $volId Administrator Id to search for
+	 * @return mixed Administrator found or null if not found
+	 * @throw PDOException when mySQL related errors occur
+	 */
+
+	public static function getAdministratorByVolId(PDO $pdo, $volId) {
+		//sanitize the adminId before searching
+		$volId = Filter_var($volId, FILTER_VALIDATE_INT);
+		if(empty($volId) === true) {
+			throw(new PDOException("Volunteer ID is not a integer"));
+		}
+		if($volId <= 0) {
+			throw(new PDOException("Administrator ID is not Positive"));
+		}
+		//create query template
+		$query = "SELECT adminId, volId, orgId, adminEmail, adminEmailActivation, adminFirstName, adminLastName, adminPhone, adminPhone FROM administrator WHERE volId = :volId";
+		$statement = $pdo->prepare($query);
+
+		//Bind the administrator id to the place holder in the template
+		$parameters = array("volId" => $volId);
+		$statement->execute($parameters);
+
+		//grab the administrator from mySQL
+		try {
+			$administrator = null;
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
+			}
+		}catch(Exception $exception){
+			//if the row could not be converted, rethrow it
+			throw(new PDOException($exception->getmessage(),0, $exception));
+		}
+		return($administrator);
+
+	}
+
+
+	/**
+	 * Get Administrator by adminEmail
+	 *
+	 * @param PDO $pdo PDO connection object
+	 * @param int $adminEmail Administrator email to search for
+	 * @return mixed adminEmail found or null if not found
+	 * @throw PDOException when mySQL related errors occur
+	 */
+
+	public static function getAdministratorByAdminEmail(PDO $pdo, $adminEmail) {
+		//sanitize the adminId before searching
+		$adminEmail = Filter_var($adminEmail, FILTER_SANITIZE_EMAIL);
+		if (empty($adminEmail) === true) {
+			throw(new PDOException("Email is Not VAlid"));
+		}
+
+		//create query template
+		$query = "SELECT adminId, volId, orgId, adminEmail, adminEmailActivation, adminFirstName, adminLastName, adminPhone, adminPhone FROM administrator WHERE adminEmail = :adminEmail";
+		$statement = $pdo->prepare($query);
+
+		//Bind the administraotr email to the place holder in the template
+		$parameters = array("adminEmail" => $adminEmail);
+		$statement->execute($parameters);
+
+		//grab the administrator email from mySQL
+		try {
+			$administrator = null;
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
+			}
+		}catch(Exception $exception){
+			//if the row could not be converted, rethrow it
+			throw(new PDOException($exception->getmessage(),0, $exception));
+		}
+		return($administrator);
+
+	}
+
+
 
 	/**
 	 * Get all Administrators

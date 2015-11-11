@@ -383,10 +383,12 @@ class Volunteer {
 	 * @throws RangeException if salt is not exactly 64 digits
 	 **/
 	public function setVolSalt($newVolSalt) {
-		//verify salt is a string of 64
+		//verify salt is hex
 		if((ctype_xdigit($newVolSalt)) === false) {
 				throw (new InvalidArgumentException("salt is empty or insecure"));
 			}
+
+		//verify salt is exactly 64
 		if(strlen($newVolSalt) !== 64) {
 			throw (new RangeException("salt is not 64 characters"));
 		}

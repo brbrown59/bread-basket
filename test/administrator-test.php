@@ -9,8 +9,9 @@ require_once("bread-basket.php");
 
 //grab the class under scrutiny
 require_once(dirname(__DIR__) . "/public_html/php/classes/administrator.php");
-require_once(dirname(__DIR__) . "/public_html/php/classes/volunteer.php");
 require_once(dirname(__DIR__) . "/public_html/php/classes/organization.php");
+require_once(dirname(__DIR__) . "/public_html/php/classes/volunteer.php");
+
 
 /**full PHP unit test for the administrator class
  *
@@ -54,7 +55,7 @@ class AdministratorTest extends BreadBasketTest {
 	 * valid activation key to use
 	 * @var string $VALID_EMAIL_ACTIVATION
 	 */
-	protected $VALID_EMAIL_ACTIVATION = "12345678912345678";
+	protected $VALID_EMAIL_ACTIVATION = "2345678912345678";
 
 
 	/**
@@ -78,17 +79,27 @@ class AdministratorTest extends BreadBasketTest {
 	protected $VALID_PHONE = "5053214567";
 
 
+
 	/**
-	 * set up for valid Administrator
+	 * set up for valid organization and volunteer
 	 */
-	public final function setUP() {
+	public final function setUp() {
 		//run default setUp() method first
 		parent::setUp();
 
-		//create a valid Administrator to reference in test
-		$this->administrator = new Administrator(null, "sample001", "sample002", "sample003", "sample004", "sample005", "sample006");
-		$this->administrator->insert($this->getPDO());
+		//create a salt and hash for test
+		$salt= bin2hex(openssl_random_pseudo_bytes(32));
+		$hash= $hash = hash_pbkdf2("sha512", "passwordSample", $salt, 262144, 128);
+
+		//create a valid organization to reference in test
+		$this->organization = new Organization(null, "200 copper Rd", "apt 2", "springfield", "tea, green", "9-5", "Bigship", "5053217654", "CO", "R", "87110" );
+		$this->organization->insert($this->getPDO());
+
+		//create a valid Volunteer to reference in test
+		$this->volunteer = new Volunteer(null, $this->organization->getOrgId(), "adminEmail@email.com", "1234567898765432", "firstName", $hash, "lastName", "5051234567", $salt);
+		$this->volunteer->insert($this->getPDO());
 	}
+
 
 	/**
 	 * test inserting a valid Administrator and verify that the actual mySQL data matches
@@ -98,19 +109,19 @@ class AdministratorTest extends BreadBasketTest {
 		$numRows = $this->getConnection()->getRowCount("administrator");
 
 		//create a new administrator and insert into mySQL
-		$administrator = new Administrator(null, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ALT, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$administrator = new Administrator(null, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
 		$administrator->insert($this->getPDO() );
 
 		//grab data from SQL and esure it matches.
-		$pdoAdministrator = Administrator::getAdministratorByAdminId($this->getPDO(), $administrator->getAdminId() );
-		$this->assertsame($numRows + 1, $this->getConnection() ->getRowCount("administrator"));
-		$this->assertsame($pdoAdministrator->getVolId(),$this->volunteer->getVolId() );
-		$this->assertsame($pdoAdministrator->getorgId(),$this->organization->getOrgId() );
-		$this->assertsame($pdoAdministrator->getAdminEmail(),$this->VALID_EMAIL);
-		$this->assertsame($pdoAdministrator->getAdminEmailActivation(),$this->VALID_EMAIL_ACTIVATION);
-		$this->assertsame($pdoAdministrator->getAdminFirstName(),$this->VALID_FIRST_NAME);
-		$this->assertsame($pdoAdministrator->getAdminLastName(),$this->VALID_LAST_NAME);
-		$this->assertsame($pdoAdministrator->getAdminPhone(),$this->VALID_PHONE);
+		$pdoAdministrator = Administrator::getAdministratorByAdminId($this->getPDO(), $administrator->getAdminId());
+		$this->assertSame($numRows + 1, $this->getConnection() ->getRowCount("administrator"));
+		$this->assertSame($pdoAdministrator->getVolId(),$this->volunteer->getVolId());
+		$this->assertSame($pdoAdministrator->getorgId(),$this->organization->getOrgId());
+		$this->assertSame($pdoAdministrator->getAdminEmail(),$this->VALID_EMAIL);
+		$this->assertSame($pdoAdministrator->getAdminEmailActivation(),$this->VALID_EMAIL_ACTIVATION);
+		$this->assertSame($pdoAdministrator->getAdminFirstName(),$this->VALID_FIRST_NAME);
+		$this->assertSame($pdoAdministrator->getAdminLastName(),$this->VALID_LAST_NAME);
+		$this->assertSame($pdoAdministrator->getAdminPhone(),$this->VALID_PHONE);
 	}
 
 	/**
@@ -118,15 +129,219 @@ class AdministratorTest extends BreadBasketTest {
 	 *
 	 * @expectedException PDOException
 	 */
-	public function testInsertInvalidAdministrator(){
+	public function testInsertInvalidAdministrator() {
 		//create a administrator with a non null adminId and watch it fail.
-		$administrator = new administrator(BreadBasketTest::INVALID_KEY, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ALT, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$administrator = new Administrator(BreadBasketTest::INVALID_KEY, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
 		$administrator->insert($this->getPDO());
 	}
 
 	/**
-	 * test inserting a
+	 * test inserting Administrator, editing it, and then updating it
 	 */
+	public function testUpdateValidAdministrator() {
+		//count the nu,ber of rows and save it for later.
+		$numRows = $this->getConnection()->getRowCount("administrator");
+
+		//create a new Administrator and insert in into mySQL
+		$administrator = new Administrator(null, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$administrator->insert($this->getPDO());
+
+		//Edit the Administrator and update it in mySQL
+		$administrator->setAdminEmail($this->VALID_EMAIL_ALT);
+		$administrator->update($this->getPDO());
+
+		//grab data from SQL and esure it matches.
+		$pdoAdministrator = Administrator::getAdministratorByAdminId($this->getPDO(), $administrator->getAdminId());
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("administrator"));
+		$this->assertSame($pdoAdministrator->getVolId(), $this->volunteer->getVolId());
+		$this->assertSame($pdoAdministrator->getorgId(), $this->organization->getOrgId());
+		$this->assertSame($pdoAdministrator->getAdminEmail(), $this->VALID_EMAIL_ALT);
+		$this->assertSame($pdoAdministrator->getAdminEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
+		$this->assertSame($pdoAdministrator->getAdminFirstName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoAdministrator->getAdminLastName(), $this->VALID_LAST_NAME);
+		$this->assertSame($pdoAdministrator->getAdminPhone(), $this->VALID_PHONE);
+	}
+
+
+	/**
+	 * test updating a Administrator that does not exist
+	 *
+	 * @expectedExceptions PDOException
+	 */
+	public function testUpdateInvalidAdministrator() {
+		//creata a Administrator and try to update it without actually inserting it.
+		$administrator = new Administrator(null, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$administrator->insert($this->getPDO());
+	}
+
+	/**
+	 * test creating a administrator and then deleting it
+	 */
+	public function testDeleteValidAdministrator() {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("administrator");
+
+		//create a new administrator adn insert to into mySQL
+		$administrator = new Administrator(null, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$administrator->insert($this->getPDO());
+
+		//delete the administrator from mySQL
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("administrator"));
+		$administrator->delete($this->getPDO());
+
+		//grab the data from mySQL and enforce the Administrator does not exist
+		$pdoAdministrator = Administrator::getAdministratorByAdminId($this->getPDO(), $administrator->getAdminId());
+		$this->assertNull($pdoAdministrator);
+		$this->assertSame($numRows, $this->getConnection()->getRowCount("administrator"));
+	}
+
+	/**
+	 * test deleting a administrator that does not exist
+	 *
+	 * @expectedException PDOException
+	 *
+	 */
+	public function testDeleteInvalidAdminId() {
+		//create a administrator and try to delete it without actually inserting it
+		$administrator = new Administrator(null, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$administrator->insert($this->getPDO());
+	}
+
+	/**
+	 * test inserting a administrator and re-grabbing it from mySQL
+	 */
+	public function testGetValidAdministratorByAdminId() {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("administrator");
+
+		//create a new Administrator and insert to inot mySQL
+		$administrator = new Administrator(null, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$administrator->insert($this->getPDO());
+
+		//grab the data from mySQL and enforce the fields match our expectations
+		$pdoAdministrator = Administrator::getAdministratorByAdminId($this->getPDO(), $administrator->getAdminId());
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("administrator"));
+		$this->assertSame($pdoAdministrator->getVolId(), $this->volunteer->getVolId());
+		$this->assertSame($pdoAdministrator->getorgId(), $this->organization->getOrgId());
+		$this->assertSame($pdoAdministrator->getAdminEmail(), $this->VALID_EMAIL);
+		$this->assertSame($pdoAdministrator->getAdminEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
+		$this->assertSame($pdoAdministrator->getAdminFirstName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoAdministrator->getAdminLastName(), $this->VALID_LAST_NAME);
+		$this->assertSame($pdoAdministrator->getAdminPhone(), $this->VALID_PHONE);
+	}
+
+	/**
+	 * test grabbing a administrator that does not exist
+	 */
+	public function testGetInvalidAdminstratorByAdminId(){
+		//grab a administrator id that exceeds the maximum allowable administrator id
+		$administrator = Administrator::getAdministratorByAdminId($this->getPDO(), BreadBasketTest::INVALID_KEY);
+		$this->assertNull($administrator);
+	}
+
+	/**
+	 *test grabbing a administrator by vol Id
+	 */
+	public function testGetValidAdministratorByVolId() {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("administrator");
+
+		//create a new Administrator and insert to inot mySQL
+		$administrator = new Administrator(null, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$administrator->insert($this->getPDO());
+
+		//grab the data from mySQL and enforce the fields match our expectations
+
+		$pdoAdministrator = Administrator::getAdministratorByVolId($this->getPDO(), $administrator->getVolId());
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("administrator"));
+		$this->assertSame($pdoAdministrator->getVolId(), $this->volunteer->getVolId());
+		$this->assertSame($pdoAdministrator->getorgId(), $this->organization->getOrgId());
+		$this->assertSame($pdoAdministrator->getAdminEmail(), $this->VALID_EMAIL);
+		$this->assertSame($pdoAdministrator->getAdminEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
+		$this->assertSame($pdoAdministrator->getAdminFirstName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoAdministrator->getAdminLastName(), $this->VALID_LAST_NAME);
+		$this->assertSame($pdoAdministrator->getAdminPhone(), $this->VALID_PHONE);
+	}
+
+	/**
+	 * test grabbing a Administrator by an vol id that does not exist
+	 */
+	public function testGetInvalidAdministratorByVolId() {
+		//grab an organization that does not exist
+		$administrator = Administrator::getAdministratorByVolId($this->getPDO(), "10000000000000000");
+		$this->assertNull($administrator);
+	}
+
+
+	/**
+	 *test grabbing a administrator by org Id
+	 */
+	public function testGetValidAdministratorByOrgId() {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("administrator");
+
+		//create a new Administrator and insert to inot mySQL
+		$administrator = new Administrator(null, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$administrator->insert($this->getPDO());
+
+		//grab the data from mySQL and enforce the fields match our expectations
+
+		$pdoAdministrator = Administrator::getAdministratorByOrgId($this->getPDO(), $administrator->getOrgId());
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("administrator"));
+		$this->assertSame($pdoAdministrator[0]->getVolId(), $this->volunteer->getVolId());
+		$this->assertSame($pdoAdministrator[0]->getorgId(), $this->organization->getOrgId());
+		$this->assertSame($pdoAdministrator[0]->getAdminEmail(), $this->VALID_EMAIL);
+		$this->assertSame($pdoAdministrator[0]->getAdminEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
+		$this->assertSame($pdoAdministrator[0]->getAdminFirstName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoAdministrator[0]->getAdminLastName(), $this->VALID_LAST_NAME);
+		$this->assertSame($pdoAdministrator[0]->getAdminPhone(), $this->VALID_PHONE);
+	}
+
+	/**
+	 * test grabbing a Administrator by an org id that does not exist
+	 */
+	public function testGetInvalidAdministratorByOrgId() {
+		//grab an organization that does not exist
+		$administrator = Administrator::getAdministratorByOrgId($this->getPDO(), "10000000000000000");
+		$this->assertSame($administrator->getSize(), 0);
+	}
+
+
+	/**
+	 *test grabbing a administrator by adminEmail
+	 */
+	public function testGetValidAdministratorByAdminEmail() {
+		//count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("administrator");
+
+		//create a new Administrator and insert to inot mySQL
+		$administrator = new Administrator(null, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$administrator->insert($this->getPDO());
+
+		//grab the data from mySQL and enforce the fields match our expectations
+
+		$pdoAdministrator = Administrator::getAdministratorByAdminEmail($this->getPDO(), $administrator->getAdminEmail());
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("administrator"));
+		$this->assertSame($pdoAdministrator->getVolId(), $this->volunteer->getVolId());
+		$this->assertSame($pdoAdministrator->getorgId(), $this->organization->getOrgId());
+		$this->assertSame($pdoAdministrator->getAdminEmail(), $this->VALID_EMAIL);
+		$this->assertSame($pdoAdministrator->getAdminEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
+		$this->assertSame($pdoAdministrator->getAdminFirstName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoAdministrator->getAdminLastName(), $this->VALID_LAST_NAME);
+		$this->assertSame($pdoAdministrator->getAdminPhone(), $this->VALID_PHONE);
+	}
+
+
+	/**
+	 * test grabbing a administrator by an email that does not exist
+	 */
+	public function testGetInvalidAdministratorByAdminEmail(){
+		//grab an email that does not exist
+		$administrator = Administrator::getAdministratorByAdminEmail($this->getPDO(), "invalidadmin@email.com");
+		$this->assertNull($administrator);
+	}
+
+
 
 }
 
