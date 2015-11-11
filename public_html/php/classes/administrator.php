@@ -457,7 +457,7 @@ class Administrator {
 		}
 
 		//Create Query Template
-		$query ="UPDATE administrator SET volId = :volId, orgId = :ordId, adminEmail = :adminEmail,  adminEmailActivation= :adminEmailActivation, adminFirstName  = :adminFirstName,  adminLastName = :adminLastName,  adminPhone= :adminPhone,  adminPhone= :adminPhone";
+		$query ="UPDATE administrator SET volId = :volId, orgId = :orgId, adminEmail = :adminEmail,  adminEmailActivation= :adminEmailActivation, adminFirstName  = :adminFirstName,  adminLastName = :adminLastName,  adminPhone= :adminPhone,  adminPhone= :adminPhone";
 		$statement = $pdo->prepare($query);
 
 		//Bind the Variables tot he place holder in the template.
@@ -499,7 +499,7 @@ class Administrator {
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["orgId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
 			}
 		}catch(Exception $exception){
 			//if the row could not be converted, rethrow it
@@ -526,7 +526,7 @@ class Administrator {
 		//while rows can still be retrieved from the result
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["orgId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
 				//place result in the current field, then advance the key
 				$retrievedAdmin[$retrievedAdmin->key()] = $administrator;
 				$retrievedAdmin->next();
@@ -608,7 +608,7 @@ class Administrator {
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["orgId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
 			}
 		}catch(Exception $exception){
 			//if the row could not be converted, rethrow it
@@ -649,7 +649,7 @@ class Administrator {
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["orgId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
 			}
 		}catch(Exception $exception){
 			//if the row could not be converted, rethrow it
@@ -679,7 +679,7 @@ class Administrator {
 		$statement->setFetchMode(PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false){
 			try{
-				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["orgId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
 				$administrators[$administrators->key()] = $administrator;
 				$administrators->next();
 			} catch(Exception $exception){
