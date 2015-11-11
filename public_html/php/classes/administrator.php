@@ -409,11 +409,11 @@ class Administrator {
 		}
 
 		//Create Query Template.
-		$query = "INSERT INTO administrator(volId, orgId, adminEmail, adminEmailActivation, adminFirstName, adminHash, adminLastName, adminPhone, adminPhone, adminSalt) VALUES(:volId, :orgId, :adminEmail, :adminEmailActivation, :adminFirstName, :adminHash, :adminLastName, :adminPhone, :adminPhone, :adminSalt)";
+		$query = "INSERT INTO administrator(volId, orgId, adminEmail, adminEmailActivation, adminFirstName, adminLastName, adminPhone) VALUES(:volId, :orgId, :adminEmail, :adminEmailActivation, :adminFirstName, :adminLastName, :adminPhone)";
 		$statement = $pdo->prepare($query);
 
 		//Blind the member variables to the place holder in the template.
-		$parameters = array("volId" => $this->volId, "orgId" => $this->orgId, "adminEmail" => $this->adminEmail, "adminEmailActivation" => $this->adminEmailActivation, "adminFirstName" => $this->adminFirstName, "adminHash" => $this->adminHash, "adminLastName" => $this->adminLastName, "adminPhone" => $this->adminPhone, "adminPhone" => $this->adminPhone, "adminSalt" => $this->adminSalt);
+		$parameters = array("volId" => $this->volId, "orgId" => $this->orgId, "adminEmail" => $this->adminEmail, "adminEmailActivation" => $this->adminEmailActivation, "adminFirstName" => $this->adminFirstName, "adminLastName" => $this->adminLastName, "adminPhone" => $this->adminPhone);
 		$statement->execute($parameters);
 
 		//Update the null adminId whith what mySQl just gave us.
