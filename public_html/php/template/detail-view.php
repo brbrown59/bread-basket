@@ -56,6 +56,7 @@
 				</div>
 			</header>
 			<main>
+				<!--this container houses the h1 tag/headline and the back to listing button-->
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
@@ -74,6 +75,7 @@
 					</div>
 				</div>
 				<hr>
+				<!--this container houses the small details about the listing, perishable, datetime, open or closed, and esitmated cost-->
 				<div class="container">
 					<div class="row">
 						<div class="col-md-3">
@@ -98,6 +100,7 @@
 						</div>
 					</div>
 				</div>
+				<!--this container houses the memo and organization information-->
 				<div class="container">
 					<div class="row">
 						<div class="col-md-6">
@@ -114,12 +117,15 @@
 								<h3><span class="glyphicon glyphicon-home"></span> Hippy Grocery</h3>
 								<div class="col-md-4">
 									<h5>Address</h5>
-									<p>123 Street Albuquerque, NM 87106</p>
+									<p>123 Street NE</p>
+									<p>Albuquerque</p>
+									<p>NM</p>
+									<p>87106</p>
 								</div>
 								<div class="col-md-4">
 									<h5>Contact</h5>
-									<p>ADMIN NAME</p>
-									<p>ADMIN PHONE</p>
+									<p>Kathryn Janeway</p>
+									<p>(505) 333-4444</p>
 								</div>
 								<div class="col-md-4">
 									<h5>Hours</h5>
@@ -129,6 +135,7 @@
 						</div>
 					</div>
 				</div>
+				v<!--this container houses the picture and google api location-->
 				<div class="container">
 					<div class="row">
 						<div class="col-md-6">
