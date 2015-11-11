@@ -78,24 +78,11 @@ class AdministratorTest extends BreadBasketTest {
 	protected $VALID_PHONE = "5053214567";
 
 
-	/**
-	 * set up for valid Administrator
-	 */
-	public final function setUp() {
-		//run default setUp() method first
-		parent::setUp();
-
-		//create a valid Administrator to reference in test
-		$this->administrator = new Administrator(null, "sample001", "sample002", "sample003", "sample004", "sample005", "sample006");
-		$this->administrator->insert($this->getPDO());
-	}
-
-
 
 	/**
 	 * set up for valid organization and volunteer
 	 */
-	public final function setUP() {
+	public final function setUp() {
 		//run default setUp() method first
 		parent::setUp();
 
@@ -121,7 +108,7 @@ class AdministratorTest extends BreadBasketTest {
 		$numRows = $this->getConnection()->getRowCount("administrator");
 
 		//create a new administrator and insert into mySQL
-		$administrator = new Administrator(null, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ALT, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$administrator = new Administrator(null, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
 		$administrator->insert($this->getPDO() );
 
 		//grab data from SQL and esure it matches.
@@ -143,7 +130,7 @@ class AdministratorTest extends BreadBasketTest {
 	 */
 	public function testInsertInvalidAdministrator() {
 		//create a administrator with a non null adminId and watch it fail.
-		$administrator = new Administrator(BreadBasketTest::INVALID_KEY, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ALT, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$administrator = new Administrator(BreadBasketTest::INVALID_KEY, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
 		$administrator->insert($this->getPDO());
 	}
 
@@ -155,7 +142,7 @@ class AdministratorTest extends BreadBasketTest {
 		$numRows = $this->getConnection()->getRowCount("administrator");
 
 		//create a new Administrator and insert in into mySQL
-		$administrator = new Administrator(null, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ALT, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
+		$administrator = new Administrator(null, $this->volunteer->getVolId(), $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_LAST_NAME, $this->VALID_PHONE);
 		$administrator->insert($this->getPDO());
 
 		//Edit the Administrator and update it in mySQL
@@ -235,7 +222,7 @@ class AdministratorTest extends BreadBasketTest {
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("administrator"));
 		$this->assertSame($pdoAdministrator->getVolId(), $this->volunteer->getVolId());
 		$this->assertSame($pdoAdministrator->getorgId(), $this->organization->getOrgId());
-		$this->assertSame($pdoAdministrator->getAdminEmail(), $this->VALID_EMAIL_ALT);
+		$this->assertSame($pdoAdministrator->getAdminEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoAdministrator->getAdminEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 		$this->assertSame($pdoAdministrator->getAdminFirstName(), $this->VALID_FIRST_NAME);
 		$this->assertSame($pdoAdministrator->getAdminLastName(), $this->VALID_LAST_NAME);
@@ -268,7 +255,7 @@ class AdministratorTest extends BreadBasketTest {
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("administrator"));
 		$this->assertSame($pdoAdministrator[0]->getVolId(), $this->volunteer->getVolId());
 		$this->assertSame($pdoAdministrator[0]->getorgId(), $this->organization->getOrgId());
-		$this->assertSame($pdoAdministrator[0]->getAdminEmail(), $this->VALID_EMAIL_ALT);
+		$this->assertSame($pdoAdministrator[0]->getAdminEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoAdministrator[0]->getAdminEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 		$this->assertSame($pdoAdministrator[0]->getAdminFirstName(), $this->VALID_FIRST_NAME);
 		$this->assertSame($pdoAdministrator[0]->getAdminLastName(), $this->VALID_LAST_NAME);
@@ -302,7 +289,7 @@ class AdministratorTest extends BreadBasketTest {
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("administrator"));
 		$this->assertSame($pdoAdministrator[0]->getVolId(), $this->volunteer->getVolId());
 		$this->assertSame($pdoAdministrator[0]->getorgId(), $this->organization->getOrgId());
-		$this->assertSame($pdoAdministrator[0]->getAdminEmail(), $this->VALID_EMAIL_ALT);
+		$this->assertSame($pdoAdministrator[0]->getAdminEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoAdministrator[0]->getAdminEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 		$this->assertSame($pdoAdministrator[0]->getAdminFirstName(), $this->VALID_FIRST_NAME);
 		$this->assertSame($pdoAdministrator[0]->getAdminLastName(), $this->VALID_LAST_NAME);
@@ -336,7 +323,7 @@ class AdministratorTest extends BreadBasketTest {
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("administrator"));
 		$this->assertSame($pdoAdministrator[0]->getVolId(), $this->volunteer->getVolId());
 		$this->assertSame($pdoAdministrator[0]->getorgId(), $this->organization->getOrgId());
-		$this->assertSame($pdoAdministrator[0]->getAdminEmail(), $this->VALID_EMAIL_ALT);
+		$this->assertSame($pdoAdministrator[0]->getAdminEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoAdministrator[0]->getAdminEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 		$this->assertSame($pdoAdministrator[0]->getAdminFirstName(), $this->VALID_FIRST_NAME);
 		$this->assertSame($pdoAdministrator[0]->getAdminLastName(), $this->VALID_LAST_NAME);
@@ -368,7 +355,7 @@ class AdministratorTest extends BreadBasketTest {
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("administrator"));
 		$this->assertSame($pdoAdministrator[0]->getVolId(), $this->volunteer->getVolId());
 		$this->assertSame($pdoAdministrator[0]->getorgId(), $this->organization->getOrgId());
-		$this->assertSame($pdoAdministrator[0]->getAdminEmail(), $this->VALID_EMAIL_ALT);
+		$this->assertSame($pdoAdministrator[0]->getAdminEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoAdministrator[0]->getAdminEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 		$this->assertSame($pdoAdministrator[0]->getAdminFirstName(), $this->VALID_FIRST_NAME);
 		$this->assertSame($pdoAdministrator[0]->getAdminLastName(), $this->VALID_LAST_NAME);
@@ -402,7 +389,7 @@ class AdministratorTest extends BreadBasketTest {
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("administrator"));
 		$this->assertSame($pdoAdministrator[0]->getVolId(), $this->volunteer->getVolId());
 		$this->assertSame($pdoAdministrator[0]->getorgId(), $this->organization->getOrgId());
-		$this->assertSame($pdoAdministrator[0]->getAdminEmail(), $this->VALID_EMAIL_ALT);
+		$this->assertSame($pdoAdministrator[0]->getAdminEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoAdministrator[0]->getAdminEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 		$this->assertSame($pdoAdministrator[0]->getAdminFirstName(), $this->VALID_FIRST_NAME);
 		$this->assertSame($pdoAdministrator[0]->getAdminLastName(), $this->VALID_LAST_NAME);
