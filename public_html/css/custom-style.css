@@ -1,7 +1,5 @@
 /*this rule adds padding to the top and bottom of buttons*/
 
-.top-bottom {
-	padding-top: 10px;
-	padding-bottom: 10px;
-
+.row-padding {
+	padding: 20px;
 }
