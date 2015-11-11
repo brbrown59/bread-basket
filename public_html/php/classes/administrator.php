@@ -80,7 +80,7 @@ class Administrator {
 			$this->setAdminId($newAdminId);
 			$this->setVolId($newVolId);
 			$this->SetOrgId($newOrgId);
-			$this->setAdminEmailId($newAdminEmail);
+			$this->setAdminEmail($newAdminEmail);
 			$this->setAdminEmailActivation($newAdminEmailActivation);
 			$this->setAdminFirstName($newAdminFirstName);
 			$this->setAdminLastName($newAdminLastName);
@@ -112,15 +112,15 @@ class Administrator {
 	/**
 	 * Accessor method for the Administrator Id
 	 */
-	Public function getAdminId() {
+	public function getAdminId() {
 		return ($this->adminId);
 	}
 
 	/**Mutator for Administrator ID
 	 * @param Integer ; $newAdminId new value of Administrator Id
-	 * @throw InvalidAgrumentException if the new Administrator Id is not an Integer.
+	 * @throw InvalidArgumentException if the new Administrator Id is not an Integer.
 	 **/
-	Public function setAdminId($newAdminId) {
+	public function setAdminId($newAdminId) {
 		//base case
 		if($newAdminId === null) {
 			$this->adminId = null;
@@ -146,8 +146,7 @@ class Administrator {
 	/**
 	 * Accessor method for the Volunteer Id
 	 * @return integer value of Volunteer Id
-	 */
-	Public function getVolId() {
+	 */public function getVolId() {
 		return ($this->volId);
 	}
 
@@ -155,7 +154,7 @@ class Administrator {
 	 * @param Integer ; $newVolId new value of Volunteer Id
 	 * @throw InvalidArgumentException if the new Volunteer Id is not an Integer.
 	 **/
-	Public function setVolId($newVolId) {
+	public function setVolId($newVolId) {
 		//base case
 		if($newVolId === null) {
 			$this->volId = null;
@@ -194,10 +193,10 @@ class Administrator {
 	 * @param Integer ; $newOrgId new value of Organization Id
 	 * @throw InvalidArgumentException if the new Organization Id is not an Integer.
 	 **/
-	Public function setOrgId($newOrgId) {
+	public function setOrgId($newOrgId) {
 		//base case
 		if($newOrgId === null) {
-			$this->adminId = null;
+			$this->orgId = null;
 			return;
 		}
 
@@ -213,7 +212,7 @@ class Administrator {
 		}
 
 		//convert and store the Organization Id
-		$this->adminId = intval($newOrgId);
+		$this->orgId = intval($newOrgId);
 	}
 
 
@@ -222,10 +221,10 @@ class Administrator {
 
 
 	/**
-	 * Accessor for Administrator Email; adminEmailId
+	 * Accessor for Administrator Email; adminEmail
 	 * @return string value for adminEmail Id
 	 */
-	public function getAdminEmailId() {
+	public function getAdminEmail() {
 		return($this->adminEmail);
 	}
 
@@ -236,7 +235,7 @@ class Administrator {
 	 * @throw InvalidArgumentException if $newAdminEmailId is not a string
 	 * @throw rangeException if $newAdminEmail is more than 128 characters
 	 */
-	public function setAdminEmailId($newAdminEmail){
+	public function setAdminEmail($newAdminEmail){
 
 		//Verify the Email for Administrator is valid; adminEmailId
 		$newAdminEmail = trim($newAdminEmail);
@@ -250,7 +249,7 @@ class Administrator {
 			throw(new RangeException("Maximum amount of characters has been exceeded"));
 		}
 
-		//Convert and store this Administrator Email; adminEmailId
+		//Convert and store this Administrator Email; adminEmail
 		$this->adminEmail = $newAdminEmail;
 	}
 
@@ -394,9 +393,6 @@ class Administrator {
 
 	}
 
-
-
-
 	/**
 	 * Insert Administrator into mySQL; adminId
 	 *
@@ -417,7 +413,7 @@ class Administrator {
 		$parameters = array("volId" => $this->volId, "orgId" => $this->orgId, "adminEmail" => $this->adminEmail, "adminEmailActivation" => $this->adminEmailActivation, "adminFirstName" => $this->adminFirstName, "adminLastName" => $this->adminLastName, "adminPhone" => $this->adminPhone);
 		$statement->execute($parameters);
 
-		//Update the null adminId whith what mySQl just gave us.
+		//Update the null adminId with what mySQl just gave us.
 		$this->adminId = intval($pdo->lastInsertId());
 	}
 
@@ -437,12 +433,12 @@ class Administrator {
 		}
 
 		//create query template
-		$query = "DELETE FROM administrator WHERE adminID =:adminID";
+		$query = "DELETE FROM administrator WHERE adminId = :adminId";
 		$statement = $pdo->prepare($query);
 
 		//Bind the variables to the place holder in the template
 		$parameters = array("adminId" => $this->adminId);
-		$statement ->execute($parameters);
+		$statement->execute($parameters);
 	}
 
 
@@ -454,18 +450,18 @@ class Administrator {
 	 * @param PDO $pdo PDO connection object
 	 * @throw PDOException when mySQL related errors occur
 	 */
-	Public function update(PDO $pdo){
+	public function update(PDO $pdo){
 		//Enforce the Administrator is null(i.e, do not update a administrator that hasn't been inserted)
 		if($this->adminId === null) {
 			throw(new PDOException("Unable to update Administrator that does not exist"));
 		}
 
 		//Create Query Template
-		$query ="UPDATE administrator SET volId = :volId, orgId = :ordId, adminEmail = :adminEmail,  adminEmailActivation= :adminEmailActivation, adminFirstName  = :adminFirstName,  adminLastName = :adminLastName,  adminPhone= :adminPhone,  adminPhone= :adminPhone";
+		$query ="UPDATE administrator SET volId = :volId, orgId = :orgId, adminEmail = :adminEmail,  adminEmailActivation= :adminEmailActivation, adminFirstName  = :adminFirstName,  adminLastName = :adminLastName,  adminPhone= :adminPhone";
 		$statement = $pdo->prepare($query);
 
 		//Bind the Variables tot he place holder in the template.
-		$parameters = array("volId"=> $this->volId, "orgId"=> $this->orgId, "adminEmail"=> $this->adminEmail, "adminEmailActivation"=> $this->adminEmailActivation, "adminFirstName"=> $this->adminFirstName, "dminLastName"=> $this->adminLastName, "adminPhone"=> $this->adminPhone);
+		$parameters = array("volId"=> $this->volId, "orgId"=> $this->orgId, "adminEmail"=> $this->adminEmail, "adminEmailActivation"=> $this->adminEmailActivation, "adminFirstName"=> $this->adminFirstName, "adminLastName"=> $this->adminLastName, "adminPhone"=> $this->adminPhone);
 		$statement->execute($parameters);
 	}
 
@@ -493,7 +489,7 @@ class Administrator {
 		$query = "SELECT adminId, volId, orgId, adminEmail, adminEmailActivation, adminFirstName, adminLastName, adminPhone, adminPhone FROM administrator WHERE adminId = :adminId";
 		$statement = $pdo->prepare($query);
 
-		//Bind the administraotr id to the place holder in the template
+		//Bind the administrator id to the place holder in the template
 		$parameters = array("adminId" => $adminId);
 		$statement->execute($parameters);
 
@@ -503,7 +499,7 @@ class Administrator {
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["orgId"], $row["adminEmail"], $row["adminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
 			}
 		}catch(Exception $exception){
 			//if the row could not be converted, rethrow it
@@ -530,7 +526,7 @@ class Administrator {
 		//while rows can still be retrieved from the result
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["orgId"], $row["adminEmail"], $row["adminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
 				//place result in the current field, then advance the key
 				$retrievedAdmin[$retrievedAdmin->key()] = $administrator;
 				$retrievedAdmin->next();
@@ -612,7 +608,7 @@ class Administrator {
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["orgId"], $row["adminEmail"], $row["adminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
 			}
 		}catch(Exception $exception){
 			//if the row could not be converted, rethrow it
@@ -643,7 +639,7 @@ class Administrator {
 		$query = "SELECT adminId, volId, orgId, adminEmail, adminEmailActivation, adminFirstName, adminLastName, adminPhone, adminPhone FROM administrator WHERE adminEmail = :adminEmail";
 		$statement = $pdo->prepare($query);
 
-		//Bind the administraotr email to the place holder in the template
+		//Bind the administrator email to the place holder in the template
 		$parameters = array("adminEmail" => $adminEmail);
 		$statement->execute($parameters);
 
@@ -653,7 +649,7 @@ class Administrator {
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["orgId"], $row["adminEmail"], $row["adminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
 			}
 		}catch(Exception $exception){
 			//if the row could not be converted, rethrow it
@@ -683,7 +679,7 @@ class Administrator {
 		$statement->setFetchMode(PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false){
 			try{
-				$administrator = new administrator($row["adminId"], $row["volId"], $row["ordId"], $row["adminEmail"], $row["AdminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
+				$administrator = new administrator($row["adminId"], $row["volId"], $row["orgId"], $row["adminEmail"], $row["adminEmailActivation"], $row["adminFirstName"], $row["adminLastName"], $row["adminPhone"]);
 				$administrators[$administrators->key()] = $administrator;
 				$administrators->next();
 			} catch(Exception $exception){
