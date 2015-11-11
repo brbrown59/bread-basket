@@ -54,7 +54,7 @@ class AdministratorTest extends BreadBasketTest {
 	 * valid activation key to use
 	 * @var string $VALID_EMAIL_ACTIVATION
 	 */
-	protected $VALID_EMAIL_ACTIVATION = "12345678912345678";
+	protected $VALID_EMAIL_ACTIVATION = "2345678912345678";
 
 
 	/**

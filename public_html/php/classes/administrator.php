@@ -276,12 +276,12 @@ class Administrator {
 		//Verify Administrator Email is Valid;adminEmailActivation
 		$newAdminEmailActivation = filter_var($newAdminEmailActivation, FILTER_SANITIZE_STRING);
 		if(strlen($newAdminEmailActivation) < 16) {
-			throw(new InvalidArgumentException("activation code is insufficient or insecure pkk"));
+			throw(new InvalidArgumentException("activation code is insufficient or insecure"));
 		}
 
 		//Verify Administrator Email "will fit in the DATABASE" pkk;adminEmailActivation
 		if(strlen($newAdminEmailActivation) > 16) {
-			throw(new RangeException("Activation Code is too large pkk"));
+			throw(new RangeException("Activation Code is too large"));
 		}
 
 		//Store Activation for Administrator Email;adminEmailActivation
