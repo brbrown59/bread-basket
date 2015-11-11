@@ -9,8 +9,9 @@ require_once("bread-basket.php");
 
 //grab the class under scrutiny
 require_once(dirname(__DIR__) . "/public_html/php/classes/administrator.php");
-require_once(dirname(__DIR__) . "/public_html/php/classes/volunteer.php");
 require_once(dirname(__DIR__) . "/public_html/php/classes/organization.php");
+require_once(dirname(__DIR__) . "/public_html/php/classes/volunteer.php");
+
 
 /**full PHP unit test for the administrator class
  *

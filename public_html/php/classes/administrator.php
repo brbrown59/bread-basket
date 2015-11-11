@@ -83,6 +83,7 @@ class Administrator {
 			$this->setAdminEmailId($newAdminEmail);
 			$this->setAdminEmailActivation($newAdminEmailActivation);
 			$this->setAdminFirstName($newAdminFirstName);
+			$this->setAdminLastName($newAdminLastName);
 			$this->setAdminPhone($newAdminPhone);
 
 
