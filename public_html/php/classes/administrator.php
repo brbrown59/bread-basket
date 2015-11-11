@@ -87,7 +87,7 @@ class Administrator {
 			$this->setAdminPhone($newAdminPhone);
 
 
-		} catch(invalidArgumentException $invalidArgument) {
+		} catch(InvalidArgumentException $invalidArgument) {
 			// rethrow the exception to the user
 			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 

@@ -113,10 +113,10 @@ class AdministratorTest extends BreadBasketTest {
 		$administrator->insert($this->getPDO() );
 
 		//grab data from SQL and esure it matches.
-		$pdoAdministrator = Administrator::getAdministratorByAdminId($this->getPDO(), $administrator->getAdminId() );
+		$pdoAdministrator = Administrator::getAdministratorByAdminId($this->getPDO(), $administrator->getAdminId());
 		$this->assertSame($numRows + 1, $this->getConnection() ->getRowCount("administrator"));
-		$this->assertSame($pdoAdministrator->getVolId(),$this->volunteer->getVolId() );
-		$this->assertSame($pdoAdministrator->getorgId(),$this->organization->getOrgId() );
+		$this->assertSame($pdoAdministrator->getVolId(),$this->volunteer->getVolId());
+		$this->assertSame($pdoAdministrator->getorgId(),$this->organization->getOrgId());
 		$this->assertSame($pdoAdministrator->getAdminEmail(),$this->VALID_EMAIL);
 		$this->assertSame($pdoAdministrator->getAdminEmailActivation(),$this->VALID_EMAIL_ACTIVATION);
 		$this->assertSame($pdoAdministrator->getAdminFirstName(),$this->VALID_FIRST_NAME);
