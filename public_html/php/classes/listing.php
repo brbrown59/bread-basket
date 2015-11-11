@@ -15,10 +15,6 @@ require_once("autoloader.php");
  **/
 class Listing {
 	/**
-	 * trait that will validate the listing post time
-	 */
-	use ValidateDate;
-	/**
 	 * id for this listing; this is the primary key
 	 * @var int $listingId
 	 **/
@@ -63,6 +59,10 @@ class Listing {
 	 * @var string $listingTypeId
 	 **/
 	private $listingTypeId;
+	/**
+	 * trait that will validate the listing post time
+	 */
+	use ValidateDate;
 
 	/**
 	 * constructor for this listing
@@ -108,8 +108,7 @@ class Listing {
 	 *
 	 * @return mixed value for listing id
 	 **/
-	public
-	function getListingId() {
+	public function getListingId() {
 		return ($this->listingId);
 	}
 
@@ -120,8 +119,7 @@ class Listing {
 	 * @throws InvalidArgumentException if $newListingId is not an integer
 	 * @throws RangeException is $newListingId is not positive
 	 **/
-	public
-	function setListingId($newListingId) {
+	public function setListingId($newListingId) {
 		//base case: if the listing id is null, this a new listing without a mySQL assigned id (yet)
 		if($newListingId === null) {
 			$this->listingId = null;
@@ -157,8 +155,7 @@ class Listing {
 	 * @throws InvalidArgumentException if $newOrgId is not an integer or not positive
 	 * @throws RangeException if $newOrgId is not positive
 	 **/
-	public
-	function setOrgId($newOrgId) {
+	public function setOrgId($newOrgId) {
 		//verify the organization id is valid
 		$newOrgId = filter_var($newOrgId, FILTER_VALIDATE_INT);
 		if($newOrgId === false) {
@@ -179,8 +176,7 @@ class Listing {
 	 *
 	 * @return mixed value of listing claimed by
 	 **/
-	public
-	function getListingClaimedBy() {
+	public function getListingClaimedBy() {
 		return ($this->listingClaimedBy);
 	}
 
@@ -191,8 +187,7 @@ class Listing {
 	 * @throws InvalidArgumentException if $newListingClaimedBy is not an integer or not positive
 	 * @throws RangeException if $newClaimedBy is not positive
 	 **/
-	public
-	function setListingClaimedBy($newListingClaimedBy) {
+	public function setListingClaimedBy($newListingClaimedBy) {
 		//verify the listing claimed by number is valid
 		$newListingClaimedBy = filter_var($newListingClaimedBy, FILTER_VALIDATE_INT);
 		if($newListingClaimedBy === false) {
@@ -212,11 +207,8 @@ class Listing {
 	 * accessor method for Listing Closed
 	 *
 	 * @return bool value of listing closed
-	 *
-	 * QUESTION: have this looked over
 	 **/
-	public
-	function getListingClosed() {
+	public function getListingClosed() {
 		return ($this->listingClosed);
 	}
 
@@ -226,8 +218,7 @@ class Listing {
 	 * @param bool $newListingClosed
 	 * @throws InvalidArgumentException if $newListingClosed is not a bool or insecure
 	 **/
-	public
-	function setListingClosed($newListingClosed) {
+	public function setListingClosed($newListingClosed) {
 		//verify the listing closed is valid
 		$newListingClosed = filter_var($newListingClosed, FILTER_VALIDATE_BOOLEAN);
 		if($newListingClosed === false) {
@@ -243,8 +234,7 @@ class Listing {
 	 *
 	 * @return float a decimal to represent listing cost
 	 **/
-	public
-	function getListingCost() {
+	public function getListingCost() {
 		return ($this->listingCost);
 	}
 
@@ -255,8 +245,7 @@ class Listing {
 	 * @throws InvalidArgumentException if $newListingCost is not a valid float
 	 * @throws RangeException if the $newListingCost is not positive
 	 **/
-	public
-	function setListingCost($newListingCost) {
+	public function setListingCost($newListingCost) {
 		//verify the cost is a valid float
 		$newListingCost = filter_var($newListingCost, FILTER_VALIDATE_FLOAT);
 		if(empty($newListingCost) === true) {
@@ -277,8 +266,7 @@ class Listing {
 	 *
 	 * @return string value of listing memo
 	 **/
-	public
-	function getListingMemo() {
+	public function getListingMemo() {
 		return ($this->listingMemo);
 	}
 
@@ -289,8 +277,7 @@ class Listing {
 	 * @throws InvalidArgumentException if $newListingMemo is not a string or insecure
 	 * @throws RangeException if $newListingMemo is > 256 characters
 	 **/
-	public
-	function setListingMemo($newListingMemo) {
+	public function setListingMemo($newListingMemo) {
 		//verify the listing memo is secure
 		$newListingMemo = trim($newListingMemo);
 		$newListingMemo = filter_var($newListingMemo, FILTER_SANITIZE_STRING);
@@ -311,8 +298,7 @@ class Listing {
 	 *
 	 * @return mixed value of listing parent id
 	 **/
-	public
-	function getListingParentId() {
+	public function getListingParentId() {
 		return ($this->listingParentId);
 	}
 
@@ -323,8 +309,7 @@ class Listing {
 	 * @throws InvalidArgumentException if $newListingParentId is not an integer
 	 * @throws RangeException is $newListingParentId is not positive
 	 **/
-	public
-	function setListingParentId($newListingParentId) {
+	public function setListingParentId($newListingParentId) {
 		//verify the ListingParentId is valid
 		$newListingParentId = filter_var($newListingParentId, FILTER_VALIDATE_INT);
 		if($newListingParentId === false) {
@@ -344,9 +329,8 @@ class Listing {
 	 *
 	 * @return DateTime value of listing post time
 	 **/
-	public
-	function getListingPostTime() {
-		return ($this->listingPostTime);
+	public function getListingPostTime() {
+		return $this->listingPostTime;
 	}
 
 	/**
@@ -379,8 +363,7 @@ class Listing {
 	 *
 	 * @returns int value of listing type
 	 **/
-	public
-	function getListingTypeId() {
+	public function getListingTypeId() {
 		return ($this->listingTypeId);
 	}
 
@@ -391,8 +374,7 @@ class Listing {
 	 * @throws InvalidArgumentException if $newListingTypeId is not an integer or not positive
 	 * @throws RangeException if $newListingTypeId is not positive
 	 **/
-	public
-	function setListingTypeId($newListingTypeId) {
+	public function setListingTypeId($newListingTypeId) {
 		//verify the listing type is valid
 		$newListingTypeId = filter_var($newListingTypeId, FILTER_VALIDATE_INT);
 		if($newListingTypeId === false) {
@@ -416,21 +398,21 @@ class Listing {
 	 * @throws PDOException if mySQL related errors occur
 	 */
 	public static function storeSQLResultsInArray(PDOStatement $statement) {
-//build an array of listings, as an SPLFixedArray object
-//set the size of the object to the number of retrieved rows
+		//build an array of listings, as an SPLFixedArray object
+		//set the size of the object to the number of retrieved rows
 		$retrievedListings = new SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(PDO::FETCH_ASSOC);
 
-//while rows can still be retrieved from the result
+		//while rows can still be retrieved from the result
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$listing = new Listing($row["listingId"], $row["orgId"], $row["listingClaimedBy"], $row["listingClosed"], $row["listingCost"], $row["listingMemo"], $row["listingParentId"], $row["listingPostTime"], $row["listingTypeId"]);
 
-//place result in the current field, then advance the key
+			//place result in the current field, then advance the key
 				$retrievedListings[$retrievedListings->key()] = $listing;
 				$retrievedListings->next();
 			} catch(Exception $exception) {
-//rethrow the exception if retrieval failed
+			//rethrow the exception if retrieval failed
 				throw(new PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
@@ -467,8 +449,7 @@ class Listing {
 	 * @param PDO $pdo pointer to PDO connection
 	 * @throws PDO Exception when mySQL related errors occur
 	 **/
-	public
-	function delete(PDO $pdo) {
+	public function delete(PDO $pdo) {
 		//enforce the listing id is not null (i.e., don't delete a listing that hasn't been inserted)
 		if($this->listingId === null) {
 			throw(new PDOException("unable to delete a listing that does not exist"));
@@ -576,15 +557,15 @@ class Listing {
 		$parameters = array("orgId" => $orgId);
 		$statement->execute($parameters);
 
-//bind the name value to the placeholder in the template
+		//bind the name value to the placeholder in the template
 		$parameters = array("orgId" => $orgId);
 		$statement->execute($parameters);
 
-//call the function to build an array of the retrieved results
+		//call the function to build an array of the retrieved results
 		try {
 			$retrievedListings = Listing::storeSQLResultsInArray($statement);
 		} catch(Exception $exception) {
-//rethrow the exception if retrieval failed
+		//rethrow the exception if retrieval failed
 			throw(new PDOException($exception->getMessage(), 0, $exception));
 		}
 		return $retrievedListings;
@@ -613,15 +594,15 @@ class Listing {
 		$query = "SELECT listingId,orgId,listingClaimedBy,listingClosed,listingCost,listingMemo,listingParentId,listingPostTime,listingTypeId FROM listing WHERE listingParentId = :listingParentId";
 		$statement = $pdo->prepare($query);
 
-//bind the name value to the placeholder in the template
+		//bind the name value to the placeholder in the template
 		$parameters = array("listingParentId" => $listingParentId);
 		$statement->execute($parameters);
 
-//call the function to build an array of the retrieved results
+		//call the function to build an array of the retrieved results
 		try {
 			$retrievedListings = Listing::storeSQLResultsInArray($statement);
 		} catch(Exception $exception) {
-//rethrow the exception if retrieval failed
+		//rethrow the exception if retrieval failed
 			throw(new PDOException($exception->getMessage(), 0, $exception));
 		}
 		return $retrievedListings;
@@ -634,7 +615,6 @@ class Listing {
 	 * @param int $listingPostTime listing post time to search for
 	 * @return mixed listing found or null if not found
 	 * @throws PDO Exceptions when my SQL related errors occur
-	 * QUESTION: does this make sense if we are new searching within a range? No one would know the exact time a listing is posted REVIEW CAREFULLY
 	 **/
 	public static function getListingByListingPostTime(PDO $pdo, $listingPostTime) {
 		//sanitize the listingPostTime before searching
