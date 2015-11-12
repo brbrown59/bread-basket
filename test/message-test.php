@@ -218,11 +218,11 @@ class MessageTest extends BreadBasketTest {
 		$message->insert($this->getPDO());
 
 		//grab data from SQL and ensure it matches
-$pdoMessage = Message::getMessageByOrgId($this->getPDO(), $message->getOrgId());
-$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("message"));
-$this->assertSame($pdoMessage[0]->getListingId(), $this->listing->getListingId());
-$this->assertSame($pdoMessage[0]->getOrgId(), $this->organization->getOrgId());
-$this->assertSame($pdoMessage[0]->getMessageText(), $this->VALID_MESSAGE_TEXT);
+	$pdoMessage = Message::getMessageByOrgId($this->getPDO(), $message->getOrgId());
+	$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("message"));
+	$this->assertSame($pdoMessage[0]->getListingId(), $this->listing->getListingId());
+	$this->assertSame($pdoMessage[0]->getOrgId(), $this->organization->getOrgId());
+	$this->assertSame($pdoMessage[0]->getMessageText(), $this->VALID_MESSAGE_TEXT);
 }
 
 	/**
@@ -232,4 +232,5 @@ $this->assertSame($pdoMessage[0]->getMessageText(), $this->VALID_MESSAGE_TEXT);
 		$message = Message::getMessageByOrgId($this->getPDO(), BreadBasketTest::INVALID_KEY);
 		$this->assertSame($message->getSize(), 0);
 	}
+
 }
