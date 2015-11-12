@@ -6,7 +6,7 @@
 	</testsuites>
 	<filter>
 		<whitelist processUncoveredFilesFromWhitelist="true">
-			<directory suffix="-test.php">.</directory>
+			<directory suffix=".php">../public_html/php/classes</directory>
 		</whitelist>
 	</filter>
 </phpunit>
