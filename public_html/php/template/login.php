@@ -63,6 +63,7 @@
 						<div class="col-md-12">
 							<h3>Please Login</h3>
 						</div>
+						<hr>
 						<form class="form-horizontal">
 							<div class="form-group">
 								<label for="inputEmail" class="col-sm-2 control-label">Email</label>
@@ -95,7 +96,6 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-md-12">
-							IMMA FOOTER
 						</div>
 					</div>
 				</div>
