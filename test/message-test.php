@@ -203,7 +203,7 @@ protected $listingType = null;
 	 */
 	public function testGetInvalidMessageByListingId() {
 		$message = Message::getMessageByListingId($this->getPDO(), BreadBasketTest::INVALID_KEY);
-		$this->assertSame($message->getSize(), 0);
+		$this->assertnull($message);
 	}
 
 	/**
@@ -230,6 +230,6 @@ $this->assertSame($pdoMessage->getMessageText(), $this->VALID_MESSAGE_TEXT);
 	 */
 	public function testGetInvalidMessageByOrgId() {
 		$message = Message::getMessageByOrgId($this->getPDO(), 1000001);
-		$this->assertSame($message->getSize(), 0);
+		$this->assertNull($message);
 	}
 }
