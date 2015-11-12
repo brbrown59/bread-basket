@@ -39,7 +39,7 @@ class Message {
  * @throws RangeException is data values are out of bounds (e.g., strings too long, negative integers)
  * @throws Exception is some other exception is thrown
  **/
-public function __construct($newMessageId, $newListingId, $newOrgId, $newMessageText = null) {
+public function __construct($newMessageId, $newListingId, $newOrgId, $newMessageText) {
 	try {
 		$this->setMessageId($newMessageId);
 		$this->setListingId($newListingId);
@@ -186,6 +186,8 @@ public function setMessageText($newMessageText) {
 	if(strlen($newMessageText) > 256) {
 		throw(new RangeException("message text is longer than 256 characters"));
 	}
+	//store the Message Text
+	$this->messageText = $newMessageText;
 }
 	/**
 	 * inserts this message into mySQL

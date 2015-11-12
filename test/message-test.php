@@ -27,7 +27,7 @@ class MessageTest extends BreadBasketTest {
 	 * valid listing type  to be used by listing to test
 	 * 	@var Int
 	 */
-protected $listingType = null;
+	protected $listingType = null;
 	/**
 	 * valid listing Id by to use
 	 * @var Int $VALID_LISTING_ID = $this->listing->getListingId()
@@ -47,7 +47,7 @@ protected $listingType = null;
 	 * valid message text
 	 * @var String $VALID_MESSAGE_TEXT_2
 	 **/
-	protected $VALID_MESSAGE_TEXT_2 = "Come and get 'em";
+	protected $VALID_MESSAGE_TEXT_2 = "Come and get em";
 
 	/**
 	 * set up for valid organization
@@ -115,7 +115,7 @@ protected $listingType = null;
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("message"));
 		$this->assertSame($pdoMessage->getListingId(), $this->listing->getListingId());
 		$this->assertSame($pdoMessage->getOrgId(), $this->organization->getOrgId());
-		$this->assertSame($pdoMessage->getMessageText(), $this->VALID_MESSAGE_TEXT2);
+		$this->assertSame($pdoMessage->getMessageText(), $this->VALID_MESSAGE_TEXT_2);
 	}
 
 	/**
@@ -126,7 +126,7 @@ protected $listingType = null;
 	public function testUpdateInvalidMessage() {
 		//create message with non-null id, and hope it fails
 		$message = new Message(null, $this->listing->getListingId(), $this->organization->getOrgId(), $this->VALID_MESSAGE_TEXT);
-		$message->insert($this->getPDO());
+		$message->update($this->getPDO());
 	}
 
 	public function testDeleteValidMessage() {
@@ -154,8 +154,8 @@ protected $listingType = null;
 	public function testDeleteInvalidMessage() {
 			//create message with non-null id, and hope it fails
 			$message = new Message(null, $this->listing->getListingId(), $this->organization->getOrgId(), $this->VALID_MESSAGE_TEXT);
-			$message->insert($this->getPDO());
-		}
+			$message->delete($this->getPDO());
+	}
 	/**
 	 * test inserting a message and regrabbing it from mySQL
 	 */
@@ -203,7 +203,7 @@ protected $listingType = null;
 	 */
 	public function testGetInvalidMessageByListingId() {
 		$message = Message::getMessageByListingId($this->getPDO(), BreadBasketTest::INVALID_KEY);
-		$this->assertSame($message->getSize, 0);
+		$this->assertSame($message->getSize(), 0);
 	}
 
 	/**
@@ -230,6 +230,6 @@ $this->assertSame($pdoMessage[0]->getMessageText(), $this->VALID_MESSAGE_TEXT);
 	 */
 	public function testGetInvalidMessageByOrgId() {
 		$message = Message::getMessageByOrgId($this->getPDO(), BreadBasketTest::INVALID_KEY);
-		$this->assertSame($message->getSize, 0);
+		$this->assertSame($message->getSize(), 0);
 	}
 }
