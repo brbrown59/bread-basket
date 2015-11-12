@@ -322,20 +322,16 @@ public static function getMessageByListingId(PDO $pdo, $listingId) {
 		$parameters = array("listingId" => $listingId);
 		$statement->execute($parameters);
 
-		//grab the message from mySQL
-		try {
-			$message = null;
-			$statement->setFetchMode(PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$message = new message($row["messageId"], $row["listingId"], $row["orgId"], $row["messageText"]);
-			}
-		} catch(Exception $exception) {
-			//if the row couldn't be converted, rethrow it
-			throw(new PDOException($exception->getMessage(), 0, $exception));
-		}
-		return ($message);
+	//call the function to build an array of the retrieved results
+	try {
+		$retrievedMessages = Message::storeSQLResultsInArray($statement);
+	} catch(Exception $exception) {
+		//rethrow the exception if retrieval failed
+		throw(new PDOException($exception->getMessage(), 0, $exception));
 	}
+	return $retrievedMessages;
+}
+
 	/**
 	 * gets the message by orgId
 	 *
@@ -364,19 +360,15 @@ public static function getMessageByListingId(PDO $pdo, $listingId) {
 		$parameters = array("orgId" => $orgId);
 		$statement->execute($parameters);
 
-		//grab the message from mySQL
+
+		//call the function to build an array of the retrieved results
 		try {
-			$message = null;
-			$statement->setFetchMode(PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$message = new message($row["messageId"], $row["listingId"], $row["orgId"], $row["messageText"]);
-			}
+			$retrievedMessages = Message::storeSQLResultsInArray($statement);
 		} catch(Exception $exception) {
-			//if the row couldn't be converted, rethrow it
+			//rethrow the exception if retrieval failed
 			throw(new PDOException($exception->getMessage(), 0, $exception));
 		}
-		return ($message);
+		return $retrievedMessages;
 	}
 	/**
 	 * retrieves all messages
