@@ -24,6 +24,11 @@ class MessageTest extends BreadBasketTest {
 	 **/
 	protected $VALID_MESSAGE_ID = 123459;
 	/**
+	 * valid listing type  to be used by listing to test
+	 * 	@var Int
+	 */
+protected $listingType = null;
+	/**
 	 * valid listing Id by to use
 	 * @var Int $VALID_LISTING_ID = $this->listing->getListingId()
 	 **/
@@ -54,8 +59,11 @@ class MessageTest extends BreadBasketTest {
 		//create a valid organization to reference in test
 		$this->organization = new Organization(null, "89 Spring", "Suit 2", "ABQ", "Home2", "24/7", "2", "5051234567", "NM", "G", "87106" );
 		$this->organization->insert($this->getPDO());
+		//create a valid ListingTypeId to reference in test
+		$this->listingType = new ListingType(null, "Refrigerated");
+		$this->listingType->insert($this->getPDO());
 		//create a valid Listing Id to reference in test
-		$this->listing = new Listing(null, 52, 33, true, 23.00, "We have apples", 102, "2012-07-08 11:14:15","B");
+		$this->listing = new Listing(null, $this->organization->getOrgId(), 33, true, 23.00, "We have apples", 102, "2012-07-08 11:14:15", $this->listingType->getListingTypeId());
 		$this->listing->insert($this->getPDO());
 	}
 

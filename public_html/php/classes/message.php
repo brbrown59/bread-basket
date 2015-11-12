@@ -259,7 +259,7 @@ public function setMessageText($newMessageText) {
 	 * @return mixed message found or null if not found
 	 * @throws PDO Exceptions when my SQL related errors occur
 	 **/
-	public static function getListingByMessageId(PDO $pdo, $messageId) {
+	public static function getMessageByMessageId(PDO $pdo, $messageId) {
 		//sanitize the messageId before searching
 		$messageId = filter_var($messageId, FILTER_VALIDATE_INT);
 		if($messageId === false) {
@@ -302,7 +302,7 @@ public function setMessageText($newMessageText) {
 	 * @return mixed message found or null if not found
 	 * @throws PDO Exceptions when my SQL related errors occur
 	 **/
-public static function getListingByListingId(PDO $pdo, $listingId) {
+public static function getMessageByListingId(PDO $pdo, $listingId) {
 		//sanitize the listingId before searching
 		$listingId = filter_var($listingId, FILTER_VALIDATE_INT);
 		if($listingId === false) {
@@ -344,7 +344,7 @@ public static function getListingByListingId(PDO $pdo, $listingId) {
 	 * @return mixed message found or null if not found
 	 * @throws PDO Exceptions when my SQL related errors occur
 	 **/
-	public static function getListingByOrgId(PDO $pdo, $orgId) {
+	public static function getMessageByOrgId(PDO $pdo, $orgId) {
 		//sanitize the orgId before searching
 		$orgId = filter_var($orgId, FILTER_VALIDATE_INT);
 		if($orgId === false) {
@@ -378,4 +378,57 @@ public static function getListingByListingId(PDO $pdo, $listingId) {
 		}
 		return ($message);
 	}
+	/**
+	 * retrieves all messages
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @return SplFixedArray all messages
+	 * @throws PDOException if mySQL errors occur
+	 */
+	public static function getAllMessages(PDO $pdo) {
+
+		//create query template
+		$query = "SELECT messageId, listingId, orgId, messageText FROM message";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+
+		///call the function to build an array of the retrieved results
+		try {
+			$retrievedMessages = Message::storeSQLResultsInArray($statement);
+		} catch(Exception $exception) {
+			//rethrow the exception if retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $retrievedMessages;
+	}
+	/**
+	 * function to store multiple database results into an SplFixedArray
+	 *
+	 * @param PDOStatement $statement pdo statement object
+	 * @return SPLFixedArray all message obtained from database
+	 * @throws PDOException if mySQL related errors occur
+	 */
+	public static function storeSQLResultsInArray(PDOStatement $statement) {
+		//build an array of messages, as an SPLFixedArray object
+		//set the size of the object to the number of retrieved rows
+		$retrievedMessages = new SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(PDO::FETCH_ASSOC);
+
+		//while rows can still be retrieved from the result
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$message = new Message($row["messageId"], $row["listingId"], $row["orgId"], $row["messageText"]);
+
+				//place result in the current field, then advance the key
+				$retrievedMessages[$retrievedMessages->key()] = $message;
+				$retrievedMessages->next();
+			} catch(Exception $exception) {
+				//rethrow the exception if retrieval failed
+				throw(new PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return $retrievedMessages;
+	}
+
+
 }
