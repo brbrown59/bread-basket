@@ -68,7 +68,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<button type="button" class="btn btn-default">
-								<a href="#">
+								<a href="listing-view.php">
 									<span class="glyphicon glyphicon-triangle-left"></span>
 									All Listings
 								</a>

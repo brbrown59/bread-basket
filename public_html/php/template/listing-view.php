@@ -56,3 +56,51 @@
 					</nav>
 				</div>
 			</header>
+			<!--main content-->
+			<main>
+				<!--this container houses the h1 tag/headline and the back to listing button-->
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<h1>All Listings</h1>
+						</div>
+					</div>
+				</div>
+				<hr>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<table class="table table-responsive table-striped table-hover">
+								<tr>
+									<td><h3>Location</h3></td>
+									<td><h3>Description</h3></td>
+									<td><h3>Date Posted</h3></td>
+								</tr>
+								<tr class="success">
+									<td>Hippy Grocery</td>
+									<td>Grapefruits! So many grapefruits!</td>
+									<td>11/11/22 14:25</td>
+								</tr>
+
+							</table>
+						</div>
+					</div>
+				</div>
+
+
+			</main>
+			<!--footer-->
+			<footer>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12">
+							IMMA FOOTER
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+
+
+	</body>
+</html>

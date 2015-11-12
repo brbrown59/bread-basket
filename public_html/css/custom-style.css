@@ -1,6 +1,18 @@
-/*this rule adds padding to the top and bottom of buttons*/
+/***
+* Flexbox Sticky Footer
+* http://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
+***/
 
-.row-padding {
-	padding-top: 20px;
-	padding-bottom: 20px;
+/*corrects IE min-height bug*/
+html { display: flex;}
+body { width: 100%;}
+
+.sfooter {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.sfooter-content {
+	flex: 1 0 auto;
 }
