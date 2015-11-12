@@ -168,143 +168,60 @@ class MessageTest extends BreadBasketTest {
 	}
 
 	/**
-	 * test getting an organization by listing id that doesn't exist
+	 * test getting a message by message id that doesn't exist
 	 */
-	public function testGetInvalidListingByListingId() {
-		$listing = Listing::getListingByListingId($this->getPDO(), BreadBasketTest::INVALID_KEY);
-		$this->assertNull($listing);
+	public function testGetInvalidMessageByMessageId() {
+		$message = Message::getMessageByMessageId($this->getPDO(), BreadBasketTest::INVALID_KEY);
+		$this->assertNull($message);
 	}
-
-	public function testGetValidListingByOrgId() {
+	public function testGetValidMessageByListingId() {
 		//get the count of the number of rows in the database
-		$numRows = $this->getConnection()->getRowCount("listing");
+		$numRows = $this->getConnection()->getRowCount("message");
 
-		//create a new listing and insert into mySQL
-		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO, $this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getListingTypeId());
-		$listing->insert($this->getPDO());
+		//create a new message and insert into mySQL
+		$message = new Message(null, $this->listing->getListingId(), $this->organization->getOrgId(), $this->VALID_MESSAGE_TEXT);
+		$message->insert($this->getPDO());
 
 		//grab data from SQL and ensure it matches
-		$pdoListing = Listing::getListingByOrgId($this->getPDO(), $listing->getOrgId());
-		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("listing"));
-		$this->assertSame($pdoListing[0]->getOrgId(), $this->organization->getOrgId());
-		$this->assertSame($pdoListing[0]->getListingClaimedBy(), $this->VALID_CLAIMEDBY);
-		$this->assertSame($pdoListing[0]->getListingClosed(), $this->VALID_LISTINGCLOSED);
-		$this->assertSame($pdoListing[0]->getListingCost(), $this->VALID_COST);
-		$this->assertSame($pdoListing[0]->getListingMemo(), $this->VALID_MEMO);
-		$this->assertSame($pdoListing[0]->getListingParentId(), $this->VALID_PARENT_ID);
-		$this->assertEquals($pdoListing[0]->getListingPostTime(), $this->valid_datetime);
-		$this->assertSame($pdoListing[0]->getListingTypeId(), $this->listingType->getlistingTypeId());
+		$pdoMessage = Message::getMessageByListingId($this->getPDO(), $message->getListingId());
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("message"));
+		$this->assertSame($pdoMessage->getListingId(), $this->listing->getListingId());
+		$this->assertSame($pdoMessage->getOrgId(), $this->organization->getOrgId());
+		$this->assertSame($pdoMessage->getMessageText(), $this->VALID_MESSAGE_TEXT);
 	}
 
 	/**
-	 * test for grabbing a listing by an orgid that doesn't exist
+	 * test for grabbing a message by a listing id that doesn't exist
 	 */
-	public function testGetInvalidListingByOrgId() {
-		$listing = Listing::getListingByOrgId($this->getPDO(), 1);
-		$this->assertSame($listing->getSize(), 0);
+	public function testGetInvalidMessageByListingId() {
+		$message = Message::getMessageByListingId($this->getPDO(), BreadBasketTest::INVALID_KEY);
+		$this->assertSame($message->getSize(), 0);
 	}
 
-	/**test for grabbing a listing by parentid
-	 *
+	/**
+	 *test for grabbing a message by OrgId
 	 */
-	public function testGetValidListingByParentId() {
+	public function testGetValidMessageByOrgId() {
 		//get the count of the number of rows in the database
-		$numRows = $this->getConnection()->getRowCount("listing");
+		$numRows = $this->getConnection()->getRowCount("message");
 
-		//create a new listing and insert into mySQL
-		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-			$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
-		$listing->insert($this->getPDO());
+		//create a new message and insert into mySQL
+		$message = new Message(null, $this->listing->getListingId(), $this->organization->getOrgId(), $this->VALID_MESSAGE_TEXT);
+		$message->insert($this->getPDO());
 
 		//grab data from SQL and ensure it matches
-		$pdoListing = Listing::getListingByParentId($this->getPDO(), $this->VALID_PARENT_ID);
-		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("listing"));
-		$this->assertSame($pdoListing[0]->getOrgId(), $this->organization->getOrgId());
-		$this->assertSame($pdoListing[0]->getListingClaimedBy(), $this->VALID_CLAIMEDBY);
-		$this->assertSame($pdoListing[0]->getListingClosed(), $this->VALID_LISTINGCLOSED);
-		$this->assertSame($pdoListing[0]->getListingCost(), $this->VALID_COST);
-		$this->assertSame($pdoListing[0]->getListingMemo(), $this->VALID_MEMO);
-		$this->assertSame($pdoListing[0]->getListingParentId(), $this->VALID_PARENT_ID);
-		$this->assertEquals($pdoListing[0]->getListingPostTime(), $this->valid_datetime);
-		$this->assertSame($pdoListing[0]->getListingTypeId(), $this->listingType->getlistingTypeId());
-	}
+$pdoMessage = Message::getMessageByOrgId($this->getPDO(), $message->getOrgId());
+$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("message"));
+$this->assertSame($pdoMessage->getListingId(), $this->listing->getListingId());
+$this->assertSame($pdoMessage->getOrgId(), $this->organization->getOrgId());
+$this->assertSame($pdoMessage->getMessageText(), $this->VALID_MESSAGE_TEXT);
+}
 
 	/**
-	 * test for grabbing a listing by a parent id that doesn't exist
+	 * test for grabbing a message by an orgId that doesn't exist
 	 */
-	public function testGetInvalidListingParentId() {
-		$listing = Listing::getListingByParentId($this->getPDO(), 1000001);
-		$this->assertSame($listing->getSize(), 0);
+	public function testGetInvalidMessageByOrgId() {
+		$message = Message::getMessageByOrgId($this->getPDO(), 1000001);
+		$this->assertSame($message->getSize(), 0);
 	}
-
-
-	/**test for grabbing a listing by listingPostTime
-	 *
-	 */
-	public function testGetValidListingByListingPostTime() {
-		//get the count of the number of rows in the database
-		$numRows = $this->getConnection()->getRowCount("listing");
-
-		//create a new listing and insert into mySQL
-		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-			$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
-		$listing->insert($this->getPDO());
-
-		//grab data from SQL and ensure it matches
-		$pdoListing = Listing::getListingByListingPostTime($this->getPDO(), $this->valid_datetime);
-		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("listing"));
-		$this->assertSame($pdoListing[0]->getOrgId(), $this->organization->getOrgId());
-		$this->assertSame($pdoListing[0]->getListingClaimedBy(), $this->VALID_CLAIMEDBY);
-		$this->assertSame($pdoListing[0]->getListingClosed(), $this->VALID_LISTINGCLOSED);
-		$this->assertSame($pdoListing[0]->getListingCost(), $this->VALID_COST);
-		$this->assertSame($pdoListing[0]->getListingMemo(), $this->VALID_MEMO);
-		$this->assertSame($pdoListing[0]->getListingParentId(), $this->VALID_PARENT_ID);
-		//Changed to assertEquals because this is an object and assertSame checks an object position in memory
-		$this->assertEquals($pdoListing[0]->getListingPostTime(), $this->valid_datetime);
-		$this->assertSame($pdoListing[0]->getListingTypeId(), $this->listingType->getlistingTypeId());
-	}
-
-	/**
-	 * test for grabbing a listing by a listing post time that doesn't exist
-	 */
-	public function testGetInvalidListingPostTime() {
-		$listing = Listing::getListingByListingPostTime($this->getPDO(), $this->valid_datetime);
-		$this->assertEquals($listing->getSize(), 0);
-	}
-
-
-	/**
-	 * test for grabbing a listing by listing Type Id
-	 *
-	 */
-	public function testGetValidListingByListingTypeId() {
-		//get the count of the number of rows in the database
-		$numRows = $this->getConnection()->getRowCount("listing");
-
-		//create a new listing and insert into mySQL
-		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-			$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
-		$listing->insert($this->getPDO());
-
-		//grab data from SQL and ensure it matches
-		$pdoListing = Listing::getListingByTypeId($this->getPDO(), $this->listingType->getlistingTypeId());
-		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("listing"));
-		$this->assertSame($pdoListing[0]->getOrgId(), $this->organization->getOrgId());
-		$this->assertSame($pdoListing[0]->getListingClaimedBy(), $this->VALID_CLAIMEDBY);
-		$this->assertSame($pdoListing[0]->getListingClosed(), $this->VALID_LISTINGCLOSED);
-		$this->assertSame($pdoListing[0]->getListingCost(), $this->VALID_COST);
-		$this->assertSame($pdoListing[0]->getListingMemo(), $this->VALID_MEMO);
-		$this->assertSame($pdoListing[0]->getListingParentId(), $this->VALID_PARENT_ID);
-		$this->assertEquals($pdoListing[0]->getListingPostTime(), $this->valid_datetime);
-		$this->assertSame($pdoListing[0]->getListingTypeId(), $this->listingType->getlistingTypeId());
-	}
-
-	/**
-	 * test for grabbing a listing by a listing Type Id that doesn't exist
-	 */
-	public function testGetInvalidListingTypeId() {
-		$listing = Listing::getListingByTypeId($this->getPDO(), 1);
-		$this->assertSame($listing->getSize(), 0);
-	}
-
 }
