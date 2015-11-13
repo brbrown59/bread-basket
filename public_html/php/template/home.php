@@ -64,17 +64,26 @@ $ANGULAR_VERSION = "1.4.7";
 			</header>
 			<!--main content-->
 			<main>
-				<div class="container-fluid">
+				<div class="container-fluid bg-blue">
 					<div class="row">
-						<div class="col-md-12 center-block">
+						<div class="col-md-12 center-block home-block">
 							<div class="text-center lead">
 								Connecting People To End Hunger
 							</div>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12">
-
+						<div class="col-md-12 text-center">
+							<button class="btn btn-defualt">Find Out How</button>
+						</div>
+					</div>
+				</div>
+				<div class="contianer-fluid">
+					<div class="row">
+						<div class="col-md-12 center-block home-block">
+							<div class="text-center lead">
+								Connecting People To End Hunger
+							</div>
 						</div>
 					</div>
 

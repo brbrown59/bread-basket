@@ -19,6 +19,10 @@ body { width: 100%;}
 
 /** adds top padding to center block**/
 
-.center-block {
+.home-block {
 	padding-top: 12%;
+}
+
+.bg-blue {
+	background-color: aliceblue;
 }
