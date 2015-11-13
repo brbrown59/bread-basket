@@ -14,7 +14,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
  */
 try {
 	//ensures that the fields are filled out
-	if(@isset($_POST["loginEmail"]) === false || @isset($_POST["loginPassword"]) === false) {
+	if(@isset($_POST["volEmail"]) === false || @isset($_POST["Password"]) === false) {
 		throw(new InvalidArgumentException("form not complete. Please verify and try again"));
 	}
 	// verify the XSRF challenge
@@ -23,19 +23,18 @@ try {
 	}
 	verifyXsrf();
 	// create a salt and hash for user
-	$pdo = connectToEncryptedMySQL("/etc/apache2/mysql/trufork.ini");
-	$user = User::getUserByEmail($pdo, $_POST["loginEmail"]);
-	if($user === null) {
+	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/breadbasket.ini");
+	$volunteer = Volunteer::getVolunteerByVolEmail($pdo, $_POST["volEmail"]);
+	if($volunteer === null) {
 		throw(new InvalidArgumentException("email or password is invalid"));
 	}
-	$hash = hash_pbkdf2("sha512", $_POST["loginPassword"], $user->getSalt(), 262144, 128);
-	if($hash !== $user->getHash()) {
+	$volHash = hash_pbkdf2("sha512", $_POST["Password"], $volunteer->getVolSalt(), 262144, 128);
+	if($volHash !== $volunteer->getVolHash()) {
 		throw(new InvalidArgumentException("email or password is invalid"));
 	}
-	$_SESSION["user"] = $user;
-//	$_SESSION["userName"] = $user->getName();
-	$userName = $_SESSION["user"]->getName();
-	echo "<p class=\"alert alert-success\">Welcome Back, " . $userName . "!<p/>";
+	$_SESSION["volunteer"] = $volunteer;
+	$volFirstName = $_SESSION["volunteer"]->getVolFirstName();
+	echo "<p class=\"alert alert-success\">Welcome Back, " . $volFirstName . "!<p/>";
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
