@@ -5,6 +5,7 @@
  * @author Tamra Fenstermaker <fenstermaker505@gmail.com>
  * contributor code from https://github.com/Skylarity/trufork
  **/
+
 //autoloads classes
 require_once(dirname(dirname(__DIR__)) . "/php/classes/autoloader.php");
 //security w/ NG in mind
@@ -22,16 +23,23 @@ try {
 		session_start();
 	}
 	verifyXsrf();
-	// create a salt and hash for user
-	//TODO The vars in this code was uppercase. I changed it to Volunteer class variables
+
+
+	// create a salt and hash for volunteer
 	$volSalt = bin2hex(openssl_random_pseudo_bytes(32));
 	$volHash = hash_pbkdf2("sha512", $_POST["password"], $volSalt, 262144, 128);
-	//create a new user id profile id and insert in mySQL
+
+	//create a new volunteer id and insert in mySQL
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/breadbasket.ini");
+
 	//TODO why not posting salt and/or hash, should I set the activation here by saying true instead of the $volEmailActivation? What are we doing with OrgId? I decided to post salt.
-	$volunteer = new Volunteer(null, $orgId, $_POST[volEmail], $volEmailActivation, $_POST[volFirstName], $volHash, $_POST[volLastName], $_POST[volPhone], $_POST[volSalt]);
+//This needs to be more like what we talked about in scrum
+//	FILE GET CONTENTS
+//“NAME” “KIMBERLY KELLER”, “EMIAL:”“ENSINKELLER@CNM.EDU” THIS STRING >>> PHP://INPUT
+//	$volunteer = new Volunteer(null, $orgId, $_POST[volEmail], $volEmailActivation, $_POST[volFirstName], $volHash, $_POST[volLastName], $_POST[volPhone], $_POST[volSalt]);
 	$volunteer->insert($pdo);
-	//TODO what's the syntax for this first name last name?
+
+	//TODO what's the syntax to pull first name and last name?
 	echo "<p class=\"alert alert-success\">Check your email to confirm your account." . $volunteer->getVolFirstName($pdo, "volFirstName",) $volunteer->getVolLastName($pdo, "volLastName") . "<p/>";
 } catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
