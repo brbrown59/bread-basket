@@ -17,4 +17,8 @@ body { width: 100%;}
 	flex: 1 0 auto;
 }
 
-/** container backgrounds
+/** adds top padding to center block**/
+
+.center-block {
+	padding-top: 12%;
+}
