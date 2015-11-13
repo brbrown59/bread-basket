@@ -8,7 +8,7 @@
 *
 * @author Bradley Brown <tall.white.ninja@gmail.com>
 **/
-class Organization{
+class Organization implements JsonSerializable {
 
 	/**
 	 * id for the organization: this is the primary key
@@ -114,6 +114,15 @@ class Organization{
 		} catch(Exception $exception) {
 			throw(new Exception($exception->getMessage(), 0, $exception));
 		}
+	}
+
+	/**
+	 * specifies which fields to inlcude in a json serialziation
+	 *
+	 * @return array array containing all of the fields in Organization
+	 */
+	public function jsonSerialize() {
+		return(get_object_vars($this));
 	}
 
 	/**
