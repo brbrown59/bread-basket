@@ -66,7 +66,7 @@ $ANGULAR_VERSION = "1.4.7";
 			<main>
 				<div class="container-fluid">
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-12 center-block">
 							<div class="text-center lead">
 								Connecting People To End Hunger
 							</div>
