@@ -20,7 +20,7 @@ $ANGULAR_VERSION = "1.4.7";
 		<!--minified font awesome css-->
 		<link type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
 		<!-- CUSTOM stylesheets -->
-		<link type="text/css" rel="stylesheet" href="/public_html/css/custom-style.css"/>
+		<link type="text/css" rel="stylesheet" href="../../css/custom-style.css"/>
 
 		<!-- CDN derived JavaScript -->
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs<?php $ANGULAR_VERSION; ?>/angular.min.js"></script>
@@ -70,6 +70,10 @@ $ANGULAR_VERSION = "1.4.7";
 							<div class="text-center lead">
 								Connecting People To End Hunger
 							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
 
 						</div>
 					</div>
