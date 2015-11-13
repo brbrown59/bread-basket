@@ -1,7 +1,10 @@
 <?php
 /**
- * Code from TruFork
- */
+ * controller for the signing up a new volunteer
+ *
+ * @author Tamra Fenstermaker <fenstermaker505@gmail.com>
+ * contributor code from https://github.com/Skylarity/trufork
+ **/
 //autoloads classes
 require_once(dirname(dirname(__DIR__)) . "/php/classes/autoloader.php");
 //security w/ NG in mind
@@ -30,12 +33,6 @@ try {
 	$volunteer->insert($pdo);
 	//TODO where does getUserByName come from?
 	echo "<p class=\"alert alert-success\">Check your email to confirm your account." . $volunteer->getVolFirstName($pdo, "volFirstName") $volunteer->getVolLastName($pdo, "volLastName") . "<p/>";
-} catch(Exception $e) { //WHAT IS $e
+} catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
-/**
- * Created by PhpStorm.
- * User: Tamra
- * Date: 11/13/2015
- * Time: 10:18 AM
- */
