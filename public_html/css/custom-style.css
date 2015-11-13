@@ -19,10 +19,16 @@ body { width: 100%;}
 
 /** adds top padding to center block**/
 
-.home-block {
+.padding-block-lg {
 	padding-top: 12%;
+	padding-bottom: 8%;
+}
+
+.padding-block-sm {
+	padding-top: 6%;
+	padding-bottom: 6%;
 }
 
 .bg-blue {
-	background-color: aliceblue;
+	background-color: cornflowerblue;
 }
