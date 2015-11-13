@@ -14,7 +14,7 @@ require_once("autoloader.php");
  *
  * @author Kimberly Keller <kimberly@gravitaspublications.com>
  **/
-class Volunteer {
+class Volunteer implements JsonSerializable {
 	/**
 	 * id for this Volunteer; this is the primary key
 	 * @var int $volId
@@ -102,6 +102,16 @@ class Volunteer {
 			throw(new Exception($exception->getMessage(), 0, $exception));
 		}
 	}
+
+	/**
+	 * specifies which fields to include in a json serialization
+	 *
+	 * @return array array containing all of the fields in Organization
+	 */
+	public function jsonSerialize() {
+		return(get_object_vars($this));
+	}
+
 
 	/**
 	 * accessor method for volunteer id

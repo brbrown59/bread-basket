@@ -6,7 +6,7 @@
  *
  * @author Tamra Fentermaker <fenstermaker505@gmail.com>
  **/
-class Message {
+class Message implements JsonSerializable {
 	/**
 	 * id for this message; this is the primary key
 	 * @var int $messageId
@@ -57,7 +57,17 @@ public function __construct($newMessageId, $newListingId, $newOrgId, $newMessage
 	}
 }
 
-/**
+
+	/**
+	 * specifies which fields to include in a json serialization
+	 *
+	 * @return array array containing all of the fields in Organization
+	 */
+	public function jsonSerialize() {
+		return(get_object_vars($this));
+	}
+
+	/**
  * accessor method for message id
  *
  * @return mixed value for message id

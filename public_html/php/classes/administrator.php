@@ -8,7 +8,7 @@
 
 require_once("autoloader.php");
 
-class Administrator {
+class Administrator implements JsonSerializable {
 	/**
 	 * Id for this Administrator: this is the primary key
 	 * @var int $adminId
@@ -104,6 +104,14 @@ class Administrator {
 
 	}
 
+	/**
+	 * specifies which fields to include in a json serialization
+	 *
+	 * @return array array containing all of the fields in Organization
+	 */
+	public function jsonSerialize() {
+		return(get_object_vars($this));
+	}
 
 
 
