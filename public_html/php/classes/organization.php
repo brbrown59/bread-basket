@@ -117,7 +117,7 @@ class Organization implements JsonSerializable {
 	}
 
 	/**
-	 * specifies which fields to inlcude in a json serialziation
+	 * specifies which fields to include in a json serialization
 	 *
 	 * @return array array containing all of the fields in Organization
 	 */

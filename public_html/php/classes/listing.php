@@ -13,7 +13,7 @@ require_once("autoloader.php");
  *
  * @author Tamra Fentermaker <fenstermaker505@gmail.com>
  **/
-class Listing {
+class Listing implements JsonSerializable {
 	/**
 	 * id for this listing; this is the primary key
 	 * @var int $listingId
@@ -102,6 +102,16 @@ class Listing {
 			throw(new Exception($exception->getMessage(), 0, $exception));
 		}
 	}
+
+	/**
+	 * specifies which fields to include in a json serialization
+	 *
+	 * @return array array containing all of the fields in Organization
+	 */
+	public function jsonSerialize() {
+		return(get_object_vars($this));
+	}
+
 
 	/**
 	 * accessor method for listing id

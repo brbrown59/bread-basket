@@ -9,7 +9,7 @@
  * @author Bradley Brown <tall.white.ninja@gmail.com>
  */
 
-class ListingType {
+class ListingType implements JsonSerializable {
 
 	/**
 	 * id for the listing type: this is the primary key
@@ -22,6 +22,15 @@ class ListingType {
 	 * @var String $listingTypeInfo;
 	 */
 	private $listingTypeInfo;
+
+	/**
+	 * specifies which fields to include in a json serialization
+	 *
+	 * @return array array containing all of the fields in Organization
+	 */
+	public function jsonSerialize() {
+		return(get_object_vars($this));
+	}
 
 	/**
 	 * accessor method for the listing type id
