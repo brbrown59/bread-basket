@@ -33,8 +33,8 @@ try {
 	$requestObject = json_decode($requestContent);
 
 	// sanitize the email & search by volEmail
-	$volEmail = filter_var($requestObject->volEmail, FILTER_SANITIZE_EMAIL);
-	$volunteer = Volunteer::getVolunteerByVolEmail($pdo, $volEmail);
+	$email = filter_var($requestObject->email, FILTER_SANITIZE_EMAIL);
+	$volunteer = Volunteer::getVolunteerByVolEmail($pdo, $email);
 
 	if($volunteer !== null) {
 		$volHash = hash_pbkdf2("sha512", $requestObject->password, $volunteer->getVolSalt(), 262144, 128);
@@ -43,10 +43,16 @@ try {
 			$reply->status = 200;
 			$reply->message = "User logged in";
 		}
+		// search to see if user is an administrator by adminEmail TODO QUESTION: at this point does $volunteer contain all the information about the volunteer logging in? I'm not sure how to get the current volunteer Id into the getAdministratorByVolId. Will this work?
+		$administrator = Administrator::getAdministratorByVolId($pdo, $volunteer->getVolId);
+	if($administrator !== null) {
+		$_SESSION["administrator"] = $administrator;
+		// TODO Question: Will the line above overwrite the volunteer session? Should this be handled differently?
+		}
 	}
 	// create an exception to pass bak to the RESTfull caller
 }catch (Exception $exception) {
-	// ignore them ToDo QUESTION does "them" mean the exception?
+	// ignore them TODO QUESTION: Does "them" mean the exception?
 }
 
 header("Content-type: application/json");
