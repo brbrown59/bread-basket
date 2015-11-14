@@ -43,7 +43,7 @@ try {
 			$reply->status = 200;
 			$reply->message = "User logged in";
 		}
-		// search to see if user is an administrator by volunteer Id TODO QUESTION: at this point does $volunteer contain all the information about the volunteer logging in? I'm not sure how to get the current volunteer Id into the getAdministratorByVolId. Will this work?
+		// search to see if user is an administrator by volunteer Id. TODO QUESTION: at this point does $volunteer contain all the information about the volunteer logging in? I'm not sure how to get the current volunteer Id into the getAdministratorByVolId. Will this work?
 		$administrator = Administrator::getAdministratorByVolId($pdo, $volunteer->getVolId);
 	if($administrator !== null) {
 		$_SESSION["administrator"] = $administrator;
