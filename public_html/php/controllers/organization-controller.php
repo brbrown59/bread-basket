@@ -32,7 +32,7 @@ try {
 
 	//create the pusher connection
 	//make sure pusher details get put into the config file!!!!
-	//does EVERY class need to push things (I assume so)?
+	//does EVERY class need to push things, or are we only pushing messages?
 	$config = readConfig("/etc/apache2/capstone-mysql/breadbasket.ini");
 	$pusherConfig = json_decode($config["pusher"]);
 	$pusher = new Pusher($pusherConfig->key, $pusherConfig->secret, $pusherConfig->id, ["encrypted" => true]);
@@ -56,7 +56,27 @@ try {
 	}
 	//if the session belongs to an admin, allow post, put, and delete methods
 	if(empty($_SESSION["admin"]) === false) {
-		//POST, PUT, DELETE here
+
+		if($method === "PUT") {
+			//not sure how to get the ID: user shouldn't be inputting it
+
+		} else if($method === "POST") {
+			verifyXsrf();
+			$requestContent = file_get_contents("php://input");
+			$requestObject = json_decode($requestContent);
+
+			$organization = new Organization(null, $requestObject->orgAddress1, $requestObject->orgAddress2, $requestObject->orgCity,
+					$requestObject->orgDescription, $requestObject->orgHours, $requestObject->orgName, $requestObject->orgPhone, $requestObject->orgState,
+					$requestObject->orgType, $requestObject->orgZip);
+			$organization->insert($pdo);
+
+			//do we really want the pusher notifications for this?
+			$pusher->trigger("organization", "new", $organization);
+			$reply->message("Organization created OK");
+
+		} else if($method === "DELETE") {
+			//see put questions
+		}
 
 	} else {
 		//if not an admin, and attempting a method other than get, throw an exception
