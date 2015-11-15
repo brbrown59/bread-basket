@@ -17,15 +17,20 @@ $ANGULAR_VERSION = "1.4.7";
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 		<!--optional theme-->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 		<!--minified font awesome css-->
 		<link type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
 		<!-- CUSTOM stylesheets -->
 		<link type="text/css" rel="stylesheet" href="../../css/custom-style.css"/>
 
 		<!-- CDN derived JavaScript -->
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs<?php $ANGULAR_VERSION; ?>/angular.min.js"></script>
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php $ANGULAR_VERSION; ?>/angular-messages.min.js"></script>
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs<?php echo $ANGULAR_VERSION; ?>/angular.min.js"></script>
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular-messages.min.js"></script>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
+
+		<!-- CUSTOM js-->
+		<script type="text/javascript" src="../../js/angular-ui-tabs.js"></script>
 
 		<title>Bread Basket Home</title>
 
@@ -65,7 +70,7 @@ $ANGULAR_VERSION = "1.4.7";
 			<!--main content-->
 			<main>
 				<div class="bg-blue container-fluid">
-					<div class="lead-padding-block">
+					<div class="padding-block-lg">
 						<div class="row">
 							<div class="col-md-12 center-block home-block">
 								<div class="text-center lead">
@@ -87,6 +92,17 @@ $ANGULAR_VERSION = "1.4.7";
 								<div class="text-center lead">
 									How It Works
 								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="text-center">
+
+
+
+								</div>
+
+
 							</div>
 						</div>
 					</div>
