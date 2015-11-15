@@ -69,8 +69,9 @@ $ANGULAR_VERSION = "1.4.7";
 			</header>
 			<!--main content-->
 			<main>
+			<!--container 1-->
 				<div class="bg-blue container-fluid">
-					<div class="padding-block-lg">
+					<div class="padding-top-bottom-lg">
 						<div class="row">
 							<div class="col-md-12 center-block home-block">
 								<div class="text-center lead">
@@ -85,8 +86,9 @@ $ANGULAR_VERSION = "1.4.7";
 						</div>
 					</div>
 				</div>
+				<!--container 2-->
 				<div class="contianer-fluid">
-					<div class="padding-block-sm">
+					<div class="padding-top-bottom-sm">
 						<div class="row">
 							<div class="col-md-12 center-block">
 								<div class="text-center lead">
@@ -94,20 +96,18 @@ $ANGULAR_VERSION = "1.4.7";
 								</div>
 							</div>
 						</div>
+						<!--giver / receiver tabs-->
 						<div class="row">
-							<div class="col-md-12">
-								<div class="text-center">
-
-
-
-								</div>
-
-
+							<div class="col-md-4"></div>
+							<div class="col-md-4">
+								<ul class="nav nav-tabs nav-justified">
+									<li role="presentation" class="active"><a href="#">Giver</a></li>
+									<li role="presentation"><a href="#">Receiver</a></li>
+								</ul>
 							</div>
+							<div class="col-md-4"></div>
 						</div>
 					</div>
-
-
 				</div>
 
 			</main>

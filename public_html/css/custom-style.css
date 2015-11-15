@@ -19,14 +19,19 @@ body { width: 100%;}
 
 /** adds top padding to center block**/
 
-.padding-block-lg {
+.padding-top-bottom-lg {
 	padding-top: 12%;
 	padding-bottom: 8%;
 }
 
-.padding-block-sm {
+.padding-top-bottom-sm {
 	padding-top: 6%;
 	padding-bottom: 6%;
+}
+
+.padding-left-right-lg {
+	padding-left: 10%;
+	padding-right: 10%;
 }
 
 .bg-blue {
