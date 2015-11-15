@@ -17,15 +17,15 @@ try {
 		session_start();
 	}
 	//if the volunteer session is empty, and the user is not logged in, throw an exception
-	//note: this may be redundant with some logic below, and is this what we should check?
-	//also, ensure that BOTH volunteer and admin are set for an admin instance, rather than just one or the other
+	//note: this may be redundant with some logic below, and is this what we should check to ensure the presence of a user?
+	//also, double check that BOTH volunteer and admin are set for an admin instance, rather than just one or the other
 	if(empty($_SESSION["volunteer"]) === true) {
 		throw(new RuntimeException("Please log-in or sign up"));
 	}
 
 	verifyXsrf();
 
-	//prepare an empty pusher reply
+	//prepare an empty reply
 	$reply = new stdClass();
 	$reply->status = 200;
 	$reply->data = null;
@@ -40,25 +40,45 @@ try {
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
-	//TODO: possible input sanitization? How do I know for sure what I'm getting (ex: id vs city?)
+	//sanitize inputs
+	//NOTE: the labels here are coming from angular, right?
+	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+	$city = filter_input(INPUT_GET, "city", FILTER_SANITIZE_STRING);
+	$name = filter_input(INPUT_GET, "name", FILTER_SANITIZE_STRING);
+	$state = filter_input(INPUT_GET, "state", FILTER_SANITIZE_STRING);
+	$type = filter_input(INPUT_GET, "type", FILTER_SANITIZE_STRING);
+	$zip = filter_input(INPUT_GET, "zip", FILTER_SANITIZE_STRING);
 
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/encrypted-config.ini");
 
 	//handle REST calls, while only allowing administrators access to database-modifying methods
-	if(empty($_SESSION["volunteer"]) === false) { //note: is this redundant with the check above?
+	if(empty($_SESSION["volunteer"]) === false) { //NOTE: is this redundant with the check above?
 		if($method === "GET") {
 			//set XSRF cookie
 			setXsrfCookie("/");
-			//TODO: this is where all of the get foo by bar functions are going, since they can get on several fields
-			//TODO: also, at end of if/else block will be a base case of get everything
+			//get the organization based on the given field
+			if(empty($id) === false) {
+				$reply->data = Organization::getOrganizationByOrgId($pdo, $id);
+			} else if(empty($city) === false) {
+				$reply->data = Organization::getOrganizationByOrgCity($pdo, $city)->toArray();
+			} else if(empty($name) === false) {
+				$reply->data = Organization::getOrganizationByOrgName($pdo, $name)->toArray();
+			} else if(empty($type) === false) {
+				$reply->data = Organization::getOrganizationByOrgType($pdo, $type)->toArray();
+			} else if(empty($zip) === false) {
+				$reply->data = Organization::getOrganizationByOrgZip($pdo, $zip)->toArray();
+			} else {
+				$reply->data = Organization::getAllOrganizations($pdo)->toArray();
+			}
+
 		}
 	}
 	//if the session belongs to an admin, allow post, put, and delete methods
 	if(empty($_SESSION["admin"]) === false) {
 
 		if($method === "PUT") {
-			//not sure how to get the ID: user shouldn't be inputting it
+			//put goes here
 
 		} else if($method === "POST") {
 			verifyXsrf();
