@@ -42,6 +42,7 @@ try {
 
 	//sanitize inputs
 	//NOTE: the labels here are coming from angular, right?
+	//Also...should this be how we're getting the id?
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 	$city = filter_input(INPUT_GET, "city", FILTER_SANITIZE_STRING);
 	$name = filter_input(INPUT_GET, "name", FILTER_SANITIZE_STRING);
@@ -78,7 +79,20 @@ try {
 	if(empty($_SESSION["admin"]) === false) {
 
 		if($method === "PUT") {
-			//put goes here
+			verifyXsrf();
+			$requestContent = file_get_contents("php://input");
+			$requestObject = json_decode($requestContent);
+
+			//QUESTION: how are we getting the id for this organization?  The user theoretically shouldn't have it, even though it's currently treated like user input
+			//should we be getting it first via another field (i.e. get by city), or just trust that it's being given to us somehow?
+			$organization = new Organization($id, $requestObject->orgAddress1, $requestObject->orgAddress2, $requestObject->orgCity,
+					$requestObject->orgDescription, $requestObject->orgHours, $requestObject->orgName, $requestObject->orgPhone, $requestObject->orgState,
+					$requestObject->orgType, $requestObject->orgZip);
+			$organization->update($pdo);
+
+			//do we really want the pusher notifications for this?
+			$pusher->trigger("organization", "new", $organization);
+			$reply->message = "Organization updated OK";
 
 		} else if($method === "POST") {
 			verifyXsrf();
@@ -92,16 +106,31 @@ try {
 
 			//do we really want the pusher notifications for this?
 			$pusher->trigger("organization", "new", $organization);
-			$reply->message("Organization created OK");
+			$reply->message = "Organization created OK";
 
 		} else if($method === "DELETE") {
-			//see put questions
+			//NOTE: the same questions that apply to put apply here
+			verifyXsrf();
+
+			//QUESTION: why is this check only in DELETE?  Why not also in PUT?
+			$organization = Organization::getOrganizationByOrgId($pdo, $id);
+			if($organization === null) {
+				throw(new RuntimeException("Organization does not exist", 404));
+			}
+
+			$organization->delete($pdo);
+			$deletedObject = new stdClass();
+			$deletedObject->organizationId = $id;
+
+			//do we really want the pusher notifications for this?
+			$pusher->trigger("organization", "delete", $deletedObject);
+			$reply->message = "Organization deleted OK";
 		}
 
 	} else {
 		//if not an admin, and attempting a method other than get, throw an exception
 		if((empty($method) === false) && ($method !== "GET")) {
-			throw new RuntimeException("Only administrators are allowed to modify entries");
+			throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
 		}
 	}
 
