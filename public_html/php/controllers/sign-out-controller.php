@@ -9,5 +9,5 @@
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
-unset($_SESSION["volunteer"]);
+unset($_SESSION["volunteer"]);//TODO what should I do here? another line for administrator?
 header("Location:index.php");
