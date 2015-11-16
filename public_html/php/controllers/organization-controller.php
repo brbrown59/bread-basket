@@ -10,18 +10,17 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
  *
  * @author Bradley Brown <tall.white.ninja@gmail.com>
  */
+//verify the xsrf challenge
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
+
+//prepare an empty reply
+$reply = new stdClass();
+$reply->status = 200;
+$reply->data = null;
+
 try {
-
-	//verify the xsrf challenge
-	if(session_status() !== PHP_SESSION_ACTIVE) {
-		session_start();
-	}
-
-	//prepare an empty reply
-	$reply = new stdClass();
-	$reply->status = 200;
-	$reply->data = null;
-
 	//if the volunteer session is empty, the user is not logged in, throw an exception
 	if(empty($_SESSION["volunteer"]) === true) {
 		throw(new RuntimeException("Please log-in or sign up", 401));
@@ -42,15 +41,20 @@ try {
 
 	//sanitize inputs
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
-	//only allow input or delete on valid id values
+	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 	$city = filter_input(INPUT_GET, "city", FILTER_SANITIZE_STRING);
+	$city = trim($city);
 	$name = filter_input(INPUT_GET, "name", FILTER_SANITIZE_STRING);
+	$name = trim($name);
 	$state = filter_input(INPUT_GET, "state", FILTER_SANITIZE_STRING);
+	$state = trim($state);
 	$type = filter_input(INPUT_GET, "type", FILTER_SANITIZE_STRING);
+	$type = trim($type);
 	$zip = filter_input(INPUT_GET, "zip", FILTER_SANITIZE_STRING);
+	$zip = trim($zip);
 
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/encrypted-config.ini");
@@ -92,7 +96,7 @@ try {
 			$organization->update($pdo);
 
 			//do we really want the pusher notifications for this?
-			$pusher->trigger("organization", "new", $organization);
+			$pusher->trigger("organization", "update", $organization);
 			$reply->message = "Organization updated OK";
 
 		} else if($method === "POST") {
