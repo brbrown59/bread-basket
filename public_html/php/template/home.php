@@ -77,7 +77,7 @@ $ANGULAR_VERSION = "1.4.6";
 			</header>
 			<!--main content-->
 			<main>
-			<!--container 1-->
+				<!--container 1-->
 				<div class="bg-blue container-fluid">
 					<div class="padding-top-bottom-lg">
 						<div class="row">
@@ -113,9 +113,13 @@ $ANGULAR_VERSION = "1.4.6";
 											{{tab.content}}
 										</uib-tab>
 									</uib-tabset>
+								</div>
 							</div>
+						</div>
 					</div>
 				</div>
+				<!--container 3-->
+
 
 			</main>
 
