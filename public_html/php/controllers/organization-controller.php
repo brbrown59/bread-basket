@@ -1,7 +1,6 @@
 <?php
 
 require_once dirname(__DIR__)."/classes/autoloader.php";
-require_once dirname(__DIR__)."/classes/organization.php";
 require_once dirname(__DIR__)."lib/xsrf.php";
 
 /**
@@ -35,16 +34,16 @@ try {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 	//sanitize and trim the other fields
-	$city = filter_input(INPUT_GET, "city", FILTER_SANITIZE_STRING);
 	$city = trim($city);
-	$name = filter_input(INPUT_GET, "name", FILTER_SANITIZE_STRING);
+	$city = filter_input(INPUT_GET, "city", FILTER_SANITIZE_STRING);
 	$name = trim($name);
-	$state = filter_input(INPUT_GET, "state", FILTER_SANITIZE_STRING);
+	$name = filter_input(INPUT_GET, "name", FILTER_SANITIZE_STRING);
 	$state = trim($state);
-	$type = filter_input(INPUT_GET, "type", FILTER_SANITIZE_STRING);
+	$state = filter_input(INPUT_GET, "state", FILTER_SANITIZE_STRING);
 	$type = trim($type);
-	$zip = filter_input(INPUT_GET, "zip", FILTER_SANITIZE_STRING);
+	$type = filter_input(INPUT_GET, "type", FILTER_SANITIZE_STRING);
 	$zip = trim($zip);
+	$zip = filter_input(INPUT_GET, "zip", FILTER_SANITIZE_STRING);
 
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/encrypted-config.ini");
@@ -72,6 +71,7 @@ try {
 	}
 
 	//if the session belongs to an admin, allow post, put, and delete methods
+	// TODO: talk to team about new session variables
 	if(empty($_SESSION["admin"]) === false) {
 
 		if($method === "PUT") {
