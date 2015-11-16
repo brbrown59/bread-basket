@@ -7,11 +7,12 @@ $ANGULAR_VERSION = "1.4.7";
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="BreadBasket">
 	<head>
 		<meta charset="utf-8"/>
 		<meta http-equiv="x-ua-compatible" content="IE=edge"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
 		<!-- CSS stylesheets -->
 		<!--latest compiled and minified bootstrap css files-->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
@@ -34,9 +35,10 @@ $ANGULAR_VERSION = "1.4.7";
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
 
-
-
 		<!-- CUSTOM js-->
+		<script type="text/javascript" src="../../js/angular-password.min.js"></script>
+		<script type="text/javascript" src="../../js/breadbasket.js"></script>
+		<script type="text/javascript" src="../../js/controllers/tabs.js"></script>
 
 
 		<title>Bread Basket Home</title>
@@ -105,12 +107,13 @@ $ANGULAR_VERSION = "1.4.7";
 						</div>
 						<!--giver / receiver tabs-->
 						<div class="row">
-							<div class="col-md-4"></div>
 							<div class="col-md-4">
-
+								<div ng-controller="TabsController">
+									<uib-tabset justified="true">
+										<uib-tab heading="Giver" active="tab.active" disable="tab.disabled">{{tab.content}}</uib-tab>
+										<uib-tab heading="Receiver">{{tab.content}}</uib-tab>
+									</uib-tabset>
 							</div>
-							<div class="col-md-4"></div>
-						</div>
 					</div>
 				</div>
 
