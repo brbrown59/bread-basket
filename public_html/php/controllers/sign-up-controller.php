@@ -56,12 +56,19 @@ try {
 		//create a new organization and insert into mySQL
 		$organization = new Organization(null, $requestObject->orgAddress1, $requestObject->orgAddress2, $requestObject->orgCity, $requestObject->orgDescription, $requestObject->orgHours, $requestObject->orgName, $requestObject->orgPhone, $requestObject->orgState, $requestObject->orgType, $requestObject->orgZip);
 		$organization->insert($pdo);
-		echo "<p class=\"alert alert-success\">Check your email to confirm your account." . $volunteer->getVolFirstName() . "<p/>";
+		$reply->message = "New organization has been created";
+
+		//echo "<p class=\"alert alert-success\">Check your email to confirm your account." . $volunteer->getVolFirstName() . "<p/>";
+
 		// create an exception to pass back to the RESTfull caller
 	}catch(Exception $exeption) {
-		echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
+		$reply->status = $exception->getCode();
+		$reply->message = $exception->getMessage();
 	}
 }
 
 	header("Content-type: application/json");
+	if($reply->data === null) {
+		unset($reply->data);
+	}
 	echo json_encode($reply);
