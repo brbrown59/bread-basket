@@ -106,11 +106,10 @@ $ANGULAR_VERSION = "1.4.6";
 						</div>
 						<!--giver / receiver tabs-->
 						<div class="row">
-							<div class="col-md-4">
+							<div class="col-md-4 col-md-offset-4">
 								<div ng-controller="TabsController">
 									<uib-tabset justified="true">
-										<uib-tab heading="Giver" ng-click="tabs[0].active = true" active="tab.active" disable="tab.disabled">{{tab.content1}}</uib-tab>
-										<uib-tab heading="Receiver">{{tab.content2}}</uib-tab>
+										<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" ng-click="tabs[0].active = true" active="tab.active" disable="tab.disabled">{{tab.content}}</uib-tab>
 									</uib-tabset>
 							</div>
 					</div>
