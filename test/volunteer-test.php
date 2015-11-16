@@ -50,7 +50,7 @@ class VolunteerTest extends BreadBasketTest {
 	 * valid boolean to set "volunteer as administrator"; volIsAdmin
 	 * @var boolean $VALID_VOL_IS_ADMIN
 	 */
-	protected $VALID_VOL_IS_ADMIN;
+	protected $VALID_VOL_IS_ADMIN = true;
 	/**
 	 * valid last name
 	 * @var string $VALID_LAST_NAME
@@ -326,7 +326,7 @@ class VolunteerTest extends BreadBasketTest {
 	 */
 	public function testGetInvalidVolIsAdmin() {
 		//grab a volunteer is Admin that does not exist
-		$volunteer = Volunteer::getVolunteerByVolIsAdmin($this->getPDO() );
+		$volunteer = Volunteer::getVolunteerByVolIsAdmin($this->getPDO(), true);
 		$this->assertSame($volunteer->getSize(), 0);
 	}
 
