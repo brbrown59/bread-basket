@@ -318,6 +318,21 @@ class Volunteer implements JsonSerializable {
 
 
 
+
+
+	/**
+	 * accessor method for Vol is Admin
+	 *
+	 * @return TRUE value if Administrator
+	 */
+	public function getVolIsAdmin(){
+		return($this->volIsAdmin);
+	}
+
+
+
+
+
 	/**
 	 * accessor method for vol last name
 	 *
