@@ -103,6 +103,7 @@ class VolunteerTest extends BreadBasketTest {
 		$this->assertSame($pdoVolunteer->getVolEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoVolunteer->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 		$this->assertSame($pdoVolunteer->getVolFirstName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoVolunteer->getVolHash(), $this->VALID_HASH);
 		$this->assertSame($pdoVolunteer->getVolIsAdmin(), $this->VALID_VOL_IS_ADMIN);
 		$this->assertSame($pdoVolunteer->getVolLastName(), $this->VALID_LAST_NAME);
 		$this->assertSame($pdoVolunteer->getVolPhone(), $this->VALID_PHONE);
