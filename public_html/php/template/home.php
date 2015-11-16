@@ -109,7 +109,9 @@ $ANGULAR_VERSION = "1.4.6";
 							<div class="col-md-4 col-md-offset-4">
 								<div ng-controller="TabsController">
 									<uib-tabset justified="true">
-										<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" ng-click="tabs[0].active = true" active="tab.active" disable="tab.disabled">{{tab.content}}</uib-tab>
+										<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" ng-click="tabs[1].active = true" active="tab.active" disable="tab.disabled">
+											{{tab.content}}
+										</uib-tab>
 									</uib-tabset>
 							</div>
 					</div>
