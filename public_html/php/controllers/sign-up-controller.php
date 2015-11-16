@@ -1,9 +1,10 @@
 <?php
 /**
- * controller for the signing up a new volunteer
+ * controller for the signing up a new user
  *
  * @author Tamra Fenstermaker <fenstermaker505@gmail.com>
- * contributor code from https://github.com/Skylarity/trufork
+ * contributor code from https://github.com/sandidgec/foodinventory &
+ * https://github.com/Skylarity/trufork
  **/
 
 //autoloads classes
