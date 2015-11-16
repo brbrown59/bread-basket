@@ -105,7 +105,7 @@ $ANGULAR_VERSION = "1.4.7";
 								</div>
 							</div>
 						</div>
-						<!--giver / receiver tabs-->
+						<!--giver / receiver tabs.-->
 						<div class="row">
 							<div class="col-md-4">
 								<div ng-controller="TabsController">
