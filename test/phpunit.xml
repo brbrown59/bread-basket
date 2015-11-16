@@ -1,7 +1,8 @@
 <phpunit>
 	<testsuites>
 		<testsuite name="Bread Basket">
-			<directory suffix="-test.php">.</directory>
+			<!--<directory suffix="-test.php">.</directory>-->
+			<file>administrator-test.php</file>
 		</testsuite>
 	</testsuites>
 	<filter>

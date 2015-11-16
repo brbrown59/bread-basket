@@ -1,7 +1,6 @@
 DROP TABLE IF EXISTS message;
 DROP TABLE IF EXISTS listing;
 DROP TABLE IF EXISTS listingType;
-DROP TABLE IF EXISTS administrator;
 DROP TABLE IF EXISTS volunteer;
 DROP TABLE IF EXISTS organization;
 
@@ -41,22 +40,7 @@ CREATE TABLE volunteer (
 	PRIMARY KEY(volId)
 );
 
-CREATE TABLE administrator (
-	adminId INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	orgId INT UNSIGNED NOT NULL,
-	volId INT UNSIGNED NOT NULL,
-	adminEmail VARCHAR(128) NOT NULL,
-	adminEmailActivation CHAR(16),
-	adminFirstName VARCHAR(32) NOT NULL,
-	adminLastName VARCHAR(32) NOT NULL,
-	adminPhone VARCHAR(32),
-	UNIQUE (adminEmail),
-	INDEX (orgId),
-	INDEX (volId),
-	FOREIGN KEY (orgId) REFERENCES organization (orgId),
-	FOREIGN KEY (volId) REFERENCES volunteer (volId),
-	PRIMARY KEY (adminId)
-);
+
 
 CREATE TABLE listingType (
 	listingTypeId INT UNSIGNED AUTO_INCREMENT NOT NULL,
