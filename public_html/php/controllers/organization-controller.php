@@ -1,6 +1,5 @@
 <?php
 
-//autoload
 require_once dirname(__DIR__)."/classes/autoloader.php";
 require_once dirname(__DIR__)."/classes/organization.php";
 require_once dirname(__DIR__)."lib/xsrf.php";
@@ -17,6 +16,12 @@ try {
 	if(session_status() !== PHP_SESSION_ACTIVE) {
 		session_start();
 	}
+
+	//prepare an empty reply
+	$reply = new stdClass();
+	$reply->status = 200;
+	$reply->data = null;
+
 	//if the volunteer session is empty, the user is not logged in, throw an exception
 	//note: this may be redundant with some logic below, and is this what we should check to ensure the presence of a user?
 	if(empty($_SESSION["volunteer"]) === true) {
@@ -25,10 +30,7 @@ try {
 
 	verifyXsrf();
 
-	//prepare an empty reply
-	$reply = new stdClass();
-	$reply->status = 200;
-	$reply->data = null;
+
 
 	//create the pusher connection
 	//make sure pusher details get put into the config file!!!!
@@ -41,7 +43,6 @@ try {
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	//sanitize inputs
-	//NOTE: the labels here are coming from angular, right?
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 	$city = filter_input(INPUT_GET, "city", FILTER_SANITIZE_STRING);
 	$name = filter_input(INPUT_GET, "name", FILTER_SANITIZE_STRING);
@@ -53,27 +54,27 @@ try {
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/encrypted-config.ini");
 
 	//handle REST calls, while only allowing administrators access to database-modifying methods
-	if(empty($_SESSION["volunteer"]) === false) { //NOTE: is this redundant with the check above?
-		if($method === "GET") {
-			//set XSRF cookie
-			setXsrfCookie("/");
-			//get the organization based on the given field
-			if(empty($id) === false) {
-				$reply->data = Organization::getOrganizationByOrgId($pdo, $id);
-			} else if(empty($city) === false) {
-				$reply->data = Organization::getOrganizationByOrgCity($pdo, $city)->toArray();
-			} else if(empty($name) === false) {
-				$reply->data = Organization::getOrganizationByOrgName($pdo, $name)->toArray();
-			} else if(empty($type) === false) {
-				$reply->data = Organization::getOrganizationByOrgType($pdo, $type)->toArray();
-			} else if(empty($zip) === false) {
-				$reply->data = Organization::getOrganizationByOrgZip($pdo, $zip)->toArray();
-			} else {
-				$reply->data = Organization::getAllOrganizations($pdo)->toArray();
-			}
-
+	//should already have checked if they're a volunteer, so another check here would be redundant
+	if($method === "GET") {
+		//set XSRF cookie
+		setXsrfCookie("/");
+		//get the organization based on the given field
+		if(empty($id) === false) {
+			$reply->data = Organization::getOrganizationByOrgId($pdo, $id);
+		} else if(empty($city) === false) {
+			$reply->data = Organization::getOrganizationByOrgCity($pdo, $city)->toArray();
+		} else if(empty($name) === false) {
+			$reply->data = Organization::getOrganizationByOrgName($pdo, $name)->toArray();
+		} else if(empty($type) === false) {
+			$reply->data = Organization::getOrganizationByOrgType($pdo, $type)->toArray();
+		} else if(empty($zip) === false) {
+			$reply->data = Organization::getOrganizationByOrgZip($pdo, $zip)->toArray();
+		} else {
+			$reply->data = Organization::getAllOrganizations($pdo)->toArray();
 		}
+
 	}
+
 	//if the session belongs to an admin, allow post, put, and delete methods
 	if(empty($_SESSION["admin"]) === false) {
 
@@ -106,7 +107,6 @@ try {
 			$reply->message = "Organization created OK";
 
 		} else if($method === "DELETE") {
-			//NOTE: the same questions that apply to put apply here
 			verifyXsrf();
 
 			//QUESTION: why is this check only in DELETE?  Why not also in PUT?
@@ -126,7 +126,6 @@ try {
 
 	} else {
 		//if not an admin, and attempting a method other than get, throw an exception
-		//confirm I need this, and if it's right
 		if((empty($method) === false) && ($method !== "GET")) {
 			throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
 		}
