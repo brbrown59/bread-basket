@@ -317,7 +317,7 @@ class Volunteer implements JsonSerializable {
 	}
 
 	/**
-	 * accessor method for volIsAdmin
+	 * accessor method for Volunteer is a Administrator; volIsAdmin
 	 *
 	 * @return TRUE value if Administrator
 	 */
@@ -668,48 +668,6 @@ class Volunteer implements JsonSerializable {
 
 		//bind the id value to the placeholder in the template
 		$parameters = array("volPhone" => $volPhone);
-		$statement->execute($parameters);
-
-		//call the function to build and array of the retrieved values
-		try {
-			$retrievedVol = Volunteer::storeSQLResultsInArray($statement);
-		} catch(Exception $exception) {
-			//rethrow the exception if the retrieval failed
-			throw(new PDOException($exception->getMessage(), 0, $exception));
-		}
-		return $retrievedVol;
-	}
-
-	/**
-	 * get volunteer by first and last name
-	 *
-	 * @param PDO $pdo pdo connection object
-	 * @param string $volFirstName first name of the volunteer
-	 * @param string $volLastName last name of the volunteer
-	 * @return SplFixedArray all volunteers found for this content
-	 * @throws PDOException if mySQL related errors occur
-	 **/
-	public static function getVolunteerByVolFirstAndLastName(PDO $pdo, $volFirstName, $volLastName) {
-		//sanitize the input for first name
-		$volFirstName = trim($volFirstName);
-		$volFirstName = filter_var($volFirstName, FILTER_SANITIZE_STRING);
-		if(empty($volFirstName) === true) {
-			throw (new PDOException("first name is empty or insecure"));
-		}
-
-		//sanitize the input for last name
-		$volLastName = trim($volLastName);
-		$volLastName = filter_var($volLastName, FILTER_SANITIZE_STRING);
-		if(empty($volLastName) === true) {
-			throw (new PDOException("last name is empty or insecure"));
-		}
-
-		//create query template
-		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volIsAdmin, volLastName, volPhone, volSalt FROM volunteer WHERE volFirstName = :volFirstName AND volLastName = :volLastName ";
-		$statement = $pdo->prepare($query);
-
-		//bind the first name value to the placeholder in the template
-		$parameters = array("volFirstName" => $volFirstName, "volLastName" => $volLastName);
 		$statement->execute($parameters);
 
 		//call the function to build and array of the retrieved values
