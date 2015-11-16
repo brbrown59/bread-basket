@@ -3,7 +3,6 @@
 require_once dirname(__DIR__)."/classes/autoloader.php";
 require_once dirname(__DIR__)."/classes/organization.php";
 require_once dirname(__DIR__)."lib/xsrf.php";
-require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 /**
  * controller/api for the organization class
@@ -25,13 +24,6 @@ try {
 	if(empty($_SESSION["volunteer"]) === true) {
 		throw(new RuntimeException("Please log-in or sign up", 401));
 	}
-
-	//create the pusher connection
-	//make sure pusher details get put into the config file!!!!
-	//does EVERY class need to push things, or are we only pushing messages?
-	$config = readConfig("/etc/apache2/capstone-mysql/breadbasket.ini");
-	$pusherConfig = json_decode($config["pusher"]);
-	$pusher = new Pusher($pusherConfig->key, $pusherConfig->secret, $pusherConfig->id, ["encrypted" => true]);
 
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
@@ -92,8 +84,6 @@ try {
 					$requestObject->orgType, $requestObject->orgZip);
 			$organization->update($pdo);
 
-			//do we really want the pusher notifications for this?
-			$pusher->trigger("organization", "update", $organization);
 			$reply->message = "Organization updated OK";
 
 		} else if($method === "POST") {
@@ -106,8 +96,6 @@ try {
 					$requestObject->orgType, $requestObject->orgZip);
 			$organization->insert($pdo);
 
-			//do we really want the pusher notifications for this?
-			$pusher->trigger("organization", "new", $organization);
 			$reply->message = "Organization created OK";
 
 		} else if($method === "DELETE") {
@@ -122,8 +110,6 @@ try {
 			$deletedObject = new stdClass();
 			$deletedObject->organizationId = $id;
 
-			//do we really want the pusher notifications for this?
-			$pusher->trigger("organization", "delete", $deletedObject);
 			$reply->message = "Organization deleted OK";
 		}
 
