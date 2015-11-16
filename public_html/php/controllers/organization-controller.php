@@ -1,6 +1,7 @@
 <?php
 
-//autoload?
+//autoload
+require_once dirname(__DIR__)."/classes/autoloader.php";
 require_once dirname(__DIR__)."/classes/organization.php";
 require_once dirname(__DIR__)."lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
@@ -16,10 +17,10 @@ try {
 	if(session_status() !== PHP_SESSION_ACTIVE) {
 		session_start();
 	}
-	//if the volunteer session is empty, and the user is not logged in, throw an exception
+	//if the volunteer session is empty, the user is not logged in, throw an exception
 	//note: this may be redundant with some logic below, and is this what we should check to ensure the presence of a user?
 	if(empty($_SESSION["volunteer"]) === true) {
-		throw(new RuntimeException("Please log-in or sign up"));
+		throw(new RuntimeException("Please log-in or sign up", 401));
 	}
 
 	verifyXsrf();
