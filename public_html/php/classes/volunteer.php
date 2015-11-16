@@ -612,7 +612,7 @@ class Volunteer implements JsonSerializable {
 	 *
 	 * @param PDO $pdo pdo connection object
 	 * @param string $volEmail email this volunteer is associated with
-	 * @return SplFixedArray all volunteers found for this content
+	 * @return mixed volunteers found for this content, null if none found
 	 * @throws PDOException if mySQL related errors occur
 	 **/
 	public static function getVolunteerByVolEmail(PDO $pdo, $volEmail) {

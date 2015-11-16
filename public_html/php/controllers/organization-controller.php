@@ -26,9 +26,6 @@ try {
 		throw(new RuntimeException("Please log-in or sign up", 401));
 	}
 
-	verifyXsrf(); //do I want this here?
-
-
 	//create the pusher connection
 	//make sure pusher details get put into the config file!!!!
 	//does EVERY class need to push things, or are we only pushing messages?
@@ -45,6 +42,7 @@ try {
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
+	//sanitize and trim the other fields
 	$city = filter_input(INPUT_GET, "city", FILTER_SANITIZE_STRING);
 	$city = trim($city);
 	$name = filter_input(INPUT_GET, "name", FILTER_SANITIZE_STRING);
@@ -65,7 +63,6 @@ try {
 		//set XSRF cookie
 		setXsrfCookie("/");
 		//get the organization based on the given field
-		//note: is there a case where more than one of these might be true?  If so, how do I deal with it?
 		if(empty($id) === false) {
 			$reply->data = Organization::getOrganizationByOrgId($pdo, $id);
 		} else if(empty($city) === false) {
