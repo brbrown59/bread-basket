@@ -1,7 +1,8 @@
 app.controller("TabsController", function ($scope) {
 	$scope.tabs = [
-		{content1: 'giver description'},
-		{content2: "receiver description"}
+		{title: "Giver", content: 'giver description'},
+		{title: "Receiver", content: "receiver description"}
 	];
 
 });
+
