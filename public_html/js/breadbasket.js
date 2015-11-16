@@ -1,0 +1,1 @@
+var app = angular.module("BreadBasket", ["ngMessages", "ngPassword", "ui.bootstrap"]);
