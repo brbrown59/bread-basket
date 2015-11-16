@@ -276,15 +276,15 @@ class VolunteerTest extends BreadBasketTest {
 			// grab the data from mySQL and enforce the fields match our expectations
 			$pdoVolunteer = Volunteer::getVolunteerByVolEmail($this->getPDO(), $volunteer->getVolEmail());
 			$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("volunteer"));
-			$this->assertSame($pdoVolunteer[0]->getOrgId(), $this->organization->getOrgId());
-			$this->assertSame($pdoVolunteer[0]->getVolEmail(), $this->VALID_EMAIL);
-			$this->assertSame($pdoVolunteer[0]->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
-			$this->assertSame($pdoVolunteer[0]->getVolFirstName(), $this->VALID_FIRST_NAME);
-			$this->assertSame($pdoVolunteer[0]->getVolHash(), $this->VALID_HASH);
-			$this->assertSame($pdoVolunteer[0]->getVolIsAdmin(), $this->VALID_VOL_IS_ADMIN);
-			$this->assertSame($pdoVolunteer[0]->getVolLastName(), $this->VALID_LAST_NAME);
-			$this->assertSame($pdoVolunteer[0]->getVolPhone(), $this->VALID_PHONE);
-			$this->assertSame($pdoVolunteer[0]->getVolSalt(), $this->VALID_SALT);
+			$this->assertSame($pdoVolunteer->getOrgId(), $this->organization->getOrgId());
+			$this->assertSame($pdoVolunteer->getVolEmail(), $this->VALID_EMAIL);
+			$this->assertSame($pdoVolunteer->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
+			$this->assertSame($pdoVolunteer->getVolFirstName(), $this->VALID_FIRST_NAME);
+			$this->assertSame($pdoVolunteer->getVolHash(), $this->VALID_HASH);
+			$this->assertSame($pdoVolunteer->getVolIsAdmin(), $this->VALID_VOL_IS_ADMIN);
+			$this->assertSame($pdoVolunteer->getVolLastName(), $this->VALID_LAST_NAME);
+			$this->assertSame($pdoVolunteer->getVolPhone(), $this->VALID_PHONE);
+			$this->assertSame($pdoVolunteer->getVolSalt(), $this->VALID_SALT);
 		}
 
 	/**
@@ -293,7 +293,7 @@ class VolunteerTest extends BreadBasketTest {
 	public function testGetInvalidVolunteerByVolEmail() {
 		//grab an email that does not exist
 		$volunteer = Volunteer::getVolunteerByVolEmail($this->getPDO(), "notcaptain@voyager.com");
-		$this->assertSame($volunteer->getSize(), 0);
+		$this->assertNull($volunteer->getSize());
 	}
 
 	/**
