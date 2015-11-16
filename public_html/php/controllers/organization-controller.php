@@ -23,13 +23,11 @@ try {
 	$reply->data = null;
 
 	//if the volunteer session is empty, the user is not logged in, throw an exception
-	//note: this may be redundant with some logic below, and is this what we should check to ensure the presence of a user?
 	if(empty($_SESSION["volunteer"]) === true) {
 		throw(new RuntimeException("Please log-in or sign up", 401));
 	}
 
-	verifyXsrf();
-
+	verifyXsrf(); //do I want this here?
 
 
 	//create the pusher connection
@@ -44,6 +42,10 @@ try {
 
 	//sanitize inputs
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+	//only allow input or delete on valid id values
+	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
+		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
+	}
 	$city = filter_input(INPUT_GET, "city", FILTER_SANITIZE_STRING);
 	$name = filter_input(INPUT_GET, "name", FILTER_SANITIZE_STRING);
 	$state = filter_input(INPUT_GET, "state", FILTER_SANITIZE_STRING);
@@ -109,7 +111,6 @@ try {
 		} else if($method === "DELETE") {
 			verifyXsrf();
 
-			//QUESTION: why is this check only in DELETE?  Why not also in PUT?
 			$organization = Organization::getOrganizationByOrgId($pdo, $id);
 			if($organization === null) {
 				throw(new RuntimeException("Organization does not exist", 404));
@@ -131,14 +132,13 @@ try {
 		}
 	}
 
-
-} catch(Exception $exception) {
 	//send exception back to the caller
+} catch(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
 }
 header("Content-type: application/json");
-if($reply->data == null) {
+if($reply->data === null) {
 	unset($reply->data);
 }
 echo json_encode($reply);
