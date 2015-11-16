@@ -31,6 +31,7 @@ CREATE TABLE volunteer (
 	volEmailActivation CHAR(16),
 	volFirstName VARCHAR(32) NOT NULL,
 	volHash CHAR(128) NOT NULL,
+	volIsAdmin BOOLEAN NOT NULL,
 	volLastName VARCHAR(32) NOT NULL,
 	volPhone VARCHAR(32) NOT NULL,
 	volSalt CHAR(64) NOT NULL,

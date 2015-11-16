@@ -329,8 +329,16 @@ class Volunteer implements JsonSerializable {
 		return($this->volIsAdmin);
 	}
 
+	/**
+	 * mutator for volIsAdmin
+	 * @comment area
+	 */
+	public function setVolIsAdmin($newVolIsAdmin){
+		// comment area
+		$newVolIsAdmin = true
 
 
+	}
 
 
 	/**
