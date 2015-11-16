@@ -30,7 +30,7 @@ $ANGULAR_VERSION = "1.4.7";
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
 
 		<!-- CUSTOM js-->
-		<script type="text/javascript" src="../../js/angular-ui-tabs.js"></script>
+
 
 		<title>Bread Basket Home</title>
 
@@ -100,10 +100,7 @@ $ANGULAR_VERSION = "1.4.7";
 						<div class="row">
 							<div class="col-md-4"></div>
 							<div class="col-md-4">
-								<ul class="nav nav-tabs nav-justified">
-									<li role="presentation" class="active"><a href="#">Giver</a></li>
-									<li role="presentation"><a href="#">Receiver</a></li>
-								</ul>
+
 							</div>
 							<div class="col-md-4"></div>
 						</div>
