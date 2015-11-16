@@ -103,7 +103,7 @@ class VolunteerTest extends BreadBasketTest {
 		$this->assertSame($pdoVolunteer->getVolEmail(), $this->VALID_EMAIL);
 		$this->assertSame($pdoVolunteer->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
 		$this->assertSame($pdoVolunteer->getVolFirstName(), $this->VALID_FIRST_NAME);
-		$this->assertSame($pdoVolunteer->getVolHash(), $this->VALID_HASH);
+		$this->assertSame($pdoVolunteer->getVolIsAdmin(), $this->VALID_VOL_IS_ADMIN);
 		$this->assertSame($pdoVolunteer->getVolLastName(), $this->VALID_LAST_NAME);
 		$this->assertSame($pdoVolunteer->getVolPhone(), $this->VALID_PHONE);
 		$this->assertSame($pdoVolunteer->getVolSalt(), $this->VALID_SALT);
@@ -292,9 +292,9 @@ class VolunteerTest extends BreadBasketTest {
 	}
 
 	/**
-	 * test grabbing a volunteer by first and last name
+	 * test grabbing a volunteer by "Volunteer is Administrator"; volIsAdmin
 	 */
-	public function testGetValidVolunteerByVolFirstAndLastName() {
+	public function testGetValidVolIsAdmin() {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("volunteer");
 
@@ -316,11 +316,11 @@ class VolunteerTest extends BreadBasketTest {
 	}
 
 	/**
-	 * test grabbing an invalid volunteer by first and last name
+	 * test grabbing an invalid volunteer by Volunteer is Administrator; volIsAdmin
 	 */
-	public function testGetInvalidVolunteerByVolFirstaAndLastName() {
+	public function testGetInvalidVolIsAdmin() {
 		//grab a volunteer first and last name that does not exist
-		$volunteer = Volunteer::getVolunteerByVolFirstAndLastName($this->getPDO(), "Tom", "Paris");
+		$volunteer = Volunteer::getVolunteerByVolIsAdmin($this->getPDO(), "Tom", "Paris");
 		$this->assertSame($volunteer->getSize(), 0);
 	}
 
