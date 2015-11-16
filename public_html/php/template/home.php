@@ -132,8 +132,8 @@ $ANGULAR_VERSION = "1.4.6";
 						</div>
 						<div class="row">
 							<div class="col-md-4 col-md-offset-4 text-center">
-								<div ng-controller="">
-								<button class="btn btn-lg">Sign Up</button>
+								<div ng-controller="SignupController">
+								<button class="btn btn-lg" ng-click="openSignupModal();">Sign Up</button>
 								</div>
 							</div>
 						</div>
