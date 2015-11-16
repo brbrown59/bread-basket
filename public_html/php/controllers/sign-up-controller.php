@@ -19,34 +19,49 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 	verifyXsrf();
 }
+// prepare default error message
+$reply = new stdClass();
+$reply->status = 401;
+$reply->message = "Incorrect email or password. Try again.";
 
 try {
-	//ensures that the fields are filled out
-	if(@isset($_POST["volFirstName"]) === false || @isset($_POST["volLastName"]) === false || @isset($_POST["volEmail"]) === false || @isset($_POST["password"]) === false || @isset($_POST["verifyPassword"]) === false); {
-		throw(new InvalidArgumentException("form not complete. Please verify and try again"));
-	}
-	// verify the XSRF challenge
-	if(session_status() !== PHP_SESSION_ACTIVE) {
-		session_start();
-	}
-
-
-	// create a salt and hash for volunteer
-	$volSalt = bin2hex(openssl_random_pseudo_bytes(32));
-	$volHash = hash_pbkdf2("sha512", $_POST["password"], $volSalt, 262144, 128);
-
-	//create a new volunteer id and insert in mySQL
+	// grab the my SQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/breadbasket.ini");
 
-	//TODO why not posting salt and/or hash, should I set the activation here by saying true instead of the $volEmailActivation? What are we doing with OrgId? I decided to post salt.
-//This needs to be more like what we talked about in scrum
-//	FILE GET CONTENTS
-//“NAME” “KIMBERLY KELLER”, “EMIAL:”“ENSINKELLER@CNM.EDU” THIS STRING >>> PHP://INPUT
-//	$volunteer = new Volunteer(null, $orgId, $_POST[volEmail], $volEmailActivation, $_POST[volFirstName], $volHash, $_POST[volLastName], $_POST[volPhone], $_POST[volSalt]);
-	$volunteer->insert($pdo);
+	// convert POSTed JSON to an object
+	$requestContent = file_get_contents("php://input");
+	$requestObject = json_decode($requestContent);
 
-	//TODO what's the syntax to pull first name and last name?
-	echo "<p class=\"alert alert-success\">Check your email to confirm your account." . $volunteer->getVolFirstName($pdo, "volFirstName",) $volunteer->getVolLastName($pdo, "volLastName") . "<p/>";
-} catch(Exception $exception) {
-	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
+	// sanitize the email & search by volEmail TODO should I trim here?
+	$email = filter_var($requestObject->email, FILTER_SANITIZE_EMAIL);
+	$volunteer = Volunteer::getVolunteerByVolEmail($pdo, $email);
+	if($volunteer !== null) {
+		$reply->status = 405;
+		$reply->message = "This email already has an account";
+		// TODO add code to redirect to sign in page??
+	}
+
+	if($volunteer === null) {
+		// create a new salt and email activation
+		$volSalt = bin2hex(openssl_random_pseudo_bytes(32));
+		$volEmailActivation = bin2hex(openssl_random_pseudo_bytes(8));
+
+		// create the hash
+		$volHash = hash_pbkdf2("sha512", $requestObject->password, $volSalt, 262144, 128);
+
+		//create a new Volunteer and insert into mySQL TODO add Is admin
+		$volunteer = new Volunteer(null, null, $requestObject->volEmail, $volEmailActivation, $requestObject->volFirstName, $volHash, $requestObject->volLastName, $requestObject->volPhone, $volSalt);
+		$volunteer->insert($pdo);
+
+		//create a new organization and insert into mySQL
+		$organization = new Organization(null, $requestObject->orgAddress1, $requestObject->orgAddress2, $requestObject->orgCity, $requestObject->orgDescription, $requestObject->orgHours, $requestObject->orgName, $requestObject->orgPhone, $requestObject->orgState, $requestObject->orgType, $requestObject->orgZip);
+		$organization->insert($pdo);
+		echo "<p class=\"alert alert-success\">Check your email to confirm your account." . $volunteer->getVolFirstName() . "<p/>";
+		// create an exception to pass back to the RESTfull caller
+	}catch(Exception $exeption) {
+		echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
+	}
 }
+
+	header("Content-type: application/json");
+	echo json_encode($reply);
