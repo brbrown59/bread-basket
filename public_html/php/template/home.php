@@ -23,11 +23,18 @@ $ANGULAR_VERSION = "1.4.7";
 		<!-- CUSTOM stylesheets -->
 		<link type="text/css" rel="stylesheet" href="../../css/custom-style.css"/>
 
-		<!-- CDN derived JavaScript -->
+		<!--jQuery for Bootstrap's .js plugins-->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<!--latest compiled and minified bootstrap javascript-->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
+		<!-- CDN derived Angular.js -->
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs<?php echo $ANGULAR_VERSION; ?>/angular.min.js"></script>
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular-messages.min.js"></script>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
+
+
 
 		<!-- CUSTOM js-->
 
