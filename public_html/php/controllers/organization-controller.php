@@ -18,7 +18,6 @@ try {
 	}
 	//if the volunteer session is empty, and the user is not logged in, throw an exception
 	//note: this may be redundant with some logic below, and is this what we should check to ensure the presence of a user?
-	//also, double check that BOTH volunteer and admin are set for an admin instance, rather than just one or the other
 	if(empty($_SESSION["volunteer"]) === true) {
 		throw(new RuntimeException("Please log-in or sign up"));
 	}
@@ -42,7 +41,6 @@ try {
 
 	//sanitize inputs
 	//NOTE: the labels here are coming from angular, right?
-	//Also...should this be how we're getting the id?
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 	$city = filter_input(INPUT_GET, "city", FILTER_SANITIZE_STRING);
 	$name = filter_input(INPUT_GET, "name", FILTER_SANITIZE_STRING);
@@ -83,8 +81,6 @@ try {
 			$requestContent = file_get_contents("php://input");
 			$requestObject = json_decode($requestContent);
 
-			//QUESTION: how are we getting the id for this organization?  The user theoretically shouldn't have it, even though it's currently treated like user input
-			//should we be getting it first via another field (i.e. get by city), or just trust that it's being given to us somehow?
 			$organization = new Organization($id, $requestObject->orgAddress1, $requestObject->orgAddress2, $requestObject->orgCity,
 					$requestObject->orgDescription, $requestObject->orgHours, $requestObject->orgName, $requestObject->orgPhone, $requestObject->orgState,
 					$requestObject->orgType, $requestObject->orgZip);
@@ -129,6 +125,7 @@ try {
 
 	} else {
 		//if not an admin, and attempting a method other than get, throw an exception
+		//confirm I need this, and if it's right
 		if((empty($method) === false) && ($method !== "GET")) {
 			throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
 		}
