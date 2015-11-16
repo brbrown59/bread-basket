@@ -9,5 +9,5 @@
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
-unset($_SESSION["volunteer"]);//TODO what should I do here? another line for administrator? Can I leave [] blank and have all sessions deleted?
+unset($_SESSION[]);//TODO what should I do here? another line for administrator? Can I leave [] blank and have all sessions deleted?
 header("Location:index.php");
