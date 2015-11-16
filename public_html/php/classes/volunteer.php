@@ -83,15 +83,15 @@ class Volunteer implements JsonSerializable {
 	 * @throws RangeException if data values are out of bounds
 	 * @throws Exception if some other exception is thrown
 	 **/
-	public function __construct($newVolId, $newOrgId, $newVolEmail, $newVolEmailActivation, $newVolFirstName, $newVolHash,$newVolIsAdmin, $newVolLastName, $newVolPhone, $newVolSalt) {
+	public function __construct($newVolId, $newOrgId, $newVolEmail, $newVolEmailActivation, $newVolFirstName, $newVolHash, $newVolIsAdmin, $newVolLastName, $newVolPhone, $newVolSalt) {
 		try {
 			$this->setVolId($newVolId);
 			$this->setOrgId($newOrgId);
 			$this->setVolEmail($newVolEmail);
 			$this->setVolEmailActivation($newVolEmailActivation);
 			$this->setVolFirstName($newVolFirstName);
-			$this->setVolIsAdmin($newVolIsAdmin);
 			$this->setVolHash($newVolHash);
+			$this->setVolIsAdmin($newVolIsAdmin);
 			$this->setVolLastName($newVolLastName);
 			$this->setVolPhone($newVolPhone);
 			$this->setVolSalt($newVolSalt);
@@ -631,14 +631,19 @@ class Volunteer implements JsonSerializable {
 		$parameters = array("volEmail" => $volEmail);
 		$statement->execute($parameters);
 
-		//call the function to build and array of the retrieved values
+		//grab the email from mySQL
+		$volunteer = null;
 		try {
-			$retrievedVol = Volunteer::storeSQLResultsInArray($statement);
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"], $row["volFirstName"], $row["volHash"], $row["volIsAdmin"], $row["volLastName"],$row["volPhone"], $row["volSalt"]);
+			}
 		} catch(Exception $exception) {
 			//rethrow the exception if the retrieval failed
 			throw(new PDOException($exception->getMessage(), 0, $exception));
 		}
-		return $retrievedVol;
+		return $volunteer;
 	}
 
 	/**
