@@ -46,6 +46,11 @@ class Volunteer implements JsonSerializable {
 	 */
 	private $volHash;
 	/**
+	 * Volunteer is a Administrator, assign the value true for Administrator.
+	 * @var boolean $volIsAdmin
+	 */
+	private $volIsAdmin;
+	/**
 	 * last name of Volunteer
 	 * @var string $volLastName
 	 **/
@@ -70,6 +75,7 @@ class Volunteer implements JsonSerializable {
 	 * @param int $newVolEmailActivation activation key for Volunteer email, null if email confirmed
 	 * @param string $newVolFirstName string containing first name of the Volunteer
 	 * @param string $newVolHash string containing the hash for the Volunteer password
+	 * @param boolean $newVolIsAdmin assign to the value of TRUE if Administrator
 	 * @param string $newVolLastName string containing last name of the Volunteer
 	 * @param string $newVolPhone string containing the US phone number associated with the Volunteer
 	 * @param string $newVolSalt string containing the salt for the Volunteer password
@@ -84,6 +90,7 @@ class Volunteer implements JsonSerializable {
 			$this->setVolEmail($newVolEmail);
 			$this->setVolEmailActivation($newVolEmailActivation);
 			$this->setVolFirstName($newVolFirstName);
+			$this->setVolIsAdmin($newVolIsAdmin);
 			$this->setVolHash($newVolHash);
 			$this->setVolLastName($newVolLastName);
 			$this->setVolPhone($newVolPhone);
