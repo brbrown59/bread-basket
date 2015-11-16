@@ -13,6 +13,8 @@ require_once(dirname(dirname(__DIR__)) . "/php/classes/autoloader.php");
 require_once(dirname(dirname(__DIR__)) . "/php/lib/xsrf.php");
 //a security file that's on the server created by Dylan
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+//composer for Swiftmailer
+require_once(dirname(dirname(dirname(__DIR__))) . "/vendor/autoload.php");
 
 //start the session and create a XSRF token
 if(session_status() !== PHP_SESSION_ACTIVE) {
@@ -23,6 +25,9 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 $reply = new stdClass();
 $reply->status = 401;
 $reply->message = "Incorrect email or password. Try again.";
+$reply->status = 405;
+$reply->message = "This email already has an account";
+
 
 try {
 	// grab the my SQL connection
@@ -36,8 +41,7 @@ try {
 	$email = filter_var($requestObject->email, FILTER_SANITIZE_EMAIL);
 	$volunteer = Volunteer::getVolunteerByVolEmail($pdo, $email);
 	if($volunteer !== null) {
-		$reply->status = 405;
-		$reply->message = "This email already has an account";
+		throw(new InvalidArgumentException("This email already has an account", 405));
 		// TODO add code to redirect to sign in page??
 	}
 
@@ -61,14 +65,16 @@ try {
 		//echo "<p class=\"alert alert-success\">Check your email to confirm your account." . $volunteer->getVolFirstName() . "<p/>";
 
 		// create an exception to pass back to the RESTfull caller
-	}catch(Exception $exeption) {
+		}
+] catch(Exception $exception) {
 		$reply->status = $exception->getCode();
 		$reply->message = $exception->getMessage();
 	}
-}
+
 
 	header("Content-type: application/json");
 	if($reply->data === null) {
 		unset($reply->data);
 	}
 	echo json_encode($reply);
+}
