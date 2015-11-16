@@ -61,6 +61,7 @@ try {
 		//set XSRF cookie
 		setXsrfCookie("/");
 		//get the organization based on the given field
+		//note: is there a case where more than one of these might be true?  If so, how do I deal with it?
 		if(empty($id) === false) {
 			$reply->data = Organization::getOrganizationByOrgId($pdo, $id);
 		} else if(empty($city) === false) {

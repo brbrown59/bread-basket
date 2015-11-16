@@ -42,7 +42,7 @@ try {
 			$reply->status = 200;
 			$reply->message = "Logged in as user";
 			// search to see if user is an administrator by volunteer Id TODO verify vol Changes match what you've done here
-			if($volunteer->getVolIsAdmin === true) {
+			if($volunteer->getVolIsAdmin() === true) {
 				$_SESSION["administrator"] = $volunteer;
 				$reply->status = 200;
 				$reply->message = "Logged in as administrator";
