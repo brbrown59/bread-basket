@@ -332,8 +332,8 @@ class Volunteer implements JsonSerializable {
 	 */
 	public function setVolIsAdmin($newVolIsAdmin){
 		//Verify the boolean is selected
-		$newVolIsAdmin = filter_var($newVolIsAdmin, FILTER_VALIDATE_BOOLEAN);
-		if(empty($newVolIsAdmin) === true ){
+		$newVolIsAdmin = filter_var($newVolIsAdmin, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+		if($newVolIsAdmin === null){
 			throw(new InvalidArgumentException("must select to continue"));
 		}
 
@@ -498,7 +498,7 @@ class Volunteer implements JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = array("orgId" => $this->orgId, "volEmail" => $this->volEmail, "volEmailActivation" => $this->volEmailActivation, "volFirstName" => $this->volFirstName, "volHash" => $this->volHash, "volLastName" => $this->volLastName, "volPhone" => $this->volPhone, "volSalt" => $this->volSalt);
+		$parameters = array("orgId" => $this->orgId, "volEmail" => $this->volEmail, "volEmailActivation" => $this->volEmailActivation, "volFirstName" => $this->volFirstName, "volHash" => $this->volHash, "volIsAdmin" => $this->volIsAdmin, "volLastName" => $this->volLastName, "volPhone" => $this->volPhone, "volSalt" => $this->volSalt);
 		$statement->execute($parameters);
 	}
 
@@ -521,7 +521,7 @@ class Volunteer implements JsonSerializable {
 		}
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt FROM volunteer WHERE volId = :volId";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volIsAdmin, volLastName, volPhone, volSalt FROM volunteer WHERE volId = :volId";
 		$statement = $pdo->prepare($query);
 
 		//bind the volunteer id to the place holder in the template
@@ -534,7 +534,7 @@ class Volunteer implements JsonSerializable {
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"], $row["volFirstName"], $row["volHash"], $row["volLastName"],$row["volPhone"], $row["volSalt"]);
+				$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"], $row["volFirstName"], $row["volHash"], $row["volIsAdmin"], $row["volLastName"],$row["volPhone"], $row["volSalt"]);
 			}
 		} catch(Exception $exception) {
 			//if the row couldn't be converted, rethrow it
@@ -559,7 +559,7 @@ class Volunteer implements JsonSerializable {
 		//while rows can still be retrieved from the result
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"], $row["volFirstName"], $row["volHash"], $row["volLastName"],$row["volPhone"], $row["volSalt"]);
+				$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"], $row["volFirstName"], $row["volHash"],$row["volIsAdmin"], $row["volLastName"],$row["volPhone"], $row["volSalt"]);
 				//place result in the current field, then advance the key
 				$retrievedVol[$retrievedVol->key()] = $volunteer;
 				$retrievedVol->next();
@@ -590,7 +590,7 @@ class Volunteer implements JsonSerializable {
 		}
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt FROM volunteer WHERE orgId = :orgId ";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volIsAdmin, volLastName, volPhone, volSalt FROM volunteer WHERE orgId = :orgId ";
 		$statement = $pdo->prepare($query);
 
 		//bind the id value to the placeholder in the template
@@ -624,7 +624,7 @@ class Volunteer implements JsonSerializable {
 		}
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt FROM volunteer WHERE volEmail = :volEmail ";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volIsAdmin, volLastName, volPhone, volSalt FROM volunteer WHERE volEmail = :volEmail ";
 		$statement = $pdo->prepare($query);
 
 		//bind the id value to the placeholder in the template
@@ -658,7 +658,7 @@ class Volunteer implements JsonSerializable {
 		}
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt FROM volunteer WHERE volPhone = :volPhone ";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volIsAdmin, volLastName, volPhone, volSalt FROM volunteer WHERE volPhone = :volPhone ";
 		$statement = $pdo->prepare($query);
 
 		//bind the id value to the placeholder in the template
@@ -700,7 +700,7 @@ class Volunteer implements JsonSerializable {
 		}
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt FROM volunteer WHERE volFirstName = :volFirstName AND volLastName = :volLastName ";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volIsAdmin, volLastName, volPhone, volSalt FROM volunteer WHERE volFirstName = :volFirstName AND volLastName = :volLastName ";
 		$statement = $pdo->prepare($query);
 
 		//bind the first name value to the placeholder in the template
@@ -727,7 +727,7 @@ class Volunteer implements JsonSerializable {
 	public static function getAllVolunteers(PDO $pdo) {
 
 		//create query template
-		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt FROM volunteer";
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volIsAdmin, volLastName, volPhone, volSalt FROM volunteer";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 

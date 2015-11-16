@@ -14,8 +14,14 @@ require_once(dirname(dirname(__DIR__)) . "/php/lib/xsrf.php");
 //a security file that's on the server created by Dylan
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
+//start the session and create a XSRF token
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+	verifyXsrf();
+}
+
 try {
-	//ensures that the fields are filled out TODO Where are the passwords compared to determine if they are the same? front end?
+	//ensures that the fields are filled out
 	if(@isset($_POST["volFirstName"]) === false || @isset($_POST["volLastName"]) === false || @isset($_POST["volEmail"]) === false || @isset($_POST["password"]) === false || @isset($_POST["verifyPassword"]) === false); {
 		throw(new InvalidArgumentException("form not complete. Please verify and try again"));
 	}
@@ -23,7 +29,6 @@ try {
 	if(session_status() !== PHP_SESSION_ACTIVE) {
 		session_start();
 	}
-	verifyXsrf();
 
 
 	// create a salt and hash for volunteer
