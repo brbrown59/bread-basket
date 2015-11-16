@@ -647,6 +647,28 @@ class Volunteer implements JsonSerializable {
 	}
 
 	/**
+	 * get Volunteer by "volunteer is administrator"; volIsAdmin
+	 *
+	 * @param PDO $pdo connection object
+	 * @param  boolean $volIsAdmin if volunteer is a administrator
+	 * @return mixed volIsAdmin found or null if not found
+	 * @throws PDOexception when mySQL related errors occur
+	 */
+	public static function getVolunteerByVolIsAdmin(PDO $pdo, $volIsAdmin) {
+		//sanitize the volIsAdmin before searching.
+		$volIsAdmin = filter_var($volIsAdmin, FILTER_VALIDATE_BOOLEAN);
+		if($volIsAdmin === false) {
+			throw(new PDOException("volunteer is not Admin"));
+		}
+
+	}
+
+
+
+	/////
+
+
+	/**
 	 * get volunteer by phone number
 	 *
 	 * @param PDO $pdo pdo connection object
