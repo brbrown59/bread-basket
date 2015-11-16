@@ -3,7 +3,7 @@
 /**
 * Angular version
 **/
-$ANGULAR_VERSION = "1.4.7";
+$ANGULAR_VERSION = "1.4.6";
 ?>
 
 <!DOCTYPE html>
@@ -29,11 +29,10 @@ $ANGULAR_VERSION = "1.4.7";
 		<!--latest compiled and minified bootstrap javascript-->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 
-		<!-- CDN derived Angular.js -->
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs<?php echo $ANGULAR_VERSION; ?>/angular.min.js"></script>
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/<?php echo $ANGULAR_VERSION; ?>/angular-messages.min.js"></script>
+		<!--CDN derived Angular.js -->
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-messages.min.js"></script>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
 
 		<!-- CUSTOM js-->
 		<script type="text/javascript" src="../../js/angular-password.min.js"></script>
@@ -105,13 +104,13 @@ $ANGULAR_VERSION = "1.4.7";
 								</div>
 							</div>
 						</div>
-						<!--giver / receiver tabs.-->
+						<!--giver / receiver tabs-->
 						<div class="row">
 							<div class="col-md-4">
 								<div ng-controller="TabsController">
 									<uib-tabset justified="true">
-										<uib-tab heading="Giver" active="tab.active" disable="tab.disabled">{{tab.content}}</uib-tab>
-										<uib-tab heading="Receiver">{{tab.content}}</uib-tab>
+										<uib-tab heading="Giver" ng-click="tabs[0].active = true" active="tab.active" disable="tab.disabled">{{tab.content1}}</uib-tab>
+										<uib-tab heading="Receiver">{{tab.content2}}</uib-tab>
 									</uib-tabset>
 							</div>
 					</div>
