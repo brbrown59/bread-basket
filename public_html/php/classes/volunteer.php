@@ -83,7 +83,7 @@ class Volunteer implements JsonSerializable {
 	 * @throws RangeException if data values are out of bounds
 	 * @throws Exception if some other exception is thrown
 	 **/
-	public function __construct($newVolId, $newOrgId, $newVolEmail, $newVolEmailActivation, $newVolFirstName, $newVolHash, $newVolLastName, $newVolPhone, $newVolSalt) {
+	public function __construct($newVolId, $newOrgId, $newVolEmail, $newVolEmailActivation, $newVolFirstName, $newVolHash,$newVolIsAdmin, $newVolLastName, $newVolPhone, $newVolSalt) {
 		try {
 			$this->setVolId($newVolId);
 			$this->setOrgId($newOrgId);
@@ -316,12 +316,8 @@ class Volunteer implements JsonSerializable {
 		$this->volHash = $newVolHash;
 	}
 
-
-
-
-
 	/**
-	 * accessor method for Vol is Admin
+	 * accessor method for volIsAdmin
 	 *
 	 * @return TRUE value if Administrator
 	 */
@@ -330,16 +326,21 @@ class Volunteer implements JsonSerializable {
 	}
 
 	/**
-	 * mutator for volIsAdmin
-	 * @comment area
+	 * mutator for Volunteer is a Administrator; volIsAdmin
+	 * @param boolean true if $newVolIsAdmin is a administrator
+	 * @throw InvalidArgumentException if boolean is left un selected.
 	 */
 	public function setVolIsAdmin($newVolIsAdmin){
-		// comment area
-		$newVolIsAdmin = true
+		//Verify the boolean is selected
+		$newVolIsAdmin = filter_var($newVolIsAdmin, FILTER_VALIDATE_BOOLEAN);
+		if(empty($newVolIsAdmin) === true ){
+			throw(new InvalidArgumentException("must select to continue"));
+		}
 
+		//Store this as Administrator if this Vol is admin
+		$this->volIsAdmin = $newVolIsAdmin;
 
 	}
-
 
 	/**
 	 * accessor method for vol last name
@@ -448,11 +449,11 @@ class Volunteer implements JsonSerializable {
 		}
 
 		//create query template
-		$query = "INSERT INTO volunteer(orgId, volEmail, volEmailActivation, volFirstName, volHash, volLastName, volPhone, volSalt) VALUES(:orgId, :volEmail, :volEmailActivation, :volFirstName, :volHash, :volLastName, :volPhone, :volSalt)";
+		$query = "INSERT INTO volunteer(orgId, volEmail, volEmailActivation, volFirstName, volHash, volIsAdmin, volLastName, volPhone, volSalt) VALUES(:orgId, :volEmail, :volEmailActivation, :volFirstName, :volHash, :volIsAdmin, :volLastName, :volPhone, :volSalt)";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = array("orgId" => $this->orgId, "volEmail" => $this->volEmail, "volEmailActivation" => $this->volEmailActivation, "volFirstName" => $this->volFirstName, "volHash" => $this->volHash, "volLastName" => $this->volLastName, "volPhone" => $this->volPhone, "volSalt" => $this->volSalt);
+		$parameters = array("orgId" => $this->orgId, "volEmail" => $this->volEmail, "volEmailActivation" => $this->volEmailActivation, "volFirstName" => $this->volFirstName, "volHash" => $this->volHash, "volIsAdmin" => $this->volIsAdmin, "volLastName" => $this->volLastName, "volPhone" => $this->volPhone, "volSalt" => $this->volSalt);
 		$statement->execute($parameters);
 
 		//update the null volId with what mySQL just gave us
@@ -493,7 +494,7 @@ class Volunteer implements JsonSerializable {
 		}
 
 		//create query tempalte
-		$query = "UPDATE volunteer SET orgId = :orgId, volEmail = :volEmail, volEmailActivation =:volEmailActivation, volFirstName = :volFirstName, volHash = :volHash, volLastName = :volLastName, volPhone = :volPhone, volSalt = :volSalt";
+		$query = "UPDATE volunteer SET orgId = :orgId, volEmail = :volEmail, volEmailActivation =:volEmailActivation, volFirstName = :volFirstName, volHash = :volHash, volIsAdmin = :volIsAdmin, volLastName = :volLastName, volPhone = :volPhone, volSalt = :volSalt";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
