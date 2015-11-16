@@ -38,6 +38,8 @@ $ANGULAR_VERSION = "1.4.6";
 		<script type="text/javascript" src="../../js/angular-password.min.js"></script>
 		<script type="text/javascript" src="../../js/breadbasket.js"></script>
 		<script type="text/javascript" src="../../js/controllers/tabs.js"></script>
+		<script type="text/javascript" src="../../js/controllers/signup-controller.js"></script>
+		<script type="text/javascript" src="../../js/controllers/signup-modal.js"></script>
 
 
 		<title>Bread Basket Home</title>
@@ -81,14 +83,14 @@ $ANGULAR_VERSION = "1.4.6";
 				<div class="bg-blue container-fluid">
 					<div class="padding-top-bottom-lg">
 						<div class="row">
-							<div class="col-md-12 center-block home-block">
+							<div class="col-md-4 col-md-offset-4">
 								<div class="text-center lead">
 									Connecting People To End Hunger
 								</div>
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-4 col-md-offset-4">
+							<div class="col-md-4 col-md-offset-4 text-center">
 								<button class="btn btn-lg">Find Out How</button>
 							</div>
 						</div>
@@ -119,11 +121,20 @@ $ANGULAR_VERSION = "1.4.6";
 					</div>
 				</div>
 				<!--container 3-->
-				<div class="container-fluid">
+				<div class="container-fluid bg-powderblue">
 					<div class="padding-top-bottom-sm">
 						<div class="row">
 							<div class="col-md-4 col-md-offset-4">
-
+								<div class="text-center lead">
+									Join Us
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4 col-md-offset-4 text-center">
+								<div ng-controller="">
+								<button class="btn btn-lg">Sign Up</button>
+								</div>
 							</div>
 						</div>
 					</div>
