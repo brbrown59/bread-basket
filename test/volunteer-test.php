@@ -47,6 +47,11 @@ class VolunteerTest extends BreadBasketTest {
 	 */
 	protected $VALID_HASH;
 	/**
+	 * valid boolean to set "volunteer as administrator"; volIsAdmin
+	 * @var boolean $VALID_VOL_IS_ADMIN
+	 */
+	protected $VALID_VOL_IS_ADMIN;
+	/**
 	 * valid last name
 	 * @var string $VALID_LAST_NAME
 	 **/
