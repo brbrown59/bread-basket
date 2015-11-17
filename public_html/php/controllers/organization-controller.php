@@ -71,7 +71,6 @@ try {
 	}
 
 	//if the session belongs to an admin, allow post, put, and delete methods
-	// TODO: talk to team about new session variables
 	if(empty($_SESSION["admin"]) === false) {
 
 		if($method === "PUT") {
