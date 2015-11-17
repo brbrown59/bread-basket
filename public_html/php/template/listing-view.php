@@ -74,7 +74,7 @@
 				<!--this container houses the h1 tag/headline and the back to listing button-->
 				<div class="container">
 					<div class="row">
-						<div class="col-md-12" ng-controller="ListingController">
+						<div class="col-md-12" ng-controller="NewListingController">
 							<h1 class="inline">All Listings</h1>
 							<button class="btn btn-info pull-right" ng-click="openListingModal();">New Listing</button>
 						</div>

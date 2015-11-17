@@ -6,7 +6,7 @@ app.controller("NewListingController", ["$scope", "$uibModal", function($scope, 
 			templateUrl: "../../js/views/newlisting-modal.php",
 			controller: "ListingModal",
 			resolve: {
-				signinData : function () {
+				listingData : function () {
 					return($scope.listingData);
 				}
 			}
