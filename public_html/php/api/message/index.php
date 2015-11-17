@@ -73,7 +73,7 @@
 						$requestObject = json_decode($requestContent);
 
 					//make sure all fields are present, in order to prevent database issues
-					if()
+					if(empty($requestObject->))
 				}
 			}
 
