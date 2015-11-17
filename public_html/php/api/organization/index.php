@@ -39,15 +39,10 @@ try {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 	//sanitize and trim the other fields
-	$city = trim($city);
 	$city = filter_input(INPUT_GET, "city", FILTER_SANITIZE_STRING);
-	$name = trim($name);
 	$name = filter_input(INPUT_GET, "name", FILTER_SANITIZE_STRING);
-	$state = trim($state);
 	$state = filter_input(INPUT_GET, "state", FILTER_SANITIZE_STRING);
-	$type = trim($type);
 	$type = filter_input(INPUT_GET, "type", FILTER_SANITIZE_STRING);
-	$zip = trim($zip);
 	$zip = filter_input(INPUT_GET, "zip", FILTER_SANITIZE_STRING);
 
 	//handle REST calls, while only allowing administrators access to database-modifying methods
@@ -73,7 +68,7 @@ try {
 	}
 
 	//if the session belongs to an admin, allow post, put, and delete methods
-	if(empty($_SESSION["admin"]) === false) {
+	if(empty($_SESSION["volunteer"]) === false && $_SESSION["volunteer"]->getVolIsAdmin() === true) {
 
 		if($method === "PUT") {
 			verifyXsrf();
