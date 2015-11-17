@@ -62,12 +62,8 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
-							<h1>Details</h1>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<button type="button" class="btn btn-default">
+							<h1 class="inline">Details</h1>
+							<button type="button" class="btn btn-default pull-right">
 								<a href="listing-view.php">
 									<span class="glyphicon glyphicon-triangle-left"></span>
 									All Listings

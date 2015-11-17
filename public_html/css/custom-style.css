@@ -19,6 +19,9 @@ body { width: 100%;}
 
 /** adds top padding to center block**/
 
+.inline {
+	display: inline;
+}
 .padding-top-bottom-lg {
 	padding-top: 12%;
 	padding-bottom: 8%;

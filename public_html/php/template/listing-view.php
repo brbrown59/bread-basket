@@ -62,7 +62,8 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
-							<h1>All Listings</h1>
+							<h1 class="inline">All Listings</h1>
+							<button class="btn btn-info pull-right">New Listing</button>
 						</div>
 					</div>
 				</div>
