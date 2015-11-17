@@ -731,6 +731,45 @@ class Volunteer implements JsonSerializable {
 		}
 		return $retrievedVol;
 	}
+	/**
+	 * ******************
+	 * get volunteer by email activation
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @param string $volEmailActivation email activation number to search for
+	 * @return mixed volunteer found, or null if not
+	 * @throws PDOException if mySQL related errors occur
+	 **/
+	public static function getVolunteerByVolEmailActivation(PDO $pdo, $volEmailActivation) {
+		//sanitize the input
+		$volEmailActivation = trim($volEmailActivation);
+		$volEmailActivation = filter_var($volEmailActivation, FILTER_SANITIZE_STRING);
+		if($volEmailActivation === false) {
+			throw (new PDOException("email activation is empty or insecure"));
+		}
+
+		//create query template
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volIsAdmin, volLastName, volPhone, volSalt FROM volunteer WHERE volEmailActivation = :volEmailActivation ";
+		$statement = $pdo->prepare($query);
+
+		//bind the id value to the placeholder in the template
+		$parameters = array("volEmailActivation" => $volEmailActivation);
+		$statement->execute($parameters);
+
+		//grab the volunteer from mySQL
+		try {
+			$volEmailActivation = null;
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+					if($row !== false) {
+						$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"], $row["volFirstName"], $row["volHash"], $row["volIsAdmin"], $row["volLastName"],$row["volPhone"], $row["volSalt"]);
+					}
+		} catch(Exception $exception) {
+			//rethrow the row couldn't be converted, rethrow it
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $volunteer;
+	}
 
 	/**
 	 * retrieves all volunteers

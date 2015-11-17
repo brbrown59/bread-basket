@@ -1,7 +1,4 @@
 <?php
-var_dump($_SERVER);
-exit;
-
 /**
  * controller for the signing up a new user
  *
