@@ -22,6 +22,8 @@ $reply->data = null;
 try {
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/breadbasket.ini");
+
+	//temporary test field: please remove later
 	$_SESSION["volunteer"] = Volunteer::getVolunteerByVolId($pdo, 45);
 
 	//if the volunteer session is empty, the user is not logged in, throw an exception
@@ -108,8 +110,14 @@ try {
 				throw(new InvalidArgumentException ("organization zip code cannot be empty", 405));
 			}
 
+
 			//perform the actual put or post
 			if($method === "PUT") {
+				$organization = Organization::getOrganizationByOrgId($pdo, $id);
+				if($organization === null) {
+					throw(new RuntimeException("Organization does not exist", 404));
+				}
+
 				$organization = new Organization($id, $requestObject->orgAddress1, $requestObject->orgAddress2, $requestObject->orgCity,
 						$requestObject->orgDescription, $requestObject->orgHours, $requestObject->orgName, $requestObject->orgPhone, $requestObject->orgState,
 						$requestObject->orgType, $requestObject->orgZip);
