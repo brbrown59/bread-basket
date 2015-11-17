@@ -652,20 +652,44 @@ class Volunteer implements JsonSerializable {
 	 * @param PDO $pdo connection object
 	 * @param  boolean $volIsAdmin if volunteer is a administrator
 	 * @return mixed volIsAdmin found or null if not found
-	 * @throws PDOexception when mySQL related errors occur
+	 * @throws PDOException when mySQL related errors occur
 	 */
+
 	public static function getVolunteerByVolIsAdmin(PDO $pdo, $volIsAdmin) {
-		//sanitize the volIsAdmin before searching.
-		$volIsAdmin = filter_var($volIsAdmin, FILTER_VALIDATE_BOOLEAN);
-		if($volIsAdmin === false) {
-			throw(new PDOException("volunteer is not Admin"));
+		//sanitize the volId before searching
+		$volIsAdmin = filter_var($volIsAdmin, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+		if($volIsAdmin === null) {
+			throw(new PDOException("volunteer is not an Admin"));
+		}
+		if($volIsAdmin <= 0) {
+			throw(new PDOException("volunteer is not valid"));
 		}
 
+		//create query template
+		$query = "SELECT volId, orgId, volEmail, volEmailActivation, volFirstName, volHash, volIsAdmin, volLastName, volPhone, volSalt FROM volunteer WHERE volIsAdmin = :volIsAdmin";
+		$statement = $pdo->prepare($query);
+
+		//bind the volunteer id to the place holder in the template
+		$parameters = array("volIsAdmin" => $volIsAdmin);
+		$statement->execute($parameters);
+
+
+		//build a array of Volunteer administrators
+		$volunteers = new SplFixedArray($statement->rowCount() );
+		$statement->setFetchMode(PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch() ) !==false) {
+			try{
+				$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"], $row["volFirstName"], $row["volHash"], $row["volIsAdmin"], $row["volLastName"],$row["volPhone"], $row["volSalt"]);
+				$volunteers[$volunteers->key()] = $volunteer;
+				$volunteers->next();
+			} catch(exception $exception) {
+				//if the row could not be converted, rethrow it
+				throw(new PDOException($exception->getMessage(),0,$exception));
+			}
+		}
+			return($volunteers);
+
 	}
-
-
-
-	/////
 
 
 	/**
