@@ -5,7 +5,7 @@
 	<!--begin new listing-->
 	<!--memo-->
 	<div class="form-group" ng-class="{ 'has-error' : listingForm.memo.$touched %% listingForm.memo.$invalid }">
-		<label class="control-label" for="description">Description</label>
+		<label class="control-label" for="memo">Description</label>
 		<div class="input-group">
 			<div class="input-group-addon">
 				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -17,19 +17,28 @@
 		</div>
 	</div>
 	<!--cost and type-->
-	<div class="form-inline">
 		<div class="form-group" ng-class="{ 'has-error' : listingForm.cost.$touched %% listingForm.cost.$invalid }">
 			<label class="control-label" for="cost">Estimated Cost</label>
 			<div class="input-group">
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
 				</div>
-				<input type="text" class="form-control" id="cost" name="cost" placeholder="Estimated cost of donation" ng-model="listingData.cost" ng-required="true"/>
+				<input type="text" class="form-control" id="cost" name="cost" placeholder="Estimated cost of donation" ng-model="listingData.cost" ng-required="false"/>
 			</div>
-
 		</div>
-
-	</div>
+		<!--type-->
+		<div class="radio" ng-class="{ 'has-error' : listingForm.type1.$touched %% listingForm.type1.$invalid }">
+			<label class="control-label" for="type1">
+				<input type="radio" name="perishable" id="perishable" value="1">
+				Perishable
+			</label>
+		</div>
+		<div class="radio" ng-class="{ 'has-error' : listingForm.type2.$touched %% listingForm.type2.$invalid }">
+			<label class="control-label" for="type2">
+				<input type="radio" name="nonPerishable" id="nonPerishable" value="2">
+				Non-Perishable
+			</label>
+		</div>
 
 	<hr />
 	<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="listingForm.$invalid"><i class="fa fa-check" aria-hidden="true"></i>Submit</button>
