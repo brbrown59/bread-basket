@@ -150,14 +150,33 @@
 			<div class="input-group-addon">
 				<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
 			</div>
-			<input type="text" class="form-control" id="orgPhone" name="orgPhone" placeholder="Organiztion Phone" ng-model="signupData.orgPhone" ng-required="true" />
+			<input type="text" class="form-control" id="orgPhone" name="orgPhone" placeholder="Organization Phone" ng-model="signupData.orgPhone" ng-required="true" />
 		</div>
 		<div class="alert alert-danger" role="alert" ng-messages="signupForm.orgPhone.$error" ng-if="signupForm.orgPhone.$touched" ng-hide="signupForm.orgPhone.$valid">
 			<p ng-message="required">Please enter your organization phone number.</p>
 		</div>
 	</div>
-
-
-
-
+	<!--hours-->
+	<div class="form-group" ng-class="{ 'has error' : signupForm.hours.$touched && signupForm.hours.$invalid }">
+		<label class="control-label" for="hours">Hours</label>
+		<div class="input-group">
+			<div class="input-group-addon">
+				<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+			</div>
+			<input type="text" class="form-control" id="hours" name="hours" placeholder="Hours" ng-model="signupData.hours" ng-required="true"/>
+		</div>
+		<div class="alert alert-danger" role="alert" ng-messages="signupForm.hours.$error" ng-if="signupForm.hours.$touched" ng-hide="signupForm.hours.$valid">
+			<p ng-message="required">Please enter your hours</p>
+		</div>
+	</div>
+	<!--description-->
+	<div class="form-group" ng-class="{ 'has error' : signupForm.hours.$touched && signupForm.hours.$invalid }">
+		<label class="control-label" for="hours">Hours</label>
+		<div class="input-group">
+			<div class="input-group-addon">
+				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+			</div>
+			<textarea class="form-control" rows="3" id="description" name="description" placeholder="Description (Optional)" ng-model="signupData.description" ng-required="false"></textarea>
+		</div>
+	</div>
 </form>
