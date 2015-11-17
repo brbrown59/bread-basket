@@ -1,7 +1,7 @@
 <?php
 
-require_once dirname(__DIR__)."/classes/autoloader.php";
-require_once dirname(__DIR__)."lib/xsrf.php";
+require_once dirname(__DIR__) . "/classes/autoloader.php";
+require_once dirname(__DIR__) . "/lib/xsrf.php";
 
 /**
  * controller/api for the organization class
