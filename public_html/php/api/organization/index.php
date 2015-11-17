@@ -17,6 +17,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 $reply = new stdClass();
 $reply->status = 200;
 $reply->data = null;
+var_dump($_GET);
 
 try {
 	//if the volunteer session is empty, the user is not logged in, throw an exception
