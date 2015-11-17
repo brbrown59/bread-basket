@@ -40,7 +40,7 @@ try {
 		if($volHash === $volunteer->getVolHash()) {
 			$_SESSION["volunteer"] = $volunteer;
 			$reply->status = 200;
-			$reply->message = "Logged in as user";
+			$reply->message = "Successfully logged in";
 		}
 	}
 	// create an exception to pass back to the RESTfull caller
