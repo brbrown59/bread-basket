@@ -70,29 +70,61 @@ try {
 	//if the session belongs to an admin, allow post, put, and delete methods
 	if(empty($_SESSION["volunteer"]) === false && $_SESSION["volunteer"]->getVolIsAdmin() === true) {
 
-		if($method === "PUT") {
+		if($method === "PUT" || $method === "POST") {
+
 			verifyXsrf();
 			$requestContent = file_get_contents("php://input");
 			$requestObject = json_decode($requestContent);
 
-			$organization = new Organization($id, $requestObject->orgAddress1, $requestObject->orgAddress2, $requestObject->orgCity,
-					$requestObject->orgDescription, $requestObject->orgHours, $requestObject->orgName, $requestObject->orgPhone, $requestObject->orgState,
-					$requestObject->orgType, $requestObject->orgZip);
-			$organization->update($pdo);
+			//make sure all fields are present, in order to prevent database issues
+			if(empty($requestObject->orgAddress1) === true) {
+				throw(new InvalidArgumentException ("organization address cannot be empty", 405));
+			}
+			if(empty($requestObject->orgAddress2) === true) {
+				$requestObject->orgAddress2 = null;
+			}
+			if(empty($requestObject->orgCity) === true) {
+				throw(new InvalidArgumentException ("organization city cannot be empty", 405));
+			}
+			if(empty($requestObject->orgDescription) === true) {
+				$requestObject->orgDescription = null;
+			}
+			if(empty($requestObject->orgHours) === true) {
+				$requestObject->orgHours = null;
+			}
+			if(empty($requestObject->orgName) === true) {
+				throw(new InvalidArgumentException ("organization name cannot be empty", 405));
+			}
+			if(empty($requestObject->orgPhone) === true) {
+				throw(new InvalidArgumentException ("organization phone number cannot be empty", 405));
+			}
+			if(empty($requestObject->orgState) === true) {
+				throw(new InvalidArgumentException ("organization state cannot be empty", 405));
+			}
+			if(empty($requestObject->orgType) === true) {
+				throw(new InvalidArgumentException ("organization type cannot be empty", 405));
+			}
+			if(empty($requestObject->orgZip) === true) {
+				throw(new InvalidArgumentException ("organization zip code cannot be empty", 405));
+			}
 
-			$reply->message = "Organization updated OK";
+			//perform the actual put or post
+			if($method === "PUT") {
+				$organization = new Organization($id, $requestObject->orgAddress1, $requestObject->orgAddress2, $requestObject->orgCity,
+						$requestObject->orgDescription, $requestObject->orgHours, $requestObject->orgName, $requestObject->orgPhone, $requestObject->orgState,
+						$requestObject->orgType, $requestObject->orgZip);
+				$organization->update($pdo);
 
-		} else if($method === "POST") {
-			verifyXsrf();
-			$requestContent = file_get_contents("php://input");
-			$requestObject = json_decode($requestContent);
+				$reply->message = "Organization updated OK";
 
-			$organization = new Organization(null, $requestObject->orgAddress1, $requestObject->orgAddress2, $requestObject->orgCity,
-					$requestObject->orgDescription, $requestObject->orgHours, $requestObject->orgName, $requestObject->orgPhone, $requestObject->orgState,
-					$requestObject->orgType, $requestObject->orgZip);
-			$organization->insert($pdo);
+			} else if($method === "POST") {
+				$organization = new Organization(null, $requestObject->orgAddress1, $requestObject->orgAddress2, $requestObject->orgCity,
+						$requestObject->orgDescription, $requestObject->orgHours, $requestObject->orgName, $requestObject->orgPhone, $requestObject->orgState,
+						$requestObject->orgType, $requestObject->orgZip);
+				$organization->insert($pdo);
 
-			$reply->message = "Organization created OK";
+				$reply->message = "Organization created OK";
+			}
 
 		} else if($method === "DELETE") {
 			verifyXsrf();
