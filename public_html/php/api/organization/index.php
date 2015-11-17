@@ -2,12 +2,13 @@
 
 require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
 require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
-
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 /**
  * controller/api for the organization class
  *
  * @author Bradley Brown <tall.white.ninja@gmail.com>
  */
+
 //verify the xsrf challenge
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
@@ -17,9 +18,12 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 $reply = new stdClass();
 $reply->status = 200;
 $reply->data = null;
-var_dump($_GET);
 
 try {
+	//grab the mySQL connection
+	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/breadbasket.ini");
+	$_SESSION["volunteer"] = Volunteer::getVolunteerByVolId($pdo, 45);
+
 	//if the volunteer session is empty, the user is not logged in, throw an exception
 	if(empty($_SESSION["volunteer"]) === true) {
 		throw(new RuntimeException("Please log-in or sign up", 401));
@@ -45,9 +49,6 @@ try {
 	$type = filter_input(INPUT_GET, "type", FILTER_SANITIZE_STRING);
 	$zip = trim($zip);
 	$zip = filter_input(INPUT_GET, "zip", FILTER_SANITIZE_STRING);
-
-	//grab the mySQL connection
-	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/encrypted-config.ini");
 
 	//handle REST calls, while only allowing administrators access to database-modifying methods
 	//should already have checked if they're a volunteer, so another check here would be redundant

@@ -242,6 +242,12 @@ class Volunteer implements JsonSerializable {
 	 * @throws InvalidArgumentException if activation code is not a string or insecure
 	 **/
 	public function setVolEmailActivation($newVolEmailActivation) {
+		//base case: if the vol activation is null, this is an existing volunteer
+		if($newVolEmailActivation === null) {
+			$this->volEmailActivation = null;
+			return;
+		}
+
 		//verify the activation code is valid
 		$newVolEmailActivation = trim($newVolEmailActivation);
 		$newVolEmailActivation = filter_var($newVolEmailActivation, FILTER_SANITIZE_STRING);
