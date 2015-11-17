@@ -64,6 +64,10 @@ try {
 		$reply->message = "A new administrator has been created";
 
 		echo "<p class=\"alert alert-success\">Check your email to confirm your account." . $volunteer->getVolFirstName() . "<p/>";
+		if($volunteer->getVolIsAdmin() === true) {
+			$_SESSION["volunteer"] = $volunteer;
+			$reply->status = 200;
+			$reply->message = "Logged in as administrator";
 	}
 
 try {
