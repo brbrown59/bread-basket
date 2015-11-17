@@ -32,7 +32,7 @@
 		<label class="control-label" for="email">Email</label>
 		<div class="input-group">
 			<div class="input-group-addon">
-				<i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
+				<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
 			</div>
 			<input type="email" class="form-control" id="email" name="email" placeholder="Email" ng-model="signupData.email" ng-required="true" />
 		</div>
@@ -46,7 +46,7 @@
 		<label class="control-label" for="phone">Phone</label>
 		<div class="input-group">
 			<div class="input-group-addon">
-				<i class="glyphicon glyphicon-phone" aria-hidden="true"></i>
+				<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
 			</div>
 			<input type="text" class="form-control" id="phone" name="phone" placeholder="Phone" ng-model="signupData.phone" ng-required="true" />
 		</div>
@@ -88,7 +88,7 @@
 		<label class="control-label" for="orgName">Organization Name</label>
 		<div class="input-group">
 			<div class="input-group-addon">
-				<i class="glyphicon glyphicon-user" aria-hidden="true"></i>
+				<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 			</div>
 			<input type="text" class="form-control" id="orgName" name="orgName" placeholder="Organization" ng-model="signupData.orgName" ng-required="true" />
 		</div>
@@ -101,7 +101,7 @@
 		<label class="control-label" for="address1">Address 1</label>
 		<div class="input-group">
 			<div class="input-group-addon">
-				<i class="glyphicon glyphicon-home" aria-hidden="true"></i>
+				<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 			</div>
 			<input type="text" class="form-control" id="address1" name="address1" placeholder="Address 1" ng-model="signupData.address1" ng-required="true" />
 		</div>
@@ -113,13 +113,49 @@
 	<div class="form-group" ng-class="{ 'has-error': signupForm.address2.$touched && signupForm.address2.$invalid }">
 		<label class="control-label" for="address2">Address 2</label>
 		<div class="input-group">
-			<div class="input-group-addon">
-				<i class="glyphicon glyphicon-home" aria-hidden="true"></i>
-			</div>
+
 			<input type="text" class="form-control" id="address2" name="address2" placeholder="Address 2" ng-model="signupData.address2" ng-required="false" />
 		</div>
 	</div>
 	<!--city-->
+	<div class="form-group" ng-class="{ 'has-error': signupForm.city.$touched && signupForm.city.$invalid }">
+		<label class="control-label" for="city">City</label>
+		<div class="input-group">
+			<select  class="form-control" id="city" name="city" ng-model="signupData.city" ng-required="true">
+				<option>Albuquerque</option>
+			</select>
+		</div>
+	</div>
+	<!--state-->
+	<div class="form-group" ng-class="{ 'has-error': signupForm.state.$touched && signupForm.state.$invalid }">
+		<label class="control-label" for="state">State</label>
+		<div class="input-group">
+			<select  class="form-control" id="state" name="state" ng-model="signupData.state" ng-required="true">
+				<option>NM</option>
+			</select>
+		</div>
+	</div>
+	<!--zip-->
+	<div class="form-group" ng-class="{ 'has-error': signupForm.zip.$touched && signupForm.zip.$invalid }">
+		<label class="control-label" for="zip">Zip 2</label>
+		<div class="input-group">
+
+			<input type="text" class="form-control" id="zip" name="zip" placeholder="Zip " ng-model="signupData.zip" ng-required="true" />
+		</div>
+	</div>
+	<!--phone number-->
+	<div class="form-group" ng-class="{ 'has-error': signupForm.orgPhone.$touched && signupForm.orgPhone.$invalid }">
+		<label class="control-label" for="orgPhone">Organization Phone</label>
+		<div class="input-group">
+			<div class="input-group-addon">
+				<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+			</div>
+			<input type="text" class="form-control" id="orgPhone" name="orgPhone" placeholder="Organiztion Phone" ng-model="signupData.orgPhone" ng-required="true" />
+		</div>
+		<div class="alert alert-danger" role="alert" ng-messages="signupForm.orgPhone.$error" ng-if="signupForm.orgPhone.$touched" ng-hide="signupForm.orgPhone.$valid">
+			<p ng-message="required">Please enter your organization phone number.</p>
+		</div>
+	</div>
 
 
 
