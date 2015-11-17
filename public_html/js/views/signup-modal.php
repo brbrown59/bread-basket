@@ -83,6 +83,7 @@
 		</div>
 	</div>
 	<!--start organization fields-->
+	<p>Please enter your organization information</p>
 	<!--org name-->
 	<div class="form-group" ng-class="{ 'has-error': signupForm.orgName.$touched && signupForm.orgName.$invalid }">
 		<label class="control-label" for="orgName">Organization Name</label>
@@ -179,4 +180,7 @@
 			<textarea class="form-control" rows="3" id="description" name="description" placeholder="Description (Optional)" ng-model="signupData.description" ng-required="false"></textarea>
 		</div>
 	</div>
+	<hr />
+	<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="signupForm.$invalid"><i class="fa fa-check" aria-hidden="true"></i> Join</button>
+	<button type="reset" class="btn btn-lg btn-warning" ng-click="cancel();"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
 </form>
