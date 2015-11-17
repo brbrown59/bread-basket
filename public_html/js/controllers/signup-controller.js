@@ -3,7 +3,7 @@ app.controller("SignupController", ["$scope", "$uibModal", function($scope, $uib
 
 	$scope.openSignupModal = function () {
 		var signupModalInstance = $uibModal.open({
-			templateUrl: "/js/views/signup-modal.php",
+			templateUrl: "../views/signup-modal.php",
 			controller: "SignupModal",
 			resolve: {
 				signinData : function () {

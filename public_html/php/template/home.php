@@ -40,6 +40,7 @@ $ANGULAR_VERSION = "1.4.7";
 		<script type="text/javascript" src="../../js/breadbasket.js"></script>
 		<script type="text/javascript" src="../../js/controllers/tabs.js"></script>
 		<script type="text/javascript" src="../../js/controllers/signup-modal.js"></script>
+		<script type="text/javascript" src="../../js/controllers/signup-controller.js"></script>
 
 
 		<title>Bread Basket Home</title>
@@ -132,7 +133,7 @@ $ANGULAR_VERSION = "1.4.7";
 						</div>
 						<div class="row">
 							<div class="col-md-4 col-md-offset-4 text-center">
-								<div ng-controller="SignupModal">
+								<div ng-controller="SignupController">
 								<button class="btn btn-lg" ng-click="openSignupModal();">Sign Up</button>
 								</div>
 							</div>
