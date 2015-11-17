@@ -31,7 +31,7 @@ try {
 	$requestContent = file_get_contents("php://input");
 	$requestObject = json_decode($requestContent);
 
-	// sanitize the email & search by volEmail TODO should I trim here?
+	// sanitize the email & search by volEmail
 	$email = filter_var($requestObject->email, FILTER_SANITIZE_EMAIL);
 	$volunteer = Volunteer::getVolunteerByVolEmail($pdo, $email);
 

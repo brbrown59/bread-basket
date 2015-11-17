@@ -1,4 +1,7 @@
 <?php
+var_dump($_SERVER);
+exit;
+
 /**
  * controller for the signing up a new user
  *
@@ -19,58 +22,53 @@ require_once(dirname(dirname(dirname(__DIR__))) . "/vendor/autoload.php");
 //start the session and create a XSRF token
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
-	verifyXsrf();
 }
+verifyXsrf();
 
 // prepare default error message
 $reply = new stdClass();
 $reply->status = 200;
 $reply->message = null;
 
+try {
 // grab the my SQL connection
-$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/breadbasket.ini");
+	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/breadbasket.ini");
 
 // convert POSTed JSON to an object
-$requestContent = file_get_contents("php://input");
-$requestObject = json_decode($requestContent);
+	$requestContent = file_get_contents("php://input");
+	$requestObject = json_decode($requestContent);
 
-
-
-try {
 
 	// sanitize the email & search by volEmail
 	$email = filter_var($requestObject->email, FILTER_SANITIZE_EMAIL);
 	$volunteer = Volunteer::getVolunteerByVolEmail($pdo, $email);
 	if($volunteer !== null) {
-		$reply->message = "This email already has an account";
+		throw new RuntimeException("This email already has an account", 422);
 	}
 
-	if($volunteer === null) {
-		// create a new salt and email activation
-		$volSalt = bin2hex(openssl_random_pseudo_bytes(32));
-		$volEmailActivation = bin2hex(openssl_random_pseudo_bytes(8));
+	// create a new salt and email activation
+	$volSalt = bin2hex(openssl_random_pseudo_bytes(32));
+	$volEmailActivation = bin2hex(openssl_random_pseudo_bytes(8));
 
-		// create the hash
-		$volHash = hash_pbkdf2("sha512", $requestObject->password, $volSalt, 262144, 128);
+	// create the hash
+	$volHash = hash_pbkdf2("sha512", $requestObject->password, $volSalt, 262144, 128);
 
-		//create a new organization and insert into mySQL
-		$organization = new Organization(null, $requestObject->orgAddress1, $requestObject->orgAddress2, $requestObject->orgCity, $requestObject->orgDescription, $requestObject->orgHours, $requestObject->orgName, $requestObject->orgPhone, $requestObject->orgState, $requestObject->orgType, $requestObject->orgZip);
-		$organization->insert($pdo);
-		$reply->message = "New organization has been created";
+	//create a new organization and insert into mySQL
+	$organization = new Organization(null, $requestObject->orgAddress1, $requestObject->orgAddress2, $requestObject->orgCity, $requestObject->orgDescription, $requestObject->orgHours, $requestObject->orgName, $requestObject->orgPhone, $requestObject->orgState, $requestObject->orgType, $requestObject->orgZip);
+	$organization->insert($pdo);
+	$reply->message = "New organization has been created";
 
-		//create a new Volunteer and insert into mySQL ToDo Will this get orgId work?
-		$volunteer = new Volunteer(null,$organization->getOrgId(),$requestObject->volEmail,$volEmailActivation,$requestObject->volFirstName,$volHash,true,$requestObject->volLastName,$requestObject->volPhone,$volSalt);
-		$volunteer->insert($pdo);
-		$reply->message = "A new administrator has been created";
+	//create a new Volunteer and insert into mySQL ToDo Will this get orgId work?
+	$volunteer = new Volunteer(null, $organization->getOrgId(), $requestObject->volEmail, $volEmailActivation, $requestObject->volFirstName, $volHash, true, $requestObject->volLastName, $requestObject->volPhone, $volSalt);
+	$volunteer->insert($pdo);
+	$reply->message = "A new administrator has been created";
 
-		echo "<p class=\"alert alert-success\">Check your email to confirm your account." . $volunteer->getVolFirstName() . "<p/>";
-		if($volunteer->getVolIsAdmin() === true) {
-			$_SESSION["volunteer"] = $volunteer;
-			$reply->status = 200;
-			$reply->message = "Logged in as administrator";
+	if($volunteer->getVolIsAdmin() === true) {
+		$_SESSION["volunteer"] = $volunteer;
+		$reply->status = 200;
+		$reply->message = "Logged in as administrator";
 	}
 
-try {
 	// create Swift message
 	$swiftMessage = Swift_Message::newInstance();
 
@@ -96,7 +94,13 @@ try {
 	 * notice one tactic used is to display the entire $confirmLink to plain text; this lets users
 	 * who aren't viewing HTML content in Emails still access your links
 	 **/
-	$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . "/important-link/confirm.php?confirmationCode=abc123";
+
+	// link to a SIBLING file that confirms
+	$lastSlash = strrpos($_SERVER["SCRIPT_NAME"], "/");
+	$basePath = substr($_SERVER["SCRIPT_NAME"], 0, $lastSlash + 1);
+	$urlglue = $basePath . "confirmation.php?emailActivation=" . $volEmailActivation;
+
+	$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
 	$message = <<< EOF
 <h1>Thank you for signing up for Bread Basket</h1>
 <p>Thank you for registering for the Bread Basket program. Visit the following URL to complete the registration process for your organization: </p>
@@ -127,11 +131,6 @@ EOF;
 	// report a successful send
 	echo "<div class=\"alert alert-success\" role=\"alert\">Email successfully sent.</div>";
 
-} catch(Exception $exception) {
-	echo "<div class=\"alert alert-danger\" role=\"alert\"><strong>Oh snap!</strong> Unable to send email: " . $exception->getMessage() . "</div>";
-}
-
-	// create an exception to pass back to the RESTfull caller TODO move to the end?
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
