@@ -24,7 +24,7 @@
 			<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" ng-model="signupData.lastName" ng-required="true"/>
 		</div>
 		<div class="alert alert-danger" role="alert" ng-messages="signupForm.lastName.$error" ng-if="signupForm.lastName.$touched" ng-hide="signupForm.lastName.$valid">
-			<p ng-message="required">Please enter your last anme</p>
+			<p ng-message="required">Please enter your last name</p>
 		</div>
 	</div>
 	<!--email-->
@@ -99,7 +99,7 @@
 	</div>
 	<!--org address 1-->
 	<div class="form-group" ng-class="{ 'has-error': signupForm.address1.$touched && signupForm.address1.$invalid }">
-		<label class="control-label" for="address1">Address 1</label>
+		<label class="control-label" for="address1">Organization Address</label>
 		<div class="input-group">
 			<div class="input-group-addon">
 				<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
@@ -112,9 +112,11 @@
 	</div>
 	<!--org address 2-->
 	<div class="form-group" ng-class="{ 'has-error': signupForm.address2.$touched && signupForm.address2.$invalid }">
-		<label class="control-label" for="address2">Address 2</label>
+		<label class="control-label sr-only" for="address2">Address 2</label>
 		<div class="input-group">
-
+			<div class="input-group-addon">
+				<span class="glyphicon glyphicon-none" aria-hidden="true"></span>
+			</div>
 			<input type="text" class="form-control" id="address2" name="address2" placeholder="Address 2" ng-model="signupData.address2" ng-required="false" />
 		</div>
 	</div>
@@ -181,6 +183,6 @@
 		</div>
 	</div>
 	<hr />
-	<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="signupForm.$invalid"><i class="fa fa-check" aria-hidden="true"></i> Submit</button>
+	<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="signupForm.$invalid"><i class="fa fa-check" aria-hidden="true"></i> Sub</button>
 	<button type="reset" class="btn btn-lg btn-warning" ng-click="cancel();"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
 </form>
