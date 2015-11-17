@@ -37,13 +37,16 @@
 			$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 			$id = filter_input(INPUT_GET,"listingId",FILTER_VALIDATE_INT);
 			$id = filter_input(INPUT_GET,"orgId",FILTER_VALIDATE_INT);
-
 			//make sure the id is valid for methods that requier it.
 			if(($method === "DELETE" || $method === "PUT") && (empty ($id) === true || $id < 0)){
 				throw(new InvalidArgumentException("id cannot be empty or negative",405));
 			}
+
+
 			//sanitize and trim the other fields
 			//------did not need----------//
+
+
 
 			//handle REST calls, while only allowing administrators access to database-modifying methods
 			//should already have checked if they're a volunteer, so another check here would ne redundant
@@ -52,10 +55,27 @@
 				setXrftCookie("/");
 				//get the organization based on the given field
 				if(empty($id) === false) {
-					$reply->data = Organization::getOrganization
+					$reply->data = Message::getMessageByMessageId($pdo, $Id)->toArray();
+				}else if (empty ($listingId) === false){
+					$reply->data = Message::getMessageByListingId($pdo, $listingId)->toArray();
+				}else if (empty ($orgId) === false){
+					$reply->data = Message::getMessageByOrgId($pdo,$orgId)->toArray();
 				}
 			}
 
+			//if the session belongs to an Administrator, Allow; post, put and delete methods
+			if(empty($_SESSION["volunteer"]) ===false && $_SESSION["volunteer"]->getVolIsAdmin() === true) {
+
+				if($method === "put" || $method === "POST") {
+
+						verifyXsrf();
+						$requestContent = file_get_contents("php://input");
+						$requestObject = json_decode($requestContent);
+
+					//make sure all fields are present, in order to prevent database issues
+					if()
+				}
+			}
 
 
 
