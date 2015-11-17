@@ -758,12 +758,12 @@ class Volunteer implements JsonSerializable {
 
 		//grab the volunteer from mySQL
 		try {
-			$volEmailActivation = null;
+			$volunteer = null;
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
-					if($row !== false) {
-						$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"], $row["volFirstName"], $row["volHash"], $row["volIsAdmin"], $row["volLastName"],$row["volPhone"], $row["volSalt"]);
-					}
+			if($row !== false) {
+				$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"], $row["volFirstName"], $row["volHash"], $row["volIsAdmin"], $row["volLastName"],$row["volPhone"], $row["volSalt"]);
+			}
 		} catch(Exception $exception) {
 			//rethrow the row couldn't be converted, rethrow it
 			throw(new PDOException($exception->getMessage(), 0, $exception));

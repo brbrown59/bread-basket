@@ -80,7 +80,7 @@ class VolunteerTest extends BreadBasketTest {
 		$this->VALID_HASH = $this->VALID_HASH = hash_pbkdf2("sha512", "password4321", $this->VALID_SALT, 262144, 128);
 
 		//create a valid organization to reference in test
-		$this->organization = new Organization(null, "23 Star Trek Rd", "Suit 2", "Bloomington", "Coffee, black", "24/7", "USS Berners-Lee", "5051234567", "NM", "G", "87106" );
+		$this->organization = new Organization(null, "23 Star Trek Rd", "Suit 2", "Bloomington", "Coffee, black", "24/7", "Test", "5051234567", "NM", "G", "87106" );
 		$this->organization->insert($this->getPDO());
 
 	}
@@ -367,11 +367,13 @@ class VolunteerTest extends BreadBasketTest {
 
 	/**
 	 * test grabbing a volunteer by volEmailActivation that does not exist
+	 *
+	 *
 	 */
 	public function testGetInvalidVolunteerByVolEmailActivation() {
 		//grab a volunteer that does not exists
-		$volunteer = Volunteer::getVolunteerByVolEmailActivation($this->getPDO(), "10000001");
-		$this->assertSame($volunteer->getSize(), 0);
+		$volunteer = Volunteer::getVolunteerByVolEmailActivation($this->getPDO(), "1000000125413584");
+		$this->assertNull($volunteer);
 	}
 
 	/**
@@ -386,17 +388,17 @@ class VolunteerTest extends BreadBasketTest {
 		$volunteer->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoVolunteer = Volunteer::getVolunteerByVolEmailActivation($this->getPDO(), $volunteer->getVolunteerByVolEmailActivation());
+		$pdoVolunteer = Volunteer::getVolunteerByVolEmailActivation($this->getPDO(), $volunteer->getVolEmailActivation());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("volunteer"));
-		$this->assertSame($pdoVolunteer[0]->getOrgId(), $this->organization->getOrgId());
-		$this->assertSame($pdoVolunteer[0]->getVolEmail(), $this->VALID_EMAIL);
-		$this->assertSame($pdoVolunteer[0]->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
-		$this->assertSame($pdoVolunteer[0]->getVolFirstName(), $this->VALID_FIRST_NAME);
-		$this->assertSame($pdoVolunteer[0]->getVolHash(), $this->VALID_HASH);
-		$this->assertSame($pdoVolunteer[0]->getVolIsAdmin(), $this->VALID_VOL_IS_ADMIN);
-		$this->assertSame($pdoVolunteer[0]->getVolLastName(), $this->VALID_LAST_NAME);
-		$this->assertSame($pdoVolunteer[0]->getVolPhone(), $this->VALID_PHONE);
-		$this->assertSame($pdoVolunteer[0]->getVolSalt(), $this->VALID_SALT);
+		$this->assertSame($pdoVolunteer->getOrgId(), $this->organization->getOrgId());
+		$this->assertSame($pdoVolunteer->getVolEmail(), $this->VALID_EMAIL);
+		$this->assertSame($pdoVolunteer->getVolEmailActivation(), $this->VALID_EMAIL_ACTIVATION);
+		$this->assertSame($pdoVolunteer->getVolFirstName(), $this->VALID_FIRST_NAME);
+		$this->assertSame($pdoVolunteer->getVolHash(), $this->VALID_HASH);
+		$this->assertSame($pdoVolunteer->getVolIsAdmin(), $this->VALID_VOL_IS_ADMIN);
+		$this->assertSame($pdoVolunteer->getVolLastName(), $this->VALID_LAST_NAME);
+		$this->assertSame($pdoVolunteer->getVolPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoVolunteer->getVolSalt(), $this->VALID_SALT);
 	}
 
 
