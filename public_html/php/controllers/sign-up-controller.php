@@ -7,7 +7,7 @@
  * https://github.com/Skylarity/trufork
  **/
 
-//autoloads classes
+//auto loads classes
 require_once(dirname(dirname(__DIR__)) . "/php/classes/autoloader.php");
 //security w/ NG in mind
 require_once(dirname(dirname(__DIR__)) . "/php/lib/xsrf.php");
@@ -21,6 +21,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 	verifyXsrf();
 }
+
 // prepare default error message
 $reply = new stdClass();
 $reply->status = 401;
@@ -65,8 +66,9 @@ try {
 		//echo "<p class=\"alert alert-success\">Check your email to confirm your account." . $volunteer->getVolFirstName() . "<p/>";
 
 		// create an exception to pass back to the RESTfull caller
-		}
-] catch(Exception $exception) {
+	}
+
+} catch(Exception $exception) {
 		$reply->status = $exception->getCode();
 		$reply->message = $exception->getMessage();
 	}
@@ -77,4 +79,64 @@ try {
 		unset($reply->data);
 	}
 	echo json_encode($reply);
+}
+
+try {
+	// create Swift message
+	$swiftMessage = Swift_Message::newInstance();
+
+	// attach the sender to the message
+	// this takes the form of an associative array where the Email is the key for the real name
+	$swiftMessage->setFrom(["deepdivecoder@cnm.edu" => "Deep Dive Coder"]);
+
+	/**
+	 * attach the recipients to the message
+	 * notice this an array that can include or omit the the recipient's real name
+	 * use the recipients' real name where possible; this reduces the probability of the Email being marked as spam
+	 **/
+	$recipients = ["recipient1@cnm.edu", "recipient2@cnm.edu" => "Recipient 2"];
+	$swiftMessage->setTo($recipients);
+
+	// attach the subject line to the message
+	$swiftMessage->setSubject("Please confirm your Bread Basket account");
+
+	/**
+	 * attach the actual message to the message
+	 * here, we set two versions of the message: the HTML formatted message and a special filter_var()ed
+	 * version of the message that generates a plain text version of the HTML content
+	 * notice one tactic used is to display the entire $confirmLink to plain text; this lets users
+	 * who aren't viewing HTML content in Emails still access your links
+	 **/
+	$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . "/important-link/confirm.php?confirmationCode=abc123";
+	$message = <<< EOF
+<h1>Thank you for signing up for Bread Basket</h1>
+<p>Thank you for registering for the Bread Basket program. Visit the following URL to complete the registration process for your organization: </p>
+<a href="$confirmLink">$confirmLink</a></p>
+EOF;
+	$swiftMessage->setBody($message, "text/html");
+	$swiftMessage->addPart(html_entity_decode(filter_var($message, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES)), "text/plain");
+
+	/**
+	 * send the Email via SMTP; the SMTP server here is configured to relay everything upstream via CNM
+	 * this default may or may not be available on all web hosts; consult their documentation/support for details
+	 * SwiftMailer supports many different transport methods; SMTP was chosen because it's the most compatible and has the best error handling
+	 * @see http://swiftmailer.org/docs/sending.html Sending Messages - Documentation - SwitftMailer
+	 **/
+	$smtp = Swift_SmtpTransport::newInstance("localhost", 25);
+	$mailer = Swift_Mailer::newInstance($smtp);
+	$numSent = $mailer->send($swiftMessage, $failedRecipients);
+
+	/**
+	 * the send method returns the number of recipients that accepted the Email
+	 * so, if the number attempted is not the number accepted, this is an Exception
+	 **/
+	if($numSent !== count($recipients)) {
+		// the $failedRecipients parameter passed in the send() method now contains contains an array of the Emails that failed
+		throw(new RuntimeException("unable to send email"));
+	}
+
+	// report a successful send
+	echo "<div class=\"alert alert-success\" role=\"alert\">Email successfully sent.</div>";
+} catch(Exception $exception) {
+	echo "<div class=\"alert alert-danger\" role=\"alert\"><strong>Oh snap!</strong> Unable to send email: " . $exception->getMessage() . "</div>";
 }
