@@ -36,7 +36,7 @@ abstract class BreadBasketTest extends PHPUnit_Extensions_Database_TestCase {
 		// THESE TABLES *MUST* BE LISTED IN THE SAME ORDER THEY WERE CREATED!!!!
 		$dataset->addTable("organization");
 		$dataset->addTable("volunteer");
-		$dataset->addTable("administrator");
+		//$dataset->addTable("administrator");
 		$dataset->addTable("listingType");
 		$dataset->addTable("listing");
 		$dataset->addTable("message");

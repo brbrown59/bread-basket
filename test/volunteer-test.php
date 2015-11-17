@@ -14,6 +14,7 @@ require_once(dirname(__DIR__) . "/public_html/php/classes/organization.php");
  *
  * @see Volunteer
  * @author Kimberly Keller <kimberly@gravitaspublications.com>
+ * @carver Carlos Beraun <cberaun2@cnm.edu>
  **/
 class VolunteerTest extends BreadBasketTest {
 	/**
@@ -79,7 +80,7 @@ class VolunteerTest extends BreadBasketTest {
 		$this->VALID_HASH = $this->VALID_HASH = hash_pbkdf2("sha512", "password4321", $this->VALID_SALT, 262144, 128);
 
 		//create a valid organization to reference in test
-		$this->organization = new Organization(null, "23 Star Trek Rd", "Suit 2", "Bloomington", "Coffee, black", "24/7", "Enterprise", "5051234567", "NM", "G", "87106" );
+		$this->organization = new Organization(null, "23 Star Trek Rd", "Suit 2", "Bloomington", "Coffee, black", "24/7", "USS Berners-Lee", "5051234567", "NM", "G", "87106" );
 		$this->organization->insert($this->getPDO());
 
 	}
@@ -293,7 +294,7 @@ class VolunteerTest extends BreadBasketTest {
 	public function testGetInvalidVolunteerByVolEmail() {
 		//grab an email that does not exist
 		$volunteer = Volunteer::getVolunteerByVolEmail($this->getPDO(), "notcaptain@voyager.com");
-		$this->assertNull($volunteer->getSize());
+		$this->assertNull($volunteer);
 	}
 
 	/**
