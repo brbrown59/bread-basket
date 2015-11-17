@@ -39,7 +39,6 @@ $ANGULAR_VERSION = "1.4.7";
 		<script type="text/javascript" src="../../js/angular-password.min.js"></script>
 		<script type="text/javascript" src="../../js/breadbasket.js"></script>
 		<script type="text/javascript" src="../../js/controllers/tabs.js"></script>
-		<script type="text/javascript" src="../../js/controllers/signup-controller.js"></script>
 		<script type="text/javascript" src="../../js/controllers/signup-modal.js"></script>
 
 
@@ -133,7 +132,7 @@ $ANGULAR_VERSION = "1.4.7";
 						</div>
 						<div class="row">
 							<div class="col-md-4 col-md-offset-4 text-center">
-								<div ng-controller="SignupController">
+								<div ng-controller="SignupModal">
 								<button class="btn btn-lg" ng-click="openSignupModal();">Sign Up</button>
 								</div>
 							</div>
