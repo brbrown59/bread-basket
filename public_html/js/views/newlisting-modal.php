@@ -39,7 +39,7 @@
 				Non-Perishable
 			</label>
 		</div>
-	<pre>{{ listingData | json }}</pre>
+
 	<hr />
 	<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="listingForm.$invalid"><i class="fa fa-check" aria-hidden="true"></i>Submit</button>
 	<button type="reset" class="btn btn-lg btn-warning" ng-click="cancel();"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
