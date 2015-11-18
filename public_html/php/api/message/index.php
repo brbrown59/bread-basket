@@ -77,10 +77,10 @@
 						throw(new InvalidArgumentException ("Listing Id cannot be empty",405 ));
 					}
 					if(empty($requestContent->orgId) === true) {
-						throw(new InvalidArgumentException ("Organization Id cannot be empty",) );
+						throw(new InvalidArgumentException ("Organization Id cannot be empty",405) );
 					}
 					if(empty($requestContent->messageText) === true) {
-						throw(new InvalidArgumentException("Message field cannot be empty",405 ))
+						throw(new InvalidArgumentException("Message field cannot be empty",405 ));
 					}
 
 					//perform the actual put or post
