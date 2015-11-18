@@ -6,9 +6,9 @@
  */
 
 		//grab the class under scrutiny
-		require_once(dirname(__DIR__) . "/public_html/php/classes/organization.php");
-		require_once(dirname(__DIR__) . "/public_html/php/classes/volunteer.php");
-		require_once ("/etc/apache2/data-design/encrypted-config.php");
+		require_once(dirname(dirname(__DIR__)) . "/classes/autoloader.php");
+		require_once(dirname(dirname(__DIR__)) . "/lib/xsrf.php");
+		require_once ("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 		//start the session and create a XSRF token
 		if(session_status() !== PHP_SESSION_ACTIVE) {
@@ -34,8 +34,8 @@
 
 			//sanitize inputs
 			$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
-			$id = filter_input(INPUT_GET, "listingId", FILTER_VALIDATE_INT);
-			$id = filter_input(INPUT_GET, "orgId", FILTER_VALIDATE_INT);
+			$listingId = filter_input(INPUT_GET, "listingId", FILTER_VALIDATE_INT);
+			$orgId = filter_input(INPUT_GET, "orgId", FILTER_VALIDATE_INT);
 			//make sure the id is valid for methods that requier it.
 			if(($method === "DELETE" || $method === "PUT") && (empty ($id) === true || $id < 0)) {
 				throw(new InvalidArgumentException("id cannot be empty or negative", 405));
@@ -50,7 +50,7 @@
 			//should already have checked if they're a volunteer, so another check here would ne redundant
 			if($method === "GET") {
 				//set XSRF cookie
-				setXrftCookie("/");
+				setXsrfCookie("/");
 				//get the organization based on the given field
 				if(empty($id) === false) {
 					$reply->data = Message::getMessageByMessageId($pdo, $Id)->toArray();
@@ -58,42 +58,51 @@
 					$reply->data = Message::getMessageByListingId($pdo, $listingId)->toArray();
 				} else if(empty ($orgId) === false) {
 					$reply->data = Message::getMessageByOrgId($pdo, $orgId)->toArray();
+				} else{
+					$reply->data = Message::getAllMessages($pdo)->toArray();
 				}
 			}
 
 			//if the session belongs to an Administrator, Allow; post, put and delete methods
 			if(empty($_SESSION["volunteer"]) === false && $_SESSION["volunteer"]->getVolIsAdmin() === true) {
 
-				if($method === "put" || $method === "POST") {
+				if($method === "PUT" || $method === "POST") {
 
 					verifyXsrf();
 					$requestContent = file_get_contents("php://input");
 					$requestObject = json_decode($requestContent);
 
 					//make sure all fields are present, in order to prevent database issues
-					if(empty($requestObject->)) ;
-					//------------did not add-----------//
-				}
-
-
-				//perform the actual put or post
-				if($method === "PUT") {
-					$message = Message::getMessageByMessageId($pdo, $id);
-					if($message === null) {
-						throw(new RuntimeException("Message does not exist", 404));
+					if(empty($requestObject->listingId) === true) {
+						throw(new InvalidArgumentException ("Listing Id cannot be empty",405 ));
+					}
+					if(empty($requestContent->orgId) === true) {
+						throw(new InvalidArgumentException ("Organization Id cannot be empty",) );
+					}
+					if(empty($requestContent->messageText) === true) {
+						throw(new InvalidArgumentException("Message field cannot be empty",405 ))
 					}
 
-					$message = new Message($id, $requestObject->listingId, $requestObject->orgId);
-					$message->update($pdo);
+					//perform the actual put or post
+					if($method === "PUT") {
+						$message = Message::getMessageByMessageId($pdo, $id);
+						if($message === null) {
+							throw(new RuntimeException("Message does not exist", 404));
+						}
 
-					$reply->message = "Message updated Ok";
+						$message = new Message($id, $requestObject->listingId, $requestObject->orgId);
+						$message->update($pdo);
 
-				} else if($method === "POST") {
-					$message = new Message(null, $requestObject->listingId, $requestObject->orgId);
-					$message->insert($pdo);
+						$reply->message = "Message updated Ok";
 
-					$reply->message = "Message created ok";
+					} else if($method === "POST") {
+						$message = new Message(null, $requestObject->listingId, $requestObject->orgId);
+						$message->insert($pdo);
+
+						$reply->message = "Message created ok";
+					}
 				}
+
 
 			} else if($method === "DELETE") {
 				verifyXsrf();
