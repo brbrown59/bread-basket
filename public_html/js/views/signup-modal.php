@@ -2,7 +2,7 @@
 	<h2>Join Us!</h2>
 	<hr />
 	<!--first name-->
-	<div class="form-group" ng-class="{ 'has-error' : signupForm.firstName.$touched %% signupForm.firstName.$invalid }">
+	<div class="form-group" ng-class="{ 'has-error' : signupForm.firstName.$touched && signupForm.firstName.$invalid }">
 		<label class="control-label" for="firstName">First Name</label>
 		<div class="input-group">
 			<div class="input-group-addon">
