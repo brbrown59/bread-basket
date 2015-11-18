@@ -68,11 +68,8 @@ $ANGULAR_VERSION = "1.4.7";
 						<!--nav links are grouped together here-->
 						<div class="collapse navbar-collapse navbar-right" id="my-navbar">
 							<ul class="nav navbar-nav">
-								<li><a href="#">Home</a></li>
-								<li><a href="#">Listings</a></li>
-								<li><a href="#">Profile</a></li>
-								<li><a href="#">Volunteers</a> </li>
-								<li><a href="#">Help</a></li>
+								<li><a href="#">Login</a></li>
+								<li ng-controller="SignupController" ng-click="openSignupModal();"><a href="#">Sign Up</a></li>
 							</ul>
 						</div>
 					</nav>
