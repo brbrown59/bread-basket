@@ -24,7 +24,7 @@ try {
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/breadbasket.ini");
 
 	//temporary test field: please remove later
-	$_SESSION["volunteer"] = Volunteer::getVolunteerByVolId($pdo, 45);
+	$_SESSION["volunteer"] = Volunteer::getVolunteerByVolId($pdo, 146);
 
 	//if the volunteer session is empty, the user is not logged in, throw an exception
 	if(empty($_SESSION["volunteer"]) === true) {
