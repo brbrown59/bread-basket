@@ -2,7 +2,7 @@
 	<form id="signinForm" name="signinForm">
 		<h2>Welcome Back!</h2>
 		<hr />
-		<div class="form-group" ng-class="{ 'has-error': signinForm.email.$touched && signinForm.email.$invalid }">
+		<div class="form-group form-group-lg" ng-class="{ 'has-error': signinForm.email.$touched && signinForm.email.$invalid }">
 			<label class="control-label" for="email">Email</label>
 			<div class="input-group">
 				<div class="input-group-addon">
@@ -15,7 +15,7 @@
 				<p ng-message="required">Please enter your Email.</p>
 			</div>
 		</div>
-		<div class="form-group" ng-class="{ 'has-error': signinForm.password.$touched && signinForm.password.$invalid }">
+		<div class="form-group form-group-lg" ng-class="{ 'has-error': signinForm.password.$touched && signinForm.password.$invalid }">
 			<label class="control-label" for="password">Password</label>
 			<div class="input-group">
 				<div class="input-group-addon">

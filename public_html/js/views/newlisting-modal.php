@@ -1,11 +1,11 @@
 <div class="modal-body">
-	<form class="form-horizontal well" id="listingForm" name="listingForm">
+	<form id="listingForm" name="listingForm">
 		<h2>Post New Listing</h2>
 		<hr />
 		<p>Please include a pickup time and approximate size of donation in description. <br> Thank you for donating!</p>
 		<!--begin new listing-->
 		<!--memo-->
-		<div class="form-group" ng-class="{ 'has-error' : listingForm.memo.$touched && listingForm.memo.$invalid }">
+		<div class="form-group form-group-lg" ng-class="{ 'has-error' : listingForm.memo.$touched && listingForm.memo.$invalid }">
 			<label class="control-label" for="memo">Description</label>
 			<div class="input-group">
 				<div class="input-group-addon">
@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<!--cost and type-->
-			<div class="form-group" ng-class="{ 'has-error' : listingForm.cost.$touched && listingForm.cost.$invalid }">
+			<div class="form-group form-group-lg" ng-class="{ 'has-error' : listingForm.cost.$touched && listingForm.cost.$invalid }">
 				<label class="control-label" for="cost">Estimated Cost</label>
 				<div class="input-group">
 					<div class="input-group-addon">
