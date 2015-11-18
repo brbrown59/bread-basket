@@ -2,8 +2,9 @@
 	<h2>Join Us!</h2>
 	<hr />
 	<!--first name-->
-	<div class="form-group" ng-class="{ 'has-error' : signupForm.firstName.$touched && signupForm.firstName.$invalid }">
-		<label class="control-label" for="firstName">First Name</label>
+	<label class="control-label" for="name">Name</label>
+	<div class="form-inline" ng-class="{ 'has-error' : signupForm.firstName.$touched && signupForm.firstName.$invalid }">
+		<label class="control-label sr-only" for="firstName">First Name</label>
 		<div class="input-group">
 			<div class="input-group-addon">
 				<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -13,19 +14,16 @@
 		<div class="alert alert-danger" role="alert" ng-messages="signupForm.firstName.$error" ng-if="signupForm.firstName.$touched" ng-hide="signupForm.firstName.$valid">
 			<p ng-message="required">Please enter your first name</p>
 		</div>
-	</div>
-	<!--last name-->
-	<div class="form-group" ng-class="{ 'has error' : signupForm.lastName.$touched && signupForm.lastName.$invalid }">
-		<label class="control-label" for="lastName">Last Name</label>
-		<div class="input-group">
-			<div class="input-group-addon">
-				<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+		<!--last name-->
+
+			<label class="control-label sr-only" for="lastName">Last Name</label>
+			<div class="input-group">
+				<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" ng-model="signupData.lastName" ng-required="true"/>
 			</div>
-			<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" ng-model="signupData.lastName" ng-required="true"/>
-		</div>
-		<div class="alert alert-danger" role="alert" ng-messages="signupForm.lastName.$error" ng-if="signupForm.lastName.$touched" ng-hide="signupForm.lastName.$valid">
-			<p ng-message="required">Please enter your last name</p>
-		</div>
+			<div class="alert alert-danger" role="alert" ng-messages="signupForm.lastName.$error" ng-if="signupForm.lastName.$touched" ng-hide="signupForm.lastName.$valid">
+				<p ng-message="required">Please enter your last name</p>
+			</div>
+
 	</div>
 	<!--email-->
 	<div class="form-group" ng-class="{ 'has-error': signupForm.email.$touched && signupForm.email.$invalid }">

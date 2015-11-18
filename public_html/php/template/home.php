@@ -41,6 +41,9 @@ $ANGULAR_VERSION = "1.4.7";
 		<script type="text/javascript" src="../../js/controllers/tabs.js"></script>
 		<script type="text/javascript" src="../../js/controllers/signup-modal.js"></script>
 		<script type="text/javascript" src="../../js/controllers/signup-controller.js"></script>
+		<script type="text/javascript" src="../../js/controllers/signin-controller.js"></script>
+		<script type="text/javascript" src="../../js/controllers/signin-modal.js"></script>
+
 
 
 		<title>Bread Basket Home</title>
@@ -68,7 +71,7 @@ $ANGULAR_VERSION = "1.4.7";
 						<!--nav links are grouped together here-->
 						<div class="collapse navbar-collapse navbar-right" id="my-navbar">
 							<ul class="nav navbar-nav">
-								<li><a href="#">Login</a></li>
+								<li ng-controller="SigninController" ng-click="openSigninModal();"><a href="#">Login</a></li>
 								<li ng-controller="SignupController" ng-click="openSignupModal();"><a href="#">Sign Up</a></li>
 							</ul>
 						</div>
