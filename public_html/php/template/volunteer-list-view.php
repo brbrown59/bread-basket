@@ -31,8 +31,8 @@
 		<script type="text/javascript" src="../../js/angular-password.min.js"></script>
 		<script type="text/javascript" src="../../js/breadbasket.js"></script>
 		<script type="text/javascript" src="../../js/controllers/tabs.js"></script>
-		<script type="text/javascript" src="../../js/controllers/newlisting-modal.js"></script>
-		<script type="text/javascript" src="../../js/controllers/newlisting-controller.js"></script>
+		<script type="text/javascript" src="../../js/controllers/newvolunteer-controller.js"></script>
+		<script type="text/javascript" src="../../js/controllers/newvolunteer-modal.js"></script>
 
 
 		<title>All Volunteers</title>
@@ -74,9 +74,11 @@
 				<!--this container houses the h1 tag/headline and the back to listing button-->
 				<div class="container">
 					<div class="row">
-						<div class="col-md-12" ng-controller="NewListingController">
+						<div class="col-md-4">
 							<h1 class="inline">All Volunteers</h1>
-							<button class="btn btn-info pull-right" ng-click="openListingModal();">New Listing</button>
+						</div>
+						<div class="col-md-8" ng-controller="NewVolunteerController">
+							<button class="btn btn-info" ng-click="openVolunteerModal();">New Volunteer</button>
 						</div>
 					</div>
 				</div>
@@ -84,12 +86,12 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
-							<table class="table table-responsive table-striped table-hover">
-								<tr>
-									<td><h3>Name</h3></td>
-									<td><h3>Email</h3></td>
-									<td><h3>Phone</h3></td>
-								</tr>
+							<table class="table table-striped table-hover table-condensed">
+								<thead>
+									<th>Name</th>
+									<th>Email</th>
+									<th>Phone</th>
+								</thead>
 								<tr class="info">
 									<td>Kathryn Janeway</td>
 									<td>captain@voyager.com</td>
