@@ -17,10 +17,8 @@
 		<!--nav links are grouped together here-->
 		<div class="collapse navbar-collapse navbar-right" id="my-navbar">
 			<ul class="nav navbar-nav">
-				<li><a href="#">Login</a> </li>
-				<li><a href="#">Sign Up</a> </li>
 				<li><a href="#">Home</a></li>
-				<li><a href="#">My Organization</a></li>
+				<li><a href="#">Organization</a></li>
 				<li><a href="#">Listings</a></li>
 				<li><a href="#">Volunteers</a> </li>
 				<li><a href="#">Help</a></li>
