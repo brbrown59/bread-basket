@@ -1,3 +1,16 @@
+
+<?php
+/*grab current directory*/
+$CURRENT_DIR = __DIR__;
+/*set page title here*/
+$PAGE_TITLE = "All Listings";
+/*load head-utils.php*/
+require_once("utilities.php");
+?>
+
+<!-- HTML/PAGE CONTENT GOES HERE -->
+
+
 <!DOCTYPE html>
 <html lang="en" ng-app="BreadBasket">
 	<head>
