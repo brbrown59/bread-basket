@@ -1,5 +1,13 @@
 <!--current utilities for each page-->
-<?php session_start(); ?>
+
+<?php
+//start the session and create a XSRF token
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
+verifyXsrf();
+?>
+
 <!DOCTYPE html>
 <html lang="en" ng-app="BreadBasket">
 	<head>
