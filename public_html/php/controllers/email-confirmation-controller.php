@@ -16,11 +16,6 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 //composer for Swiftmailer
 require_once(dirname(dirname(dirname(__DIR__))) . "/vendor/autoload.php");
 
-//start the session and create a XSRF token
-if(session_status() !== PHP_SESSION_ACTIVE) {
-	session_start();
-}
-verifyXsrf();
 
 // prepare default error message
 $reply = new stdClass();
@@ -34,18 +29,20 @@ try {
 	//do I need to pull the JSON data here? If not how do I pull the data?
 
 	//pull activation from email. Will this work? If not throw an exception
-	if($volEmailActivation) {
-		// he
+	if(!isset($_GET["emailActivation"])) {
+
+		$volEmailActivation = $_GET["emailActivation"]; // I don't think this is right
+		$volunteer = Volunteer::getVolunteerByVolEmailActivation($pdo, $volEmailActivation);
+
+		if(empty($volunteer === true)) {
+			throw (new InvalidArgumentException("Activation code has been activated or does not exist"));
+		} else {
+			$volunteer->setVolEmailActivation(null);
+			$volunteer->update($pdo);
+		}
+
+		$reply->message = "Congratulations, your account has been activated!";
 	}
-
-	$volEmailActivation = $_GET["activation"]; // I don't think this is right
-	$resultObject = Volunteer::getVolunteerByVolEmailActivation($pdo, $volEmailActivation);
-
-	if(empty($resultObject ===true)) {
-		throw (new InvalidArgumentException("Activation code has been activated or does not exist"));
-	}
-
-	$reply->message = "Congratulations your account has been activated!";
 } catch (Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
