@@ -34,7 +34,13 @@
 		<script type="text/javascript" src="../../js/breadbasket.js"></script>
 		<script type="text/javascript" src="../../js/controllers/tabs.js"></script>
 		<script type="text/javascript" src="../../js/controllers/signup-modal.js"></script>
+		<script type="text/javascript" src="../../js/controllers/signin-modal.js"></script>
+		<script type="text/javascript" src="../../js/controllers/newvolunteer-modal.js"></script>
+		<script type="text/javascript" src="../../js/controllers/newlisting-modal.js"></script>
 		<script type="text/javascript" src="../../js/controllers/signup-controller.js"></script>
+		<script type="text/javascript" src="../../js/controllers/signin-controller.js"></script>
+		<script type="text/javascript" src="../../js/controllers/newvolunteer-controller.js"></script>
+		<script type="text/javascript" src="../../js/controllers/newlisting-controller.js"></script>
 
 		<title><?php echo $PAGE_TITLE; ?></title>
 	</head>
