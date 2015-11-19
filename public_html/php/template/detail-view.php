@@ -162,13 +162,7 @@
 				</div>
 
 			</main>
-			<!--footer-->
-			<footer>
-				<div class="container-fluid">
-				</div>
-			</footer>
 		</div>
-
 
 	</body>
 </html>

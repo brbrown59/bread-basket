@@ -97,26 +97,11 @@
 									<td>captain@voyager.com</td>
 									<td>(505) 867-5309</td>
 								</tr>
-
 							</table>
 						</div>
 					</div>
 				</div>
-
-
 			</main>
-			<!--footer-->
-			<footer>
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-md-12">
-							IMMA FOOTER
-						</div>
-					</div>
-				</div>
-			</footer>
 		</div>
-
-
 	</body>
 </html>

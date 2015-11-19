@@ -119,32 +119,35 @@
 				<input type="text" class="form-control" id="address2" name="address2" placeholder="Address 2" ng-model="signupData.address2" ng-required="false" />
 			</div>
 		</div>
-		<!--city-->
-		<div class="form-group" ng-class="{ 'has-error': signupForm.city.$touched && signupForm.city.$invalid }">
-			<label class="control-label" for="city">City</label>
-			<div class="input-group">
-				<select  class="form-control" id="city" name="city" ng-model="signupData.city" ng-required="true">
-					<option>Albuquerque</option>
-				</select>
+			<!--city-->
+		<div class="form-inline">
+			<div class="form-group" ng-class="{ 'has-error': signupForm.city.$touched && signupForm.city.$invalid }">
+				<label class="control-label" for="city">City</label>
+				<div class="input-group">
+					<select  class="form-control" id="city" name="city" ng-model="signupData.city" ng-required="true">
+						<option>Albuquerque</option>
+					</select>
+				</div>
 			</div>
-		</div>
-		<!--state-->
-		<div class="form-group" ng-class="{ 'has-error': signupForm.state.$touched && signupForm.state.$invalid }">
-			<label class="control-label" for="state">State</label>
-			<div class="input-group">
-				<select  class="form-control" id="state" name="state" ng-model="signupData.state" ng-required="true">
-					<option>NM</option>
-				</select>
+			<!--state-->
+			<div class="form-group" ng-class="{ 'has-error': signupForm.state.$touched && signupForm.state.$invalid }">
+				<label class="control-label" for="state">State</label>
+				<div class="input-group">
+					<select  class="form-control" id="state" name="state" ng-model="signupData.state" ng-required="true">
+						<option>NM</option>
+					</select>
+				</div>
 			</div>
-		</div>
-		<!--zip-->
-		<div class="form-group" ng-class="{ 'has-error': signupForm.zip.$touched && signupForm.zip.$invalid }">
-			<label class="control-label" for="zip">Zip 2</label>
-			<div class="input-group">
+			<!--zip-->
+			<div class="form-group" ng-class="{ 'has-error': signupForm.zip.$touched && signupForm.zip.$invalid }">
+				<label class="control-label" for="zip">Zip</label>
+				<div class="input-group">
 
-				<input type="text" class="form-control" id="zip" name="zip" placeholder="Zip " ng-model="signupData.zip" ng-required="true" />
+					<input type="text" class="form-control" id="zip" name="zip" placeholder="Zip " ng-model="signupData.zip" ng-required="true" />
+				</div>
 			</div>
 		</div>
+		<br /><br />
 		<!--phone number-->
 		<div class="form-group" ng-class="{ 'has-error': signupForm.orgPhone.$touched && signupForm.orgPhone.$invalid }">
 			<label class="control-label" for="orgPhone">Organization Phone</label>

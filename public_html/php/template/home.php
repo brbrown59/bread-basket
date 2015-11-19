@@ -140,8 +140,6 @@ $ANGULAR_VERSION = "1.4.7";
 						</div>
 					</div>
 				</div>
-
-
 			</main>
 
 		</div>
