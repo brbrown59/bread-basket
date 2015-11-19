@@ -46,6 +46,5 @@
 	</head>
 		<body>
 
-		</body>
-</html>
+
 
