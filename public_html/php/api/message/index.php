@@ -6,9 +6,9 @@
  */
 
 		//grab the class under scrutiny
-		require_once(dirname(dirname(__DIR__)) . "/classes/autoloader.php");
-		require_once(dirname(dirname(__DIR__)) . "/lib/xsrf.php");
-		require_once ("/etc/apache2/capstone-mysql/encrypted-config.php");
+require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
+require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 		//start the session and create a XSRF token
 		if(session_status() !== PHP_SESSION_ACTIVE) {
@@ -23,6 +23,9 @@
 		try {
 			//grab the mySQL connection
 			$pdo = connectToEncryptedMySQL("/etc/apache/capstone-mysql/breadbasket.ini");
+
+			//temporary test field: please remove later
+			$_SESSION["volunteer"] = Volunteer::getVolunteerByVolId($pdo, 146);
 
 			//if the volunteer session is empty, the user is not logged in, throw an exception
 			if(empty($_SESSION["volunteer"]) === true) {

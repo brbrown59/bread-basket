@@ -9,12 +9,14 @@ class OrganizationApiTest {
 
 	public function setUp() {
 		// visit ourselves to get the cookie
+		//for now, going to assume that the cookie is automagically handled
 		$this->guzzle = $client = new \GuzzleHttp\Client(["cookies" => true]);
-		$this->guzzle->request("GET, "https://bootcamp-coders.cnm.edu/");
+		$this->guzzle->request("GET", "https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization");
+
 
 	}
 
-	public function testValidGet() {
-
-	}
 }
+
+$test = new OrganizationApiTest();
+$test->setUp();
