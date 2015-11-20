@@ -1,5 +1,5 @@
 <div class="modal-body">
-	<form class="form-horizontal well" id="volunteerForm" name="volunteerForm">
+	<form id="volunteerForm" name="volunteerForm">
 		<h3>Create New Volunteer</h3>
 		<hr/>
 		<!--begin new volunteer-->

@@ -24,7 +24,7 @@ require_once("header.php");
 				<div class="container">
 					<div class="row">
 						<div class="col-xs-3">
-							<button class="btn btn-default btn-lg">Back</button>
+							<a class="btn btn-default btn-lg" href="login-landing-page.php" role="button">Back</a>
 						</div>
 						<div class="col-xs-3" ng-controller="NewVolunteerController">
 							<button class="btn btn-info btn-lg" ng-click="openVolunteerModal();">New Volunteer</button>
