@@ -12,7 +12,8 @@ $ROOT_DEPTH = substr_count($ROOT_PATH, "/");
 $DEPTH_DIFFERENCE = $CURRENT_DEPTH - $ROOT_DEPTH;
 $PREFIX = str_repeat("../", $DEPTH_DIFFERENCE);
 
-require_once(dirname(__DIR__) . "/lib/xsrf.php");
+
+require_once($PREFIX . "php/lib/xsrf.php");
 //start the session and create a XSRF token
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
