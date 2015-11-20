@@ -2,7 +2,7 @@
 	<testsuites>
 		<testsuite name="Bread Basket">
 			<!--<directory suffix="-test.php">.</directory>-->
-			<file>volunteer-test.php</file>
+			<file>org-api-test.php</file>
 		</testsuite>
 	</testsuites>
 	<filter>
