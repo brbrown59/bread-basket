@@ -17,6 +17,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
+verifyXsrf();
 
 // prepare default error message
 $reply = new stdClass();

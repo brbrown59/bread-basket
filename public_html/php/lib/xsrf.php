@@ -63,7 +63,7 @@ function verifyXsrf() {
 	// grab the XSRF token sent by Angular, jQuery, or JavaScript in the header
 	$headers = apache_request_headers();
 	if(array_key_exists("X-XSRF-TOKEN", $headers) === false) {
-		throw(new InvalidArgumentException("invalid XSRF token", 401));
+		throw(new InvalidArgumentException("XSRF token doesn't exist", 401));
 	}
 	$angularHeader = $headers["X-XSRF-TOKEN"];
 	// compare the XSRF token from the header with the correct token in the session
