@@ -28,10 +28,10 @@ try {
 
 	//do I need to pull the JSON data here? If not how do I pull the data?
 
-	//pull activation from email. Will this work? If not throw an exception
+	//pull activation from email. Will this work? If not throw an exception todo check !OK
 	if(!isset($_GET["emailActivation"])) {
 
-		$volEmailActivation = $_GET["emailActivation"]; // I don't think this is right
+		$volEmailActivation = $_GET["emailActivation"];
 		$volunteer = Volunteer::getVolunteerByVolEmailActivation($pdo, $volEmailActivation);
 
 		if(empty($volunteer === true)) {

@@ -16,12 +16,6 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 //composer for Swiftmailer
 require_once(dirname(dirname(dirname(__DIR__))) . "/vendor/autoload.php");
 
-//start the session and create a XSRF token
-if(session_status() !== PHP_SESSION_ACTIVE) {
-	session_start();
-}
-verifyXsrf();
-
 // prepare default error message
 $reply = new stdClass();
 $reply->status = 200;
@@ -55,7 +49,7 @@ try {
 	$organization->insert($pdo);
 	$reply->message = "New organization has been created";
 
-	//create a new Volunteer and insert into mySQL ToDo Will this get orgId work?
+	//create a new Volunteer and insert into mySQL
 	$volunteer = new Volunteer(null, $organization->getOrgId(), $requestObject->volEmail, $volEmailActivation, $requestObject->volFirstName, $volHash, true, $requestObject->volLastName, $requestObject->volPhone, $volSalt);
 	$volunteer->insert($pdo);
 	$reply->message = "A new administrator has been created";
