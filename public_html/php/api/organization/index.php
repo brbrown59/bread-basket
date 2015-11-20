@@ -52,6 +52,7 @@ try {
 	if($method === "GET") {
 		//set XSRF cookie
 		setXsrfCookie("/");
+
 		//get the organization based on the given field
 		if(empty($id) === false) {
 			$reply->data = Organization::getOrganizationByOrgId($pdo, $id);
