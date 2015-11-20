@@ -19,16 +19,24 @@ require_once("header.php");
 					<div class="row">
 						<div class="col-md-12">
 							<h1>Details</h1>
-							<button type="button" class="btn btn-default">
-								<a href="listing-view.php">
-									<span class="glyphicon glyphicon-triangle-left"></span>
-									All Listings
-								</a>
-							</button>
 						</div>
 					</div>
 				</div>
-				<hr>
+				<hr />
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-3">
+							<button class="btn btn-default btn-lg">Back</button>
+						</div>
+						<div class="col-xs-3">
+							<button class="btn btn-warning btn-lg">Edit</button>
+						</div>
+						<div class="col-xs-3">
+							<button class="btn btn-danger btn-lg">Delete</button>
+						</div>
+					</div>
+				</div>
+				<hr />
 				<!--this container houses the small details about the listing, perishable, datetime, open or closed, and esitmated cost-->
 				<div class="container">
 					<div class="row">
@@ -106,13 +114,14 @@ require_once("header.php");
 						</div>
 					</div>
 				</div>
+				<!--claim buttons-->
 				<div class="container">
 					<div class="row row-padding">
 						<div class="col-sm-6 text-center">
-							<button class="btn btn-success btn-lg ">Claim Listing</button>
+							<button class="btn btn-success btn-lg btn-block ">Claim Listing</button>
 						</div>
 						<div class="col-sm-6 text-center">
-							<button class="btn btn-danger btn-lg ">Cancel Claim</button>
+							<button class="btn btn-danger btn-lg btn-block">Cancel Claim</button>
 						</div>
 					</div>
 				</div>

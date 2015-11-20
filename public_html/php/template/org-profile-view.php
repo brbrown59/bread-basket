@@ -18,84 +18,65 @@ require_once("header.php");
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h1 class="inline">My Organization</h1>
-				<button type="button" class="btn btn-default pull-right">
-					<a href="">
-						<span class="glyphicon glyphicon-triangle-left"></span>
-						Back
-					</a>
-				</button>
+				<h1>My Organization</h1>
 			</div>
 		</div>
 	</div>
-	<hr>
-	<!--this container houses the small details about the listing, perishable, datetime, open or closed, and esitmated cost-->
+	<hr />
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-3">
+				<button class="btn btn-default btn-lg">Back</button>
+			</div>
+			<div class="col-xs-3">
+				<button class="btn btn-warning btn-lg">Edit</button>
+			</div>
+			<div class="col-xs-3">
+				<button class="btn btn-danger btn-lg">Delete</button>
+			</div>
+		</div>
+	</div>
+	<hr />
+	<!--hours, phone, org description-->
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
 				<div class="text-box">
-					<h3><span class="glyphicon glyphicon-ok"></span> Open</h3>
+					<h3><span class="glyphicon glyphicon-phone"></span> (505)-333-4444</h3>
+					<h4>Extentions: #555</h4>
+
 				</div>
 			</div>
 			<div class="col-md-3">
 				<div class="text-box">
-					<h3><span class="glyphicon glyphicon-list-alt"></span> Perishable</h3>
+					<h3><span class="glyphicon glyphicon-time"></span> 9am-5pm</h3>
 				</div>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-6">
 				<div class="text-box">
-					<h3><span class="glyphicon glyphicon-calendar"></span> 11/11/22 14:45</h3>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="text-box">
-					<h3><span class="glyphicon glyphicon-usd"></span> 1,000,000,000</h3>
+					<h3><span class="glyphicon glyphicon-home"></span> Address</h3>
+					<address>
+						<strong>Hippy Grocery</strong><br>
+						123 Street NE<br>
+						Albuquerque<br>
+						NM<br>
+						87106<br>
+					</address>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!--this container houses the memo and organization information-->
+	<!--address-->
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6">
 				<div class="text-box">
-					<h3><span class="glyphicon glyphicon-send"></span> Memo</h3>
-					<p>MEMO TEXT Offal ethical tacos, iPhone migas neutra vice yr freegan green juice williamsburg bicycle rights cardigan pork belly.
-						Retro poutine irony chartreuse craft beer you probably haven't heard of them. Polaroid vice chicharrones, whatever tacos PBR&B
-						umami single-origin coffee gluten-free mixtape portland. Readymade vegan pop-up, pug scenester hammock 8-bit flexitarian master cleanse.
+					<h3><span class="glyphicon glyphicon-pencil"></span> Description</h3>
+					<p>Shields up. I recommend we transfer power to phasers and arm the photon torpedoes. Something strange on the detector circuit.
+						The weapons must have disrupted our communicators. You saw something as tasty as meat, but inorganically materialized out of
+						patterns used by our transporters. Captain, the most elementary and valuable statement in science, the beginning of wisdom, is
+						'I do not know.' All transporters off.
 					</p>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="text-box">
-					<h3><span class="glyphicon glyphicon-home"></span> Hippy Grocery</h3>
-					<div class="col-md-4">
-						<h5>Address</h5>
-						<p>123 Street NE</p>
-						<p>Albuquerque</p>
-						<p>NM</p>
-						<p>87106</p>
-					</div>
-					<div class="col-md-4">
-						<h5>Contact</h5>
-						<p>Kathryn Janeway</p>
-						<p>(505) 333-4444 ext. 555</p>
-					</div>
-					<div class="col-md-4">
-						<h5>Hours</h5>
-						<p>9am-5pm</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!--this container houses the picture and google api location-->
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6">
-				<div class="text-box">
-					<h3><span class="glyphicon glyphicon-picture"></span> Picture</h3>
-					<img class="img-responsive" src="../../img/grapefruit.jpg" alt="picture of donation"/>
 				</div>
 			</div>
 			<div class="col-md-6">
@@ -103,16 +84,6 @@ require_once("header.php");
 					<h3><span class="glyphicon glyphicon-pushpin"></span> Location</h3>
 					<img class="img-responsive" src="../../img/map-placeholder.png" alt="picture of donation"/>
 				</div>
-			</div>
-		</div>
-	</div>
-	<div class="container">
-		<div class="row row-padding">
-			<div class="col-sm-6 text-center">
-				<button class="btn btn-success btn-lg ">Claim Listing</button>
-			</div>
-			<div class="col-sm-6 text-center">
-				<button class="btn btn-danger btn-lg ">Cancel Claim</button>
 			</div>
 		</div>
 	</div>

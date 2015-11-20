@@ -19,11 +19,12 @@ require_once("header.php");
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h1 class="inline">All Listings</h1>
+				<h1>All Listings</h1>
 			</div>
 		</div>
 	</div>
 	<hr />
+	<!--starts buttons-->
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-3">
@@ -35,6 +36,7 @@ require_once("header.php");
 		</div>
 	</div>
 	<hr />
+	<!--starts table-->
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
@@ -43,11 +45,18 @@ require_once("header.php");
 						<th>Location</h3></th>
 						<th>Description</th>
 						<th>Date Posted</th>
+						<th>Actions</th>
 					</thead>
 					<tr class="success">
 						<td>Hippy Grocery</td>
 						<td>Grapefruits! So many grapefruits!</td>
 						<td>11/11/22 14:25</td>
+						<td>
+							<button class="btn btn-info" ng-click="setEditedVolunteer(volunteer);"><i class="fa fa-pencil"></i></button>
+							<form class="inline" ng-submit="deleteVolunteer(volunteer.volunteerId);">
+								<button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+							</form>
+						</td>
 					</tr>
 
 				</table>
