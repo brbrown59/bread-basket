@@ -23,7 +23,7 @@ $reply->status = 200;
 $reply->message = null;
 
 try {
-	// grab the my SQL connection
+	//grab the mySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/breadbasket.ini");
 
 	//do I need to pull the JSON data here? If not how do I pull the data?

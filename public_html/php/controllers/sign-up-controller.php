@@ -86,15 +86,15 @@ try {
 	 * who aren't viewing HTML content in Emails still access your links
 	 **/
 
-	// link to a SIBLING file that confirms
+	// building the activation link that can travel to another server and still work. This is the link that will be clicked to confirm the account.
 	$lastSlash = strrpos($_SERVER["SCRIPT_NAME"], "/");
 	$basePath = substr($_SERVER["SCRIPT_NAME"], 0, $lastSlash + 1);
 	$urlglue = $basePath . "confirmation.php?emailActivation=" . $volEmailActivation;
 
 	$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
 	$message = <<< EOF
-<h1>Thank you for signing up for Bread Basket</h1>
-<p>Thank you for registering for the Bread Basket program. Visit the following URL to complete the registration process for your organization: </p>
+<h1>Thank you for registering for the Bread Basket program</h1>
+<p>Visit the following URL to confirm you email and complete the registration process for your organization: </p>
 <a href="$confirmLink">$confirmLink</a></p>
 EOF;
 	$swiftMessage->setBody($message, "text/html");
