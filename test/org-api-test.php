@@ -5,18 +5,79 @@ require_once dirname(__DIR__) . "/vendor/autoload.php";
 require_once dirname(__DIR__) . "/public_html/php/classes/autoloader.php";
 
 class OrganizationApiTest extends BreadBasketTest {
-
-
-
+	/**
+	 * valid organization address first line to use
+	 * @var String $VALID_ADDRESS1
+	 */
+	protected $VALID_ADDRESS1 = "123 Easy Street";
+	/**
+	 * valid organization address second line to use
+	 * @var String $VALID_ADDRESS2
+	 */
+	protected $VALID_ADDRESS2 = "Suite 456";
+	/**
+	 * valid organization city to use
+	 * @var String $VALID_CITY
+	 */
+	protected $VALID_CITY = "Albuquerque";
+	/**
+	 * valid organization description to use
+	 * @var String $VALID_DESCRIPTION
+	 */
+	protected $VALID_DESCRIPTION = "Providing food to the most in-need citizens in Albuquerque";
+	/**
+	 * valid organization hours to use
+	 * @var String $VALID_HOURS
+	 */
+	protected $VALID_HOURS = "9:00AM - 5:00PM";
+	/**
+	 * valid organization name to use
+	 * @var String $VALID_NAME
+	 */
+	protected $VALID_NAME = "Feeding Albuquerque";
+	/**
+	 * a second valid organization name to use
+	 * @var String $VALID_NAME2
+	 */
+	protected $VALID_NAME_ALT = "Keeping ABQ Fed";
+	/**
+	 * valid organization phone number to use
+	 * @var String $VALID_PHONE
+	 */
+	protected $VALID_PHONE = "5055551212";
+	/**
+	 * valid organization state code to use
+	 * @var String $VALID_STATE
+	 */
+	protected $VALID_STATE = "NM";
+	/**
+	 * valid organization type to use
+	 * @var String $VALID_TYPE
+	 */
+	protected $VALID_TYPE = "G";
+	/**
+	 * valid organization zip code to use
+	 * @var String $VALID_ZIP
+	 */
+	protected $VALID_ZIP = "87102";
+	/**
+	 * Guzzle client used to peform the tests
+	 * @var GuzzleHttp/Client $guzzle
+	 */
 	protected $guzzle = null;
-
+	/**
+	 * XSRF token retrieved from the server
+	 * @var String $token
+	 */
 	protected $token = null;
 	/**
-	 * @var volunteer object
+	 * vaild admin user to test with
+	 * @var volunteer object $admin
 	 */
 	protected $admin = null;
 	/**
-	 * @var volunteer object
+	 * vaild volunteer user to test with
+	 * @var volunteer object $volunteer
 	 */
 	protected $volunteer = null;
 
@@ -45,11 +106,9 @@ class OrganizationApiTest extends BreadBasketTest {
 
 		// visit ourselves to get the XSRF-TOKEN cookie
 		$this->guzzle = $client = new \GuzzleHttp\Client(["cookies" => true]);
-
 		$output = $this->guzzle->request("GET", 'https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/');
-
 		$cookies = $this->guzzle->getConfig()["cookies"];
-		$token = $cookies->getCookieByName("XSRF-TOKEN");
+		$this->token = $cookies->getCookieByName("XSRF-TOKEN");
 
 	}
 
@@ -57,12 +116,18 @@ class OrganizationApiTest extends BreadBasketTest {
 	public function testValidPost() {
 		//set session to be an admin
 		$_SESSION["volunteer"] = $this->admin;
-		//send organization info to api in a put method (look up the dry method)
-		$output = $this->guzzle->request("PUT", 'https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization');
+		//send organization info to api in a put method, also make sure the cookie is set (how?)
+		$insert = $this->guzzle->request("POST", 'https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization', [
+				'query' => ['name' => $this->VALID_NAME] //this needs all of the fields
+		]);
 
-		//get info from the api, and confirm it matches
-		$output = $this->guzzle->request("GET", 'https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization'); //tack on the id
+		//get info from the api, and confirm it matches the values I fed it
+		$output = $this->guzzle->request("GET", 'https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization', [
+				'query' => ['name' => $this->VALID_NAME]
+		]);
+		$body = $output->getBody(); //get something useful from this
 
+		//actual comparisons here
 	}
 	public function testInvalidPost() {
 		//test to make sure non-admin can't put (same code would execute for put and delete, so test it here and not there)
@@ -70,6 +135,7 @@ class OrganizationApiTest extends BreadBasketTest {
 
 	}
 	public function testValidPut() {
+		//test putting to an organization
 
 	}
 	public function testInvalidPut() {
