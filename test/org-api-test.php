@@ -34,7 +34,7 @@ class OrganizationApiTest extends BreadBasketTest {
 	 * valid organization name to use
 	 * @var String $VALID_NAME
 	 */
-	protected $VALID_NAME = "Feeding Albuquerque";
+	protected $VALID_NAME = "Feed Peeps";
 	/**
 	 * a second valid organization name to use
 	 * @var String $VALID_NAME2
@@ -61,7 +61,7 @@ class OrganizationApiTest extends BreadBasketTest {
 	 */
 	protected $VALID_ZIP = "87102";
 	/**
-	 * Guzzle client used to peform the tests
+	 * Guzzle client used to perform the tests
 	 * @var GuzzleHttp/Client $guzzle
 	 */
 	protected $guzzle = null;
@@ -69,7 +69,7 @@ class OrganizationApiTest extends BreadBasketTest {
 	 * XSRF token retrieved from the server
 	 * @var String $token
 	 */
-	protected $token = null;
+	protected $token;
 	/**
 	 * vaild admin user to test with
 	 * @var volunteer object $admin
@@ -106,7 +106,8 @@ class OrganizationApiTest extends BreadBasketTest {
 
 		// visit ourselves to get the XSRF-TOKEN cookie
 		$this->guzzle = $client = new \GuzzleHttp\Client(["cookies" => true]);
-		$output = $this->guzzle->request("GET", 'https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/');
+		$output = $this->guzzle->request("GET", 'https://bootcamp-coders.cnm.edu/'); //this does not assign an XSRF token if I visit my api
+
 		$cookies = $this->guzzle->getConfig()["cookies"];
 		$this->token = $cookies->getCookieByName("XSRF-TOKEN");
 
@@ -121,20 +122,25 @@ class OrganizationApiTest extends BreadBasketTest {
 		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
 				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
 
-		//encode the object into json, in order to send it via request
+		//encode the newly created object into json, in order to send it via request
+		//might need to get rid of this and let guzzle do the encoding
 		$organization = json_encode($organization);
 
-
 		//send organization info to api in a put method, also make sure the cookie is set
-		//TODO: figure out a. how to send the xsrf token, and b. how to send the body of a request as json
-		$insert = $this->guzzle->request("POST", 'https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization');
+		//TODO: figure out a. how to send the xsrf token in the header (might need an entire jar, with c. included) b. how to send the body of a request as json c. does session need to be set in header?
+		$insert = $this->guzzle->request("POST", 'https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization', [
+				'json' => $organization, //does this work?????
+				'cookies' => $this->token //doesn't work; has to be a "CookieJarInterface"
+		]);
 
 		//get info from the api, and confirm it matches the given values
 		//don't have the id, so use the unique name field
 		$output = $this->guzzle->request("GET", 'https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization', [
 				'query' => ['name' => $this->VALID_NAME]
 		]);
-		$body = $output->getBody(); //get something useful from this
+
+		$body = $output->getBody(); //get something useful from this; turn into an organization object?????
+		//var_dump($body);
 
 		//actual comparisons here
 	}
