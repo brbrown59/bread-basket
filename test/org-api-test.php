@@ -116,12 +116,21 @@ class OrganizationApiTest extends BreadBasketTest {
 	public function testValidPost() {
 		//set session to be an admin
 		$_SESSION["volunteer"] = $this->admin;
-		//send organization info to api in a put method, also make sure the cookie is set (how?)
-		$insert = $this->guzzle->request("POST", 'https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization', [
-				'query' => ['name' => $this->VALID_NAME] //this needs all of the fields
-		]);
 
-		//get info from the api, and confirm it matches the values I fed it
+		//create a new organization to send
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+
+		//encode the object into json, in order to send it via request
+		$organization = json_encode($organization);
+
+
+		//send organization info to api in a put method, also make sure the cookie is set
+		//TODO: figure out a. how to send the xsrf token, and b. how to send the body of a request as json
+		$insert = $this->guzzle->request("POST", 'https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization');
+
+		//get info from the api, and confirm it matches the given values
+		//don't have the id, so use the unique name field
 		$output = $this->guzzle->request("GET", 'https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization', [
 				'query' => ['name' => $this->VALID_NAME]
 		]);
