@@ -23,5 +23,10 @@ try {
 	//create the Pusher connection
 	$config = readConfig("/etc/apache2/capstone-mysql/breadbasket.ini");
 	$pusherConfig = json_decode($config["pusher"]);
-	$pusher = new Pusher($pusherConfig->key, $pusherConfig->secret, $pusherConfig->id ["enrypted" => true]);
+	$pusher = new Pusher($pusherConfig->key, $pusherConfig->secret, $pusherConfig->id, ["encrypted" => true]);
+
+	//determine which HTTP method was used
+	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
+
+	//sanitize the id
 }
