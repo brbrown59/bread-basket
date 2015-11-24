@@ -89,7 +89,7 @@ class OrganizationApiTest extends BreadBasketTest {
 		parent::setUp();
 
 		//create a new organization for the test volunteers to belong
-		$organization = new Organization(null, "123 Easy Street", '', "Albuquerque", "Feeding people since 1987", "9 - 5", "Feed the People", "505-765-4321", "NM", "R", "87801");
+		$organization = new Organization(null, "123 Easy Street", '', "Albuquerque", "Feeding people since 1987", "9 - 5", "Food for Hungry People", "505-765-4321", "NM", "R", "87801");
 		$organization->insert($this->getPDO());
 
 		//create a new volunteer to use as an admin for the tests
@@ -98,29 +98,46 @@ class OrganizationApiTest extends BreadBasketTest {
 		$salt = bin2hex(openssl_random_pseudo_bytes(32));
 		$hash =  hash_pbkdf2("sha512", "password4321", $salt, 262144, 128);
 		$this->admin = new Volunteer(null, $organization->getOrgId(), "fakeemail@fake.com", null, "John", $hash, true, "Doe", "505-123-4567", $salt);
+		$this->admin->insert($this->getPDO());
 
 		//create a non-admin volunteer for the tests
 		$salt = bin2hex(openssl_random_pseudo_bytes(32));
-		$hash =  hash_pbkdf2("sha512", "password4321", $salt, 262144, 128);
+		$hash =  hash_pbkdf2("sha512", "password1234", $salt, 262144, 128);
 		$this->volunteer = new Volunteer(null, $organization->getOrgId(), "notanemail@fake.com", null, "Jane", $hash, false, "Doe", "505-555-5555", $salt);
 
 		//create the guzzle client
 		$this->guzzle = new \GuzzleHttp\Client(["cookies" => true]);
+
+		//visit ourselves to get the xsrf-token
+		$this->guzzle->get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization');
+		$cookies = $this->guzzle->getConfig()["cookies"];
+		$this->token = $cookies->getCookieByName("XSRF-TOKEN")->getValue();
+
+
+		//send a request to the sign-in method
+
+		$adminLogin = new stdClass();
+		$adminLogin->email = "fakeemail@fake.com";
+		$adminLogin->password = "password4321";
+		$login = $this->guzzle->post('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/controllers/sign-in-controller.php', [
+				'json' => $adminLogin,
+				'headers' => ['X-XSRF-TOKEN' => $this->token]
+		]);
 
 	}
 
 
 	//test deleting a valid entry
 	public function testValidDelete() {
+		//set session to be an admin
+		//this needs to be sent with the request, somehow
+		//$_SESSION["volunteer"] = $this->admin;
+
+
 		//create a new organization, and insert into the database
 		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
 				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
 		$organization->insert($this->getPDO());
-
-		//visit ourselves to get the token
-		$this->guzzle->get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization'); //this does not assign an XSRF token if I visit my api
-		$cookies = $this->guzzle->getConfig()["cookies"];
-		$this->token = $cookies->getCookieByName("XSRF-TOKEN");
 
 		// grab the data from guzzle and enforce that the status codes are correct
 		//this directory path's not going to work on anyone else's deployment...
@@ -134,6 +151,7 @@ class OrganizationApiTest extends BreadBasketTest {
 		$this->assertSame(200, $retrievedOrg->status);
 
 	}
+	/*
 	public function testInvalidDelete() {
 		//test to make sure can't delete organization that doesn't exist
 	}
@@ -141,16 +159,11 @@ class OrganizationApiTest extends BreadBasketTest {
 
 	public function testValidPost() {
 		//set session to be an admin
-		$_SESSION["volunteer"] = $this->admin;
+		//$_SESSION["volunteer"] = $this->admin;
 
 		//create a new organization to send
 		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
 				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
-
-		//visit ourselves to get the token
-		$this->guzzle->get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization'); //this does not assign an XSRF token if I visit my api
-		$cookies = $this->guzzle->getConfig()["cookies"];
-		$this->token = $cookies->getCookieByName("XSRF-TOKEN");
 
 		//send organization info to api in a post method, also make sure the cookie is set
 		//TODO: does session info need to be set in header?
@@ -188,6 +201,6 @@ class OrganizationApiTest extends BreadBasketTest {
 	public function testInvalidGet() {
 		//test getting something that doesn't exist
 	}
-
+*/
 
 }

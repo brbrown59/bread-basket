@@ -32,6 +32,7 @@ try {
 	// convert POSTed JSON to an object
 	$requestContent = file_get_contents("php://input");
 	$requestObject = json_decode($requestContent);
+	var_dump($requestObject);
 
 	// sanitize the email & search by volEmail
 	$email = filter_var($requestObject->email, FILTER_SANITIZE_EMAIL);
