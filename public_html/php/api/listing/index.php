@@ -43,6 +43,8 @@ try {
 	$memo= filter_input(INPUT_GET, "memo", FILTER_SANITIZE_STRING);
 	$cost = filter_input(INPUT_GET, "cost", FILTER_VALIDATE_FLOAT);
 	$typeId = filter_input(INPUT_GET, "typeId", FILTER_VALIDATE_INT);
+	$parentId = filter_input(INPUT_GET, "parentId", FILTER_VALIDATE_INT);
+	$postTime = Listing::validateDate($postTime);
 
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySql("/etc/apache2/capstone-mysql/breadbasket.ini");
