@@ -23,9 +23,6 @@ try {
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/breadbasket.ini");
 
-	//temporary test field: please remove later
-	//$_SESSION["volunteer"] = Volunteer::getVolunteerByVolId($pdo, 146);
-
 	//if the volunteer session is empty, the user is not logged in, throw an exception
 	if(empty($_SESSION["volunteer"]) === true) {
 		setXsrfCookie("/");
@@ -47,6 +44,7 @@ try {
 	$state = filter_input(INPUT_GET, "state", FILTER_SANITIZE_STRING);
 	$type = filter_input(INPUT_GET, "type", FILTER_SANITIZE_STRING);
 	$zip = filter_input(INPUT_GET, "zip", FILTER_SANITIZE_STRING);
+
 
 	//handle REST calls, while only allowing administrators access to database-modifying methods
 	//should already have checked if they're a volunteer, so another check here would be redundant

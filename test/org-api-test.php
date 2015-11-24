@@ -157,13 +157,11 @@ class OrganizationApiTest extends BreadBasketTest {
 				['headers' => ['X-XSRF-TOKEN' => $this->token]
 				]);
 
-		//make sure the request returns the proper error code for a failed log-in
+		//make sure the request returns the proper error code for a failed operation
 		$body = $response->getBody();
 		$retrievedOrg = json_decode($body);
 		$this->assertSame(404, $retrievedOrg->status);
 	}
-
-
 
 
 	public function testValidGet() {
@@ -176,43 +174,25 @@ class OrganizationApiTest extends BreadBasketTest {
 
 
 	public function testValidPut() {
-		//create a new organization, and insert into the database
-		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
-				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
-		$organization->insert($this->getPDO());
-
-		//update the organization
-		$organization->setOrgName($this->VALID_NAME_ALT);
-
-		//send the info to update to the API
-		$response = $this->guzzle->put('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization', [
-				'json' => $organization,
-				'headers' => ['X-XSRF-TOKEN' => $this->token]
-		]);
-
-		//ensure the response was sent, and the api returned a positive status
-		$this->assertSame($response->getStatusCode(), 200);
-		$body = $response->getBody();
-		$retrievedOrg = json_decode($body);
-		$this->assertSame(200, $retrievedOrg->status);
-
-		//get the organization from the dB and compare values?
 
 	}
 	public function testInvalidPut() {
 		//test to make sure can't put to an organization that doesn't exist
-		//question: what about the massive if block to check for empty fields?  can't do ALL of them
+
 	}
 
 
 	public function testValidPost() {
+		//get the count of the number of rows in the database
+		$numRows = $this->getConnection()->getRowCount("organization");
 
 		//create a new organization to send
 		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
 				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
 
 		//send organization info to api in a post method, also make sure the cookie is set
-		$response = $this->guzzle->post('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization', [
+		$response = $this->guzzle->request('POST', 'https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization', [
+				'allow_redirects' => ['strict' => true],
 				'json' => $organization,
 				'headers' => ['X-XSRF-TOKEN' => $this->token]
 		]);
@@ -220,11 +200,13 @@ class OrganizationApiTest extends BreadBasketTest {
 		$this->assertSame($response->getStatusCode(), 200);
 		$body = $response->getBody();
 		$retrievedOrg = json_decode($body);
+//
 		$this->assertSame(200, $retrievedOrg->status);
 
-		//retrieve from DB and make sure it matches?
-
+		//ensure a new row was added to the database
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
 	}
+
 	public function testInvalidPost() {
 		//test to make sure non-admin can't post
 		//sign out as an admin, log-in as a volunteer
@@ -235,6 +217,7 @@ class OrganizationApiTest extends BreadBasketTest {
 		$volLogin->email = "notanemail@fake.com";
 		$volLogin->password = "password1234";
 		$login = $this->guzzle->post('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/controllers/sign-in-controller.php', [
+				'allow_redirects' => ['strict' => true],
 				'json' => $volLogin,
 				'headers' => ['X-XSRF-TOKEN' => $this->token]
 		]);
@@ -244,6 +227,7 @@ class OrganizationApiTest extends BreadBasketTest {
 				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
 
 		$response = $this->guzzle->post('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization', [
+				'allow_redirects' => ['strict' => true],
 				'json' => $organization,
 				'headers' => ['X-XSRF-TOKEN' => $this->token]
 		]);
@@ -259,6 +243,5 @@ class OrganizationApiTest extends BreadBasketTest {
 		//make sure 401 error is returned for trying to access an admin method as a volunteer
 		$this->assertSame(401, $retrievedOrg->status);
 	}
-
 
 }
