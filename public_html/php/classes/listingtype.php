@@ -263,4 +263,48 @@ class ListingType implements JsonSerializable {
 		}
 		return $retrievedTypes;
 	}
+
+	/**
+	 * function to retrieve listing types by listing type info
+	 *
+	 * @param PDO $pdo pdo connection object
+	 * @param string $listingTypeInfo listingTypeInfo to search for
+	 * @return mixed organization if found or null if not found
+	 * @throws PDOException if mySQL related errors occur
+	 */
+	public static function getListingByTypeInfo(PDO $pdo, $listingTypeInfo) {
+		//verify that the Info to search for is valid
+		$listingTypeInfo = trim($listingTypeInfo);
+		$listingTypeInfo = filter_var($listingTypeInfo, FILTER_SANITIZE_STRING);
+		if(empty($listingTypeInfo) === true) {
+			throw(new PDOException("listing type info is not a string"));
+		}
+
+		//create query template
+		$query = "SELECT listingTypeId, listingType FROM listingType WHERE listingType LIKE :listingTypeInfo";
+		$statement = $pdo->prepare($query);
+
+		//bind member variables to the placeholders in the template
+		$listingTypeInfo = "%$listingTypeInfo%";
+		$parameters = array("listingTypeInfo" => $listingTypeInfo);
+		$statement->execute($parameters);
+
+		//grab result from mysql
+		try {
+			$listingTypeInfo = null;
+			//set fetch mode to retrieve the result as an array indexed by column name
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+
+			//if fetch successful, store in a new object
+			if($row !== false) {
+				$listingTypeInfo = new ListingType($row["listingTypeId"], $row["listingType"]);
+			}
+		} catch(Exception $exception) {
+			//rethrow the exception if the retrieval failed
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return $listingTypeInfo;
+	}
+
 }

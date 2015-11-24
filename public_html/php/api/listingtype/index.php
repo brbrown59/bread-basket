@@ -27,6 +27,8 @@ try {
 	//if the volunteer session is empty, the user is not logged in, throw an exception
 	if(empty($_SESSION["volunteer"]) === true) {
 		throw(new RuntimeException("Please log-in or sign up", 401));
+		//set XSRF cookie
+		setXsrfCookie("/");
 	}
 
 	//determine which HTTP method was used
@@ -47,14 +49,73 @@ try {
 		//get the listing type based on the given field todo else if is wrong, but I need to know why getListingTypeInfo()
 		if(empty($id) === false) {
 			$reply->data = ListingType::getListingTypeById($pdo, $id);
-		} elseif(empty($info)) {
-			$reply->data = ListingType::getListingTypeInfo($pdo, $info);
 		} else {
 			$reply->data = ListingType::getAllListingTypes($pdo)->toArray();
 		}
 
 	}
-	} catch(Exception $exception) {
+
+	//if the session belongs to an admin, allow post, put, and delete methods
+	if(empty($_SESSION["volunteer"]) === false && $_SESSION["volunteer"]->getVolIsAdmin() === true) {
+
+		if($method === "PUT" || $method === "POST") {
+
+			verifyXsrf();
+			$requestContent = file_get_contents("php://input");
+			$requestObject = json_decode($requestContent);
+
+			//make sure all fields are present, in order to prevent database issues
+			if(empty($requestObject->listingTypeId) === true) {
+				throw(new InvalidArgumentException ("listing type id cannot be empty", 405));
+			}
+
+
+			//perform the actual put or post
+			if($method === "PUT") {
+				$organization = Organization::getOrganizationByOrgId($pdo, $id);
+				if($organization === null) {
+					throw(new RuntimeException("Organization does not exist", 404));
+				}
+
+				$organization = new Organization($id, $requestObject->orgAddress1, $requestObject->orgAddress2, $requestObject->orgCity,
+						$requestObject->orgDescription, $requestObject->orgHours, $requestObject->orgName, $requestObject->orgPhone, $requestObject->orgState,
+						$requestObject->orgType, $requestObject->orgZip);
+				$organization->update($pdo);
+
+				$reply->message = "Organization updated OK";
+
+			} else if($method === "POST") {
+				$organization = new Organization(null, $requestObject->orgAddress1, $requestObject->orgAddress2, $requestObject->orgCity,
+						$requestObject->orgDescription, $requestObject->orgHours, $requestObject->orgName, $requestObject->orgPhone, $requestObject->orgState,
+						$requestObject->orgType, $requestObject->orgZip);
+				$organization->insert($pdo);
+
+				$reply->message = "Organization created OK";
+			}
+
+		} else if($method === "DELETE") {
+			verifyXsrf();
+
+			$organization = Organization::getOrganizationByOrgId($pdo, $id);
+			if($organization === null) {
+				throw(new RuntimeException("Organization does not exist", 404));
+			}
+
+			$organization->delete($pdo);
+			$deletedObject = new stdClass();
+			$deletedObject->organizationId = $id;
+
+			$reply->message = "Organization deleted OK";
+		}
+
+	} else {
+		//if not an admin, and attempting a method other than get, throw an exception
+		if((empty($method) === false) && ($method !== "GET")) {
+			throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
+		}
+	}
+
+} catch(Exception $exception) {
 		$reply->status = $exception->getCode();
 		$reply->message = $exception->getMessage();
 }
