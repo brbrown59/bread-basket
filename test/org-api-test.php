@@ -118,14 +118,14 @@ class OrganizationApiTest extends BreadBasketTest {
 		$organization->insert($this->getPDO());
 
 		//visit ourselves to get the token
-		$this->guzzle->get('https://bootcamp-coders.cnm.edu/'); //this does not assign an XSRF token if I visit my api
+		$this->guzzle->get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization'); //this does not assign an XSRF token if I visit my api
 		$cookies = $this->guzzle->getConfig()["cookies"];
 		$this->token = $cookies->getCookieByName("XSRF-TOKEN");
 
 		// grab the data from guzzle and enforce that the status codes are correct
 		//this directory path's not going to work on anyone else's deployment...
 		//also, need to worry about the sessions
-		$response = $this->guzzle->delete('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization' . $organization->getOrgId(),
+		$response = $this->guzzle->delete('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/' . $organization->getOrgId(),
 				['headers' => ['X-XSRF-TOKEN' => $this->token]
 		]);
 		$this->assertSame($response->getStatusCode(), 200);
@@ -148,18 +148,18 @@ class OrganizationApiTest extends BreadBasketTest {
 				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
 
 		//visit ourselves to get the token
-		$this->guzzle->get('https://bootcamp-coders.cnm.edu/'); //this does not assign an XSRF token if I visit my api
+		$this->guzzle->get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization'); //this does not assign an XSRF token if I visit my api
 		$cookies = $this->guzzle->getConfig()["cookies"];
 		$this->token = $cookies->getCookieByName("XSRF-TOKEN");
 
-		//send organization info to api in a put method, also make sure the cookie is set
+		//send organization info to api in a post method, also make sure the cookie is set
 		//TODO: does session info need to be set in header?
 		$response = $this->guzzle->post('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization', [
 				'json' => $organization,
 				'headers' => ['X-XSRF-TOKEN' => $this->token] //session here?
 		]);
 		//make sure the status codes match
-		//...do we not check to make sure the content matches expectations
+		//...do we not check to make sure the content matches expectations?
 		$this->assertSame($response->getStatusCode(), 200);
 		$body = $response->getBody();
 		$retrievedOrg = json_decode($body);
