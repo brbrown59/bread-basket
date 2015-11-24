@@ -113,6 +113,7 @@ try {
 				$listing = new Listing($id, $requestObject->orgId, $requestObject->listingClaimedBy, $requestObject->listingClosed,
 					$requestObject->listingCost, $requestObject->listingMemo,$requestObject->listingParentId, $requestObject->listingPostTime, $requestObject->listingTypeId);
 				$listing->update($pdo);
+				$pusher->trigger("listing", "update", $listing);
 
 				$reply->message = "Listing updated OK";
 
@@ -120,6 +121,7 @@ try {
 				$listing = new Listing(null, $requestObject->orgId, $requestObject->listingClaimedBy, $requestObject->listingClosed,
 					$requestObject->listingCost, $requestObject->listingMemo,$requestObject->listingParentId, $requestObject->listingPostTime, $requestObject->listingTypeId);
 				$listing->insert($pdo);
+				$pusher->trigger("listing", "new", $listing);
 
 				$reply->message = "Listing created OK";
 
@@ -134,6 +136,7 @@ try {
 			$listing->delete($pdo);
 			$deletedObject = new stdClass();
 			$deletedObject->listingId = $id;
+			$pusher->trigger("misquote", "delete", $deletedObject);
 
 			$reply->message = "Listing deleted OK";
 
