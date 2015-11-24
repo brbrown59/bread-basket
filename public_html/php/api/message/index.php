@@ -29,7 +29,8 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 			//if the volunteer session is empty, the user is not logged in, throw an exception
 			if(empty($_SESSION["volunteer"]) === true) {
-				throw(new RuntimeException("Please log in or sign up", 401));
+				setXsrfCookie("/");
+				throw(new RuntimeException("Please log-in or sign up", 401));
 			}
 
 			//determine which HTTP method was used
