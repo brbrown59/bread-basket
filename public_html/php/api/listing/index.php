@@ -42,7 +42,7 @@ try {
 	//sanitize and trim the other fields
 	$memo= filter_input(INPUT_GET, "memo", FILTER_SANITIZE_STRING);
 	$cost = filter_input(INPUT_GET, "cost", FILTER_VALIDATE_FLOAT);
-	$state = filter_input(INPUT_GET, "type", FILTER_VALIDATE_INT);
+	$typeId = filter_input(INPUT_GET, "typeId", FILTER_VALIDATE_INT);
 
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySql("/etc/apache2/capstone-mysql/breadbasket.ini");
