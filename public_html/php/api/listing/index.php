@@ -40,7 +40,8 @@ try {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 	//sanitize and trim the other fields
-	$memo= filter_input(INPUT_GET, "memo", FILTER_SANITIZE_STRING);
+	$orgId = filter_input(INPUT_GET, "orgId", FILTER_VALIDATE_INT);
+	$memo = filter_input(INPUT_GET, "memo", FILTER_SANITIZE_STRING);
 	$cost = filter_input(INPUT_GET, "cost", FILTER_VALIDATE_FLOAT);
 	$typeId = filter_input(INPUT_GET, "typeId", FILTER_VALIDATE_INT);
 	$parentId = filter_input(INPUT_GET, "parentId", FILTER_VALIDATE_INT);
