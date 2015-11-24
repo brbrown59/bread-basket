@@ -146,9 +146,25 @@ try {
 
 				$reply->message = "Volunteer deleted OK";
 			}
+		} else {
+		//if not an admin, and attempting a method other than get, throw an exception
+		if((empty($method) === false) && ($method !== "GET")) {
+			throw(new RuntimeException("Only administrators are allowed to modify entries", 401));
 		}
+	}
 
-
-
-
+	//send exception back to the caller
+} catch(Exception $exception) {
+	$reply->status = $exception->getCode();
+	$reply->message = $exception->getMessage();
 }
+header("Content-type: application/json");
+if($reply->data === null) {
+	unset($reply->data);
+}
+echo json_encode($reply);
+
+
+
+
+
