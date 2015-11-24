@@ -82,7 +82,7 @@ class VolunteerApiTest extends BreadBasketTest {
 		//run default set-up method
 		parent::setUp();
 
-		//create an organization for the volunteers to be a part of
+		//create an organization for the volunteers to be a part of.
 
 	}
 
