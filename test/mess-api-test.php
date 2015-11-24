@@ -203,15 +203,34 @@ class Message extends breadBasketTest {
 		$newMessage = new Message (null, $this->Valid_messageId, $this->VALID_listingId, $this->VALID_orgId, $this->VALID_messageText);
 
 		//run a get request to establish session tokens
-		$this->guzzle->get('http://bootcamp-coders.cnm.edu/~bread-basket/public_html/php/api');
+		$this->guzzle->get('http://bootcamp-coders.cnm.edu/~bread-basket/public_html/php/api/message/');
 
 		//Grab the Data from guzzle and enforce the status match our expectations
-		$response = $this->guzzle->post('http://bootcamp-coders.cnm.edu/~bread-basket/public_html/php/api', ['headers' => ['X-XRF-TOKEN' => $this->getXsrfToken()], 'json' => $newMessage]);
+		$response = $this->guzzle->post('http://bootcamp-coders.cnm.edu/~bread-basket/public_html/php/api/', ['headers' => ['X-XRF-TOKEN' => $this->getXsrfToken()], 'json' => $newMessage]);
 		$this->assertSame($response->getStatusCode(), 200);
 		$body = $response->getBody();
 		$alertLevel = jason_decode($body);
 		$this->assertSame(200, $alertLevel->status);
 	}
 
+	/*
+	 * test ability to put Valid Message
+	 */
+	public function testPutValidMessage () {
+		//create a new message
+		$newMessage = new Message (null, $this->Valid_messageId, $this->VALID_listingId, $this->VALID_orgId, $this->VALID_messageText);
+		$newMessage->insert($this->getPDO());
+
+		//run a get request to establish session tokens
+		$this->guzzle->get('http://bootcamp-coders.cnm.edu/~bread-basket/public_html/php/api/message/');
+
+		//grab the data from guzzle and enforce the status match our expectations
+		$response = $this->guzzle->put('http://bootcamp-coders.cnm.edu/~bread-basket/public_html/php/api/message/' . $newMessage->getMessage(),['headers' => ['X-XRF-TOKEN' => $this->getXsrfToken()], 'json' => $newMessage] );
+		$this->assertSame($response->getStatusCode(), 200);
+		$body = $response->getBpdy();
+		$alertLevel = json_decode($body);
+		$this->assertSame(200, $alertLevel->status);
+
+	}
 
 }
