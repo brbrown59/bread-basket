@@ -34,12 +34,14 @@ try {
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
-	//sanitize inputs Todo what is id?
+	//sanitize inputs
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
+	//sanitize and trim the Listing Type (Info) fields
+	$listingType = filter_input(INPUT_GET, "listingType", FILTER_SANITIZE_STRING);
 
 	//handle REST calls, while only allowing administrators access to database-modifying methods Todo different from organization
 	if($method === "GET") {
@@ -49,7 +51,9 @@ try {
 		//get the listing type based on the given field todo else if is wrong, but I need to know why getListingTypeInfo()
 		if(empty($id) === false) {
 			$reply->data = ListingType::getListingTypeById($pdo, $id);
-		} else {
+		} elseif(empty()) {
+			$reply->data = ListingType::getListingByTypeInfo($pdo, $listingType);
+		} elseif(empty()) {
 			$reply->data = ListingType::getAllListingTypes($pdo)->toArray();
 		}
 
