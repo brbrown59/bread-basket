@@ -7,7 +7,9 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
  * controller/api for the listing type class
  *
  * @author Bradley Brown <tall.white.ninja@gmail.com>
+ * @author Tamra Fenstermaker <fenstermaker505@gmail.com>
  */
+
 //verify the xsrf challenge
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
@@ -30,23 +32,25 @@ try {
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
-	//sanitize inputs
+	//sanitize inputs Todo what is id?
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 
-	//handle REST calls, while only allowing administrators access to database-modifying methods
+	//handle REST calls, while only allowing administrators access to database-modifying methods Todo different from organization
 	if($method === "GET") {
 		//set XSRF cookie
 		setXsrfCookie("/");
 
-		//get the organization based on the given field
+		//get the listing type based on the given field todo else if is wrong, but I need to know why getListingTypeInfo()
 		if(empty($id) === false) {
-			$reply->data = Organization::getOrganizationByOrgId($pdo, $id);
+			$reply->data = ListingType::getListingTypeById($pdo, $id);
+		} elseif(empty($info)) {
+			$reply->data = ListingType::getListingTypeInfo($pdo, $info);
 		} else {
-			$reply->data = Organization::getAllOrganizations($pdo)->toArray();
+			$reply->data = ListingType::getAllListingTypes($pdo)->toArray();
 		}
 
 	}
@@ -54,3 +58,8 @@ try {
 		$reply->status = $exception->getCode();
 		$reply->message = $exception->getMessage();
 }
+header("Content-type: application/json");
+if($reply->data === null) {
+	unset($reply->data);
+}
+echo json_encode($reply);

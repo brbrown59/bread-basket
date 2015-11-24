@@ -3,7 +3,7 @@
 require_once(dirname(dirname(__DIR__)) . "/php/classes/autoloader.php");
 //security w/ NG in mind
 require_once(dirname(__DIR__) . "/lib/xsrf.php");
-//a security file that's on the server created by Dylan
+//a security file that's on the server created by Dylan because it's on the server it's not found
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 /**
