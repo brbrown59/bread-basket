@@ -36,28 +36,7 @@ class Message extends breadBasketTest {
 	private $messageText;
 
 
-	/**
-	 *Seting up guzzel/cookies
-	 */
 
-	public function setUp() {
-		parent::setUp();
-
-		$this->guzzle = new \GuzzleHttp\Client(['cookies' => true]);
-
-	}
-
-	/**
-	 * test deleting Valid Message
-	 */
-	public function testDeleteValidMessage(){
-		//created a new message
-		$newMessage = new Message (null, $this->Valid_messageId, $this->VALID_listingId, $this->VALID_orgId, $this->VALID_messageText);
-		$newMessage->insert($this->getPDO());
-
-		//run a get request to establish session tokens
-		$this->guzzle->get('http://bootcamp-coders.cnm.edu/~invtext/backend/php/api/alert-level/' . $newMessage->getMessage(),)
-	}
 
 
 
