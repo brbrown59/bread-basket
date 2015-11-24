@@ -34,7 +34,7 @@ $reply->data = null;
 		}
 
 		//sanitize the id
-		$id = filter_input(INPUT_GET, "id" FILTER_VALIDATE_INT);
+		$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 		if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
 			throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 		}
