@@ -174,10 +174,45 @@ class OrganizationApiTest extends BreadBasketTest {
 
 
 	public function testValidPut() {
+		//create a new organization, and insert into the database
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+		$organization->insert($this->getPDO());
 
+		//update the organization
+		$organization->setOrgName($this->VALID_NAME_ALT);
+
+		//send the info to update to the API
+		$response = $this->guzzle->put('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/' . $organization->getOrgId(), [
+				'allow-redirects' => ['strict' => true],
+				'json' => $organization,
+				'headers' => ['X-XSRF-TOKEN' => $this->token]
+		]);
+
+		//ensure the response was sent, and the api returned a positive status
+		$this->assertSame($response->getStatusCode(), 200);
+		$body = $response->getBody();
+		$retrievedOrg = json_decode($body);
+		$this->assertSame(200, $retrievedOrg->status);
+
+		//pull the value from the DB, and make sure it was properly updated
+		$neworg = Organization::getOrganizationByOrgId($this->getPDO(), $organization->getOrgId());
+		$this->assertSame($neworg->getOrgName(), $this->VALID_NAME_ALT);
 	}
 	public function testInvalidPut() {
 		//test to make sure can't put to an organization that doesn't exist
+		$organization = new Organization(BreadBasketTest::INVALID_KEY, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+		$response = $this->guzzle->put('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/' . BreadBasketTest::INVALID_KEY,[
+				'allow-redirects' => ['strict' => true],
+				'json' => $organization,
+				'headers' => ['X-XSRF-TOKEN' => $this->token]
+		]);
+
+		//make sure the request returns the proper error code for a failed operation
+		$body = $response->getBody();
+		$retrievedOrg = json_decode($body);
+		$this->assertSame(404, $retrievedOrg->status);
 
 	}
 
@@ -200,7 +235,7 @@ class OrganizationApiTest extends BreadBasketTest {
 		$this->assertSame($response->getStatusCode(), 200);
 		$body = $response->getBody();
 		$retrievedOrg = json_decode($body);
-//
+
 		$this->assertSame(200, $retrievedOrg->status);
 
 		//ensure a new row was added to the database
