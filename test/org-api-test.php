@@ -129,10 +129,6 @@ class OrganizationApiTest extends BreadBasketTest {
 
 	//test deleting a valid entry
 	public function testValidDelete() {
-		//set session to be an admin
-		//this needs to be sent with the request, somehow
-		//$_SESSION["volunteer"] = $this->admin;
-
 
 		//create a new organization, and insert into the database
 		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
@@ -140,8 +136,6 @@ class OrganizationApiTest extends BreadBasketTest {
 		$organization->insert($this->getPDO());
 
 		// grab the data from guzzle and enforce that the status codes are correct
-		//this directory path's not going to work on anyone else's deployment...
-		//also, need to worry about the sessions
 		$response = $this->guzzle->delete('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/' . $organization->getOrgId(),
 				['headers' => ['X-XSRF-TOKEN' => $this->token]
 		]);
@@ -151,47 +145,20 @@ class OrganizationApiTest extends BreadBasketTest {
 		$this->assertSame(200, $retrievedOrg->status);
 
 	}
-	/*
+
 	public function testInvalidDelete() {
 		//test to make sure can't delete organization that doesn't exist
-	}
+		$response = $this->guzzle->delete('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/' . BreadBasketTest::INVALID_KEY,
+				['headers' => ['X-XSRF-TOKEN' => $this->token]
+				]);
 
-
-	public function testValidPost() {
-		//set session to be an admin
-		//$_SESSION["volunteer"] = $this->admin;
-
-		//create a new organization to send
-		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
-				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
-
-		//send organization info to api in a post method, also make sure the cookie is set
-		//TODO: does session info need to be set in header?
-		$response = $this->guzzle->post('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization', [
-				'json' => $organization,
-				'headers' => ['X-XSRF-TOKEN' => $this->token] //session here?
-		]);
-		//make sure the status codes match
-		//...do we not check to make sure the content matches expectations?
-		$this->assertSame($response->getStatusCode(), 200);
+		//make sure the request returns the proper error code for a failed log-in
 		$body = $response->getBody();
 		$retrievedOrg = json_decode($body);
-		$this->assertSame(200, $retrievedOrg->status);
+		$this->assertSame(404, $retrievedOrg->status);
+	}
 
-	}
-	public function testInvalidPost() {
-		//test to make sure non-admin can't put (same code would execute for put and delete, so test it here and not there)
-		$_SESSION["volunteer"] = $this->volunteer;
 
-	}
-	public function testValidPut() {
-		//test putting to an organization
-
-	}
-	public function testInvalidPut() {
-		//test to make sure can't put to an organization that doesn't exist
-		//question: what about the massive if block to check for empty fields?  can't do ALL of them
-	}
 
 
 	public function testValidGet() {
@@ -201,6 +168,63 @@ class OrganizationApiTest extends BreadBasketTest {
 	public function testInvalidGet() {
 		//test getting something that doesn't exist
 	}
-*/
+
+
+	public function testValidPut() {
+		//create a new organization, and insert into the database
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+		$organization->insert($this->getPDO());
+
+		//update the organization
+		$organization->setOrgName($this->VALID_NAME_ALT);
+
+		//send the info to update to the API
+		$response = $this->guzzle->put('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization', [
+				'json' => $organization,
+				'headers' => ['X-XSRF-TOKEN' => $this->token]
+		]);
+
+		//ensure the response was sent, and the api returned a positive status
+		$this->assertSame($response->getStatusCode(), 200);
+		$body = $response->getBody();
+		$retrievedOrg = json_decode($body);
+		$this->assertSame(200, $retrievedOrg->status);
+
+		//get the organization from the dB and compare values?
+
+	}
+	public function testInvalidPut() {
+		//test to make sure can't put to an organization that doesn't exist
+		//question: what about the massive if block to check for empty fields?  can't do ALL of them
+	}
+
+
+	public function testValidPost() {
+
+		//create a new organization to send
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+
+		//send organization info to api in a post method, also make sure the cookie is set
+		$response = $this->guzzle->post('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization', [
+				'json' => $organization,
+				'headers' => ['X-XSRF-TOKEN' => $this->token]
+		]);
+		//make sure the status codes match
+		$this->assertSame($response->getStatusCode(), 200);
+		$body = $response->getBody();
+		$retrievedOrg = json_decode($body);
+		$this->assertSame(200, $retrievedOrg->status);
+
+		//retrieve from DB and make sure it matches?
+
+	}
+	public function testInvalidPost() {
+		//test to make sure non-admin can't post
+		//sign out as an admin, log-in as a volunteer
+
+	}
+
 
 }
