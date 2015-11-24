@@ -80,6 +80,13 @@ try {
 			$requestContent = file_get_contents("php://input");
 			$requestObject = json_decode($requestContent);
 
+			if($requestObject->password !== $requestObject->passwordConfirm) {
+				throw(new InvalidArgumentException("passwords do not match", 400));
+			}
+
+			$salt = bin2hex(openssl_random_pseudo_bytes(32));
+			$hash = hash_pbkdf2("sha512", $requestObject->password, $salt, 262144, 128);
+
 			//make sure all fields are present, in order to prevent database issues
 			if(empty($requestObject->orgId) === true) {
 				throw(new InvalidArgumentException ("organization id cannot be empty", 405));
@@ -93,10 +100,6 @@ try {
 			if(empty($requestObject->volFirstName) === true) {
 				throw(new InvalidArgumentException ("first name cannot be empty", 405));
 			}
-			//DO WE CHECK FOR A HASH?
-			//if(empty($requestObject->volHash) === true) {
-			//	throw(new InvalidArgumentException ("email cannot be empty", 405));
-			//}
 			if(empty($requestObject->volIsAdmin) === true) {
 				$requestObject->volIsAdmin = null;
 			}
@@ -109,7 +112,41 @@ try {
 			if(empty($requestObject->volEmail) === true) {
 				throw(new InvalidArgumentException ("email cannot be empty", 405));
 			}
-			//WHAT DO WE DO FOR SALT?
+
+			if($method === "PUT") {
+				$volunteer = Volunteer::getVolunteerByVolId($pdo, $id);
+				if($volunteer === null) {
+					throw(new RuntimeException("Volunteer does not exist", 404));
+				}
+
+				$volunteer = new Volunteer($id, $requestObject->orgId, $requestObject->volEmail, $requestObject->volEmailActivation,
+						$requestObject->volFirstName, $requestObject->volIsAdmin, $requestObject->volLastName, $requestObject->volPhone, $salt, $hash);
+				$volunteer->update($pdo);
+
+				$reply->message = "Volunteer updated OK";
+
+			} elseif($method === "POST") {
+				$volunteer = new Volunteer($id, $requestObject->orgId, $requestObject->volEmail, $requestObject->volEmailActivation,
+						$requestObject->volFirstName, $requestObject->volIsAdmin, $requestObject->volLastName, $requestObject->volPhone, $salt, $hash);
+				$volunteer->insert($pdo);
+				$_SESSION["volunteer"] = $volunteer;
+			}
+
+			} elseif($method === "DELETE") {
+				verifyXsrf();
+
+				$volunteer = Volunteer::getVolunteerByVolId($pdo, $id);
+				if($volunteer === null) {
+					throw(new RangeException("Volunteer does not exist", 404));
+				}
+
+				$volunteer->delete($pdo);
+				$deletedObject = new stdClass();
+				$deletedObject->volunteerId = $id;
+
+				$reply->message = "Volunteer deleted OK";
+			}
+		}
 
 
 
