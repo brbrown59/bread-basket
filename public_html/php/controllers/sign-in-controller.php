@@ -13,11 +13,6 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
  * contributing code from TruFork https://github.com/Skylarity/trufork & foodinventory
  */
 
-//start the session and create a XSRF token
-if(session_status() !== PHP_SESSION_ACTIVE) {
-	session_start();
-}
-verifyXsrf();
 
 // prepare default error message
 $reply = new stdClass();
@@ -25,6 +20,12 @@ $reply->status = 401;
 $reply->message = "Incorrect email or password. Try again.";
 
 try {
+//start the session and create a XSRF token
+	if(session_status() !== PHP_SESSION_ACTIVE) {
+		session_start();
+	}
+	verifyXsrf();
+
 	// grab the my SQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/breadbasket.ini");
 

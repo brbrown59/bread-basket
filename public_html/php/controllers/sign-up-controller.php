@@ -21,7 +21,14 @@ $reply = new stdClass();
 $reply->status = 200;
 $reply->message = null;
 
+
 try {
+// verify the XSRF challenge
+	if(session_status() !== PHP_SESSION_ACTIVE) {
+		session_start();
+	}
+	verifyXsrf();
+
 // grab the my SQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/breadbasket.ini");
 
