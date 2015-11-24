@@ -51,9 +51,9 @@ try {
 		//get the listing type based on the given field todo else if is wrong, but I need to know why getListingTypeInfo()
 		if(empty($id) === false) {
 			$reply->data = ListingType::getListingTypeById($pdo, $id);
-		} elseif(empty()) {
+		} elseif(empty($listingType)=== false) {
 			$reply->data = ListingType::getListingByTypeInfo($pdo, $listingType);
-		} elseif(empty()) {
+		} else {
 			$reply->data = ListingType::getAllListingTypes($pdo)->toArray();
 		}
 
@@ -72,44 +72,43 @@ try {
 			if(empty($requestObject->listingTypeId) === true) {
 				throw(new InvalidArgumentException ("listing type id cannot be empty", 405));
 			}
+			if(empty($requestObject->listingType) === true) {
+				throw(new InvalidArgumentException ("listing type info cannot be empty", 405));
+			}
 
 
 			//perform the actual put or post
 			if($method === "PUT") {
-				$organization = Organization::getOrganizationByOrgId($pdo, $id);
-				if($organization === null) {
-					throw(new RuntimeException("Organization does not exist", 404));
+				$listingType = ListingType::getListingTypeById($pdo, $id);
+				if($listingType === null) {
+					throw(new RuntimeException("Listing type does not exist", 404));
 				}
 
-				$organization = new Organization($id, $requestObject->orgAddress1, $requestObject->orgAddress2, $requestObject->orgCity,
-						$requestObject->orgDescription, $requestObject->orgHours, $requestObject->orgName, $requestObject->orgPhone, $requestObject->orgState,
-						$requestObject->orgType, $requestObject->orgZip);
-				$organization->update($pdo);
+				$listingType = new ListingType($id, $requestObject->listingTypeInfo);
+				$listingType->update($pdo);
 
 				$reply->message = "Organization updated OK";
 
 			} else if($method === "POST") {
-				$organization = new Organization(null, $requestObject->orgAddress1, $requestObject->orgAddress2, $requestObject->orgCity,
-						$requestObject->orgDescription, $requestObject->orgHours, $requestObject->orgName, $requestObject->orgPhone, $requestObject->orgState,
-						$requestObject->orgType, $requestObject->orgZip);
-				$organization->insert($pdo);
+				$listingType = new ListingType(null, $requestObject->listingTypeInfo);
+				$listingType->insert($pdo);
 
-				$reply->message = "Organization created OK";
+				$reply->message = "Listing Type created OK";
 			}
 
 		} else if($method === "DELETE") {
 			verifyXsrf();
 
-			$organization = Organization::getOrganizationByOrgId($pdo, $id);
-			if($organization === null) {
-				throw(new RuntimeException("Organization does not exist", 404));
+			$listingType = ListingType::getListingTypeById($pdo, $id);
+			if($listingType === null) {
+				throw(new RuntimeException("Listing type does not exist", 404));
 			}
 
-			$organization->delete($pdo);
+			$listingType->delete($pdo);
 			$deletedObject = new stdClass();
-			$deletedObject->organizationId = $id;
+			$deletedObject->listingTypeId = $id;
 
-			$reply->message = "Organization deleted OK";
+			$reply->message = "Listing type deleted OK";
 		}
 
 	} else {
