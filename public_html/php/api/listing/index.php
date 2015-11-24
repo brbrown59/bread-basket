@@ -110,15 +110,15 @@ try {
 					throw(new RuntimeException("Listing does not exist", 404));
 				}
 
-				$listing = new Listing($id, $requestObject->$orgId, $requestObject->$listingClaimedBy, $requestObject->$listingClosed,
-					$requestObject->$listingCost, $requestObject->$listingMemo,$requestObject->$listingParentId, $requestObject->$listingPostTime, $requestObject->$listingTypeId);
+				$listing = new Listing($id, $requestObject->orgId, $requestObject->listingClaimedBy, $requestObject->listingClosed,
+					$requestObject->listingCost, $requestObject->listingMemo,$requestObject->listingParentId, $requestObject->listingPostTime, $requestObject->listingTypeId);
 				$listing->update($pdo);
 
 				$reply->message = "Listing updated OK";
 
 			} elseif($method === "POST") {
-				$listing = new Listing(null, $requestObject->$orgId, $requestObject->$listingClaimedBy, $requestObject->$listingClosed,
-					$requestObject->$listingCost, $requestObject->$listingMemo,$requestObject->$listingParentId, $requestObject->$listingPostTime, $requestObject->$listingTypeId);
+				$listing = new Listing(null, $requestObject->orgId, $requestObject->listingClaimedBy, $requestObject->listingClosed,
+					$requestObject->listingCost, $requestObject->listingMemo,$requestObject->listingParentId, $requestObject->listingPostTime, $requestObject->listingTypeId);
 				$listing->insert($pdo);
 
 				$reply->message = "Listing created OK";
