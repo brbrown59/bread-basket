@@ -102,6 +102,28 @@ $reply->data = null;
 					throw(new InvalidArgumentException("listing type cannot be empty", 405));
 				}
 
+				//perform the actual put or post
+				if($method === "PUT") {
+					$listing = Listing::getListingByListingId($pdo, $id);
+					if($listing === null) {
+						throw(new RuntimeException("Listing does not exist", 404));
+					}
+
+					$listing = new Listing($id, $requestObject->$orgId, $requestObject->$listingClaimedBy, $requestObject->$listingClose,
+						$requestObject->$listingCost, $requestObject->$listingMemo,$requestObject->$listingParentId, $requestObject->$listingPostTime, $requestObject->$listingTypeId);
+					$listing->update($pdo);
+
+					$reply->message = "Listing updated OK";
+
+				} elseif($method === "POST") {
+					$listing = new Listing(null, $requestObject->$orgId, $requestObject->$listingClaimedBy, $requestObject->$listingClose,
+						$requestObject->$listingCost, $requestObject->$listingMemo,$requestObject->$listingParentId, $requestObject->$listingPostTime, $requestObject->$listingTypeId);
+					$listing->insert($pdo);
+
+					$reply->message = "Listing created OK";
+
+				}
+
 			}
 
 
