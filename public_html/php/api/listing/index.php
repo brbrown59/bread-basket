@@ -124,10 +124,31 @@ $reply->data = null;
 
 				}
 
+			} elseif($method === "DELETE") {
+				$listing = Listing::getListingByListingId($pdo, $id);
+				if($listing === null) {
+					throw(new RuntimeException("Listing does not exist", 404));
+				}
+
+				$listing->delete($pdo);
+				$deletedObject = new stdClass();
+				$deletedObject->listingId = $id;
+
+				$reply->message = "Listing deleted OK";
+
 			}
-
-
+		} else {
+			//if not an admin and attempting a method other than get, throw an exception
+			if((empty($method) === false) && ($method !== "GET")) {
+				throw(new RangeException("Only administrators are allowed to modify entries", 401));
+			}
 		}
-
-
+	} catch (Exception $exception) {
+		$reply->status = $exception->getCode();
+		$reply->message = $exception->getMessage();
 	}
+header("Content-type: application/json");
+if($reply->data === null) {
+	unset($reply->data);
+}
+echo json_decode($reply);
