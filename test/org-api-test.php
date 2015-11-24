@@ -104,6 +104,7 @@ class OrganizationApiTest extends BreadBasketTest {
 		$salt = bin2hex(openssl_random_pseudo_bytes(32));
 		$hash =  hash_pbkdf2("sha512", "password1234", $salt, 262144, 128);
 		$this->volunteer = new Volunteer(null, $organization->getOrgId(), "notanemail@fake.com", null, "Jane", $hash, false, "Doe", "505-555-5555", $salt);
+		$this->volunteer->insert($this->getPDO());
 
 		//create the guzzle client
 		$this->guzzle = new \GuzzleHttp\Client(["cookies" => true]);
@@ -143,6 +144,10 @@ class OrganizationApiTest extends BreadBasketTest {
 		$body = $response->getBody();
 		$retrievedOrg = json_decode($body);
 		$this->assertSame(200, $retrievedOrg->status);
+
+		//try retrieving entry from database and ensuring it was deleted
+		$deletedOrg = Organization::getOrganizationByOrgId($this->getPDO(), $organization->getOrgId());
+		$this->assertNull($deletedOrg);
 
 	}
 
@@ -223,7 +228,36 @@ class OrganizationApiTest extends BreadBasketTest {
 	public function testInvalidPost() {
 		//test to make sure non-admin can't post
 		//sign out as an admin, log-in as a volunteer
+		$logout = $this->guzzle->get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/controllers/sign-out-controller.php');
 
+
+		$volLogin = new stdClass();
+		$volLogin->email = "notanemail@fake.com";
+		$volLogin->password = "password1234";
+		$login = $this->guzzle->post('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/controllers/sign-in-controller.php', [
+				'json' => $volLogin,
+				'headers' => ['X-XSRF-TOKEN' => $this->token]
+		]);
+
+		//try to post to an organization
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+
+		$response = $this->guzzle->post('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization', [
+				'json' => $organization,
+				'headers' => ['X-XSRF-TOKEN' => $this->token]
+		]);
+
+		$this->assertSame($response->getStatusCode(), 200);
+		$body = $response->getBody();
+		$retrievedOrg = json_decode($body);
+
+		//make sure the organization was not entered into the database
+		$shouldNotExist = Organization::getOrganizationByOrgName($this->getPDO(), $this->VALID_NAME);
+		$this->assertSame($shouldNotExist->getSize(), 0);
+
+		//make sure 401 error is returned for trying to access an admin method as a volunteer
+		$this->assertSame(401, $retrievedOrg->status);
 	}
 
 
