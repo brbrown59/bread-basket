@@ -13,11 +13,11 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
  * contributing code from TruFork https://github.com/Skylarity/trufork & foodinventory
  */
 
-
 // prepare default error message
 $reply = new stdClass();
-$reply->status = 401;
-$reply->message = "Incorrect email or password. Try again.";
+$reply->status = 200;
+$reply->message = null;
+
 
 try {
 //start the session and create a XSRF token
@@ -43,11 +43,16 @@ try {
 			$_SESSION["volunteer"] = $volunteer;
 			$reply->status = 200;
 			$reply->message = "Successfully logged in";
+		}else {
+			throw(new InvalidArgumentException("email or password is invalid", 401));
 		}
+	}else {
+		throw(new InvalidArgumentException("email or password is invalid", 401));
 	}
 	// create an exception to pass back to the RESTfull caller
-}catch (Exception $exception) {
-	// ignore the exceptions they are not something we want to share with end user
+} catch(Exception $exception) {
+	$reply->status = $exception->getCode();
+	$reply->message = $exception->getMessage();
 }
 
 header("Content-type: application/json");
