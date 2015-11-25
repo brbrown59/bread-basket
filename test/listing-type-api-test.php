@@ -54,9 +54,27 @@ class ListingTypeApiTest extends BreadBasketTest {
 		//run default set-up method
 		parent::setUp();
 
-//		//create a new listingType for the test
-		$listingType = new ListingType(null, 'Perishable');
-		$listingType->insert($this->getPDO());
+		//create a new organization for the test volunteers to belong
+		$organization = new Organization(null, "123 Easy Street", '', "Albuquerque", "Feeding people since 1987", "9 - 5", "Food for Hungry People", "505-765-4321", "NM", "R", "87801");
+		$organization->insert($this->getPDO());
+
+		//create a new volunteer to use as an admin for the tests
+		//don't need to insert them into the database: just need their info to create sessions
+		//for testing purposes, allow them to create organizations they're not associated with
+		$salt = bin2hex(openssl_random_pseudo_bytes(32));
+		$hash =  hash_pbkdf2("sha512", "password4321", $salt, 262144, 128);
+		$this->admin = new Volunteer(null, $organization->getOrgId(), "fakeemail@fake.com", null, "John", $hash, true, "Doe", "505-123-4567", $salt);
+		$this->admin->insert($this->getPDO());
+
+		//create a non-admin volunteer for the tests
+		$salt = bin2hex(openssl_random_pseudo_bytes(32));
+		$hash =  hash_pbkdf2("sha512", "password1234", $salt, 262144, 128);
+		$this->volunteer = new Volunteer(null, $organization->getOrgId(), "notanemail@fake.com", null, "Jane", $hash, false, "Doe", "505-555-5555", $salt);
+		$this->volunteer->insert($this->getPDO());
+
+////		//create a new listingType for the test
+//		$listingType = new ListingType(null, 'Perishable');
+//		$listingType->insert($this->getPDO());
 
 
 		//create the guzzle client
