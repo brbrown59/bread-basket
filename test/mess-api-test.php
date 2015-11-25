@@ -45,6 +45,18 @@ class Message extends breadBasketTest {
 
 		$this->guzzle = new \GuzzleHttp\Client(['cookies' => true]);
 
+		//Visit ourselves to get the xsrf-token
+		$this->guzzle=get('https://bootcamp-coders.cnm.edu/~cberaun2/bread-basket/public_html/php/api/organization');
+		$cookies = $this->guzzle->getConfig()["cookies"];
+		$this->token =$cookies->getCookiesByname("XSRF-TOKEN")->getValue();
+
+		//send a request to the sign-in-method
+
+		$adminLogin = new stdClass();
+		$adminLogin->email = "fakemail@sample.com";
+		$adminLogin->password = "123password";
+		$login = $this->guzzle->post('https://bootcamp-coders.cnm.edu/~cberaun2/bread-basket/public_html/php/controlls/sign-in-controller.php', ['json' => $adminLogin, 'headers' => ['X-XSRF-TOKEN' => $this->token]]);
+
 	}
 
 	/**
@@ -212,6 +224,28 @@ class Message extends breadBasketTest {
 		$alertLevel = jason_decode($body);
 		$this->assertSame(200, $alertLevel->status);
 	}
+
+
+
+	/**
+	 * test ability to post invalid Message
+	 */
+	public function testPostInvalidMessage(){
+		//test to make sure non-admin can not post
+		//sign out as admin, log-in as a voulenteer
+		$logout = $this->guzzle-get('https://bootcamp-coders.cnm.edu/~cberaun2/bread-basket/public_html/php/controllers/sign-out-controller.php');
+
+		$volLogin = new stfClass();
+		$volLogin->email = "samplemail@notreal.com";
+		$volLogin->password = "passwordabc";
+		$login = $this->guzzle->post('https://bootcamp-coders.cnm,edu/~cberaun2/bread-basket/public_html/php/controllers/sign-out-controller.php', ['allow_redirects' => ['strict' => true], 'json' => $volLogin, 'headers' => ['X-XSRF_TOKEN' => $this->token]]);
+
+		$message = new Message(null, $this->Valid_messageId, $this->VALID_listingId, $this->VALID_orgId, $this->VALID_messageText);
+		$response = $this->guzzle->post('https://bootcamp-coders.cnm.edu/~cberaun2/bread-basket/public_html/php/api/organization')
+	}
+
+
+
 
 	/*
 	 * test ability to put Valid Message

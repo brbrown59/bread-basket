@@ -23,9 +23,6 @@ try {
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/breadbasket.ini");
 
-	//temporary test field: please remove later
-	//$_SESSION["volunteer"] = Volunteer::getVolunteerByVolId($pdo, 146);
-
 	//if the volunteer session is empty, the user is not logged in, throw an exception
 	if(empty($_SESSION["volunteer"]) === true) {
 		setXsrfCookie("/");
@@ -80,12 +77,12 @@ try {
 			$requestContent = file_get_contents("php://input");
 			$requestObject = json_decode($requestContent);
 
-			if($requestObject->password !== $requestObject->passwordConfirm) {
-				throw(new InvalidArgumentException("passwords do not match", 400));
-			}
-
-			$salt = bin2hex(openssl_random_pseudo_bytes(32));
-			$hash = hash_pbkdf2("sha512", $requestObject->password, $salt, 262144, 128);
+//			if($requestObject->password !== $requestObject->passwordConfirm) {
+//				throw(new InvalidArgumentException("passwords do not match", 400));
+//			}
+//
+//			$salt = bin2hex(openssl_random_pseudo_bytes(32));
+//			$hash = hash_pbkdf2("sha512", $requestObject->password, $salt, 262144, 128);
 
 			//make sure all fields are present, in order to prevent database issues
 			if(empty($requestObject->orgId) === true) {
@@ -119,8 +116,10 @@ try {
 					throw(new RuntimeException("Volunteer does not exist", 404));
 				}
 
-				$volunteer = new Volunteer($id, $requestObject->orgId, $requestObject->volEmail, $requestObject->volEmailActivation,
-						$requestObject->volFirstName, $requestObject->volIsAdmin, $requestObject->volLastName, $requestObject->volPhone, $salt, $hash);
+				$volunteer = Volunteer::getVolunteerByVolId($id);
+				$volunteer->setEmail($requestObject->volEmail);
+//				$volunteer = new Volunteer($id, $requestObject->orgId, $requestObject->volEmail, $requestObject->volEmailActivation,
+//						$requestObject->volFirstName, $requestObject->volIsAdmin, $requestObject->volLastName, $requestObject->volPhone, $salt, $hash);
 				$volunteer->update($pdo);
 
 				$reply->message = "Volunteer updated OK";

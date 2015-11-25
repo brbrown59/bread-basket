@@ -102,7 +102,7 @@ class VolunteerApiTest extends BreadBasketTest {
 		$this->VALID_SALT = bin2hex(openssl_random_pseudo_bytes(32));
 
 		//create an organization for the volunteers to be a part of
-		$organization = new Organization(null, "123 Easy Street", '', "Albuquerque", "Feeding people since 1987", "9 - 5", "Food for Hungry People", "505-765-4321", "NM", "R", "87801");
+		$organization = new Organization(null, "123 Easy Street", '', "Albuquerque", "Feeding people since 1987", "9 - 5", "Food for Hangry People", "505-765-4321", "NM", "R", "87801");
 		$organization->insert($this->getPDO());
 
 		$this->valid_org_id = $organization->getOrgId();
@@ -125,7 +125,7 @@ class VolunteerApiTest extends BreadBasketTest {
 		$this->guzzle = new \GuzzleHttp\Client(["cookies" => true]);
 
 		//visit ourselves to get the xsrf-token
-		$this->guzzle->get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/');
+		$this->guzzle->get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer');
 		$cookies = $this->guzzle->getConfig()["cookies"];
 		$this->token = $cookies->getCookieByName("XSRF-TOKEN")->getValue();
 
@@ -159,7 +159,7 @@ class VolunteerApiTest extends BreadBasketTest {
 		$this->assertSame(200, $retrievedVol->status);
 
 		//try retrieving entry from database and ensuring it was deleted
-		$deletedVol = Volunteer::getVolunteerByVolId($this->getPDO(), $volunteer->getOrgId());
+		$deletedVol = Volunteer::getVolunteerByVolId($this->getPDO(), $volunteer->getVolId());
 		$this->assertNull($deletedVol);
 
 	}
@@ -206,7 +206,8 @@ class VolunteerApiTest extends BreadBasketTest {
 
 	public function testValidPut() {
 		//create a new volunteer, and insert into the database
-		$volunteer = new Volunteer(null, $this->valid_org_id, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_HASH, $this->VALID_ADMIN, $this->VALID_LAST_NAME, $this->VALID_PHONE, $this->VALID_SALT);
+		$volunteer = new Volunteer(null, $this->valid_org_id, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_HASH,
+				$this->VALID_ADMIN, $this->VALID_LAST_NAME, $this->VALID_PHONE, $this->VALID_SALT);
 		$volunteer->insert($this->getPDO());
 
 		//update the volunteer
@@ -218,16 +219,19 @@ class VolunteerApiTest extends BreadBasketTest {
 				'json' => $volunteer,
 				'headers' => ['X-XSRF-TOKEN' => $this->token]
 		]);
+		$newVolunteer = Volunteer::getVolunteerByVolId($this->getPDO(), $volunteer->getVolId());
+		var_dump($newVolunteer);
 
 		//ensure the response was sent, and the api returned a positive status
 		$this->assertSame($response->getStatusCode(), 200);
 		$body = $response->getBody();
+		var_dump((string)$response->getBody());
 		$retrievedVol = json_decode($body);
 		$this->assertSame(200, $retrievedVol->status);
 
 		//pull the value from the DB, and make sure it was properly updated
-		$newVol = Volunteer::getVolunteerByVolId($this->getPDO(), $volunteer->getVolId());
-		$this->assertSame($newVol->getVolPhone(), $this->VALID_ALT_PHONE);
+		$newvol = Volunteer::getVolunteerByVolId($this->getPDO(), $volunteer->getVolId());
+		$this->assertSame($newvol->getVolPhone(), $this->VALID_ALT_PHONE);
 	}
 
 	public function testInvalidPut() {

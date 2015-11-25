@@ -6,6 +6,8 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 /**
  * controller/api for the organization class
  *
+ * allow for interaction with the rest of the backend via restful API calls
+ *
  * @author Bradley Brown <tall.white.ninja@gmail.com>
  */
 
