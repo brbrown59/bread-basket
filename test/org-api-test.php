@@ -194,7 +194,7 @@ class OrganizationApiTest extends BreadBasketTest {
 		$organization->insert($this->getPDO());
 
 		//send the get request to the API
-		$response = $this->guzzle->get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/?\'city\'=\'' . $organization->getOrgCity(). '\'', [
+		$response = $this->guzzle->get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/?\'city\'=\'' . $this->VALID_CITY . '\'', [
 				'headers' => ['X-XSRF-TOKEN' => $this->token]
 		]);
 
@@ -211,24 +211,109 @@ class OrganizationApiTest extends BreadBasketTest {
 
 	}
 	public function testValidGetByName() {
-		//test getting by parameter x
+		//create a new organization, and insert into the database
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+		$organization->insert($this->getPDO());
+
+		//send the get request to the API
+		$response = $this->guzzle->get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/?\'name\'=\'' . $this->VALID_NAME . '\'', [
+				'headers' => ['X-XSRF-TOKEN' => $this->token]
+		]);
+
+		//ensure the response was sent, and the api returned a positive status
+		$this->assertSame($response->getStatusCode(), 200);
+		$body = $response->getBody();
+		$retrievedOrg = json_decode($body);
+		$this->assertSame(200, $retrievedOrg->status);
+
+		//ensure the returned values meet expectations just checking (enough to make sure the right thing was obtained)
+		//0th entry is the organization for the volunteers, so need to check against the 1st
+		$this->assertSame($retrievedOrg->data[1]->orgId, $organization->getOrgId());
+		$this->assertSame($retrievedOrg->data[1]->orgName, $this->VALID_NAME);
 
 	}
 	public function testValidGetByState() {
-		//test getting by parameter x
+		//create a new organization, and insert into the database
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+		$organization->insert($this->getPDO());
+
+		//send the get request to the API
+		$response = $this->guzzle->get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/?\'state\'=\'' . $this->VALID_STATE . '\'', [
+				'headers' => ['X-XSRF-TOKEN' => $this->token]
+		]);
+
+		//ensure the response was sent, and the api returned a positive status
+		$this->assertSame($response->getStatusCode(), 200);
+		$body = $response->getBody();
+		$retrievedOrg = json_decode($body);
+		$this->assertSame(200, $retrievedOrg->status);
+
+		//ensure the returned values meet expectations just checking (enough to make sure the right thing was obtained)
+		//0th entry is the organization for the volunteers, so need to check against the 1st
+		$this->assertSame($retrievedOrg->data[1]->orgId, $organization->getOrgId());
+		$this->assertSame($retrievedOrg->data[1]->orgState, $this->VALID_STATE);
 
 	}
 	public function testValidGetByType() {
-		//test getting by parameter x
+		//create a new organization, and insert into the database
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+		$organization->insert($this->getPDO());
+
+		//send the get request to the API
+		$response = $this->guzzle->get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/?\'type\'=\'' . $this->VALID_TYPE . '\'', [
+				'headers' => ['X-XSRF-TOKEN' => $this->token]
+		]);
+
+		//ensure the response was sent, and the api returned a positive status
+		$this->assertSame($response->getStatusCode(), 200);
+		$body = $response->getBody();
+		$retrievedOrg = json_decode($body);
+		$this->assertSame(200, $retrievedOrg->status);
+
+		//ensure the returned values meet expectations just checking (enough to make sure the right thing was obtained)
+		//0th entry is the organization for the volunteers, so need to check against the 1st
+		$this->assertSame($retrievedOrg->data[1]->orgId, $organization->getOrgId());
+		$this->assertSame($retrievedOrg->data[1]->orgType, $this->VALID_TYPE);
 
 	}
 	public function testValidGetByZip() {
-		//test getting by parameter x
+		//create a new organization, and insert into the database
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+		$organization->insert($this->getPDO());
+
+		//send the get request to the API
+		$response = $this->guzzle->get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/?\'zip\'=\'' . $this->VALID_ZIP . '\'', [
+				'headers' => ['X-XSRF-TOKEN' => $this->token]
+		]);
+
+		//ensure the response was sent, and the api returned a positive status
+		$this->assertSame($response->getStatusCode(), 200);
+		$body = $response->getBody();
+		$retrievedOrg = json_decode($body);
+		$this->assertSame(200, $retrievedOrg->status);
+
+		//ensure the returned values meet expectations just checking (enough to make sure the right thing was obtained)
+		//0th entry is the organization for the volunteers, so need to check against the 1st
+		$this->assertSame($retrievedOrg->data[1]->orgId, $organization->getOrgId());
+		$this->assertSame($retrievedOrg->data[1]->orgZip, $this->VALID_ZIP);
 
 	}
 
 	public function testInvalidGet() {
 		//test getting something that doesn't exist
+		//only testing once, because these errors are really handled by the class, which has already been tested
+		//send the get request to the API
+		$response = $this->guzzle->get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/' . BreadBasketTest::INVALID_KEY, [
+				'headers' => ['X-XSRF-TOKEN' => $this->token]
+		]);
+		$body = $response->getBody();
+		$retrievedOrg = json_decode($body);
+
+		$this->assertNull($retrievedOrg);
 	}
 
 
