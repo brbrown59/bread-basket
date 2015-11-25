@@ -129,6 +129,18 @@ class VolunteerApiTest extends BreadBasketTest {
 
 	}
 
+	public function testInvalidDelete() {
+		//test to make sure can't delete organization that doesn't exist
+		$response = $this->guzzle->delete('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/' . BreadBasketTest::INVALID_KEY,
+				['headers' => ['X-XSRF-TOKEN' => $this->token]
+				]);
+
+		//make sure the request returns the proper error code for a failed operation
+		$body = $response->getBody();
+		$retrievedVol = json_decode($body);
+		$this->assertSame(404, $retrievedVol->status);
+	}
+
 
 
 }
