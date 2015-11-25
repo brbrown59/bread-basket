@@ -98,6 +98,7 @@ class ListingTypeApiTest extends BreadBasketTest {
 	}
 
 
+
 	public function testValidGet() {
 		//test getting by parameter new listing type
 		//create a new listing type, and insert into the database
