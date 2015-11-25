@@ -312,8 +312,10 @@ class OrganizationApiTest extends BreadBasketTest {
 		]);
 		$body = $response->getBody();
 		$retrievedOrg = json_decode($body);
+		$retrievedOrg = get_object_vars($retrievedOrg);
 
-		$this->assertNull($retrievedOrg);
+		//assert that there is no data object in the response
+		$this->assertArrayNotHasKey('data', $retrievedOrg);
 	}
 
 
