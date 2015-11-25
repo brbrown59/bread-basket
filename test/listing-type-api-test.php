@@ -62,7 +62,7 @@ class ListingTypeApiTest extends BreadBasketTest {
 		//create the guzzle client
 		$this->guzzle = new \GuzzleHttp\Client(["cookies" => true]);
 
-		//visit ourselves to get the xsrf-token Todo needs to change based on where this is run
+		//visit ourselves to get the xsrf-token
 		$this->guzzle->get('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype');
 		$cookies = $this->guzzle->getConfig()["cookies"];
 		$this->token = $cookies->getCookieByName("XSRF-TOKEN")->getValue();
@@ -94,12 +94,12 @@ class ListingTypeApiTest extends BreadBasketTest {
 		//ensure the response was sent, and the api returned a positive status
 		$this->assertSame($response->getStatusCode(), 200);
 		$body = $response->getBody();
-		$retrievedOrg = json_decode($body);
-		$this->assertSame(200, $retrievedOrg->status);
+		$retrievedListingType = json_decode($body);
+		$this->assertSame(200, $retrievedListingType->status);
 
 		//ensure the returned values meet expectations (just checking enough to make sure the right thing was obtained)
-		$this->assertSame($retrievedOrg->data->listingTypeId, $listingType->getListingTypeById());
-		$this->assertSame($retrievedOrg->data->listingTypeInfo, $this->VALID_TYPE);
+		$this->assertSame($retrievedListingType->data->listingTypeId, $listingType->getListingTypeById());
+		$this->assertSame($retrievedListingType->data->listingTypeInfo, $this->VALID_TYPE);
 
 	}
 
@@ -117,11 +117,12 @@ class ListingTypeApiTest extends BreadBasketTest {
 			//ensure the response was sent, and the api returned a positive status
 			$this->assertSame($response->getStatusCode(), 200);
 			$body = $response->getBody();
-			$retrievedOrg = json_decode($body);
-			$this->assertSame(200, $retrievedOrg->status);
+			$retrievedListingType = json_decode($body);
+			$this->assertSame(200, $retrievedListingType->status);
 
 			//ensure the returned values meet expectations (just checking enough to make sure the right thing was obtained)
-			$this->assertSame($retrievedOrg->data->listingTypeId, $listingType->getAllListingTypes());
-			$this->assertSame($retrievedOrg->data->listingTypeInfo, $this->VALID_TYPE);
+			$this->assertSame($retrievedListingType->data->listingTypeId, $listingType->getAllListingTypes());
+			$this->assertSame($retrievedListingType[0]->data->listingTypeInfo, $this->VALID_TYPE);
 		}
 	}
+
