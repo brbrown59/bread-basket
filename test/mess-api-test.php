@@ -42,7 +42,7 @@ class Message extends breadBasketTest {
 
 	public function setUp() {
 		parent::setUp();
-
+		// created guzzle client
 		$this->guzzle = new \GuzzleHttp\Client(['cookies' => true]);
 
 		//Visit ourselves to get the xsrf-token
