@@ -177,33 +177,33 @@ class VolunteerApiTest extends BreadBasketTest {
 		$this->assertSame(404, $retrievedVol->status);
 	}
 
-//	public function testValidGetById() {
-//		//text parameter
-//	}
-//
-//	public function testValidGetByOrgId () {
-//
-//	}
-//
-//	public function testValidGetByEmail () {
-//
-//	}
-//
-//	public function testValidGetByIsAdmin () {
-//
-//	}
-//
-//	public function testValidGetByPhone () {
-//
-//	}
-//
-//	public function testValidGetByEmailActivation() {
-//
-//	}
-//
-//	public function testInvalidGet() {
-//
-//	}
+	public function testValidGetById() {
+		//text parameter
+	}
+
+	public function testValidGetByOrgId () {
+
+	}
+
+	public function testValidGetByEmail () {
+
+	}
+
+	public function testValidGetByIsAdmin () {
+
+	}
+
+	public function testValidGetByPhone () {
+
+	}
+
+	public function testValidGetByEmailActivation() {
+
+	}
+
+	public function testInvalidGet() {
+
+	}
 
 	public function testValidPut() {
 		//create a new volunteer, and insert into the database
