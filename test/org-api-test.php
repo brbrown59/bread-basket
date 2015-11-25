@@ -339,6 +339,30 @@ class OrganizationApiTest extends BreadBasketTest {
 	}
 
 	/**
+	 * test getting all organizations
+	 */
+	public function testValidGetAll() {
+		//create a new organization, and insert into the database
+		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
+				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
+		$organization->insert($this->getPDO());
+
+		//send the get request to the API
+		$response = $this->guzzle->get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization', [
+				'headers' => ['X-XSRF-TOKEN' => $this->token]
+		]);
+
+		//ensure the response was sent, and the api returned a positive status
+		$this->assertSame($response->getStatusCode(), 200);
+		$body = $response->getBody();
+		$retrievedOrg = json_decode($body);
+		$this->assertSame(200, $retrievedOrg->status);
+
+		//ensure the response returned a non-empty array
+		$this->assertGreaterThan(0, sizeof($retrievedOrg->data));
+	}
+
+	/**
 	 * test getting something that doesn't exist
 	 * only testing one case, because these errors are really handled by the class, which has already been tested
 	 */
