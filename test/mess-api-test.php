@@ -241,7 +241,19 @@ class Message extends breadBasketTest {
 		$login = $this->guzzle->post('https://bootcamp-coders.cnm,edu/~cberaun2/bread-basket/public_html/php/controllers/sign-out-controller.php', ['allow_redirects' => ['strict' => true], 'json' => $volLogin, 'headers' => ['X-XSRF_TOKEN' => $this->token]]);
 
 		$message = new Message(null, $this->Valid_messageId, $this->VALID_listingId, $this->VALID_orgId, $this->VALID_messageText);
-		$response = $this->guzzle->post('https://bootcamp-coders.cnm.edu/~cberaun2/bread-basket/public_html/php/api/organization')
+		$response = $this->guzzle->post('https://bootcamp-coders.cnm,edu/~cberaun2/bread-basket/public_html/php/api/message', ['allow_redirects' => ['strict' => true], 'json' => $volLogin, 'headers' => ['X-XSRF_TOKEN' => $this->token]]);
+
+		$this->assertSame($response->getStatusCode(), 200);
+		$body = $response->getBody();
+		$retrievedMess = jaon_decode($body);
+
+		//Make sure the organization was not entered into the databaase
+		$shouldNotExist = Message::getMessageByMessageId($this->getPDO(), $this->VALID_NAME);
+		$this->assertSame($shouldNotExist->getSize(), 0);
+
+		//makeSure 401 error is returned for trying to access an admin method as a voulenteer
+		$this->asserSame(401, $retrievedMess->status);
+
 	}
 
 
