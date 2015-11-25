@@ -67,139 +67,61 @@ class ListingTypeApiTest extends BreadBasketTest {
 		$cookies = $this->guzzle->getConfig()["cookies"];
 		$this->token = $cookies->getCookieByName("XSRF-TOKEN")->getValue();
 
+		//send a request to the sign-in method
+
+		$adminLogin = new stdClass();
+		$adminLogin->email = "fakeemail@fake.com";
+		$adminLogin->password = "password4321";
+		$login = $this->guzzle->post('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype', [
+				'json' => $adminLogin,
+				'headers' => ['X-XSRF-TOKEN' => $this->token]
+		]);
+
 	}
 
 
-		//test deleting a valid entry
-		public function testValidDelete() {
+	public function testValidGet() {
+		//test getting by parameter new listing type
+		//create a new listing type, and insert into the database
+		$listingType = new ListingType(null, $this->VALID_TYPE);
+		$listingType->insert($this->getPDO());
 
-			//create a new listing type, and insert into the database
-			$listingType = new ListingType(null, $this->VALID_TYPE);
-			$listingType->insert($this->getPDO());
-
-			// grab the data from guzzle and enforce that the status codes are correct
-			$response = $this->guzzle->delete('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype/' . $listingType->getListingTypeId(),
-				['headers' => ['X-XSRF-TOKEN' => $this->token]
-				]);
-			$this->assertSame($response->getStatusCode(), 200);
-			$body = $response->getBody();
-			$retrievedListingType = json_decode($body);
-			$this->assertSame(200, $retrievedListingType->status);
-
-			//try retrieving entry from database and ensuring it was deleted
-			$deletedListingType = ListingType::getListingTypeById($this->getPDO(), $listingType->getListingTypeId());
-			$this->assertNull($deletedListingType);
-
-		}
-
-		public function testInvalidDelete() {
-			//test to make sure can't delete organization that doesn't exist
-			$response = $this->guzzle->delete('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype/' . BreadBasketTest::INVALID_KEY,
+		//send the get request to the API
+		$response = $this->guzzle->delete('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype/' . $listingType->getListingTypeId(),
 				['headers' => ['X-XSRF-TOKEN' => $this->token]
 				]);
 
-			//make sure the request returns the proper error code for a failed log-in
-			$body = $response->getBody();
-			$retrievedListingType = json_decode($body);
-			$this->assertSame(404, $retrievedListingType->status);
-		}
+		//ensure the response was sent, and the api returned a positive status
+		$this->assertSame($response->getStatusCode(), 200);
+		$body = $response->getBody();
+		$retrievedOrg = json_decode($body);
+		$this->assertSame(200, $retrievedOrg->status);
 
+		//ensure the returned values meet expectations (just checking enough to make sure the right thing was obtained)
+		$this->assertSame($retrievedOrg->data->listingTypeId, $listingType->getListingTypeById());
+		$this->assertSame($retrievedOrg->data->listingTypeInfo, $this->VALID_TYPE);
 
-		public function testValidGet() {
-			//test getting by parameter x
+	}
 
-		}
-
-		public function testInvalidGet() {
-			//test getting something that doesn't exist
-		}
-
-
-		public function testValidPut() {
+	public function testValidGetAll() {
+			//test getting all new listing type
 			//create a new listing type, and insert into the database
-			$listingType = new ListingType(null, $this->VALID_TYPE);
-			$listingType->insert($this->getPDO());
-
-
-			//update the Listing type
 			$listingType = new ListingType(null, $this->VALID_TYPE_2);
+			$listingType->insert($this->getPDO());
 
-			//send the info to update to the API
-			$response = $this->guzzle->put('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype/', [
-				'json' => $listingType,
-				'headers' => ['X-XSRF-TOKEN' => $this->token]
-			]);
+			//send the get request to the API
+			$response = $this->guzzle->delete('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype/' . $listingType->getListingTypeId(),
+					['headers' => ['X-XSRF-TOKEN' => $this->token]
+					]);
 
 			//ensure the response was sent, and the api returned a positive status
 			$this->assertSame($response->getStatusCode(), 200);
 			$body = $response->getBody();
-			$retrievedListingType = json_decode($body);
-			$this->assertSame(200, $retrievedListingType->status);
+			$retrievedOrg = json_decode($body);
+			$this->assertSame(200, $retrievedOrg->status);
 
-			//get the organization from the dB and compare values?
-
+			//ensure the returned values meet expectations (just checking enough to make sure the right thing was obtained)
+			$this->assertSame($retrievedOrg->data->listingTypeId, $listingType->getAllListingTypes());
+			$this->assertSame($retrievedOrg->data->listingTypeInfo, $this->VALID_TYPE);
 		}
-
-		public function testInvalidPut() {
-			//test to make sure can't put to an organization that doesn't exist
-			//question: what about the massive if block to check for empty fields?  can't do ALL of them
-		}
-
-
-		public function testValidPost() {
-
-			//create a new listing type, and insert into the database
-			$listingType = new ListingType(null, $this->VALID_TYPE);
-			$listingType->insert($this->getPDO());
-
-			//send organization info to api in a post method, also make sure the cookie is set
-			$response = $this->guzzle->post('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype/', [
-				'json' => $listingType,
-				'headers' => ['X-XSRF-TOKEN' => $this->token]
-			]);
-			//make sure the status codes match
-			$this->assertSame($response->getStatusCode(), 200);
-			$body = $response->getBody();
-			$retrievedListingType = json_decode($body);
-			$this->assertSame(200, $retrievedListingType->status);
-
-			//retrieve from DB and make sure it matches?
-
-		}
-
-		public function testInvalidPost() {
-			//test to make sure non-admin can't post
-			//sign out as an admin, log-in as a volunteer
-			$logout = $this->guzzle->get('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype/');
-
-
-			$volLogin = new stdClass();
-			$volLogin->email = "notanemail@fake.com";
-			$volLogin->password = "password1234";
-			$login = $this->guzzle->post('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/controllers/sign-in-controller.php', [
-				'json' => $volLogin,
-				'headers' => ['X-XSRF-TOKEN' => $this->token]
-			]);
-
-			//try to post a listingType
-			$listingType = new ListingType(null, $this->VALID_TYPE_2);
-
-			$response = $this->guzzle->post('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype/', [
-				'json' => $listingType,
-				'headers' => ['X-XSRF-TOKEN' => $this->token]
-			]);
-
-			$this->assertSame($response->getStatusCode(), 200);
-			$body = $response->getBody();
-			$retrievedListingType = json_decode($body);
-
-			//make sure the organization was not entered into the database
-			$shouldNotExist = ListingType::getListingByTypeInfo($this->getPDO(), $this->VALID_TYPE_2);
-			$this->assertSame($shouldNotExist->getSize(), 0);
-
-			//make sure 401 error is returned for trying to access an admin method as a volunteer
-			$this->assertSame(401, $retrievedListingType->status);
-		}
-
-
 	}
