@@ -116,7 +116,11 @@ class Volunteer implements JsonSerializable {
 	 * @return array array containing all of the fields in Organization
 	 */
 	public function jsonSerialize() {
-		return(get_object_vars($this));
+		$fields = get_object_vars($this);
+		unset($fields["volEmailActivation"]);
+		unset($fields["volHash"]);
+		unset($fields["volSalt"]);
+		return($fields);
 	}
 
 
