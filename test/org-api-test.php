@@ -146,10 +146,12 @@ class OrganizationApiTest extends BreadBasketTest {
 				$this->VALID_HOURS, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_STATE, $this->VALID_TYPE, $this->VALID_ZIP);
 		$organization->insert($this->getPDO());
 
-		// grab the data from guzzle and enforce that the status codes are correct
+		//perform the actual delete
 		$response = $this->guzzle->delete('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/' . $organization->getOrgId(),
 				['headers' => ['X-XSRF-TOKEN' => $this->token]
 		]);
+
+		// grab the data from guzzle and enforce that the status codes are correct
 		$this->assertSame($response->getStatusCode(), 200);
 		$body = $response->getBody();
 		$retrievedOrg = json_decode($body);
