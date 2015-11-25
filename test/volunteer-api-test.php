@@ -68,7 +68,22 @@ class VolunteerApiTest extends BreadBasketTest {
 	 * valid organization to test with
 	@var organization object $organization
 	 */
-	protected $organization = null;
+	protected $organization;
+	/**
+	 * valid org id to test with
+	 * @var int object $organization
+	 */
+	protected $valid_org_id;
+	/**
+	 * valid volunteer NOT admin test with
+	 * @var string object $volunteer
+	 */
+	protected $volunteer = null;
+	/**
+	 * valid admin to test with
+	 * @var string $admin
+	 */
+	protected $admin = null;
 
 	/**
 	 * set up for dependent objects before running each test
@@ -78,19 +93,34 @@ class VolunteerApiTest extends BreadBasketTest {
 		parent::setUp();
 
 		//create salt and hash
-		$this->VALID_HASH = hash_pbkdf2("sha512", "password1234", $this->VALID_salt, 262144, 128);
+		$this->VALID_HASH = hash_pbkdf2("sha512", "idonatefood", $this->VALID_SALT, 262144, 128);
 		$this->VALID_SALT = bin2hex(openssl_random_pseudo_bytes(32));
 
 		//create an organization for the volunteers to be a part of
 		$organization = new Organization(null, "123 Easy Street", '', "Albuquerque", "Feeding people since 1987", "9 - 5", "Food for Hungry People", "505-765-4321", "NM", "R", "87801");
 		$organization->insert($this->getPDO());
 
+		$this->valid_org_id = $organization->getOrgId();
+
+		//create a new volunteer to use as an admin for the tests
+		//don't need to insert them into the database: just need their info to create sessions
+		//for testing purposes, allow them to create organizations they're not associated with
+		$salt = bin2hex(openssl_random_pseudo_bytes(32));
+		$hash =  hash_pbkdf2("sha512", "coffeeblack", $salt, 262144, 128);
+		$this->admin = new Volunteer(null, $organization->getOrgId(), "captain@voyager.com", null, "Kathryn", $hash, true, "Janeway", "505-123-4567", $salt);
+		$this->admin->insert($this->getPDO());
+
+		//create a non-admin volunteer for the tests
+		$salt = bin2hex(openssl_random_pseudo_bytes(32));
+		$hash =  hash_pbkdf2("sha512", "password1234", $salt, 262144, 128);
+		$this->volunteer = new Volunteer(null, $organization->getOrgId(), "notanemail@fake.com", null, "Jane", $hash, false, "Doe", "505-555-5555", $salt);
+		$this->volunteer->insert($this->getPDO());
 
 		//create the guzzle client
 		$this->guzzle = new \GuzzleHttp\Client(["cookies" => true]);
 
 		//visit ourselves to get the xsrf-token
-		$this->guzzle->get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization');
+		$this->guzzle->get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/');
 		$cookies = $this->guzzle->getConfig()["cookies"];
 		$this->token = $cookies->getCookieByName("XSRF-TOKEN")->getValue();
 
@@ -98,9 +128,9 @@ class VolunteerApiTest extends BreadBasketTest {
 		//send a request to the sign-in method
 
 		$adminLogin = new stdClass();
-		$adminLogin->email = "lastweektonight@joliver.com";
-		$adminLogin->password = "idonatefood";
-		$login = $this->guzzle->post('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/controllers/sign-in-controller.php', [
+		$adminLogin->email = "captain@voyager.com";
+		$adminLogin->password = "coffeeblack";
+		$login = $this->guzzle->post('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/controllers/sign-in-controller.php', [
 				'json' => $adminLogin,
 				'headers' => ['X-XSRF-TOKEN' => $this->token]
 		]);
@@ -110,17 +140,18 @@ class VolunteerApiTest extends BreadBasketTest {
 	//test deleting a valid entry
 	public function testValidDelete() {
 
-		//create a new organization, and insert into the database
-		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_HASH, $this->VALID_ADMIN, $this->VALID_LAST_NAME, $this->VALID_PHONE, $this->VALID_SALT);
+		//create a new volunteer, and insert into the database
+		$volunteer = new Volunteer(null, $this->valid_org_id, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_HASH, $this->VALID_ADMIN, $this->VALID_LAST_NAME, $this->VALID_PHONE, $this->VALID_SALT);
 		$volunteer->insert($this->getPDO());
 
 		// grab the data from guzzle and enforce that the status codes are correct
-		$response = $this->guzzle->delete('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/' . $organization->getOrgId(),
+		$response = $this->guzzle->delete('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/' . $this->valid_org_id,
 				['headers' => ['X-XSRF-TOKEN' => $this->token]
 				]);
 		$this->assertSame($response->getStatusCode(), 200);
 		$body = $response->getBody();
 		$retrievedVol = json_decode($body);
+		var_dump($retrievedVol);
 		$this->assertSame(200, $retrievedVol->status);
 
 		//try retrieving entry from database and ensuring it was deleted
