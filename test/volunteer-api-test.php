@@ -228,7 +228,21 @@ class VolunteerApiTest extends BreadBasketTest {
 		//pull the value from the DB, and make sure it was properly updated
 		$newVol = Volunteer::getVolunteerByVolId($this->getPDO(), $volunteer->getVolId());
 		$this->assertSame($newVol->getVolPhone(), $this->VALID_ALT_PHONE);
+	}
 
+	public function testInvalidPut() {
+		$volunteer = new Volunteer(BreadBasketTest::INVALID_KEY, $this->valid_org_id, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_HASH,
+				$this->VALID_ADMIN, $this->VALID_LAST_NAME, $this->VALID_PHONE, $this->VALID_SALT);
+		$response = $this->guzzle->put('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/' . BreadBasketTest::INVALID_KEY, [
+				'allow-redirects' => ['strict' => true],
+				'json' => $volunteer,
+				'headers' => ['X-XSRF-TOKEN' => $this->token]
+		]);
+
+		//make sure the request returns the proper error code for a failed operation
+		$body = $response->getBody();
+		$retrievedVol = json_decode($body);
+		$this->assertSame(404, $retrievedVol->status);
 	}
 
 
