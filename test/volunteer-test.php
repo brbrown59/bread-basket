@@ -97,7 +97,7 @@ class VolunteerTest extends BreadBasketTest {
 		$volunteer = new Volunteer(null, $this->organization->getOrgId(), $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_HASH, $this->VALID_VOL_IS_ADMIN, $this->VALID_LAST_NAME, $this->VALID_PHONE, $this->VALID_SALT);
 		$volunteer->insert($this->getPDO());
 
-		//grab the data from mySQL and enforce the fields match our expectations
+		//grab the data from mySQL and enforce the fields match our expectations.
 		$pdoVolunteer = Volunteer::getVolunteerByVolId($this->getPDO(), $volunteer->getVolId());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("volunteer"));
 		$this->assertSame($pdoVolunteer->getOrgId(), $this->organization->getOrgId());
