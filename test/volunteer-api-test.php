@@ -45,6 +45,11 @@ class VolunteerApiTest extends BreadBasketTest {
 	 */
 	protected $VALID_PHONE = "180084474753425";
 	/**
+	 * valid phone alternative
+	 * @var string $VALID_ALT_PHONE
+	 */
+	protected $VALID_ALT_PHONE ="5508675309";
+	/**
 	 * valid salt for volunteer
 	 * @var string $salt
 	 */
@@ -145,7 +150,7 @@ class VolunteerApiTest extends BreadBasketTest {
 		$volunteer->insert($this->getPDO());
 
 		// grab the data from guzzle and enforce that the status codes are correct
-		$response = $this->guzzle->delete('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/' . $this->valid_org_id,
+		$response = $this->guzzle->delete('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/' . $volunteer->getVolId(),
 				['headers' => ['X-XSRF-TOKEN' => $this->token]
 				]);
 		$this->assertSame($response->getStatusCode(), 200);
@@ -162,7 +167,7 @@ class VolunteerApiTest extends BreadBasketTest {
 
 	public function testInvalidDelete() {
 		//test to make sure can't delete organization that doesn't exist
-		$response = $this->guzzle->delete('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/' . BreadBasketTest::INVALID_KEY,
+		$response = $this->guzzle->delete('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/' . BreadBasketTest::INVALID_KEY,
 				['headers' => ['X-XSRF-TOKEN' => $this->token]
 				]);
 
@@ -170,6 +175,51 @@ class VolunteerApiTest extends BreadBasketTest {
 		$body = $response->getBody();
 		$retrievedVol = json_decode($body);
 		$this->assertSame(404, $retrievedVol->status);
+	}
+
+	public function testValidGetById() {
+		//text parameter
+	}
+
+	public function testValidGetByOrgId () {
+
+	}
+
+	public function testValidGetByEmail () {
+
+	}
+
+	public function testValidGetByIsAdmin () {
+
+	}
+
+	public function testValidGetByPhone () {
+
+	}
+
+	public function testValidGetByEmailActivation() {
+
+	}
+
+	public function testInvalidGet() {
+
+	}
+
+	public function testValidPut() {
+		//create a new volunteer, and insert into the database
+		$volunteer = new Volunteer(null, $this->valid_org_id, $this->VALID_EMAIL, $this->VALID_EMAIL_ACTIVATION, $this->VALID_FIRST_NAME, $this->VALID_HASH, $this->VALID_ADMIN, $this->VALID_LAST_NAME, $this->VALID_PHONE, $this->VALID_SALT);
+		$volunteer->insert($this->getPDO());
+
+		//update the volunteer
+		$volunteer->setVolPhone($this->VALID_ALT_PHONE);
+
+		//send the info to update the API
+		$response = $this->guzzle->put('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/' . $volunteer->getVolId(), [
+				'allow-redirects' => ['strict' => true],
+				'json' => $volunteer,
+				'headers' => ['X-XSRF-TOKEN' => $this->token]
+		]);
+
 	}
 
 
