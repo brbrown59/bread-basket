@@ -116,13 +116,13 @@ try {
 					throw(new RuntimeException("Volunteer does not exist", 404));
 				}
 
-				$volunteer = Volunteer::getVolunteerByVolId($id);
-				$volunteer->setOrgId($requestObject->getOrgId());
+				$volunteer = Volunteer::getVolunteerByVolId($pdo, $id);
 				$volunteer->setVolEmail($requestObject->volEmail);
 				$volunteer->setVolFirstName($requestObject->volFirstName);
 				$volunteer->setVolIsAdmin($requestObject->volIsAdmin);
 				$volunteer->setVolLastName($requestObject->volLastName);
 				$volunteer->setVolPhone($requestObject->volPhone);
+//				var_dump($requestObject->volPhone);
 
 				$volunteer->update($pdo);
 

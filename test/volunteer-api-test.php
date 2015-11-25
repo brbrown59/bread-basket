@@ -160,6 +160,7 @@ class VolunteerApiTest extends BreadBasketTest {
 
 		//try retrieving entry from database and ensuring it was deleted
 		$deletedVol = Volunteer::getVolunteerByVolId($this->getPDO(), $volunteer->getVolId());
+		var_dump($deletedVol);
 		$this->assertNull($deletedVol);
 
 	}
@@ -176,33 +177,33 @@ class VolunteerApiTest extends BreadBasketTest {
 		$this->assertSame(404, $retrievedVol->status);
 	}
 
-	public function testValidGetById() {
-		//text parameter
-	}
-
-	public function testValidGetByOrgId () {
-
-	}
-
-	public function testValidGetByEmail () {
-
-	}
-
-	public function testValidGetByIsAdmin () {
-
-	}
-
-	public function testValidGetByPhone () {
-
-	}
-
-	public function testValidGetByEmailActivation() {
-
-	}
-
-	public function testInvalidGet() {
-
-	}
+//	public function testValidGetById() {
+//		//text parameter
+//	}
+//
+//	public function testValidGetByOrgId () {
+//
+//	}
+//
+//	public function testValidGetByEmail () {
+//
+//	}
+//
+//	public function testValidGetByIsAdmin () {
+//
+//	}
+//
+//	public function testValidGetByPhone () {
+//
+//	}
+//
+//	public function testValidGetByEmailActivation() {
+//
+//	}
+//
+//	public function testInvalidGet() {
+//
+//	}
 
 	public function testValidPut() {
 		//create a new volunteer, and insert into the database
@@ -213,20 +214,23 @@ class VolunteerApiTest extends BreadBasketTest {
 		//update the volunteer
 		$volunteer->setVolPhone($this->VALID_ALT_PHONE);
 
+//		var_dump($volunteer->getVolId());
 		//send the info to update the API
 		$response = $this->guzzle->put('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/' . $volunteer->getVolId(), [
 				'allow-redirects' => ['strict' => true],
 				'json' => $volunteer,
 				'headers' => ['X-XSRF-TOKEN' => $this->token]
 		]);
-		$newVolunteer = Volunteer::getVolunteerByVolId($this->getPDO(), $volunteer->getVolId());
-		var_dump($newVolunteer);
+//		var_dump($response);
+//		$newVolunteer = Volunteer::getVolunteerByVolId($this->getPDO(), $volunteer->getVolId());
+//		var_dump($newVolunteer);
 
 		//ensure the response was sent, and the api returned a positive status
 		$this->assertSame($response->getStatusCode(), 200);
 		$body = $response->getBody();
 		var_dump((string)$response->getBody());
 		$retrievedVol = json_decode($body);
+//		var_dump($retrievedVol);
 		$this->assertSame(200, $retrievedVol->status);
 
 		//pull the value from the DB, and make sure it was properly updated
