@@ -156,7 +156,6 @@ class VolunteerApiTest extends BreadBasketTest {
 		$this->assertSame($response->getStatusCode(), 200);
 		$body = $response->getBody();
 		$retrievedVol = json_decode($body);
-		var_dump($retrievedVol);
 		$this->assertSame(200, $retrievedVol->status);
 
 		//try retrieving entry from database and ensuring it was deleted
@@ -219,6 +218,16 @@ class VolunteerApiTest extends BreadBasketTest {
 				'json' => $volunteer,
 				'headers' => ['X-XSRF-TOKEN' => $this->token]
 		]);
+
+		//ensure the response was sent, and the api returned a positive status
+		$this->assertSame($response->getStatusCode(), 200);
+		$body = $response->getBody();
+		$retrievedVol = json_decode($body);
+		$this->assertSame(200, $retrievedVol->status);
+
+		//pull the value from the DB, and make sure it was properly updated
+		$newVol = Volunteer::getVolunteerByVolId($this->getPDO(), $volunteer->getVolId());
+		$this->assertSame($newVol->getVolPhone(), $this->VALID_ALT_PHONE);
 
 	}
 
