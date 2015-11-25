@@ -117,14 +117,27 @@ try {
 				}
 
 				$volunteer = Volunteer::getVolunteerByVolId($id);
-				$volunteer->setEmail($requestObject->volEmail);
-//				$volunteer = new Volunteer($id, $requestObject->orgId, $requestObject->volEmail, $requestObject->volEmailActivation,
-//						$requestObject->volFirstName, $requestObject->volIsAdmin, $requestObject->volLastName, $requestObject->volPhone, $salt, $hash);
+				$volunteer->setOrgId($requestObject->getOrgId());
+				$volunteer->setVolEmail($requestObject->volEmail);
+				$volunteer->setVolFirstName($requestObject->volFirstName);
+				$volunteer->setVolIsAdmin($requestObject->volIsAdmin);
+				$volunteer->setVolLastName($requestObject->volLastName);
+				$volunteer->setVolPhone($requestObject->volPhone);
+
 				$volunteer->update($pdo);
 
 				$reply->message = "Volunteer updated OK";
 
 			} elseif($method === "POST") {
+				//set password request for POST
+				if($requestObject->password !== $requestObject->passwordConfirm) {
+					throw(new InvalidArgumentException("passwords do not match", 400));
+				}
+
+				$salt = bin2hex(openssl_random_pseudo_bytes(32));
+				$hash = hash_pbkdf2("sha512", $requestObject->password, $salt, 262144, 128);
+
+				//create new volunteer
 				$volunteer = new Volunteer($id, $requestObject->orgId, $requestObject->volEmail, $requestObject->volEmailActivation,
 						$requestObject->volFirstName, $requestObject->volIsAdmin, $requestObject->volLastName, $requestObject->volPhone, $salt, $hash);
 				$volunteer->insert($pdo);
