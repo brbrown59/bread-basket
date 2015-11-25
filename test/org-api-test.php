@@ -4,6 +4,14 @@ require_once ("bread-basket.php");
 require_once dirname(__DIR__) . "/vendor/autoload.php";
 require_once dirname(__DIR__) . "/public_html/php/classes/autoloader.php";
 
+/**
+ * Full PHPUnit test for the organization API
+ *
+ * This is a complete PHPUnit test of the organization API.
+ *
+ * @see organization\index.php
+ * @author Bradley Brown <tall.white.ninja@gmail.com>
+ **/
 class OrganizationApiTest extends BreadBasketTest {
 	/**
 	 * valid organization address first line to use
@@ -128,7 +136,9 @@ class OrganizationApiTest extends BreadBasketTest {
 	}
 
 
-	//test deleting a valid entry
+	/**
+	 * test deleting a valid organization in the database
+	 */
 	public function testValidDelete() {
 
 		//create a new organization, and insert into the database
@@ -151,8 +161,10 @@ class OrganizationApiTest extends BreadBasketTest {
 
 	}
 
+	/**
+	 * test deleting an object that doesn't exist
+	 */
 	public function testInvalidDelete() {
-		//test to make sure can't delete organization that doesn't exist
 		$response = $this->guzzle->delete('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/' . BreadBasketTest::INVALID_KEY,
 				['headers' => ['X-XSRF-TOKEN' => $this->token]
 		]);
@@ -163,7 +175,9 @@ class OrganizationApiTest extends BreadBasketTest {
 		$this->assertSame(404, $retrievedOrg->status);
 	}
 
-
+	/**
+	 * test getting a valid object by ID
+	 */
 	public function testValidGetById() {
 		//create a new organization, and insert into the database
 		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
@@ -187,6 +201,9 @@ class OrganizationApiTest extends BreadBasketTest {
 
 	}
 
+	/**
+	 * test getting a valid organization by city
+	 */
 	public function testValidGetByCity() {
 		//create a new organization, and insert into the database
 		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
@@ -210,6 +227,10 @@ class OrganizationApiTest extends BreadBasketTest {
 		$this->assertSame($retrievedOrg->data[1]->orgCity, $this->VALID_CITY);
 
 	}
+
+	/**
+	 * test getting a valid organization by name
+	 */
 	public function testValidGetByName() {
 		//create a new organization, and insert into the database
 		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
@@ -233,6 +254,10 @@ class OrganizationApiTest extends BreadBasketTest {
 		$this->assertSame($retrievedOrg->data[1]->orgName, $this->VALID_NAME);
 
 	}
+
+	/**
+	 * test getting a valid organization by state
+	 */
 	public function testValidGetByState() {
 		//create a new organization, and insert into the database
 		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
@@ -256,6 +281,10 @@ class OrganizationApiTest extends BreadBasketTest {
 		$this->assertSame($retrievedOrg->data[1]->orgState, $this->VALID_STATE);
 
 	}
+
+	/**
+	 * test getting valid organization by type
+	 */
 	public function testValidGetByType() {
 		//create a new organization, and insert into the database
 		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
@@ -279,6 +308,10 @@ class OrganizationApiTest extends BreadBasketTest {
 		$this->assertSame($retrievedOrg->data[1]->orgType, $this->VALID_TYPE);
 
 	}
+
+	/**
+	 * test getting valid organization by zip code
+	 */
 	public function testValidGetByZip() {
 		//create a new organization, and insert into the database
 		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
@@ -303,9 +336,11 @@ class OrganizationApiTest extends BreadBasketTest {
 
 	}
 
+	/**
+	 * test getting something that doesn't exist
+	 * only testing one case, because these errors are really handled by the class, which has already been tested
+	 */
 	public function testInvalidGet() {
-		//test getting something that doesn't exist
-		//only testing once, because these errors are really handled by the class, which has already been tested
 		//send the get request to the API
 		$response = $this->guzzle->get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/' . BreadBasketTest::INVALID_KEY, [
 				'headers' => ['X-XSRF-TOKEN' => $this->token]
@@ -319,6 +354,9 @@ class OrganizationApiTest extends BreadBasketTest {
 	}
 
 
+	/**
+	 * test putting a valid organization into the API
+	 */
 	public function testValidPut() {
 		//create a new organization, and insert into the database
 		$organization = new Organization(null, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
@@ -345,6 +383,10 @@ class OrganizationApiTest extends BreadBasketTest {
 		$neworg = Organization::getOrganizationByOrgId($this->getPDO(), $organization->getOrgId());
 		$this->assertSame($neworg->getOrgName(), $this->VALID_NAME_ALT);
 	}
+
+	/**
+	 * test putting an invalidvalid organization into the API
+	 */
 	public function testInvalidPut() {
 		//test to make sure can't put to an organization that doesn't exist
 		$organization = new Organization(BreadBasketTest::INVALID_KEY, $this->VALID_ADDRESS1, $this->VALID_ADDRESS2, $this->VALID_CITY, $this->VALID_DESCRIPTION,
@@ -362,7 +404,9 @@ class OrganizationApiTest extends BreadBasketTest {
 
 	}
 
-
+	/**
+	 * test posting a valid organization to the API
+	 */
 	public function testValidPost() {
 		//get the count of the number of rows in the database
 		$numRows = $this->getConnection()->getRowCount("organization");
@@ -388,6 +432,9 @@ class OrganizationApiTest extends BreadBasketTest {
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("organization"));
 	}
 
+	/**
+	 * test posting an invalid organization to the API
+	 */
 	public function testInvalidPost() {
 		//test to make sure non-admin can't post
 		//sign out as an admin, log-in as a volunteer
