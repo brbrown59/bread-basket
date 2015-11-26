@@ -81,23 +81,23 @@ class ListingApiTest extends BreadBasketTest {
 		parent::setUp();
 
 		//create new organization for the test volunteers
-		$organization = new Organization(null, "123 Easy Street", '', "Albuquerque", "Feeding people since 1987", "9 - 5", "Food for Hungry People", "505-765-4321", "NM", "R", "87801");
-		$organization->insert($this->getPDO());
+		$this->organization = new Organization(null, "123 Easy Street", '', "Albuquerque", "Feeding people since 1987", "9 - 5", "Food for Hungry People", "505-765-4321", "NM", "R", "87801");
+		$this->organization->insert($this->getPDO());
 
 		//create a new listing type
-		$listingType = new ListingType(null, "Perishable");
-		$listingType->insert($this->getPDO());
+		$this->listingType = new ListingType(null, "Perishable");
+		$this->listingType->insert($this->getPDO());
 
 		//create a new volunteer to use as an admin for the tests
 		$salt = bin2hex(openssl_random_pseudo_bytes(32));
 		$hash =  hash_pbkdf2("sha512", "password4321", $salt, 262144, 128);
-		$this->admin = new Volunteer(null, $organization->getOrgId(), "fakeemail@fake.com", null, "John", $hash, true, "Doe", "505-123-4567", $salt);
+		$this->admin = new Volunteer(null, $this->organization->getOrgId(), "fakeemail@fake.com", null, "John", $hash, true, "Doe", "505-123-4567", $salt);
 		$this->admin->insert($this->getPDO());
 
 		//create a non-admin volunteer for the tests
 		$salt = bin2hex(openssl_random_pseudo_bytes(32));
 		$hash =  hash_pbkdf2("sha512", "password1234", $salt, 262144, 128);
-		$this->volunteer = new Volunteer(null, $organization->getOrgId(), "notanemail@fake.com", null, "Jane", $hash, false, "Doe", "505-555-5555", $salt);
+		$this->volunteer = new Volunteer(null, $this->organization->getOrgId(), "notanemail@fake.com", null, "Jane", $hash, false, "Doe", "505-555-5555", $salt);
 		$this->volunteer->insert($this->getPDO());
 
 		//create the guzzle client
@@ -117,4 +117,30 @@ class ListingApiTest extends BreadBasketTest {
 			'headers' => ['X-XSRF-TOKEN' => $this->token]
 		]);
 	}
+
+	/**
+	 * test deleting a valid listing in the database
+	 * */
+	public function testValidDelete() {
+		//create a new listing, and insert it
+		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
+			$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
+		$listing->insert($this->getPDO());
+
+		//perform the actual delete
+		$response = $this->guzzle->delete('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listing/' . $listing->getListingId(), [
+			'headers' => ['X-XSRF-TOKEN' => $this->token]
+		]);
+
+		//grab the data from guzzle and enforce that the status codes are correct
+		$this->assertSame($response->getStatusCode(), 200);
+		$body = $response->getBody();
+		$retrievedListing = json_decode($body);
+		$this->assertSame(200, $retrievedListing->status);
+
+		//try retrieving entry from database and ensure it was deleted
+		$deletedListing = Listing::getListingByListingId($this->getPDO(), $listing->getOrgId());
+		$this->assertNull($deletedListing);
+	}
+
 }
