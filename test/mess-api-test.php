@@ -330,9 +330,19 @@ class MessageApiTest extends BreadBasketTest {
 		$this->asserSame(401, $retrievedMess->status);
 	}
 
+
+	/**
+	 * test putting a valid message into the API
+	 */
+
+
+
+
+
 	/*
-	 * test ability to put Valid Message to the
-	 */public function testPutValidMessage () {
+	 * test putting an invalidid message ino the API
+	 */
+	public function testPutValidMessage () {
 
 		//create a new message
 		$newMessage = new Message (null, $this->VALID_MESSAGE_ID, $this->VALID_LISTING_Id, $this->VALID_ORG_ID, $this->VALID_MESSAGE_ID, $this->VALID_MESSAGE_TEXT);
