@@ -13,35 +13,68 @@ require_once dirname(__DIR__) . "/public_html/php/classes/autoloader.php";
  * PHPunit test for message API
  */
 
-class Message extends breadBasketTest {
+class MessageApiTest extends BreadBasketTest {
 	/**
 	 * id for this message; this is the primary key
 	 * @var int $messageId
 	 **/
-	private $messageId;
+	protected $VALID_MESSAGE_ID = "";
 	/**
 	 * id for listing; this is the a foreign key
 	 * @var int $listingId
 	 **/
-	private $listingId;
+	protected $VALID_LISTING_Id = "";
 	/**
 	 * id of the organization (org) that listed the donation; this is a foreign key
 	 * @var int $orgId
 	 **/
-	private $orgId;
+	protected $VALID_ORG_ID = "";
 	/**
 	 * the content of the Message
 	 * @var string $messageText
 	 **/
-	private $messageText;
+	protected $VALID_MESSAGE_TEXT = "";
 
 
 	/**
-	 *Setting up guzzel/cookies
+	 *Setting up dependant objects before running each test
 	 */
 
 	public function setUp() {
+		//run default set-up method
 		parent::setUp();
+
+		//create a new organization for the test message to belong
+		$organization = new Message(null, "");
+		$organization->insert($this->getPDO());
+
+		//create a new volunteer for the test message to belong
+		$volunteer =new Message(null, "");
+		$volunteer->insert($this->getPDO());
+
+		//create a new Listing type for the test message to belong
+		$listingType = new Message(null, "");
+		$listingType->insert($this->getPDO());
+
+		//create a new listing type for the test message to belong
+		$listing = new message(null. "");
+		$listing->insert($this->getPDO());
+
+		//create a new volunteer to use as an admin for the tests
+		//dont need to insert them into database: just need their info to create sessions
+		//for testing purposes, allow them to create organizations they not associated with
+		$salt = bin2hex(openssl_random_pseudo_bytes(32));
+		$hash = hash_pbkdf2("userone", "passwordone", $salt, 262144, 128);
+		$this->admin = new Volunteer(null, $organization->getOrgId(), "superfake@email.com", null, "Mike", $hash, true, "Smith", "505-321-1234", $salt);
+		$this->admin->insert($this->getPDO());
+
+		//create a non-admin voulunteer for the test
+		$salt = bin2hex(openssl_random_pseudo_bytes(32));
+		$hash = hash_pbkdf2("usertwo", "passwordtwo", $salt, 262144, 128);
+		$this->volunteer = new Volunteer(null, $organization->getOrgId(), "superfake002@email.com", null, "Smithers", $hash, true, "Mikeson", "505-432-1234", $salt);
+		$this->volunteer->insert($this->getPDO());
+
+
 		// created guzzle client
 		$this->guzzle = new \GuzzleHttp\Client(['cookies' => true]);
 
@@ -60,31 +93,47 @@ class Message extends breadBasketTest {
 	}
 
 	/**
-	 * test deleting Valid Message
+	 * test deleting a Valid Message in the database
 	 */
 	public function testDeleteValidMessage(){
-		//created a new message
-		$newMessage = new Message (null, $this->Valid_messageId, $this->VALID_listingId, $this->VALID_orgId, $this->VALID_messageText);
+		//created a new message, and insert into the database
+		$newMessage = new Message (null, $this->VALID_MESSAGE_ID, $this->VALID_LISTING_Id, $this->VALID_ORG_ID, $this->VALID_MESSAGE_ID, $this->VALID_MESSAGE_TEXT);
 		$newMessage->insert($this->getPDO());
 
-		//run a get request to establish session tokens
-		$this->guzzle->get('http://bootcamp-coders.cnm.edu/~bread-basket/public_html/php/api/message/');
-
-		//grab the data from guzzle and enforce the status matches our exception
-		$response = $this->guzzle->delete('http://bootcamp-coders.cnm.edu/~bread-basket/public_html/php/api/message/' . $newMessage->getMessage(), ['headers' => ['XRSF-TOKEN' => $this->getXsrfToken()]]);
+		//grab the data from guzzle and enforece that the status codes are correct
+		$response = $this->guzzle->delete('http://bootcamp-coders.cnm.edu/~cberaun2/bread-basket/public_html/php/api/message/' . $newMessage->getMessage(), ['headers' => ['XRSF-TOKEN' => $this->token]]);
 		$this->assertSame($response-GetStatusCode(), 200);
 		$body = $response->getBody();
-		$alertLevel = jason_decode($body);
-		$this->assertSame(200, $alertLevel->status);
+		$retrievedMessage = json_decode($body);
+		$this->assertSame(200, $retrievedMessage->status);
+
+		//try retriving entry from database and ensuring it was deleted
+		$deletedMess = Message::getMessageByMessageId($this->PDO(), $newMessage->getMessageId());
+		$this->assertNull($deletedMess);
 	}
+
+
+	/**
+	 * test deleting an object that does not exist
+	 */
+	public function testInvalidDelete() {
+		$response =$this->guzzle->delete('http://bootcamp-coders.cnm.edu/~cberaun2/bread-basket/public_html/php/api/message/' . BreadBasketTest::INVALID_KEY, ['headers' => ['XRSF-TOKEN' => $this->token]]);
+
+		//make sure the request returns the proper error code for the failed operation
+		$body =$response->getBody();
+		$retrievedMess = json_encode($body);
+		$this->assertSame(404, $retrievedMess->status);
+	}
+
+
+
 
 /*
  * test getting valid Message by messageId
  */
-
 	public function testGetValidMessagebyMessageId(){
 		//create a new message
-		$newMessage =new message (null, $this->Valid_messageId, $this->VALID_listingId, $this->VALID_orgId, $this->VALID_messageText);
+		$newMessage =new message (null, $this->VALID_MESSAGE_ID, $this->VALID_LISTING_Id, $this->VALID_ORG_ID, $this->VALID_MESSAGE_ID, $this->VALID_MESSAGE_TEXT);
 		$newMessage->insert($this->getPDO());
 
 		//grab the data from guzzle
@@ -95,12 +144,13 @@ class Message extends breadBasketTest {
 		$this->assertSame(200, $alertLevel->status);
 	}
 
+
 	/*
 	 * test Getting invalid message by messageId
 	 */
  Public function testGetInvalidMessageByMessageId(){
 	 //create a new message
-	 $newMessage =new message (null, $this->Valid_messageId, $this->VALID_listingId, $this->VALID_orgId, $this->VALID_messageText);
+	 $newMessage =new message (null, $this->VALID_MESSAGE_ID, $this->VALID_LISTING_Id, $this->VALID_ORG_ID, $this->VALID_MESSAGE_ID, $this->VALID_MESSAGE_TEXT);
 	 $newMessage->insert($this->getPDO());
 
 	 //grab the data from guzzle
@@ -116,7 +166,7 @@ class Message extends breadBasketTest {
 	 */
 	public function testGetValidMessageByListingId(){
 		//create a new message
-		$newMessage =new message (null, $this->Valid_messageId, $this->VALID_listingId, $this->VALID_orgId, $this->VALID_messageText);
+		$newMessage =new message (null, $this->VALID_MESSAGE_ID, $this->VALID_LISTING_Id, $this->VALID_ORG_ID, $this->VALID_MESSAGE_ID, $this->VALID_MESSAGE_TEXT);
 		$newMessage->insert($this->getPDO());
 
 		//grab the data from guzzle
@@ -132,7 +182,7 @@ class Message extends breadBasketTest {
  */
 	public function testGetInvalidMessageByListingId(){
 		//create a new message
-		$newMessage =new message (null, $this->Valid_messageId, $this->VALID_listingId, $this->VALID_orgId, $this->VALID_messageText);
+		$newMessage =new message (null, $this->VALID_MESSAGE_ID, $this->VALID_LISTING_Id, $this->VALID_ORG_ID, $this->VALID_MESSAGE_ID, $this->VALID_MESSAGE_TEXT);
 		$newMessage->insert($this->getPDO());
 
 		//grab the data from guzzle
@@ -148,7 +198,7 @@ class Message extends breadBasketTest {
  */
 	public function testGetValidMessageByOrgId(){
 		//create a new message
-		$newMessage =new message (null, $this->Valid_messageId, $this->VALID_listingId, $this->VALID_orgId, $this->VALID_messageText);
+		$newMessage =new message (null, $this->VALID_MESSAGE_ID, $this->VALID_LISTING_Id, $this->VALID_ORG_ID, $this->VALID_MESSAGE_ID, $this->VALID_MESSAGE_TEXT);
 		$newMessage->insert($this->getPDO());
 
 		//grab the data from guzzle
@@ -164,7 +214,7 @@ class Message extends breadBasketTest {
 	 */
 	public function testGetInvalidMessageByOrgId(){
 		//create a new message
-		$newMessage =new message (null, $this->Valid_messageId, $this->VALID_listingId, $this->VALID_orgId, $this->VALID_messageText);
+		$newMessage =new message (null, $this->VALID_MESSAGE_ID, $this->VALID_LISTING_Id, $this->VALID_ORG_ID, $this->VALID_MESSAGE_ID, $this->VALID_MESSAGE_TEXT);
 		$newMessage->insert($this->getPDO());
 
 		//grab the data from guzzle
@@ -180,7 +230,7 @@ class Message extends breadBasketTest {
 	 */
 	public function testGetValidMessageByMessageText(){
 		//create a new message
-		$newMessage =new message (null, $this->Valid_messageId, $this->VALID_listingId, $this->VALID_orgId, $this->VALID_messageText);
+		$newMessage =new message (null, $this->VALID_MESSAGE_ID, $this->VALID_LISTING_Id, $this->VALID_ORG_ID, $this->VALID_MESSAGE_ID, $this->VALID_MESSAGE_TEXT);
 		$newMessage->insert($this->getPDO());
 
 		//grab the data from guzzle
@@ -196,7 +246,7 @@ class Message extends breadBasketTest {
 	 */
 	public function testGetInvalidMessageByMessageText(){
 		//create a new message
-		$newMessage =new message (null, $this->Valid_messageId, $this->VALID_listingId, $this->VALID_orgId, $this->VALID_messageText);
+		$newMessage =new message (null, $this->VALID_MESSAGE_ID, $this->VALID_LISTING_Id, $this->VALID_ORG_ID, $this->VALID_MESSAGE_ID, $this->VALID_MESSAGE_TEXT);
 		$newMessage->insert($this->getPDO());
 
 		//grab the data from guzzle
@@ -212,7 +262,7 @@ class Message extends breadBasketTest {
 	 */
 	public function testPostValidMessage(){
 		//create a new message
-		$newMessage = new Message (null, $this->Valid_messageId, $this->VALID_listingId, $this->VALID_orgId, $this->VALID_messageText);
+		$newMessage = new Message (null, $this->VALID_MESSAGE_ID, $this->VALID_LISTING_Id, $this->VALID_ORG_ID, $this->VALID_MESSAGE_ID, $this->VALID_MESSAGE_TEXT);
 
 		//run a get request to establish session tokens
 		$this->guzzle->get('http://bootcamp-coders.cnm.edu/~bread-basket/public_html/php/api/message/');
@@ -235,17 +285,17 @@ class Message extends breadBasketTest {
 		//sign out as admin, log-in as a voulenteer
 		$logout = $this->guzzle-get('https://bootcamp-coders.cnm.edu/~cberaun2/bread-basket/public_html/php/controllers/sign-out-controller.php');
 
-		$volLogin = new stfClass();
+		$volLogin = new stdClass();
 		$volLogin->email = "samplemail@notreal.com";
 		$volLogin->password = "passwordabc";
 		$login = $this->guzzle->post('https://bootcamp-coders.cnm,edu/~cberaun2/bread-basket/public_html/php/controllers/sign-out-controller.php', ['allow_redirects' => ['strict' => true], 'json' => $volLogin, 'headers' => ['X-XSRF_TOKEN' => $this->token]]);
 
-		$message = new Message(null, $this->Valid_messageId, $this->VALID_listingId, $this->VALID_orgId, $this->VALID_messageText);
+		$message = new Message(null, $this->VALID_MESSAGE_ID, $this->VALID_LISTING_Id, $this->VALID_ORG_ID, $this->VALID_MESSAGE_ID, $this->VALID_MESSAGE_TEXT);
 		$response = $this->guzzle->post('https://bootcamp-coders.cnm,edu/~cberaun2/bread-basket/public_html/php/api/message', ['allow_redirects' => ['strict' => true], 'json' => $volLogin, 'headers' => ['X-XSRF_TOKEN' => $this->token]]);
 
 		$this->assertSame($response->getStatusCode(), 200);
 		$body = $response->getBody();
-		$retrievedMess = jaon_decode($body);
+		$retrievedMess = json_decode($body);
 
 		//Make sure the organization was not entered into the databaase
 		$shouldNotExist = Message::getMessageByMessageId($this->getPDO(), $this->VALID_NAME);
@@ -264,7 +314,7 @@ class Message extends breadBasketTest {
 	 */
 	public function testPutValidMessage () {
 		//create a new message
-		$newMessage = new Message (null, $this->Valid_messageId, $this->VALID_listingId, $this->VALID_orgId, $this->VALID_messageText);
+		$newMessage = new Message (null, $this->VALID_MESSAGE_ID, $this->VALID_LISTING_Id, $this->VALID_ORG_ID, $this->VALID_MESSAGE_ID, $this->VALID_MESSAGE_TEXT);
 		$newMessage->insert($this->getPDO());
 
 		//run a get request to establish session tokens
