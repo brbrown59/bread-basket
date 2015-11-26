@@ -126,6 +126,27 @@ class MessageApiTest extends BreadBasketTest {
 	}
 
 
+	/**
+	 * test getting a valid object by ID
+	 */
+	public function testValidGetById() {
+		//create a new message, and insert ino the database
+		$newMessage = new Message(null, $this->VALID_MESSAGE_ID, $this->VALID_LISTING_Id, $this->VALID_ORG_ID, $this->VALID_MESSAGE_ID, $this->VALID_MESSAGE_TEXT);
+		$newMessage->insert($this->getPDO());
+
+		//send the get request to the API
+		$response = $this->guzzle=get('http://bootcamp-coders.cnm.edu/~cberaun2/bread-basket/public_html/php/api/message/' . $newMessage->getMessageId(), ['headers' => ['XRSF-TOKEN' => $this->token]]);
+
+		//ensure the response was sent, and the api returned a positive status
+		$this->assertSame($response->getStatusCode(), 200):
+		$body = $response->getBody();
+		$retrievedMass = json_encode($body);
+		$this->AssertSame(200, $retrievedMass->status);
+
+		//ensure the returned values meet expectations (just clicking enough to make sure the right thing was obtained)
+		$this->assertSame($retrievedMass->data->messageId, $newMessage->getMessageId());
+		$this->assertSame($retrievedMass->data->orgId, $this->VALID_ORG_ID);
+	}
 
 
 /*
@@ -258,10 +279,13 @@ class MessageApiTest extends BreadBasketTest {
 	}
 
 	/**
-	 * test ability to Post Valid Message
+	 * test posting a valid message to the API
 	 */
 	public function testPostValidMessage(){
-		//create a new message
+		//get the count of the numbers of rows in the database
+		$numRows = $this->getConnection()->getRowCount("message");
+
+		//create a new message to send
 		$newMessage = new Message (null, $this->VALID_MESSAGE_ID, $this->VALID_LISTING_Id, $this->VALID_ORG_ID, $this->VALID_MESSAGE_ID, $this->VALID_MESSAGE_TEXT);
 
 		//run a get request to establish session tokens
@@ -273,12 +297,13 @@ class MessageApiTest extends BreadBasketTest {
 		$body = $response->getBody();
 		$alertLevel = jason_decode($body);
 		$this->assertSame(200, $alertLevel->status);
+
+		//ensure a new row was added to the database
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("message"));
 	}
 
-
-
 	/**
-	 * test ability to post invalid Message
+	 * test posting an invalid Message to the API
 	 */
 	public function testPostInvalidMessage(){
 		//test to make sure non-admin can not post
@@ -298,21 +323,17 @@ class MessageApiTest extends BreadBasketTest {
 		$retrievedMess = json_decode($body);
 
 		//Make sure the organization was not entered into the databaase
-		$shouldNotExist = Message::getMessageByMessageId($this->getPDO(), $this->VALID_NAME);
+		$shouldNotExist = Message::getMessageByMessageId($this->getPDO(), $this->VALID_MESSAGE_ID);
 		$this->assertSame($shouldNotExist->getSize(), 0);
 
-		//makeSure 401 error is returned for trying to access an admin method as a voulenteer
+		//makeSure 401 error is returned for trying to access an admin method as a volunteer
 		$this->asserSame(401, $retrievedMess->status);
-
 	}
 
-
-
-
 	/*
-	 * test ability to put Valid Message
-	 */
-	public function testPutValidMessage () {
+	 * test ability to put Valid Message to the
+	 */public function testPutValidMessage () {
+
 		//create a new message
 		$newMessage = new Message (null, $this->VALID_MESSAGE_ID, $this->VALID_LISTING_Id, $this->VALID_ORG_ID, $this->VALID_MESSAGE_ID, $this->VALID_MESSAGE_TEXT);
 		$newMessage->insert($this->getPDO());
