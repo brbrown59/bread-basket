@@ -11,8 +11,8 @@ require_once dirname(__DIR__) . "/public_html/php/classes/autoloader.php";
  **/
 class ListingApiTest extends BreadBasketTest {
 	/**
-	 * valid org Id by to use
-	 * @var Int $VALID_ORGID = $this->organization->getOrgId()
+	 * organization to use
+	 * @var organization object
 	 **/
 	protected $organization = null;
 	/**
@@ -52,7 +52,7 @@ class ListingApiTest extends BreadBasketTest {
 	protected $valid_datetime = null;
 	/**
 	 * valid listing type to use
-	 * @var Int 	protected $listingType = null;
+	 * @var listingtype object;
 	 **/
 	protected $listingType = null;
 
@@ -124,7 +124,7 @@ class ListingApiTest extends BreadBasketTest {
 	public function testValidDelete() {
 		//create a new listing, and insert it
 		$listing = new Listing(null, $this->organization->getOrgId(), $this->VALID_CLAIMEDBY, $this->VALID_LISTINGCLOSED, $this->VALID_COST, $this->VALID_MEMO,
-			$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getlistingTypeId());
+			$this->VALID_PARENT_ID, $this->valid_datetime, $this->listingType->getListingTypeId());
 		$listing->insert($this->getPDO());
 
 		//perform the actual delete
@@ -141,6 +141,19 @@ class ListingApiTest extends BreadBasketTest {
 		//try retrieving entry from database and ensure it was deleted
 		$deletedListing = Listing::getListingByListingId($this->getPDO(), $listing->getOrgId());
 		$this->assertNull($deletedListing);
+	}
+	/**
+	 * test deleting an object that doesn't exist
+	 */
+	public function testInvalidDelete() {
+		$response = $this->guzzle->delete('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listing/' . BreadBasketTest::INVALID_KEY, [
+			'headers' => ['X-XSRF-TOKEN' => $this->token]
+		]);
+
+		//make sure the request returns the proper failed error code
+		$body = $response->getBody();
+		$retrievedListing = json_decode($body);
+		$this->assertSame(404, $retrievedListing->status);
 	}
 
 }
