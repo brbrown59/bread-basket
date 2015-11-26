@@ -138,7 +138,7 @@ class MessageApiTest extends BreadBasketTest {
 		$response = $this->guzzle=get('http://bootcamp-coders.cnm.edu/~cberaun2/bread-basket/public_html/php/api/message/' . $newMessage->getMessageId(), ['headers' => ['XRSF-TOKEN' => $this->token]]);
 
 		//ensure the response was sent, and the api returned a positive status
-		$this->assertSame($response->getStatusCode(), 200):
+		$this->assertSame($response->getStatusCode(), 200);
 		$body = $response->getBody();
 		$retrievedMass = json_encode($body);
 		$this->AssertSame(200, $retrievedMass->status);
