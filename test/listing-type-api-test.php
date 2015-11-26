@@ -76,7 +76,7 @@ class ListingTypeApiTest extends BreadBasketTest {
 		$this->guzzle = new \GuzzleHttp\Client(["cookies" => true]);
 
 		//visit ourselves to get the xsrf-token
-		$this->guzzle->get('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype');
+		$this->guzzle->get('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/organization');
 		$cookies = $this->guzzle->getConfig()["cookies"];
 		$this->token = $cookies->getCookieByName("XSRF-TOKEN")->getValue();
 
@@ -112,50 +112,78 @@ class ListingTypeApiTest extends BreadBasketTest {
 		$this->assertSame(200, $retrievedListingType->status);
 
 		//ensure the returned values meet expectations (just checking enough to make sure the right thing was obtained)
-		$this->assertSame($retrievedListingType->data->listingTypeId, $listingType->getListingTypeById());
+		$this->assertSame($retrievedListingType->data->listingTypeId, $listingType->getListingTypeId());
 		$this->assertSame($retrievedListingType->data->listingTypeInfo, $this->VALID_TYPE);
 
 	}
 
-	public function testValidGetAll() {
+
+
+/**
+ * 	test getting all Listing Ids
+ *
+ **/
+  public function testValidGetAll() {
 		//test getting all new listing type
 		//create a new listing type, and insert into the database
-		$listingType = new ListingType(null, $this->VALID_TYPE_2);
+		$listingType = new ListingType(null, $this->VALID_TYPE);
 		$listingType->insert($this->getPDO());
 
 		//send the get request to the API
-		$response = $this->guzzle->get('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype/' . $listingType->getListingTypeId(),
-				['headers' => ['X-XSRF-TOKEN' => $this->token]
+		$response = $this->guzzle->get('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype/', [
+				'headers' => ['X-XSRF-TOKEN' => $this->token]
 				]);
 
-		//ensure the response was sent, and the api returned a positive status
-		$this->assertSame($response->getStatusCode(), 200);
-		$body = $response->getBody();
-		$retrievedListingType = json_decode($body);
-		$this->assertSame(200, $retrievedListingType->status);
+	  //ensure the response was sent, and the api returned a positive status
+	  $this->assertSame($response->getStatusCode(), 200);
+	  $body = $response->getBody();
+	  $retrievedListingType = json_decode($body);
+	  var_dump($retrievedListingType);
+	  $this->assertSame(200, $retrievedListingType->status);
 
 		//ensure the returned values meet expectations (just checking enough to make sure the right thing was obtained)
-		$this->assertSame($retrievedListingType->data->listingTypeId, $listingType->getAllListingTypes());
-		$this->assertSame($retrievedListingType[0]->data->listingTypeInfo, $this->VALID_TYPE);
+		$this->assertGreaterThan(0, sizeof($retrievedListingType->data));
 	}
 
 
-	public function testInvalidValidGet() {
-		//test getting by parameter new listing type
-		//create a new listing type, and insert into the database
-		$listingType = new ListingType(null, BreadBasketTest::INVALID_KEY);
-		$listingType->insert($this->getPDO());
+	public function testInvalidGet() {
 
 		//send the get request to the API
-		$response = $this->guzzle->get('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype/' . $listingType->getListingTypeId(),
+		$response = $this->guzzle->get('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype/' . BreadBasketTest::INVALID_KEY,
 				['headers' => ['X-XSRF-TOKEN' => $this->token]
 				]);
 
 		//make sure the request returns the proper error code for a failed operation
 		$body = $response->getBody();
-		$retrievedOrg = json_decode($body);
-		$this->assertSame(404, $retrievedOrg->status);
+		$retrievedListingType = json_decode($body);
+		$retrievedListingType = get_object_vars($retrievedListingType);
 
+		//assert that there is no data object in the response
+		$this->assertArrayNotHasKey('data', $retrievedListingType);
 	}
+
+	/**
+	 * test getting all listing Types
+	 */
+//	public function testValidGetAll2() {
+//		//test getting by parameter new listing type
+//		//create a new listing type, and insert into the database
+//		$listingType = new ListingType(null, $this->VALID_TYPE_2);
+//		$listingType->insert($this->getPDO());
+//
+//		//send the get request to the API
+//		$response = $this->guzzle->get('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype', [
+//				'headers' => ['X-XSRF-TOKEN' => $this->token]
+//		]);
+//
+//		//ensure the response was sent, and the api returned a positive status
+//		$this->assertSame($response->getStatusCode(), 200);
+//		$body = $response->getBody();
+//		$retrievedListingType = json_decode($body);
+//		$this->assertSame(200, $retrievedListingType->status);
+//
+//		//ensure the response returned a non-empty array
+//		$this->assertGreaterThan(0, sizeof($retrievedListingType->data->listingTypeId));
+//	}
 
 }
