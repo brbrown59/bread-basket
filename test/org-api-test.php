@@ -101,8 +101,6 @@ class OrganizationApiTest extends BreadBasketTest {
 		$organization->insert($this->getPDO());
 
 		//create a new volunteer to use as an admin for the tests
-		//don't need to insert them into the database: just need their info to create sessions
-		//for testing purposes, allow them to create organizations they're not associated with
 		$salt = bin2hex(openssl_random_pseudo_bytes(32));
 		$hash =  hash_pbkdf2("sha512", "password4321", $salt, 262144, 128);
 		$this->admin = new Volunteer(null, $organization->getOrgId(), "fakeemail@fake.com", null, "John", $hash, true, "Doe", "505-123-4567", $salt);
