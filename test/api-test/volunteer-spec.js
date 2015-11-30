@@ -41,6 +41,7 @@ var updateData = {
 	volPhone: "+12345678900"
 }
 
+
 // variables to keep PHP state
 var phpSession = undefined;
 var xsrfToken = undefined;
@@ -54,6 +55,7 @@ var createAccount = function() {
 			status: 200,
 			message: "Logged in as administrator"
 		})
+		.inspectJSON()
 		.toss();
 };
 
@@ -65,36 +67,45 @@ var updateAccount = function() {
 			status: 200,
 			message: "Volunteer updated OK"
 		})
+		.inspectJSON()
 		.toss();
 };
 
-//var getByVolId = function() {
-//
-//};
-//
-//var getByOrgId = function() {
-//
-//}
-//
-//var getByEmail = function() {
-//
-//};
-//
-//var getByIsAdmin = function() {
-//
-//};
-//
-//var getByEmailActivation = function() {
-//
-//};
-//
-//var getbyInvalid = function() {
-//
-//};
-//
-//var deleteAccount = function() {
-//
-//};
+var getByVolId = function() {
+
+  };  
+
+var getByOrgId = function() {
+
+  }  ;
+
+var getByEmail = function() {
+
+  };  
+
+var getByIsAdmin = function() {
+
+  };
+
+  var getByEmailActivation = function() {
+
+};
+
+  var getbyInvalid = function() {  
+
+};
+
+var deleteAccount = function() {
+	frisby.create("delete an account")
+			.delete(endpointUrl)
+			.expectStatus(200)
+			.expectJSON({
+				status: 200,
+				message:"Volunteer deleted OK"
+			})
+			.inspectJSON()
+			.toss();
+};
 
 
 
@@ -128,5 +139,6 @@ frisby.create("GET XSRF Token")
 		});
 		createAccount();
 		updateAccount();
+		deleteAccount();
 	})
 	.toss();
