@@ -1,7 +1,7 @@
 // standard API variables
 var frisby = require("frisby");
-var endpointUrl = "https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer";
-var signupUrl = "https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/controllers/sign-up-controller.php";
+var endpointUrl = "https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listing";
+var signupUrl = "https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/controllers/sign-up-controller.php";
 
 // user creation variables
 var signupData = {
@@ -15,7 +15,7 @@ var signupData = {
 	orgState: "NM",
 	orgType: "G",
 	orgZip: "87102",
-	volEmail: "dmcdonald21@cnm.edu",
+	volEmail: "breadbasketapp@gmail.com",
 	volFirstName: "Senator",
 	volLastName: "Arlo",
 	volPassword: "p@ssword",

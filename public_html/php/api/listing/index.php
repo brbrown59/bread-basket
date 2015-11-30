@@ -20,6 +20,16 @@ $reply->status = 200;
 $reply->data = null;
 
 try {
+
+	//grab the mySQL connection
+	$pdo = connectToEncryptedMySql("/etc/apache2/capstone-mysql/breadbasket.ini");
+
+	//if the volunteer session is empty, the user is not logged in, throw an exception
+	if(empty($_SESSION["volunteer"]) === true) {
+		setXsrfCookie("/");
+		throw(new RuntimeException("Please log-in or sign up", 401));
+	}
+
 	//create the Pusher connection
 	$config = readConfig("/etc/apache2/capstone-mysql/breadbasket.ini");
 	$pusherConfig = json_decode($config["pusher"]);
@@ -27,12 +37,6 @@ try {
 
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
-
-	//if the volunteer session is empty, the user is not logged in, throw an exception
-	if(empty($_SESSION["volunteer"]) === true) {
-		setXsrfCookie("/");
-		throw(new RuntimeException("Please log-in or sign up", 401));
-	}
 
 	//sanitize the id
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
@@ -47,8 +51,7 @@ try {
 	$parentId = filter_input(INPUT_GET, "parentId", FILTER_VALIDATE_INT);
 	$postTime = Listing::validateDate($postTime);
 
-	//grab the mySQL connection
-	$pdo = connectToEncryptedMySql("/etc/apache2/capstone-mysql/breadbasket.ini");
+
 
 	//handle all RESTful calls to listing
 	//get some or all Listings
