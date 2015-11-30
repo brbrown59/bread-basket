@@ -22,6 +22,13 @@ var signupData = {
 	volPhone: "+15055551212"
 }
 
+//variables related to one of my dependencies
+var listingTypeData = {
+	listingType: "Perishable"
+}
+
+var listingTypeId;
+
 // variables to keep PHP state
 var phpSession = undefined;
 var xsrfToken = undefined;
@@ -36,6 +43,24 @@ var createAccount = function() {
 			message: "Logged in as administrator"
 		})
 		.toss();
+};
+
+// insert the dependencies into the database, and ensure their existence
+var setup = function() {
+	frisby.create("create new listing type")
+			.post("https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listingtype", listingTypeData, {json: true})
+			.expectStatus(200)
+			.expectJSON({
+				status: 200,
+				message: "Listing Type created OK"
+			})
+			.get("https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listingtype?listingType=Perishable")
+			.after(function (body, response) {
+					//get the id from the body
+					body = JSON.parse(body);
+					listingTypeId = body.ListingTypeId; //make sure this is getting what I think it does
+				})
+			.toss();
 };
 
 // first, get the XSRF token
@@ -66,5 +91,21 @@ frisby.create("GET XSRF Token")
 			}
 		});
 		createAccount();
+		setup();
+		/*
+		setup(); // insert dependencies into database, probably include just beneath xsrf stuff
+					// log-in SHOULD create an organization and a volunteer for us
+		//basic form: take json of dependency, post request, get request on another unique but predictable field, get and store ID
+		validPost();
+		invalidPost();
+		validGetAll();
+		validGetByFoo(); //get by something else is going to have to come above get by id
+		validPut();
+		invalidPut();
+		invalidGet;
+		validDelete();
+		invalidDelete();
+		teardown(); //delete dependencies from database
+		 */
 	})
 	.toss();
