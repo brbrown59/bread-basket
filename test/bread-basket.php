@@ -52,7 +52,7 @@ abstract class BreadBasketTest extends PHPUnit_Extensions_Database_TestCase {
 	 **/
 	public final function getSetUpOperation() {
 		return new PHPUnit_Extensions_Database_Operation_Composite(array(
-			PHPUnit_Extensions_Database_Operation_Factory::DELETE_ALL(),
+			PHPUnit_Extensions_Database_Operation_Factory::TRUNCATE(),
 			PHPUnit_Extensions_Database_Operation_Factory::INSERT()
 		));
 	}
@@ -63,7 +63,7 @@ abstract class BreadBasketTest extends PHPUnit_Extensions_Database_TestCase {
 	 * @return PHPUnit_Extensions_Database_Operation_IDatabaseOperation delete command for the database
 	 **/
 	public final function getTearDownOperation() {
-		return(PHPUnit_Extensions_Database_Operation_Factory::DELETE_ALL());
+		return(PHPUnit_Extensions_Database_Operation_Factory::TRUNCATE());
 	}
 
 	/**

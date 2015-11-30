@@ -97,9 +97,6 @@ try {
 			if(empty($requestObject->volFirstName) === true) {
 				throw(new InvalidArgumentException ("first name cannot be empty", 405));
 			}
-			if(empty($requestObject->volIsAdmin) === true) {
-				$requestObject->volIsAdmin = null;
-			}
 			if(empty($requestObject->volLastName) === true) {
 				throw(new InvalidArgumentException ("last name cannot be empty", 405));
 			}
@@ -110,7 +107,7 @@ try {
 				throw(new InvalidArgumentException ("email cannot be empty", 405));
 			}
 
-			if($method === "PUT") {
+				if($method === "PUT") {
 				$volunteer = Volunteer::getVolunteerByVolId($pdo, $id);
 				if($volunteer === null) {
 					throw(new RuntimeException("Volunteer does not exist", 404));
@@ -119,7 +116,6 @@ try {
 				$volunteer = Volunteer::getVolunteerByVolId($pdo, $id);
 				$volunteer->setVolEmail($requestObject->volEmail);
 				$volunteer->setVolFirstName($requestObject->volFirstName);
-				$volunteer->setVolIsAdmin($requestObject->volIsAdmin);
 				$volunteer->setVolLastName($requestObject->volLastName);
 				$volunteer->setVolPhone($requestObject->volPhone);
 //				var_dump($requestObject->volPhone);

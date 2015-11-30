@@ -38,7 +38,7 @@ try {
 
 
 	// sanitize the email & search by volEmail
-	$email = filter_var($requestObject->email, FILTER_SANITIZE_EMAIL);
+	$email = filter_var($requestObject->volEmail, FILTER_SANITIZE_EMAIL);
 	$volunteer = Volunteer::getVolunteerByVolEmail($pdo, $email);
 	if($volunteer !== null) {
 		throw new RuntimeException("This email already has an account", 422);
@@ -49,7 +49,7 @@ try {
 	$volEmailActivation = bin2hex(openssl_random_pseudo_bytes(8));
 
 	// create the hash
-	$volHash = hash_pbkdf2("sha512", $requestObject->password, $volSalt, 262144, 128);
+	$volHash = hash_pbkdf2("sha512", $requestObject->volPassword, $volSalt, 262144, 128);
 
 	//create a new organization and insert into mySQL
 	$organization = new Organization(null, $requestObject->orgAddress1, $requestObject->orgAddress2, $requestObject->orgCity, $requestObject->orgDescription, $requestObject->orgHours, $requestObject->orgName, $requestObject->orgPhone, $requestObject->orgState, $requestObject->orgType, $requestObject->orgZip);
@@ -125,17 +125,10 @@ EOF;
 		// the $failedRecipients parameter passed in the send() method now contains contains an array of the Emails that failed
 		throw(new RuntimeException("unable to send email"));
 	}
-
-	// report a successful send
-	echo "<div class=\"alert alert-success\" role=\"alert\">Email successfully sent.</div>";
-
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
 }
 
 header("Content-type: application/json");
-if($reply->data === null) {
-	unset($reply->data);
-}
 echo json_encode($reply);

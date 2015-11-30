@@ -19,6 +19,8 @@ class VolunteerApiTest extends BreadBasketTest {
 	 * @var string $VALID_EMAIL
 	 */
 	protected $VALID_EMAIL = "lastweektonight@joliver.com";
+
+	protected $VALID_ALT_EMAIL = "guzzleisdumb@stupid.com";
 	/**
 	 * valid volunteer email activation;
 	 * @var string $VALID_EMAIL_ACTIVATION
@@ -214,6 +216,8 @@ class VolunteerApiTest extends BreadBasketTest {
 		//update the volunteer
 		$volunteer->setVolPhone($this->VALID_ALT_PHONE);
 
+		//$volunteer->setVolEmail($this->VALID_ALT_EMAIL);
+
 //		var_dump($volunteer->getVolId());
 		//send the info to update the API
 		$response = $this->guzzle->put('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/' . $volunteer->getVolId(), [
@@ -222,8 +226,8 @@ class VolunteerApiTest extends BreadBasketTest {
 				'headers' => ['X-XSRF-TOKEN' => $this->token]
 		]);
 //		var_dump($response);
-//		$newVolunteer = Volunteer::getVolunteerByVolId($this->getPDO(), $volunteer->getVolId());
-//		var_dump($newVolunteer);
+		$newVolunteer = Volunteer::getVolunteerByVolId($this->getPDO(), $volunteer->getVolId());
+		var_dump($newVolunteer);
 
 		//ensure the response was sent, and the api returned a positive status
 		$this->assertSame($response->getStatusCode(), 200);
