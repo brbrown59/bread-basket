@@ -165,25 +165,28 @@ class ListingTypeApiTest extends BreadBasketTest {
 	/**
 	 * test getting all listing Types
 	 */
-//	public function testValidGetAll2() {
-//		//test getting by parameter new listing type
-//		//create a new listing type, and insert into the database
-//		$listingType = new ListingType(null, $this->VALID_TYPE_2);
-//		$listingType->insert($this->getPDO());
-//
-//		//send the get request to the API
-//		$response = $this->guzzle->get('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype', [
-//				'headers' => ['X-XSRF-TOKEN' => $this->token]
-//		]);
-//
-//		//ensure the response was sent, and the api returned a positive status
-//		$this->assertSame($response->getStatusCode(), 200);
-//		$body = $response->getBody();
-//		$retrievedListingType = json_decode($body);
-//		$this->assertSame(200, $retrievedListingType->status);
-//
-//		//ensure the response returned a non-empty array
-//		$this->assertGreaterThan(0, sizeof($retrievedListingType->data->listingTypeId));
-//	}
+	public function testValidGetAll2() {
+		//test getting by parameter new listing type
+		//create a new listing type, and insert into the database
+		$listingType = new ListingType(null, $this->VALID_TYPE_2);
+		$listingType->insert($this->getPDO());
+
+		$listingType = new ListingType(null, $this->VALID_TYPE);
+		$listingType->insert($this->getPDO());
+
+		//send the get request to the API
+		$response = $this->guzzle->get('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype', [
+				'headers' => ['X-XSRF-TOKEN' => $this->token]
+		]);
+
+		//ensure the response was sent, and the api returned a positive status
+		$this->assertSame($response->getStatusCode(), 200);
+		$body = $response->getBody();
+		$retrievedListingType = json_decode($body);
+		$this->assertSame(200, $retrievedListingType->status);
+
+		//ensure the response returned a non-empty array
+		$this->assertGreaterThan(0, sizeof($retrievedListingType->data->listingTypeId));
+	}
 
 }
