@@ -65,10 +65,10 @@ var createAccount = function() {
 var createListingType = function() {
 	frisby.create("create new listing type")
 			.post(null, listingTypeData, {json: true})
-			.expectStatus(200)//nothing written into code
+			.expectStatus(200)
 			.expectJSON({
 				status: 200,
-				message: "Logged in as administrator"
+				message: null//can we just delete this line??
 			})
 			.toss();
 };
@@ -77,12 +77,16 @@ var createListingType = function() {
 // test getting by para meter new listing type
 // create a new listing type, and insert into database
 var testValidGet = function() {
-	frisby.create("create new listing type")
-			.post(null, listingTypeData, {json: true})
-			.expectStatus(200)//nothing written into code
+	frisby.create("get listings I don't know how many")
+			.get(listingTypeId, listingTypeData, {json: true})
+			.expectJSONTypes('listingType.0', {
+				listingTypeId: Number,
+				listingTypeData: Array
+			})
+			.expectStatus(200)
 			.expectJSON({
 				status: 200,
-				message: "Logged in as administrator"
+				message: null
 			})
 			.toss();
 };
@@ -90,30 +94,30 @@ var testValidGet = function() {
 // testValidGetAll()
 // test getting by para meter new listing type
 // create a new listing type, and insert into database
-var testValidGetAll = function() {
-	frisby.create("create new listing type")
-			.post(null, listingTypeData, {json: true})
-			.expectStatus(200)//nothing written into code
-			.expectJSON({
-				status: 200,
-				message: "Logged in as administrator"
-			})
-			.toss();
-};
-
-// testInvalidGet()
-// test getting by para meter new listing type
-// create a new listing type, and insert into database
-var testInvalidGet = function() {
-	frisby.create("create new listing type")
-			.post(null, listingTypeData, {json: true})
-			.expectStatus(200)//nothing written into code
-			.expectJSON({
-				status: 200,
-				message: "Logged in as administrator"
-			})
-			.toss();
-};
+//var testValidGetAll = function() {
+//	frisby.create("create new listing type")
+//			.post(null, listingTypeData, {json: true})
+//			.expectStatus(200)//nothing written into code
+//			.expectJSON({
+//				status: 200,
+//				message: null
+//			})
+//			.toss();
+//};
+//
+//// testInvalidGet()
+//// test getting by para meter new listing type
+//// create a new listing type, and insert into database
+//var testInvalidGet = function() {
+//	frisby.create("create new listing type")
+//			.post(null, listingTypeData, {json: true})
+//			.expectStatus(200)//nothing written into code
+//			.expectJSON({
+//				status: 200,
+//				message: "Logged in as administrator"
+//			})
+//			.toss();
+//};
 
 // first, get the XSRF token
 frisby.create("GET XSRF Token")
