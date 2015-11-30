@@ -57,16 +57,16 @@ var createAccount = function() {
 		.toss();
 };
 
-//var updateAccount = function() {
-//	frisby.create("update an account")
-//		.put(endpointUrl, updateData, {json: true})
-//		.expectStatus(200)
-//		.expectJSON({
-//			status: 200,
-//			message: "Volunteer updated OK"
-//		})
-//		.toss();
-//};
+var updateAccount = function() {
+	frisby.create("update an account")
+		.put(endpointUrl, updateData, {json: true})
+		.expectStatus(200)
+		.expectJSON({
+			status: 200,
+			message: "Volunteer updated OK"
+		})
+		.toss();
+};
 
 //var getByVolId = function() {
 //
@@ -127,5 +127,6 @@ frisby.create("GET XSRF Token")
 			}
 		});
 		createAccount();
+		updateAccount();
 	})
 	.toss();
