@@ -1,6 +1,6 @@
 // standard API variables
 var frisby = require("frisby");
-var endpointUrl = "https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer";
+var endpointUrl = "https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/";
 var signupUrl = "https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/controllers/sign-up-controller.php";
 
 // user creation variables
@@ -23,10 +23,13 @@ var signupData = {
 }
 
 var updateData = {
-	volFirstName: "Renly",
 	volEmail: "kimberly@gravitaspublications.com",
-	volPassword: "p@ssword"
+	volFirstName: "Renly",
+	volLastName: "Arlo",
+	volPassword: "p@ssword",
+	volPhone: "+15055551212"
 }
+
 
 //variables for dependencies
 
@@ -53,29 +56,28 @@ var createAccount = function() {
 var updateAccount = function() {
 	frisby.create("get volunteer to be edited")
 			.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer?email=kimberly@gravitaspublications.com')
-			.after(function (body, response) {
-				frisby.create("getting the org id")
-						.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/organization/?orgName=%Happy%')
-						.inspectJSON()
-						.afterJSON(function(json) {
-							orgId = json.data.orgId
+			.inspectJSON()
 
-			.afterJSON(function(json) {
-				frisby.create("update volunteer")
-						.put('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/' + json.data.volId, + json.data[0].orgId, updateData, {json: true})
-						.expectHeaderContains('content-type', 'application/json')
-						.inspectJSON()
-						.expectStatus(200)
-						.expectJSON({
-							status: 200,
-							message: "volunteer updated OK"
-						})
-						.toss();
-			})
-			.toss();
-		})
-.toss();
+			//.after(function (body, response) {
+			//	frisby.create("getting the org id")
+			//			.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/organization/?orgName=%Happy%')
+			//			.inspectJSON()
 
+									.afterJSON(function(json) {
+										updateData.orgId = json.data.orgId
+										frisby.create("update volunteer")
+												.put('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/' + json.data.volId, updateData, {json: true})
+												.inspectJSON()
+												.expectStatus(200)
+												.expectJSON({
+													status: 200,
+													message: "Volunteer updated OK"
+												})
+												.toss();
+									})
+									.toss();
+			//})
+			//.toss();
 };
 var teardown = function() {
 	//sign out???

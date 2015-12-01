@@ -36,7 +36,7 @@ try {
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
-		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
+		throw(new InvalidArgumentException("id cannot be empty or negative", 418));
 	}
 	//sanitize and trim other fields
 	$orgId = filter_input(INPUT_GET, "orgId", FILTER_VALIDATE_INT);
@@ -86,7 +86,7 @@ try {
 
 			//make sure all fields are present, in order to prevent database issues
 			if(empty($requestObject->orgId) === true) {
-				throw(new InvalidArgumentException ("organization id cannot be empty", 405));
+				throw(new InvalidArgumentException ("organization id cannot be empty", 406));
 			}
 			if(empty($requestObject->volEmail) === true) {
 				throw(new InvalidArgumentException ("email cannot be empty", 405));
