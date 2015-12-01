@@ -5,13 +5,13 @@ var signupUrl = "https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_
 
 // user creation variables
 var signupData = {
-	orgAddress1: "401 Copper Ave NW",
+	orgAddress1: "4209 Brockmont NE",
 	orgAddress2: null,
 	orgCity: "Albuquerque",
-	orgDescription: "Feeding Kitties since 1968",
-	orgHours: "9 hours per day, minus naps",
+	orgDescription: "Petting Kitties All Day",
+	orgHours: "It's always nap time",
 	orgName: "Happy Kitty",
-	orgPhone: "+15055551212",
+	orgPhone: "8675309",
 	orgState: "NM",
 	orgType: "G",
 	orgZip: "87102",
@@ -19,7 +19,7 @@ var signupData = {
 	volFirstName: "Senator",
 	volLastName: "Arlo",
 	volPassword: "p@ssword",
-	volPhone: "+15055551212"
+	volPhone: "5053041090"
 }
 
 var updateData = {
@@ -27,7 +27,7 @@ var updateData = {
 	volFirstName: "Renly",
 	volLastName: "Arlo",
 	volPassword: "p@ssword",
-	volPhone: "+15055551212"
+	volPhone: "5053041090"
 }
 
 
@@ -69,14 +69,14 @@ var updateAccount = function() {
 									message: "Volunteer updated OK"
 								})
 								.after(function(body, response) {
-							frisby.create("grab updated volunteer")
-									.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/?email=kimberly@gravitaspublications.com')
-									//.inspectJSON()
-									.expectStatus(200)
-									.expectJSON({
-										status: 200
-									})
-									.toss();
+									frisby.create("grab updated volunteer")
+											.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/?email=kimberly@gravitaspublications.com')
+											//.inspectJSON()
+											.expectStatus(200)
+											.expectJSON({
+												status: 200
+											})
+											.toss();
 
 								})
 								.toss();
@@ -84,6 +84,10 @@ var updateAccount = function() {
 					.toss();
 
 };
+
+//get volunteer by fields
+
+
 //get volunteer by email provided
 var getVolByEmail = function () {
 	frisby.create("get volunteer by email")
@@ -99,7 +103,7 @@ var getVolByEmail = function () {
 //get volunteer by phone number
 var getVolByPhone = function () {
 	frisby.create("get volunteer by phone number")
-			.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer?phone=+15055551212')
+			.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer?phone=5053041090')
 			.inspectJSON()
 			.expectStatus(200)
 			.expectJSON({
@@ -107,6 +111,7 @@ var getVolByPhone = function () {
 			})
 			.toss();
 };
+
 
 var teardown = function() {
 	//sign out???
