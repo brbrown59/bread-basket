@@ -70,11 +70,11 @@ var teardown = function() {
 	//get the ID for the test organization, in order to delete it
 	frisby.create("get volunteer to be deleted")
 			.get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/volunteer?email=breadbasketapp@gmail.com')
-			.inspectJSON()
+			.inspectJSON()//dumps json to console
 			.afterJSON(function(json) {
 				//based on examples from documentation, need to nest these
 				frisby.create("delete volunteer")
-						.delete('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/volunteer/1')
+						.delete('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/volunteer/' + json.data.volId)
 						.expectStatus(200)
 						.expectJSON({
 							status: 200,
