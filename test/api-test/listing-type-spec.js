@@ -32,10 +32,24 @@ var signupData = {
 	volPhone: "+15055551212"
 }
 
-
-// variables to keep PHP state
-var phpSession = undefined;
-var xsrfToken = undefined;
+//var listingTypeData = {
+//	listingTypeId: null,
+//	listingType: "perishable"
+//}
+//
+//var listingTypeData2 = {
+//	listingTypeId: null,
+//	listingType: "nonperishable"
+//}
+//
+//var listingTypeData3 = {
+//	listingTypeId: null,
+//	listingType: "refrigerated"
+//}
+//
+//// variables to keep PHP state
+//var phpSession = undefined;
+//var xsrfToken = undefined;
 
 // create a new account to test with
 var createAccount = function() {
@@ -49,26 +63,53 @@ var createAccount = function() {
 			.toss();
 };
 
-//var updateAccount = function() {
-//	frisby.create("get volunteer to be edited")
-//			.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer?email=kimberly@gravitaspublications.com')
-//			.inspectJSON()
-//
-//
-//			.afterJSON(function(json) {
-//				updateData.orgId = json.data.orgId
-//				frisby.create("update volunteer")
-//						.put('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/' + json.data.volId, updateData, {json: true})
-//						.inspectJSON()
-//						.expectStatus(200)
-//						.expectJSON({
-//							status: 200,
-//							message: "Volunteer updated OK"
-//						})
-//						.toss();
+//// create a new listing type to test with
+//var createListingType = function() {
+//	frisby.create("create new listing type")
+//			.post('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype/', listingTypeData, {json: true})
+//			.expectStatus(200)
+//			.expectJSON({
+//				status: 200,
+//				message: "Listing type created OK"
 //			})
-//			.toss();
+//			.toss()
 //};
+//
+//// create a second new listing type to test with
+//var createListingType2 = function() {
+//	frisby.create("create new listing type")
+//			.post('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype/', listingTypeData2, {json: true})
+//			.expectStatus(200)
+//			.expectJSON({
+//				status: 200,
+//				message: "Listing type created OK"
+//			})
+//			.toss()
+//};
+//
+//// create a second new listing type to test with
+//var createListingType3 = function() {
+//	frisby.create("create new listing type")
+//			.post('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype/', listingTypeData3, {json: true})
+//			.expectStatus(200)
+//			.expectJSON({
+//				status: 200,
+//				message: "Listing type created OK"
+//			})
+//			.toss()
+//};
+
+//get listing type by id
+var getListingTypeById = function () {
+	frisby.create("get listing type by Id")
+			.get('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/volunteer?email=kimberly@gravitaspublications.com')
+			.inspectJSON()
+			.expectStatus(200)
+			.expectJSON({
+				status: 200
+			})
+			.toss();
+};
 
 // first, get the XSRF token
 frisby.create("GET XSRF Token")
@@ -100,6 +141,9 @@ frisby.create("GET XSRF Token")
 			createAccount();
 			//updateAccount();
 			//teardown();
+			//createListingType();
+			//createListingType2();
+			//createListingType3();
 		})
 		.toss();
 
@@ -113,7 +157,7 @@ var teardown = function() {
 			.afterJSON(function(json) {
 				//based on examples from documentation, need to nest these
 				frisby.create("delete volunteer")
-						.delete('https://bootcamp-coders.cnm.edu/~tfenstermaker@gmail.com/bread-basket/public_html/php/api/volunteer/' + json.data.volId)
+						.delete('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/volunteer/' + json.data.volId)
 						.expectStatus(200)
 						.expectJSON({
 							status: 200,
@@ -122,6 +166,7 @@ var teardown = function() {
 						.toss();
 			})
 			.toss();
+
 
 	//get the ID for the test organization, in order to delete it
 	frisby.create("get organization to be deleted")
@@ -134,6 +179,22 @@ var teardown = function() {
 						.expectJSON({
 							status: 200,
 							message: "Organization deleted OK"
+						})
+						.toss();
+			})
+			.toss();
+
+	//get the ID for the test listing type, in order to delete it
+	frisby.create("get listing type to be deleted")
+			.get('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype?listingtype=perishable')
+			.afterJSON(function(json) {
+				//based on examples from documentation, need to nest these
+				frisby.create("delete listing type")
+						.delete('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype/' + json.data.listingTypeIdId)
+						.expectStatus(200)
+						.expectJSON({
+							status: 200,
+							message: "Listing Type deleted OK"
 						})
 						.toss();
 			})
