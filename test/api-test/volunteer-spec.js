@@ -22,6 +22,12 @@ var signupData = {
 	volPhone: "+15055551212"
 }
 
+var updateData = {
+	volFirstName: "Renly",
+	volEmail: "kimberly@gravitaspublications.com",
+	volPassword: "p@ssword"
+}
+
 //variables for dependencies
 
 var volId;
@@ -43,6 +49,21 @@ var createAccount = function() {
 			.toss();
 };
 
+var updateAccount = function() {
+	frisby.create("get volunteer to be edited")
+			.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer?email=kimberly@gravitaspublications.com')
+			.afterJSON(function(json) {
+				frisby.create("update volunteer")
+						.put(endpointUrl, updateData, {json: true})
+						.inspectJSON()
+						.expectStatus(200)
+						.expectJSON({
+							status: 200,
+							message: "volunteer updated OK"
+						})
+			})
+			.toss();
+};
 var teardown = function() {
 	//sign out???
 
@@ -114,6 +135,7 @@ frisby.create("GET XSRF Token")
 				}
 			});
 			createAccount();
-			teardown();
+			updateAccount();
+			//teardown();
 		})
 		.toss();
