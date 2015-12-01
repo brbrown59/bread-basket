@@ -26,9 +26,9 @@ try {
 
 	//if the volunteer session is empty, the user is not logged in, throw an exception
 	if(empty($_SESSION["volunteer"]) === true) {
-		throw(new RuntimeException("Please log-in or sign up", 401));
 		//set XSRF cookie
 		setXsrfCookie("/");
+		throw(new RuntimeException("Please log-in or sign up", 401));
 	}
 
 	//determine which HTTP method was used
