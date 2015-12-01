@@ -48,29 +48,15 @@ var createAccount = function() {
 // insert the dependencies into the database, and ensure their existence
 /*
 var setup = function() {
-	frisby.create("create new listing type")
-			.post("https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listingtype", listingTypeData, {json: true})
-			.expectStatus(200)
-			.expectJSON({
-				status: 200,
-				message: "Listing Type created OK"
-			});
-			.get("https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listingtype?'listingType'='Perishable'")
-			.after(function (body, response) {
-					//get the id from the body
-					body = JSON.parse(body);
-					listingTypeId = body.ListingTypeId; //make sure this is getting what I think it does
-				})
-			.toss();
+
 };*/
 
 var teardown = function() {
 	//sign out???
 
-	//get the ID for the test organization, in order to delete it
+	//get the ID for the test volunteer, in order to delete it
 	frisby.create("get volunteer to be deleted")
 			.get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/volunteer?email=breadbasketapp@gmail.com')
-			.inspectJSON()//dumps json to console
 			.afterJSON(function(json) {
 				//based on examples from documentation, need to nest these
 				frisby.create("delete volunteer")
@@ -79,6 +65,22 @@ var teardown = function() {
 						.expectJSON({
 							status: 200,
 							message: "Volunteer deleted OK"
+						})
+						.toss();
+			})
+			.toss();
+
+	//get the ID for the test organization, in order to delete it
+	frisby.create("get organization to be deleted")
+			.get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization?name=Feed the Kitty')
+			.afterJSON(function(json) {
+				//based on examples from documentation, need to nest these
+				frisby.create("delete organization")
+						.delete('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization/' + json.data[0].orgId)
+						.expectStatus(200)
+						.expectJSON({
+							status: 200,
+							message: "Organization deleted OK"
 						})
 						.toss();
 			})
