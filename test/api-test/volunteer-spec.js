@@ -2,7 +2,7 @@
 var frisby = require("frisby");
 var endpointUrl = "https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer";
 var signupUrl = "https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/controllers/sign-up-controller.php";
-var signinUrl = "https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/controllers/sign-in-controller.php"
+
 
 // user creation variables
 var signupData = {
@@ -23,14 +23,16 @@ var signupData = {
 	volPhone: "+15055551212"
 }
 
-var updateData = {
-	volPhone: "5053334567"
-}
+var volId;
 
-var login = {
-	email: "kimberly@gravitaspublications.com",
-	password: "p@ssword"
-}
+//var updateData = {
+//	volPhone: "5053334567"
+//}
+//
+//var login = {
+//	email: "kimberly@gravitaspublications.com",
+//	password: "p@ssword"
+//}
 
 
 // variables to keep PHP state
@@ -111,12 +113,12 @@ var teardown = function() {
 
 	//get the ID for the test organization, in order to delete it
 	frisby.create("get volunteer to be deleted")
-			.get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/volunteer?email=breadbasketapp@gmail.com')
+			.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer?email=kimberly@gravitaspublications.com')
 			.inspectJSON()//dumps json to console
 			.afterJSON(function(json) {
 				//based on examples from documentation, need to nest these
 				frisby.create("delete volunteer")
-						.delete('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/volunteer/' + json.data.volId)
+						.delete('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/' + json.data.volId)
 						.expectStatus(200)
 						.expectJSON({
 							status: 200,
