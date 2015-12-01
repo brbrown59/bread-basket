@@ -27,7 +27,7 @@ var listingTypeData = {
 	listingType: "Perishable"
 }
 
-var volId;
+var listingTypeId;
 
 // variables to keep PHP state
 var phpSession = undefined;
@@ -46,10 +46,28 @@ var createAccount = function() {
 };
 
 // insert the dependencies into the database, and ensure their existence
-/*
 var setup = function() {
+	//create a listing type
+	frisby.create("create listing type for dependency purposes")
+			.post('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listingtype', listingTypeData, {json: true})
+			.expectStatus(200)
+			.expectJSON({
+				status: 200,
+				message: "Listing type created OK"
+			})
+			//get the listing type ID for later use
+			.after(function (body, response) {
+				frisby.create("getting the listing type id")
+						.get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listingtype/listingType=Perishable')
+						.inspectJSON()
+						.afterJSON(function(json) {
+							listingTypeId = json.data.listingTypeId
+						})
+						.toss();
 
-};*/
+			})
+			.toss();
+};
 
 var teardown = function() {
 	//get the ID for the test volunteer, in order to delete it
@@ -118,9 +136,10 @@ frisby.create("GET XSRF Token")
 			}
 		});
 		createAccount();
+		setup();
 		teardown();
 		/*
-		setup(); // insert dependencies into database, probably include just beneath xsrf stuff
+		 // insert dependencies into database, probably include just beneath xsrf stuff
 					// log-in SHOULD create an organization and a volunteer for us
 		//basic form: take json of dependency, post request, get request on another unique but predictable field, get and store ID
 		validPost();

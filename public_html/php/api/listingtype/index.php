@@ -69,9 +69,6 @@ try {
 			$requestObject = json_decode($requestContent);
 
 			//make sure all fields are present, in order to prevent database issues
-			if(empty($requestObject->listingTypeId) === true) {
-				throw(new InvalidArgumentException ("listing type id cannot be empty", 405));
-			}
 			if(empty($requestObject->listingType) === true) {
 				throw(new InvalidArgumentException ("listing type info cannot be empty", 405));
 			}
@@ -87,13 +84,13 @@ try {
 				$listingType = new ListingType($id, $requestObject->listingTypeInfo);
 				$listingType->update($pdo);
 
-				$reply->message = "Organization updated OK";
+				$reply->message = "Listing type updated OK";
 
 			} else if($method === "POST") {
 				$listingType = new ListingType(null, $requestObject->listingTypeInfo);
 				$listingType->insert($pdo);
 
-				$reply->message = "Listing Type created OK";
+				$reply->message = "Listing type created OK";
 			}
 
 		} else if($method === "DELETE") {
