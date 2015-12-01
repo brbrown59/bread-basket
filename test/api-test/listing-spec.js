@@ -20,23 +20,23 @@ var signupData = {
 	volLastName: "Arlo",
 	volPassword: "p@ssword",
 	volPhone: "+15055551212"
-}
+};
 
 //variables related to dependencies and test fields
 var listingTypeData = {
 	listingType: "Perishable"
-}
+};
 
 var listingData = {
 	//orgId to be appended later
 	listingClaimedBy: null,
-	listingClosed: null,
+	listingClosed: false,
 	listingCost: 99.00,
 	listingMemo: "Watermelons, lemons, and melons",
 	listingParentId: null,
 	listingPostTime: null
 	//listing type ID to be appended later
-}
+};
 
 // variables to keep PHP state
 var phpSession = undefined;
@@ -71,16 +71,19 @@ var validPost = function() {
 	//get the org id
 	frisby.create("get the org id to post a listing")
 			.get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization?name=Feed the Kitty')
+			.inspectJSON()
 			.afterJSON(function(json) {
-				listingData.orgId = json.data.orgId;
+				listingData.orgId = json.data[0].orgId;
 				//get the listing type id
 				frisby.create("get the listingtype id to post a listing")
 						.get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listingtype?listingType=Perishable')
 						.afterJSON(function(json) {
 							listingData.listingTypeId = json.data.listingTypeId;
+							console.log(listingData);
 							//perform the post
 							frisby.create("post the new listing")
 									.post('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listing/', listingData, {json: true})
+									.inspectJSON()
 									.expectStatus(200)
 									.expectJSON({
 										status: 200,

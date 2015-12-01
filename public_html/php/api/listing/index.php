@@ -1,6 +1,6 @@
 <?php
 
-//require_once dirname(__DIR__) . "/vendor/autoload.php";
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/vendor/autoload.php");
 require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
 require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
@@ -50,7 +50,12 @@ try {
 	$cost = filter_input(INPUT_GET, "cost", FILTER_VALIDATE_FLOAT);
 	$typeId = filter_input(INPUT_GET, "typeId", FILTER_VALIDATE_INT);
 	$parentId = filter_input(INPUT_GET, "parentId", FILTER_VALIDATE_INT);
-	$postTime = Listing::validateDate($postTime);
+	$postTime = filter_input(INPUT_GET, "postTime", FILTER_SANITIZE_STRING);
+	//if there's an actual date time, validate it
+	if ($postTime !== null) {
+		$postTime = Listing::validateDate($postTime);
+	}
+
 
 
 
@@ -92,7 +97,7 @@ try {
 				$requestObject->listingClaimedBy = null;
 			}
 			if(empty($requestObject->listingClosed) === true) {
-				$requestObject->listingClosed = null;
+				$requestObject->listingClosed = false; //if empty, assume it's not closed
 			}
 			if(empty($requestObject->listingCost) === true) {
 				$requestObject->listingCost = null;
@@ -129,7 +134,6 @@ try {
 					$requestObject->listingCost, $requestObject->listingMemo,$requestObject->listingParentId, $requestObject->listingPostTime, $requestObject->listingTypeId);
 				$listing->insert($pdo);
 				$pusher->trigger("listing", "new", $listing);
-
 				$reply->message = "Listing created OK";
 
 			}
@@ -162,4 +166,4 @@ header("Content-type: application/json");
 if($reply->data === null) {
 	unset($reply->data);
 }
-echo json_decode($reply);
+echo json_encode($reply);

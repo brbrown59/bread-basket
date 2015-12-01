@@ -199,6 +199,12 @@ class Listing implements JsonSerializable {
 	 **/
 	public function setListingClaimedBy($newListingClaimedBy) {
 		//verify the listing claimed by number is valid
+
+		//allow a null case
+		if($newListingClaimedBy === null) {
+			$this->listingClaimedBy = null;
+			return;
+		}
 		$newListingClaimedBy = filter_var($newListingClaimedBy, FILTER_VALIDATE_INT);
 		if($newListingClaimedBy === false) {
 			throw(new InvalidArgumentException("listing claimed by is not a valid integer"));
@@ -230,8 +236,8 @@ class Listing implements JsonSerializable {
 	 **/
 	public function setListingClosed($newListingClosed) {
 		//verify the listing closed is valid
-		$newListingClosed = filter_var($newListingClosed, FILTER_VALIDATE_BOOLEAN);
-		if($newListingClosed === false) {
+		$newListingClosed = filter_var($newListingClosed, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+		if($newListingClosed === null) {
 			throw(new InvalidArgumentException("listing closed is not a valid boolean"));
 		}
 
@@ -320,6 +326,12 @@ class Listing implements JsonSerializable {
 	 * @throws RangeException is $newListingParentId is not positive
 	 **/
 	public function setListingParentId($newListingParentId) {
+
+		//allow a null case
+		if($newListingParentId === null) {
+			$this->listingParentId = null;
+			return;
+		}
 		//verify the ListingParentId is valid
 		$newListingParentId = filter_var($newListingParentId, FILTER_VALIDATE_INT);
 		if($newListingParentId === false) {
