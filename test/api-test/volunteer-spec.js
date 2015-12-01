@@ -62,6 +62,27 @@ var teardown = function() {
 						.toss();
 			})
 			.toss();
+
+	//get the ID for the test organization, in order to delete it
+	frisby.create("get organization to be deleted")
+			.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/organization?name=Happy Kitty')
+			.afterJSON(function(json) {
+				//based on examples from documentation, need to nest these
+				frisby.create("delete organization")
+						.delete('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/organization/' + json.data[0].orgId)
+						.expectStatus(200)
+						.expectJSON({
+							status: 200,
+							message: "Organization deleted OK"
+						})
+						.toss();
+			})
+			.toss();
+
+	//sign out of the session
+	frisby.create("sign out")
+			.get('https:https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/php/controllers/sign-out.php')
+			.toss();
 };
 
 
