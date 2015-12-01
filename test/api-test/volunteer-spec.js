@@ -56,13 +56,13 @@ var createAccount = function() {
 var updateAccount = function() {
 	frisby.create("get volunteer to be edited")
 			.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer?email=kimberly@gravitaspublications.com')
-			//.inspectJSON()
+			.inspectJSON()
 
 					.afterJSON(function(json) {
 						updateData.orgId = json.data.orgId
 						frisby.create("update volunteer")
 								.put('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/' + json.data.volId, updateData, {json: true})
-								//.inspectJSON()
+								.inspectJSON()
 								.expectStatus(200)
 								.expectJSON({
 									status: 200,
@@ -71,7 +71,7 @@ var updateAccount = function() {
 								.after(function(body, response) {
 									frisby.create("grab updated volunteer")
 											.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/?email=kimberly@gravitaspublications.com')
-											//.inspectJSON()
+											.inspectJSON()
 											.expectStatus(200)
 											.expectJSON({
 												status: 200
@@ -85,8 +85,23 @@ var updateAccount = function() {
 
 };
 
-//get volunteer by fields
+var getVolById = function () {
+	frisby.create("get volunteer by id")
+			.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/')
+			.afterJSON(function(json) {
+				grabId.volId = json.data.volId
+				frisby.create("grab volunteer by vol id")
+						.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/', grabId, {json: true})
+				consol.log(grabId)
+						.inspectJSON()
+						.expectStatus(200)
+						.expectJSON({
+							status: 200
+						})
+						.toss();
+			})
 
+};
 
 //get volunteer by email provided
 var getVolByEmail = function () {
@@ -214,6 +229,7 @@ frisby.create("GET XSRF Token")
 			getVolByPhone();
 			getAllVol();
 			getVolByAdmin();
+			getVolById();
 			teardown();
 		})
 		.toss();

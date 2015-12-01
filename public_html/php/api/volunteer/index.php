@@ -86,7 +86,7 @@ try {
 
 			//make sure all fields are present, in order to prevent database issues
 			if(empty($requestObject->orgId) === true) {
-				throw(new InvalidArgumentException ("organization id cannot be empty", 406));
+				throw(new InvalidArgumentException ("organization id cannot be empty", 405));
 			}
 			if(empty($requestObject->volEmail) === true) {
 				throw(new InvalidArgumentException ("email cannot be empty", 405));
