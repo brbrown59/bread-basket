@@ -56,7 +56,7 @@ try {
 		} else if(empty($orgId) === false) {
 			$reply->data = Volunteer::getVolunteerByOrgId($pdo, $orgId)->toArray();
 		} else if(empty($email) === false) {
-			$reply->data = Volunteer::getVolunteerByVolEmail($pdo, $email)->toArray();
+			$reply->data = Volunteer::getVolunteerByVolEmail($pdo, $email);
 		} else if(empty($admin) === false) {
 			$reply->data = Volunteer::getVolunteerByVolIsAdmin($pdo, $admin)->toArray();
 		} else if(empty($phone) === false) {
