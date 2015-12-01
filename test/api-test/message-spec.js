@@ -66,9 +66,59 @@ var updateAccount = function() {
 							status: 200,
 							message: "Message Updated ok"
 					})
+					.after(function(body, response) {
+						frisby.create("grab updated message")
+							.get('https://bootcamp-coders.cnm.edu/~cberaun2/bread-basket/public_html/php/api/message?email=cbabq505@gmail.com')
+						//.inspectJSON()
+							.expectStatus(200)
+							.expectJSON({
+								status:200
+							})
+							.toss();
+					})
+
 					.toss();
 		})
 		.toss();
 		};
 
 
+
+
+
+
+
+
+
+
+
+// first, get the XSRF token
+		frisby.create("GET XSRF Token")
+			.get(endpointUrl)
+			.expectStatus(200)
+			.after(function (body, response) {
+				var phpParser = /^PHPSESSID=([a-z0-9]{26})/;
+				var xsrfParser = /^XSRF-TOKEN=([\da-f]{128})/;
+				response.headers["set-cookie"].forEach(function(cookie) {
+					if(xsrfToken === undefined && cookie.match(xsrfParser) !== null) {
+						xsrfToken = cookie.match(xsrfParser)[1];
+					}
+					if(phpSession === undefined && cookie.match(phpParser) !== null) {
+						phpSession = cookie.match(phpParser)[1];
+					}
+				});
+				// ensure the PHP session & XSRF token was defined before proceeding
+				expect(phpSession).toBeDefined();
+				expect(xsrfToken).toBeDefined();
+				// now, setup the PHP session & XSRF token
+				frisby.globalSetup({
+					request: {
+						headers: {
+							"Content-Type": "application/json",
+							Cookie: "PHPSESSID=" + phpSession + "; path=/",
+							"X-XSRF-TOKEN": xsrfToken}
+					}
+				});
+				createAccount();
+			})
+			.toss();
