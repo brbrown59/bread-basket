@@ -112,6 +112,31 @@ var getVolByPhone = function () {
 			.toss();
 };
 
+//get volunteer by admin
+var getVolByAdmin = function () {
+	frisby.create("get volunteer by admin")
+			.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer?isAdmin=1')
+			.inspectJSON()
+			.expectStatus(200)
+			.expectJSON({
+				status: 200
+			})
+			.toss();
+};
+
+//get all volunteers
+var getAllVol = function () {
+	frisby.create("get all volunteers")
+			.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer')
+			.inspectJSON()
+			.expectStatus(200)
+			.expectJSON({
+				status: 200
+			})
+			.toss();
+};
+
+
 
 var teardown = function() {
 	//sign out???
@@ -187,6 +212,8 @@ frisby.create("GET XSRF Token")
 			updateAccount();
 			getVolByEmail();
 			getVolByPhone();
+			getAllVol();
+			getVolByAdmin();
 			teardown();
 		})
 		.toss();

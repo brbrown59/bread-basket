@@ -791,7 +791,7 @@ class Volunteer implements JsonSerializable {
 
 		///call the function to build an array of the retrieved results
 		try {
-			$retrievedVol = Organization::storeSQLResultsInArray($statement);
+			$retrievedVol = Volunteer::storeSQLResultsInArray($statement);
 		} catch(Exception $exception) {
 			//rethrow the exception if retrieval failed
 			throw(new PDOException($exception->getMessage(), 0, $exception));
