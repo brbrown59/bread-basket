@@ -28,15 +28,26 @@ var listingTypeData = {
 };
 
 var listingData = {
-	//orgId to be appended later
+	//orgId and listingtype id will be fetched and appended later
+	orgId: null,
 	listingClaimedBy: null,
 	listingClosed: false,
 	listingCost: 99.00,
 	listingMemo: "Watermelons, lemons, and melons",
 	listingParentId: null,
 	listingPostTime: null
-	//listing type ID to be appended later
 };
+
+var badListingData = {
+	listingClaimedBy: null,
+	listingClosed: false,
+	listingCost: 99.00,
+	listingMemo: "Watermelons, lemons, and melons",
+	listingParentId: null,
+	listingPostTime: null
+}
+
+var invalidKey = 4294967296;
 
 // variables to keep PHP state
 var phpSession = undefined;
@@ -71,7 +82,6 @@ var validPost = function() {
 	//get the org id
 	frisby.create("get the org id to post a listing")
 			.get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization?name=Feed the Kitty')
-			.inspectJSON()
 			.afterJSON(function(json) {
 				listingData.orgId = json.data[0].orgId;
 				//get the listing type id
@@ -79,11 +89,9 @@ var validPost = function() {
 						.get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listingtype?listingType=Perishable')
 						.afterJSON(function(json) {
 							listingData.listingTypeId = json.data.listingTypeId;
-							console.log(listingData);
 							//perform the post
 							frisby.create("post the new listing")
 									.post('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listing/', listingData, {json: true})
-									.inspectJSON()
 									.expectStatus(200)
 									.expectJSON({
 										status: 200,
@@ -96,6 +104,23 @@ var validPost = function() {
 			.toss();
 };
 
+var invalidPost = function() {
+	//do a post that should fail, by not having a valid foreign key
+	listingData.orgId = null;
+	listingData.listingTypeId = 89;
+	//listingData.listingTypeId = invalidKey;
+	frisby.create("post a bad listing type")
+			.post("https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listing/", listingData, {json: true})
+			.expectStatus(405)
+			.expectJSON({
+				status:405,
+				message: "organization id cannot be empty"
+			})
+			.toss()
+};
+
+
+//this runs out of order and deletes entries from the DB before we're done with it
 var teardown = function() {
 	//get the ID for the test volunteer, in order to delete it
 	frisby.create("get volunteer to be deleted")
@@ -183,6 +208,7 @@ frisby.create("GET XSRF Token")
 		createAccount();
 		setup();
 		validPost();
+		//invalidPost();
 		teardown();
 		/*
 		 // insert dependencies into database, probably include just beneath xsrf stuff
