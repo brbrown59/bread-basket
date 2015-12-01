@@ -31,6 +31,7 @@ var updateData = {
 //variables for dependencies
 
 var volId;
+var orgId;
 
 
 // variables to keep PHP state
@@ -52,9 +53,17 @@ var createAccount = function() {
 var updateAccount = function() {
 	frisby.create("get volunteer to be edited")
 			.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer?email=kimberly@gravitaspublications.com')
+			.after(function (body, response) {
+				frisby.create("getting the org id")
+						.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/organization/?orgName=%Happy%')
+						.inspectJSON()
+						.afterJSON(function(json) {
+							orgId = json.data.orgId
+
 			.afterJSON(function(json) {
 				frisby.create("update volunteer")
-						.put(endpointUrl, updateData, {json: true})
+						.put('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/' + json.data.volId, + json.data[0].orgId, updateData, {json: true})
+						.expectHeaderContains('content-type', 'application/json')
 						.inspectJSON()
 						.expectStatus(200)
 						.expectJSON({
@@ -64,6 +73,9 @@ var updateAccount = function() {
 						.toss();
 			})
 			.toss();
+		})
+.toss();
+
 };
 var teardown = function() {
 	//sign out???
@@ -137,6 +149,6 @@ frisby.create("GET XSRF Token")
 			});
 			createAccount();
 			updateAccount();
-			//teardown();
+			teardown();
 		})
 		.toss();
