@@ -58,10 +58,6 @@ var updateAccount = function() {
 			.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer?email=kimberly@gravitaspublications.com')
 			.inspectJSON()
 
-			//.after(function (body, response) {
-			//	frisby.create("getting the org id")
-			//			.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/organization/?orgName=%Happy%')
-			//			.inspectJSON()
 
 									.afterJSON(function(json) {
 										updateData.orgId = json.data.orgId
@@ -76,8 +72,6 @@ var updateAccount = function() {
 												.toss();
 									})
 									.toss();
-			//})
-			//.toss();
 };
 var teardown = function() {
 	//sign out???
@@ -151,6 +145,6 @@ frisby.create("GET XSRF Token")
 			});
 			createAccount();
 			updateAccount();
-			teardown();
+			//teardown();
 		})
 		.toss();
