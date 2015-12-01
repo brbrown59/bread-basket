@@ -55,17 +55,7 @@ var setup = function() {
 				status: 200,
 				message: "Listing type created OK"
 			})
-			//get the listing type ID for later use
-			.after(function (body, response) {
-				frisby.create("getting the listing type id")
-						.get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listingtype/?listingType=Perishable')
-						.inspectJSON()
-						.afterJSON(function(json) {
-							listingTypeId = json.data.listingTypeId
-						})
-						.toss();
-			})
-			.toss();
+			.toss()
 };
 
 var teardown = function() {
@@ -101,15 +91,23 @@ var teardown = function() {
 			})
 			.toss();
 
-	//delete the listing type
-	frisby.create("delete the listing type")
-			.delete('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listingtype/' + listingTypeId)
-			.expectStatus(200)
-			.expectJSON({
-				status: 200,
-				message: "Listing type deleted OK"
+	//get the ID for the test listingtype, in order to delete it
+	frisby.create("get listing type to be deleted")
+			.get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listingtype?listingType=Perishable')
+			.afterJSON(function(json) {
+				//delete the listing type
+				frisby.create("delete the listing type")
+						.delete('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listingtype/' + json.data.listingTypeId)
+						.expectStatus(200)
+						.expectJSON({
+							status: 200,
+							message: "Listing type deleted OK"
+						})
+						.toss();
 			})
 			.toss();
+
+
 
 	//sign out of the session
 	frisby.create("sign out")
