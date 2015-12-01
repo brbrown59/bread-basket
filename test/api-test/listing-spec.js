@@ -27,7 +27,7 @@ var listingTypeData = {
 	listingType: "Perishable"
 }
 
-var listingTypeId;
+var listingTypeId = undefined;
 
 // variables to keep PHP state
 var phpSession = undefined;
@@ -64,7 +64,6 @@ var setup = function() {
 							listingTypeId = json.data.listingTypeId
 						})
 						.toss();
-
 			})
 			.toss();
 };
@@ -99,6 +98,16 @@ var teardown = function() {
 							message: "Organization deleted OK"
 						})
 						.toss();
+			})
+			.toss();
+
+	//delete the listing type
+	frisby.create("delete the listing type")
+			.delete('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listingtype/' + listingTypeId)
+			.expectStatus(200)
+			.expectJSON({
+				status: 200,
+				message: "Listing type deleted OK"
 			})
 			.toss();
 
