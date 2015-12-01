@@ -49,7 +49,7 @@ var createAccount = function() {
 var setup = function() {
 	//create a listing type
 	frisby.create("create listing type for dependency purposes")
-			.post('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listingtype', listingTypeData, {json: true})
+			.post('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listingtype/', listingTypeData, {json: true})
 			.expectStatus(200)
 			.expectJSON({
 				status: 200,

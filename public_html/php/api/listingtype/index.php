@@ -81,13 +81,13 @@ try {
 					throw(new RuntimeException("Listing type does not exist", 404));
 				}
 
-				$listingType = new ListingType($id, $requestObject->listingTypeInfo);
+				$listingType = new ListingType($id, $requestObject->listingType);
 				$listingType->update($pdo);
 
 				$reply->message = "Listing type updated OK";
 
 			} else if($method === "POST") {
-				$listingType = new ListingType(null, $requestObject->listingTypeInfo);
+				$listingType = new ListingType(null, $requestObject->listingType);
 				$listingType->insert($pdo);
 
 				$reply->message = "Listing type created OK";
