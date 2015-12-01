@@ -58,7 +58,7 @@ var setup = function() {
 			//get the listing type ID for later use
 			.after(function (body, response) {
 				frisby.create("getting the listing type id")
-						.get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listingtype/listingType=Perishable')
+						.get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listingtype/?listingType=Perishable')
 						.inspectJSON()
 						.afterJSON(function(json) {
 							listingTypeId = json.data.listingTypeId
