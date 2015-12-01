@@ -252,7 +252,7 @@ class ListingType implements JsonSerializable {
 		//while rows can still be retrieved from the result
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$listingType = new ListingType($row["listingTypeId"], $row["listingTypeInfo"]);
+				$listingType = new ListingType($row["listingTypeId"], $row["listingType"]);
 				//place result in the current field, then advance the key
 				$retrievedTypes[$retrievedTypes->key()] = $listingType;
 				$retrievedTypes->next();

@@ -46,10 +46,10 @@ var signupData = {
 //	listingTypeId: null,
 //	listingType: "refrigerated"
 //}
-//
-//// variables to keep PHP state
-//var phpSession = undefined;
-//var xsrfToken = undefined;
+
+// variables to keep PHP state
+var phpSession = undefined;
+var xsrfToken = undefined;
 
 // create a new account to test with
 var createAccount = function() {
@@ -102,7 +102,7 @@ var createAccount = function() {
 //get listing type by id
 var getListingTypeById = function () {
 	frisby.create("get listing type by Id")
-			.get('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/volunteer?email=kimberly@gravitaspublications.com')
+			.get('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/volunteer?email=fenstermaker505@gmail.com')
 			.inspectJSON()
 			.expectStatus(200)
 			.expectJSON({
@@ -110,6 +110,18 @@ var getListingTypeById = function () {
 			})
 			.toss();
 };
+
+////get all listTypes
+//var getListingTypes = function () {
+//	frisby.create("get all Listing Types")
+//			.get('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingType')
+//			.inspectJSON()
+//			.expectStatus(200)
+//			.expectJSON({
+//				status: 200
+//			})
+//			.toss();
+//};
 
 // first, get the XSRF token
 frisby.create("GET XSRF Token")
@@ -139,6 +151,7 @@ frisby.create("GET XSRF Token")
 				}
 			});
 			createAccount();
+			//getListingTypes();
 			//updateAccount();
 			//teardown();
 			//createListingType();

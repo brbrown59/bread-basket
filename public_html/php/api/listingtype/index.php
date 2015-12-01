@@ -43,16 +43,16 @@ try {
 	//sanitize and trim the Listing Type (Info) fields
 	$listingType = filter_input(INPUT_GET, "listingType", FILTER_SANITIZE_STRING);
 
-	//handle REST calls, while only allowing administrators access to database-modifying methods Todo different from organization
+	//handle REST calls, while only allowing administrators access to database-modifying methods
 	if($method === "GET") {
 		//set XSRF cookie
 		setXsrfCookie("/");
 
-		//get the listing type based on the given field todo else if is wrong, but I need to know why getListingTypeInfo()
+		//get the listing type based on the given field
 		if(empty($id) === false) {
 			$reply->data = ListingType::getListingTypeById($pdo, $id);
 		} elseif(empty($listingType)=== false) {
-			$reply->data = ListingType::getListingByTypeInfo($pdo, $listingType);
+			$reply->data = ListingType::getListingByTypeInfo($pdo)->toArray();
 		} else {
 			$reply->data = ListingType::getAllListingTypes($pdo)->toArray();
 		}
