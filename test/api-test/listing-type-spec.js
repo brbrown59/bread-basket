@@ -1,6 +1,6 @@
 // standard API variables
 var frisby = require("frisby");
-var endpointUrl = "https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/listingtype";
+var endpointUrl = "https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/volunteer";
 var signupUrl = "https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/controllers/sign-up-controller.php";
 
 /**
@@ -20,7 +20,7 @@ var signupData = {
 	orgCity: "Albuquerque",
 	orgDescription: "Feeding Kitties since 1968",
 	orgHours: "9 hours per day, minus naps",
-	orgName: "Feed the Kitty",
+	orgName: "Enthusiastic Kitty",
 	orgPhone: "+15055551212",
 	orgState: "NM",
 	orgType: "G",
@@ -62,34 +62,34 @@ var createAccount = function() {
 // testValidCreate() I'm not sure this needs to be tested but they need to be created to pull
 // test getting by para meter new listing type
 // create a new listing type, and insert into database
-var createListingType = function() {
-	frisby.create("create new listing type")
-			.post(null, listingTypeData, {json: true})
-			.expectStatus(200)
-			.expectJSON({
-				status: 200,
-				message: null//can we just delete this line??
-			})
-			.toss();
-};
+//var createListingType = function() {
+//	frisby.create("create new listing type")
+//			.post(null, listingTypeData, {json: true})
+//			.expectStatus(200)
+//			.expectJSON({
+//				status: 200,
+//				message: null//can we just delete this line??
+//			})
+//			.toss();
+//};
 
 // testValidGet()
 // test getting by para meter new listing type
 // create a new listing type, and insert into database
-var testValidGet = function() {
-	frisby.create("get listings I don't know how many")
-			.get(listingTypeId, listingTypeData, {json: true})
-			.expectJSONTypes('listingType.0', {
-				listingTypeId: Number,
-				listingTypeData: Array
-			})
-			.expectStatus(200)
-			.expectJSON({
-				status: 200,
-				message: null
-			})
-			.toss();
-};
+//var testValidGet = function() {
+//	frisby.create("get listings I don't know how many")
+//			.get(listingTypeId, listingTypeData, {json: true})
+//			.expectJSONTypes('listingType.0', {
+//				listingTypeId: Number,
+//				listingTypeData: Array
+//			})
+//			.expectStatus(200)
+//			.expectJSON({
+//				status: 200,
+//				message: null
+//			})
+//			.toss();
+//};
 
 // testValidGetAll()
 // test getting by para meter new listing type
@@ -118,6 +118,28 @@ var testValidGet = function() {
 //			})
 //			.toss();
 //};
+
+//get the ID for the test organization, in order to delete it
+frisby.create("get organization to be deleted")
+		.get('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/organization?name=Enthusiastic Kitty')
+		.afterJSON(function(json) {
+			//based on examples from documentation, need to nest these
+			frisby.create("delete organization")
+					.delete('https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/public_html/php/api/organization/' + json.data[0].orgId)
+					.expectStatus(200)
+					.expectJSON({
+						status: 200,
+						message: "Organization deleted OK"
+					})
+					.toss();
+		})
+		.toss();
+
+//sign out of the session
+frisby.create("sign out")
+		.get('https:https://bootcamp-coders.cnm.edu/~tfenstermaker/bread-basket/php/controllers/sign-out.php')
+		.toss()
+};
 
 // first, get the XSRF token
 frisby.create("GET XSRF Token")
