@@ -2,7 +2,7 @@
 var frisby = require("frisby");
 var endpointUrl = "https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer";
 var signupUrl = "https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/controllers/sign-up-controller.php";
-
+var signinUrl = "https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/controllers/sign-in-controller.php"
 
 // user creation variables
 var signupData = {
@@ -11,12 +11,12 @@ var signupData = {
 	orgCity: "Albuquerque",
 	orgDescription: "Feeding Kitties since 1968",
 	orgHours: "9 hours per day, minus naps",
-	orgName: "Feed the Kitty",
+	orgName: "Feed All the Kitties",
 	orgPhone: "+15055551212",
 	orgState: "NM",
 	orgType: "G",
 	orgZip: "87102",
-	volEmail: "keller.kimberly@gmail.com",
+	volEmail: "kimberly@gravitaspublications.com",
 	volFirstName: "Senator",
 	volLastName: "Arlo",
 	volPassword: "p@ssword",
@@ -24,21 +24,12 @@ var signupData = {
 }
 
 var updateData = {
-	orgAddress1: "401 Copper Ave NW",
-	orgAddress2: null,
-	orgCity: "Albuquerque",
-	orgDescription: "Feeding Kitties since 1968",
-	orgHours: "9 hours per day, minus naps",
-	orgName: "Feed the Kitty",
-	orgPhone: "+15055551212",
-	orgState: "NM",
-	orgType: "G",
-	orgZip: "87102",
-	volEmail: "keller.kimberly@gmail.com",
-	volFirstName: "Senator",
-	volLastName: "Arlo",
-	volPassword: "p@ssword",
-	volPhone: "+12345678900"
+	volPhone: "5053334567"
+}
+
+var login = {
+	email: "kimberly@gravitaspublications.com",
+	password: "p@ssword"
 }
 
 
@@ -59,55 +50,82 @@ var createAccount = function() {
 		.toss();
 };
 
-var updateAccount = function() {
-	frisby.create("update an account")
-		.put(endpointUrl, updateData, {json: true})
-		.expectStatus(200)
-		.expectJSON({
-			status: 200,
-			message: "Volunteer updated OK"
-		})
-		.inspectJSON()
-		.toss();
-};
+//var updateAccount = function() {
+//	frisby.create("update an account")
+//		.put(signupUrl, login, getByVolId(), endpointUrl, updateData, {json: true})
+//		.expectStatus(200)
+//		.expectJSON({
+//			status: 200,
+//			message: "Volunteer updated OK"
+//		})
+//		.inspectJSON()
+//		.toss();
+//};
+//
+//var getByVolId = function() {
+//	frisby.create("get volunteer by id")
+//			.get(endpointUrl + '/index.php?id=64')
+//			.expectStatus(200)
+//			.expectJSON({
+//				status: 200,
+//				message: "volunteer by vol id"})
+//			.inspectJSON()
+//			.toss();
+//};
+  
 
-var getByVolId = function() {
+//var getByOrgId = function() {
+//
+//  }  ;
+//
+//var getByEmail = function() {
+//
+//  };  
+//
+//var getByIsAdmin = function() {
+//
+//  };
+//
+//  var getByEmailActivation = function() {
+//
+//};
+//
+//  var getbyInvalid = function() {  
+//
+//};
+//
+//var deleteAccount = function() {
+//	frisby.create("delete an account")
+//			.delete(getByVolId(), endpointUrl)
+//			.expectStatus(200)
+//			.expectJSON({
+//				status: 200,
+//				message:"Volunteer deleted OK"
+//			})
+//			.inspectJSON()
+//			.toss();
+//};
 
-  };  
+var teardown = function() {
+	//sign out???
 
-var getByOrgId = function() {
-
-  }  ;
-
-var getByEmail = function() {
-
-  };  
-
-var getByIsAdmin = function() {
-
-  };
-
-  var getByEmailActivation = function() {
-
-};
-
-  var getbyInvalid = function() {  
-
-};
-
-var deleteAccount = function() {
-	frisby.create("delete an account")
-			.delete(endpointUrl)
-			.expectStatus(200)
-			.expectJSON({
-				status: 200,
-				message:"Volunteer deleted OK"
+	//get the ID for the test organization, in order to delete it
+	frisby.create("get volunteer to be deleted")
+			.get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/volunteer?email=breadbasketapp@gmail.com')
+			.inspectJSON()//dumps json to console
+			.afterJSON(function(json) {
+				//based on examples from documentation, need to nest these
+				frisby.create("delete volunteer")
+						.delete('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/volunteer/' + json.data.volId)
+						.expectStatus(200)
+						.expectJSON({
+							status: 200,
+							message: "Volunteer deleted OK"
+						})
+						.toss();
 			})
-			.inspectJSON()
 			.toss();
 };
-
-
 
 
 // first, get the XSRF token
@@ -138,7 +156,9 @@ frisby.create("GET XSRF Token")
 			}
 		});
 		createAccount();
-		updateAccount();
-		deleteAccount();
+		teardown();
+		//getByVolId();
+		//updateAccount();
+		//deleteAccount();
 	})
 	.toss();
