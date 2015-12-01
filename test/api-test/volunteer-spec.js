@@ -61,6 +61,7 @@ var updateAccount = function() {
 							status: 200,
 							message: "volunteer updated OK"
 						})
+						.toss();
 			})
 			.toss();
 };
