@@ -52,8 +52,6 @@ var setup = function() {
 };*/
 
 var teardown = function() {
-	//sign out???
-
 	//get the ID for the test volunteer, in order to delete it
 	frisby.create("get volunteer to be deleted")
 			.get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/volunteer?email=breadbasketapp@gmail.com')
@@ -84,6 +82,11 @@ var teardown = function() {
 						})
 						.toss();
 			})
+			.toss();
+
+	//sign out of the session
+	frisby.create("sign out")
+			.get('https:https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/php/controllers/sign-out.php')
 			.toss();
 };
 
@@ -129,7 +132,6 @@ frisby.create("GET XSRF Token")
 		invalidGet;
 		validDelete();
 		invalidDelete();
-		teardown(); //delete dependencies from database DO THIS NOW FOR THE OTHER STUFF
 		 */
 	})
 	.toss();
