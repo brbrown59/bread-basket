@@ -52,34 +52,69 @@ var createAccount = function() {
 			})
 			.toss();
 };
-
+// update the volunteer with new information
 var updateAccount = function() {
 	frisby.create("get volunteer to be edited")
 			.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer?email=kimberly@gravitaspublications.com')
-			.inspectJSON()
+			//.inspectJSON()
 
-
-									.afterJSON(function(json) {
-										updateData.orgId = json.data.orgId
-										frisby.create("update volunteer")
-												.put('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/' + json.data.volId, updateData, {json: true})
-												.inspectJSON()
-												.expectStatus(200)
-												.expectJSON({
-													status: 200,
-													message: "Volunteer updated OK"
-												})
-												.toss();
+					.afterJSON(function(json) {
+						updateData.orgId = json.data.orgId
+						frisby.create("update volunteer")
+								.put('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/' + json.data.volId, updateData, {json: true})
+								//.inspectJSON()
+								.expectStatus(200)
+								.expectJSON({
+									status: 200,
+									message: "Volunteer updated OK"
+								})
+								.after(function(body, response) {
+							frisby.create("grab updated volunteer")
+									.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/?email=kimberly@gravitaspublications.com')
+									//.inspectJSON()
+									.expectStatus(200)
+									.expectJSON({
+										status: 200
 									})
 									.toss();
+
+								})
+								.toss();
+					})
+					.toss();
+
 };
+//get volunteer by email provided
+var getVolByEmail = function () {
+	frisby.create("get volunteer by email")
+			.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer?email=kimberly@gravitaspublications.com')
+			.inspectJSON()
+			.expectStatus(200)
+			.expectJSON({
+				status: 200
+			})
+			.toss();
+};
+
+//get volunteer by phone number
+var getVolByPhone = function () {
+	frisby.create("get volunteer by phone number")
+			.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer?phone=+15055551212')
+			.inspectJSON()
+			.expectStatus(200)
+			.expectJSON({
+				status: 200
+			})
+			.toss();
+};
+
 var teardown = function() {
 	//sign out???
 
 	//get the ID for the test organization, in order to delete it
 	frisby.create("get volunteer to be deleted")
 			.get('https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer?email=kimberly@gravitaspublications.com')
-			.inspectJSON()//dumps json to console
+			//.inspectJSON()//dumps json to console
 			.afterJSON(function(json) {
 				//based on examples from documentation, need to nest these
 				frisby.create("delete volunteer")
@@ -145,6 +180,8 @@ frisby.create("GET XSRF Token")
 			});
 			createAccount();
 			updateAccount();
-			//teardown();
+			getVolByEmail();
+			getVolByPhone();
+			teardown();
 		})
 		.toss();
