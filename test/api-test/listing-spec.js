@@ -27,7 +27,16 @@ var listingTypeData = {
 	listingType: "Perishable"
 }
 
-var listingTypeId = undefined;
+var listingData = {
+	//orgId to be appended later
+	listingClaimedBy: null,
+	listingClosed: null,
+	listingCost: 99.00,
+	listingMemo: "Watermelons, lemons, and melons",
+	listingParentId: null,
+	listingPostTime: null
+	//listing type ID to be appended later
+}
 
 // variables to keep PHP state
 var phpSession = undefined;
@@ -56,6 +65,32 @@ var setup = function() {
 				message: "Listing type created OK"
 			})
 			.toss()
+};
+
+var validPost = function() {
+	//get the org id
+	frisby.create("get the org id to post a listing")
+			.get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/organization?name=Feed the Kitty')
+			.afterJSON(function(json) {
+				listingData.orgId = json.data.orgId;
+				//get the listing type id
+				frisby.create("get the listingtype id to post a listing")
+						.get('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listingtype?listingType=Perishable')
+						.afterJSON(function(json) {
+							listingData.listingTypeId = json.data.listingTypeId;
+							//perform the post
+							frisby.create("post the new listing")
+									.post('https://bootcamp-coders.cnm.edu/~bbrown52/bread-basket/public_html/php/api/listing/', listingData, {json: true})
+									.expectStatus(200)
+									.expectJSON({
+										status: 200,
+										message: "Listing created OK"
+									})
+									.toss();
+						})
+						.toss();
+			})
+			.toss();
 };
 
 var teardown = function() {
@@ -144,12 +179,13 @@ frisby.create("GET XSRF Token")
 		});
 		createAccount();
 		setup();
+		validPost();
 		teardown();
 		/*
 		 // insert dependencies into database, probably include just beneath xsrf stuff
 					// log-in SHOULD create an organization and a volunteer for us
 		//basic form: take json of dependency, post request, get request on another unique but predictable field, get and store ID
-		validPost();
+
 		invalidPost();
 		validGetAll();
 		validGetByFoo(); //get by something else is going to have to come above get by id

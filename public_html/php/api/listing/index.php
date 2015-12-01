@@ -1,5 +1,6 @@
 <?php
 
+//require_once dirname(__DIR__) . "/vendor/autoload.php";
 require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
 require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
@@ -103,7 +104,7 @@ try {
 				$requestObject->listingParentId = null;
 			}
 			if(empty($requestObject->listingPostTime) === true) {
-				throw(new InvalidArgumentException("listing post time cannot be empty", 405));
+				$requestObject->listingPostTime = null;
 			}
 			if(empty($requestObject->listingTypeId) === true) {
 				throw(new InvalidArgumentException("listing type cannot be empty", 405));

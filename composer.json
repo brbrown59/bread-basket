@@ -1,6 +1,7 @@
 {
   "require": {
     "swiftmailer/swiftmailer": "@stable",
-    "guzzlehttp/guzzle": "@stable"
+    "guzzlehttp/guzzle": "@stable",
+    "pusher/pusher-php-server": "@stable"
   }
 }
