@@ -51,11 +51,6 @@ try {
 	$typeId = filter_input(INPUT_GET, "typeId", FILTER_VALIDATE_INT);
 	$parentId = filter_input(INPUT_GET, "parentId", FILTER_VALIDATE_INT);
 	$postTime = filter_input(INPUT_GET, "postTime", FILTER_SANITIZE_STRING);
-	//if there's an actual date time, validate it
-	if ($postTime !== null) {
-		$postTime = Listing::validateDate($postTime);
-	}
-
 
 
 
@@ -161,6 +156,7 @@ try {
 } catch (Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
+	//$reply->message = $exception->getTrace();
 }
 header("Content-type: application/json");
 if($reply->data === null) {
