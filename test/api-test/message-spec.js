@@ -89,29 +89,40 @@ var teardown = function() {
 	//get the Id for the test organization, in order to dwlwt it
 	frisby.create("get message to be deleted")
 		.get('http').get('https://bootcamp-coders.cnm.edu/~cberaun2/bread-basket/public_html/php/api/message?email=cbabq505@gmail.com')
-	//.inspect () //dump json ot console
+		//.inspect () //dump json ot console
 		.afterJSON(function(json) {
 			//based on examples from documentation, need to nest these
 			frisby.create("delete message ok")
 				.expectStatus(200)
 				.expectJSON({
-					status:200,
+					status: 200,
 					message: "Message Delete ok"
 				})
 				.toss();
 		})
 		.toss();
 
-	//get the ID for the test organization, in order to delet it
+	//get the ID for the test organization, in order to delete it
 	frisby.create("get organization to be deleted")
 		.get('https://bootcamp-coders.cnm.edu/~cberaun2/bread-basket/public_html/php/api/organization?name=Helping Bros stay out')
+		.afterJSON(function(json) {
+			//based on examples from documentation, need to nest these
+			frisby.create("delete message")
+				.delete('https://bootcamp-coders.cnm.edu/~cberaun2/bread-basket/public_html/php/api/message/' + json.data.messageId)
+				.expectStatus(200)
+				.expectJSON({
+					status: 200,
+					message: "Message deleted OK"
+				})
+				.toss();
+		})
+		.toss();
 
-}
-
-
-
-
-
+	//sign out of the session
+	frisby.create("sign out")
+		.get('https://bootcamp-coders.cnm.edu/~cberaun2/bread-basket/php/controllers/sign-out.php')
+		.toss();
+};
 
 
 // first, get the XSRF token

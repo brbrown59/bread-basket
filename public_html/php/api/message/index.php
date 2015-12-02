@@ -22,10 +22,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 		try {
 			//grab the mySQL connection
-			$pdo = connectToEncryptedMySQL("/etc/apache/capstone-mysql/breadbasket.ini");
-
-			//temporary test field: please remove later
-			$_SESSION["volunteer"] = Volunteer::getVolunteerByVolId($pdo, 146);
+			$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/breadbasket.ini");
 
 			//if the volunteer session is empty, the user is not logged in, throw an exception
 			if(empty($_SESSION["volunteer"]) === true) {
@@ -38,9 +35,11 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 			//sanitize inputs
 			$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+			$messageId = filter_input(INPUT_GET, "messageId", FILTER_VALIDATE_INT);
 			$listingId = filter_input(INPUT_GET, "listingId", FILTER_VALIDATE_INT);
 			$orgId = filter_input(INPUT_GET, "orgId", FILTER_VALIDATE_INT);
-			//make sure the id is valid for methods that requier it.
+			$messageText = filter_input(INPUT_GET, "messageText", FILTER_VALIDATE_INT);
+			//make sure the id is valid for methods that  it.
 			if(($method === "DELETE" || $method === "PUT") && (empty ($id) === true || $id < 0)) {
 				throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 			}
@@ -94,13 +93,13 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 							throw(new RuntimeException("Message does not exist", 404));
 						}
 
-						$message = new Message($id, $requestObject->listingId, $requestObject->orgId);
+						$message = new Message($id, $requestObject->listingId, $requestObject->orgId, $requestObject->messageText);
 						$message->update($pdo);
 
 						$reply->message = "Message updated Ok";
 
 					} else if($method === "POST") {
-						$message = new Message(null, $requestObject->listingId, $requestObject->orgId);
+						$message = new Message(null, $requestObject->listingId, $requestObject->orgId, $requestObject->messageText);
 						$message->insert($pdo);
 
 						$reply->message = "Message created ok";
