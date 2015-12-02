@@ -56,8 +56,7 @@ trait ValidateDate {
 	}
 
 	public static function dateTimeToNg(DateTime $newDate) {
-		$timeString = $newDate->format('Y-m-d H:i:s');
-		$newDate = strtotime($timeString) * 1000;
+		$newDate = $newDate->format('U') * 1000;
 		return $newDate;
 	}
 }
