@@ -61,7 +61,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 					$reply->data = Message::getMessageByListingId($pdo, $listingId)->toArray();
 				} else if(empty ($orgId) === false) {
 					$reply->data = Message::getMessageByOrgId($pdo, $orgId)->toArray();
-				} else{
+				} else {
 					$reply->data = Message::getAllMessages($pdo)->toArray();
 				}
 			}
@@ -77,13 +77,13 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 					//make sure all fields are present, in order to prevent database issues
 					if(empty($requestObject->listingId) === true) {
-						throw(new InvalidArgumentException ("Listing Id cannot be empty",405 ));
+						throw(new InvalidArgumentException ("Listing Id cannot be empty", 405));
 					}
 					if(empty($requestObject->orgId) === true) {
-						throw(new InvalidArgumentException ("Organization Id cannot be empty",405) );
+						throw(new InvalidArgumentException ("Organization Id cannot be empty", 405));
 					}
 					if(empty($requestObject->messageText) === true) {
-						throw(new InvalidArgumentException("Message field cannot be empty",405 ));
+						throw(new InvalidArgumentException("Message field cannot be empty", 405));
 					}
 
 					//perform the actual put or post
@@ -104,26 +104,26 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 						$reply->message = "Message created ok";
 					}
-				}
 
 
-			} else if($method === "DELETE") {
-				verifyXsrf();
+				} else if($method === "DELETE") {
+					verifyXsrf();
 
-				$message = Message::getMessageByMessageId($pdo, $id);
-				if($message === null) {
-					throw(new RuntimeException("Message does not exist", 404));
-				}
+					$message = Message::getMessageByMessageId($pdo, $id);
+					if($message === null) {
+						throw(new RuntimeException("Message does not exist", 404));
+					}
 
-				$message->delete($pdo);
-				$deleteObject = new stdClass();
-				$deleteObject->messageId = $id;
+					$message->delete($pdo);
+					$deleteObject = new stdClass();
+					$deleteObject->messageId = $id;
 
-				$reply->message = "Message deleted successfully";
-			} else {
-				//if not Administrator, and attempting a method other than get, throw a exception.
-				if((empty($method) === false) && ($method !== "GET")) {
-					throw(new RangeException("Only Administrators are allowed to modify messages", 401));
+					$reply->message = "Message deleted successfully";
+				} else {
+					//if not Administrator, and attempting a method other than get, throw a exception.
+					if((empty($method) === false) && ($method !== "GET")) {
+						throw(new RangeException("Only Administrators are allowed to modify messages", 401));
+					}
 				}
 			}
 
