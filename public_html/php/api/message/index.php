@@ -79,10 +79,10 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 					if(empty($requestObject->listingId) === true) {
 						throw(new InvalidArgumentException ("Listing Id cannot be empty",405 ));
 					}
-					if(empty($requestContent->orgId) === true) {
+					if(empty($requestObject->orgId) === true) {
 						throw(new InvalidArgumentException ("Organization Id cannot be empty",405) );
 					}
-					if(empty($requestContent->messageText) === true) {
+					if(empty($requestObject->messageText) === true) {
 						throw(new InvalidArgumentException("Message field cannot be empty",405 ));
 					}
 
