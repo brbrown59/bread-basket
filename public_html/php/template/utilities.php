@@ -58,10 +58,12 @@ setXsrfCookie();
 		<script type="text/javascript" src="../../js/controllers/signin-modal.js"></script>
 		<script type="text/javascript" src="../../js/controllers/newvolunteer-modal.js"></script>
 		<script type="text/javascript" src="../../js/controllers/newlisting-modal.js"></script>
+		<script type="text/javascript" src="../../js/controllers/contact-modal.js"></script>
 		<script type="text/javascript" src="../../js/controllers/signup-controller.js"></script>
 		<script type="text/javascript" src="../../js/controllers/signin-controller.js"></script>
 		<script type="text/javascript" src="../../js/controllers/newvolunteer-controller.js"></script>
 		<script type="text/javascript" src="../../js/controllers/newlisting-controller.js"></script>
+		<script type="text/javascript" src="../../js/controllers/contact-controller.js"></script>
 
 		<!--Page Title-->
 		<title><?php echo $PAGE_TITLE; ?></title>
