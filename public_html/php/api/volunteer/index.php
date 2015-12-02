@@ -128,7 +128,7 @@ try {
 
 				//create new volunteer
 				$volunteer = new Volunteer($id, $requestObject->orgId, $requestObject->volEmail, $requestObject->volEmailActivation,
-						$requestObject->volFirstName, $requestObject->volIsAdmin, $requestObject->volLastName, $requestObject->volPhone, $salt, $hash);
+						$requestObject->volFirstName, $hash, $requestObject->volIsAdmin, $requestObject->volLastName, $requestObject->volPhone, $salt);
 				$volunteer->insert($pdo);
 				$_SESSION["volunteer"] = $volunteer;
 			}
@@ -158,6 +158,7 @@ try {
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
+	$reply->trace = $exception->getTrace();
 }
 header("Content-type: application/json");
 if($reply->data === null) {
