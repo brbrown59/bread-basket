@@ -44,4 +44,20 @@ trait ValidateDate {
 		$newDate = DateTime::createFromFormat("Y-m-d H:i:s", $newDate);
 		return($newDate);
 	}
+
+	public static function ngToDateTime($newDate) {
+		if(is_numeric($newDate) === true) {
+			$secondsSinceTheBeginningTime = intval($newDate) / 1000;
+			$newDate = DateTime::createFromFormat("U", $secondsSinceTheBeginningTime);
+			return $newDate;
+		} else {
+			return null;
+		}
+	}
+
+	public static function dateTimeToNg(DateTime $newDate) {
+		$timeString = $newDate->format('Y-m-d H:i:s');
+		$newDate = strtotime($timeString) * 1000;
+		return $newDate;
+	}
 }
