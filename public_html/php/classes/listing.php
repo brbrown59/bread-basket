@@ -665,16 +665,15 @@ class Listing implements JsonSerializable {
 			throw(new RangeException($range->getMessage(), 0, $range));
 		}
 
+		$sunrise = $listingPostTime->format("Y-m-d") . " 00:00:00";
+		$sunset = $listingPostTime->format("Y-m-d") . " 23:59:59";
+
 		//create query template
-		$query = "SELECT listingId,orgId,listingClaimedBy,listingClosed,listingCost,listingMemo,listingParentId,listingPostTime,listingTypeId FROM listing WHERE listingPostTime LIKE :listingPostTime";
+		$query = "SELECT listingId,orgId,listingClaimedBy,listingClosed,listingCost,listingMemo,listingParentId,listingPostTime,listingTypeId FROM listing WHERE listingPostTime >= :sunrise AND listingPostTime <= :sunset";
 		$statement = $pdo->prepare($query);
 
-		//formating date to string
-		$formattedDate = $listingPostTime->format("Y-m-d");
-		$formattedDate = "$formattedDate%";
-
 		//bind the name value to the placeholder in the template
-		$parameters = array("listingPostTime" => $formattedDate);
+		$parameters = ["sunrise" => $sunrise, "sunset" => $sunset];
 		$statement->execute($parameters);
 
 		//call the function to build an array of the retrieved results
