@@ -38,7 +38,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 			$messageId = filter_input(INPUT_GET, "messageId", FILTER_VALIDATE_INT);
 			$listingId = filter_input(INPUT_GET, "listingId", FILTER_VALIDATE_INT);
 			$orgId = filter_input(INPUT_GET, "orgId", FILTER_VALIDATE_INT);
-			$messageText = filter_input(INPUT_GET, "messageText", FILTER_VALIDATE_INT);
+			$messageText = filter_input(INPUT_GET, "messageText", FILTER_SANITIZE_STRING);
 			//make sure the id is valid for methods that  it.
 			if(($method === "DELETE" || $method === "PUT") && (empty ($id) === true || $id < 0)) {
 				throw(new InvalidArgumentException("id cannot be empty or negative", 405));
