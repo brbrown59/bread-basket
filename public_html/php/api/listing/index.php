@@ -67,7 +67,7 @@ try {
 		if(empty($id) === false) {
 			$reply->data = Listing::getListingByListingId($pdo, $id);
 		} elseif(empty($orgId) === false) {
-			$reply->data = Listing::getListingByOrgId($pdo, $orgId);
+			$reply->data = Listing::getListingByOrgId($pdo, $orgId)->toArray();
 		} elseif(empty($postTime) === false) {
 			$reply->data = Listing::getListingByListingPostTime($pdo, $postTime)->toArray();
 		} elseif(empty($parentId) === false) {
