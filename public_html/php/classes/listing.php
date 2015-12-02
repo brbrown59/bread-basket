@@ -370,9 +370,16 @@ class Listing implements JsonSerializable {
 			$this->listingPostTime = new DateTime();
 			return;
 		}
-
 		//store the listing post time
 		try {
+			//if we get an angular-style time value, filter it and convert it
+			if(is_numeric($newListingPostTime) === true) {
+				filter_var($newListingPostTime, FILTER_VALIDATE_INT);
+				if($newListingPostTime === false) {
+					throw(new InvalidArgumentException("listing post time is not valid"));
+				}
+				$newListingPostTime = Listing::ngToDateTime($newListingPostTime);
+			}
 			$newListingPostTime = Listing::validateDate($newListingPostTime);
 		} catch(InvalidArgumentException $invalidArgument) {
 			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
@@ -643,6 +650,14 @@ class Listing implements JsonSerializable {
 	public static function getListingByListingPostTime(PDO $pdo, $listingPostTime) {
 		//sanitize the listingPostTime before searching
 		try {
+			//if we get an angular-style time value, filter it and convert it
+			if(is_numeric($listingPostTime) === true) {
+				filter_var($listingPostTime, FILTER_VALIDATE_INT);
+				if($listingPostTime === false) {
+					throw(new InvalidArgumentException("listing post time is not valid"));
+				}
+				$listingPostTime = Listing::ngToDateTime($listingPostTime);
+			}
 			$listingPostTime = Listing::validateDate($listingPostTime);
 		} catch(InvalidArgumentException $invalidArgument) {
 			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
@@ -651,11 +666,12 @@ class Listing implements JsonSerializable {
 		}
 
 		//create query template
-		$query = "SELECT listingId,orgId,listingClaimedBy,listingClosed,listingCost,listingMemo,listingParentId,listingPostTime,listingTypeId FROM listing WHERE listingPostTime = :listingPostTime";
+		$query = "SELECT listingId,orgId,listingClaimedBy,listingClosed,listingCost,listingMemo,listingParentId,listingPostTime,listingTypeId FROM listing WHERE listingPostTime LIKE :listingPostTime";
 		$statement = $pdo->prepare($query);
 
 		//formating date to string
-		$formattedDate = $listingPostTime->format("Y-m-d H:i:s");
+		$formattedDate = $listingPostTime->format("Y-m-d");
+		$formattedDate = "$formattedDate%";
 
 		//bind the name value to the placeholder in the template
 		$parameters = array("listingPostTime" => $formattedDate);

@@ -108,11 +108,8 @@ try {
 			if(empty($requestObject->listingParentId) === true) {
 				$requestObject->listingParentId = null;
 			}
-			if(is_numeric($requestObject->listingPostTime) === true) {
-				$secondsSinceTheBeginningTime = intval($requestObject->listingPostTime) / 1000;
-				$listingPostTime = DateTime::createFromFormat("U", $secondsSinceTheBeginningTime);
-			} else {
-				$listingPostTime = null;
+			if(empty($requestObject->listingPostTime) === true) {
+				$requestObject->listingPostTime = null;
 			}
 			if(empty($requestObject->listingTypeId) === true) {
 				throw(new InvalidArgumentException("listing type cannot be empty", 405));
@@ -126,7 +123,7 @@ try {
 				}
 
 				$listing = new Listing($id, $requestObject->orgId, $requestObject->listingClaimedBy, $requestObject->listingClosed,
-					$requestObject->listingCost, $requestObject->listingMemo,$requestObject->listingParentId, $listingPostTime, $requestObject->listingTypeId);
+					$requestObject->listingCost, $requestObject->listingMemo,$requestObject->listingParentId, $requestObject->listingPostTime, $requestObject->listingTypeId);
 				$listing->update($pdo);
 				$pusher->trigger("listing", "update", $listing);
 
@@ -134,7 +131,7 @@ try {
 
 			} elseif($method === "POST") {
 				$listing = new Listing(null, $requestObject->orgId, $requestObject->listingClaimedBy, $requestObject->listingClosed,
-					$requestObject->listingCost, $requestObject->listingMemo,$requestObject->listingParentId, $listingPostTime, $requestObject->listingTypeId);
+					$requestObject->listingCost, $requestObject->listingMemo,$requestObject->listingParentId, $requestObject->listingPostTime, $requestObject->listingTypeId);
 				$listing->insert($pdo);
 				$pusher->trigger("listing", "new", $listing);
 				$reply->message = "Listing created OK";
