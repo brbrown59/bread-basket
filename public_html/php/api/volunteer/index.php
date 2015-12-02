@@ -62,7 +62,7 @@ try {
 		} else if(empty($phone) === false) {
 			$reply->data = Volunteer::getVolunteerByVolPhone($pdo, $phone)->toArray();
 		} else if(empty($emailActivation) === false) {
-			$reply->data = Volunteer::getVolunteerByVolEmailActivation($pdo, $emailActivation)->toArray();
+			$reply->data = Volunteer::getVolunteerByVolEmailActivation($pdo, $emailActivation);
 		} else {
 			$reply->data = Volunteer::getAllVolunteers($pdo)->toArray();
 		}
@@ -77,12 +77,6 @@ try {
 			$requestContent = file_get_contents("php://input");
 			$requestObject = json_decode($requestContent);
 
-//			if($requestObject->password !== $requestObject->passwordConfirm) {
-//				throw(new InvalidArgumentException("passwords do not match", 400));
-//			}
-//
-//			$salt = bin2hex(openssl_random_pseudo_bytes(32));
-//			$hash = hash_pbkdf2("sha512", $requestObject->password, $salt, 262144, 128);
 
 			//make sure all fields are present, in order to prevent database issues
 			if(empty($requestObject->orgId) === true) {
@@ -103,15 +97,14 @@ try {
 			if(empty($requestObject->volPhone) === true) {
 				throw(new InvalidArgumentException ("phone cannot be empty", 405));
 			}
-			if(empty($requestObject->volEmail) === true) {
-				throw(new InvalidArgumentException ("email cannot be empty", 405));
-			}
 
+// perform the actual put or post
 				if($method === "PUT") {
 				$volunteer = Volunteer::getVolunteerByVolId($pdo, $id);
 				if($volunteer === null) {
 					throw(new RuntimeException("Volunteer does not exist", 404));
 				}
+
 
 				$volunteer = Volunteer::getVolunteerByVolId($pdo, $id);
 				$volunteer->setVolEmail($requestObject->volEmail);

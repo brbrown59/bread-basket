@@ -504,11 +504,11 @@ class Volunteer implements JsonSerializable {
 		}
 
 		//create query tempalte
-		$query = "UPDATE volunteer SET orgId = :orgId, volEmail = :volEmail, volEmailActivation =:volEmailActivation, volFirstName = :volFirstName, volHash = :volHash, volIsAdmin = :volIsAdmin, volLastName = :volLastName, volPhone = :volPhone, volSalt = :volSalt";
+		$query = "UPDATE volunteer SET orgId = :orgId, volEmail = :volEmail, volEmailActivation =:volEmailActivation, volFirstName = :volFirstName, volHash = :volHash, volIsAdmin = :volIsAdmin, volLastName = :volLastName, volPhone = :volPhone, volSalt = :volSalt WHERE volId = :volId";
 		$statement = $pdo->prepare($query);
 
 		//bind the member variables to the place holders in the template
-		$parameters = array("orgId" => $this->orgId, "volEmail" => $this->volEmail, "volEmailActivation" => $this->volEmailActivation, "volFirstName" => $this->volFirstName, "volHash" => $this->volHash, "volIsAdmin" => $this->volIsAdmin, "volLastName" => $this->volLastName, "volPhone" => $this->volPhone, "volSalt" => $this->volSalt);
+		$parameters = array("volId" => $this->volId, "orgId" => $this->orgId, "volEmail" => $this->volEmail, "volEmailActivation" => $this->volEmailActivation, "volFirstName" => $this->volFirstName, "volHash" => $this->volHash, "volIsAdmin" => $this->volIsAdmin, "volLastName" => $this->volLastName, "volPhone" => $this->volPhone, "volSalt" => $this->volSalt);
 		$statement->execute($parameters);
 	}
 
