@@ -52,19 +52,28 @@ try {
 
 		//get the organization based on the given field
 		if(empty($id) === false) {
-			$reply->data = Volunteer::getVolunteerByVolId($pdo, $id);
-		} else if(empty($orgId) === false) {
-			$reply->data = Volunteer::getVolunteerByOrgId($pdo, $orgId)->toArray();
+			$volunteer = Volunteer::getVolunteerByVolId($pdo, $id);
+			if($volunteer !== null && $volunteer->getOrgId() === $_SESSION["volunteer"]->getOrgId()) {
+				$reply->data = $volunteer;
+			}
 		} else if(empty($email) === false) {
-			$reply->data = Volunteer::getVolunteerByVolEmail($pdo, $email);
+			$volunteer = Volunteer::getVolunteerByVolEmail($pdo, $email);
+			if($volunteer !== null && $volunteer->getOrgId() === $_SESSION["volunteer"]->getOrgId()) {
+				$reply->data = $volunteer;
 		} else if(empty($admin) === false) {
-			$reply->data = Volunteer::getVolunteerByVolIsAdmin($pdo, $admin)->toArray();
+			$volunteer = Volunteer::getVolunteerByVolIsAdmin($pdo, $admin);
+			if($volunteer !== null && $volunteer->getOrgId() === $_SESSION["volunteer"]->getOrgId()) {
+				$reply->data = $volunteer;
 		} else if(empty($phone) === false) {
-			$reply->data = Volunteer::getVolunteerByVolPhone($pdo, $phone)->toArray();
+			$volunteer = Volunteer::getVolunteerByVolPhone($pdo, $phone);
+			if($volunteer !== null && $volunteer->getOrgId() === $_SESSION["volunteer"]->getOrgId()) {
+				$reply->data = $volunteer;
 		} else if(empty($emailActivation) === false) {
-			$reply->data = Volunteer::getVolunteerByVolEmailActivation($pdo, $emailActivation);
+			$volunteer = Volunteer::getVolunteerByVolEmailActivation($pdo, $emailActivation);
+			if($volunteer !== null && $volunteer->getOrgId() === $_SESSION["volunteer"]->getOrgId()) {
+				$reply->data = $volunteer;
 		} else {
-			$reply->data = Volunteer::getAllVolunteers($pdo)->toArray();
+			$reply->data = Volunteer::getVolunteerByOrgId($pdo, $_SESSION["volunteer"]->getOrgId())->toArray();
 		}
 	}
 
@@ -158,7 +167,6 @@ try {
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
-	$reply->trace = $exception->getTrace();
 }
 header("Content-type: application/json");
 if($reply->data === null) {
