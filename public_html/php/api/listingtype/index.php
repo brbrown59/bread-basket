@@ -52,7 +52,7 @@ try {
 		if(empty($id) === false) {
 			$reply->data = ListingType::getListingTypeById($pdo, $id);
 		} elseif(empty($listingType)=== false) {
-			$reply->data = ListingType::getListingByTypeInfo($pdo)->toArray();
+			$reply->data = ListingType::getListingByTypeInfo($pdo, $listingType);
 		} else {
 			$reply->data = ListingType::getAllListingTypes($pdo)->toArray();
 		}
