@@ -726,14 +726,19 @@ class Volunteer implements JsonSerializable {
 		$parameters = array("volPhone" => $volPhone);
 		$statement->execute($parameters);
 
-		//call the function to build and array of the retrieved values
+		//grab the phone number from mySQL
+		$volunteer = null;
 		try {
-			$retrievedVol = Volunteer::storeSQLResultsInArray($statement);
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$volunteer = new Volunteer($row["volId"], $row["orgId"], $row["volEmail"], $row["volEmailActivation"], $row["volFirstName"], $row["volHash"], $row["volIsAdmin"], $row["volLastName"],$row["volPhone"], $row["volSalt"]);
+			}
 		} catch(Exception $exception) {
 			//rethrow the exception if the retrieval failed
 			throw(new PDOException($exception->getMessage(), 0, $exception));
 		}
-		return $retrievedVol;
+		return $volunteer;
 	}
 	/**
 	 * ******************

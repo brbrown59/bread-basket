@@ -60,18 +60,22 @@ try {
 			$volunteer = Volunteer::getVolunteerByVolEmail($pdo, $email);
 			if($volunteer !== null && $volunteer->getOrgId() === $_SESSION["volunteer"]->getOrgId()) {
 				$reply->data = $volunteer;
+			}
 		} else if(empty($admin) === false) {
 			$volunteer = Volunteer::getVolunteerByVolIsAdmin($pdo, $admin);
 			if($volunteer !== null && $volunteer->getOrgId() === $_SESSION["volunteer"]->getOrgId()) {
 				$reply->data = $volunteer;
+			}
 		} else if(empty($phone) === false) {
 			$volunteer = Volunteer::getVolunteerByVolPhone($pdo, $phone);
 			if($volunteer !== null && $volunteer->getOrgId() === $_SESSION["volunteer"]->getOrgId()) {
+			}
 				$reply->data = $volunteer;
 		} else if(empty($emailActivation) === false) {
 			$volunteer = Volunteer::getVolunteerByVolEmailActivation($pdo, $emailActivation);
 			if($volunteer !== null && $volunteer->getOrgId() === $_SESSION["volunteer"]->getOrgId()) {
 				$reply->data = $volunteer;
+			}
 		} else {
 			$reply->data = Volunteer::getVolunteerByOrgId($pdo, $_SESSION["volunteer"]->getOrgId())->toArray();
 		}
@@ -140,6 +144,8 @@ try {
 						$requestObject->volFirstName, $hash, $requestObject->volIsAdmin, $requestObject->volLastName, $requestObject->volPhone, $salt);
 				$volunteer->insert($pdo);
 				$_SESSION["volunteer"] = $volunteer;
+
+				$reply->message = "Volunteer created OK";
 			}
 
 			} elseif($method === "DELETE") {
