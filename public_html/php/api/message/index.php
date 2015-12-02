@@ -56,7 +56,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 				setXsrfCookie("/");
 				//get the organization based on the given field
 				if(empty($id) === false) {
-					$reply->data = Message::getMessageByMessageId($pdo, $Id)->toArray();
+					$reply->data = Message::getMessageByMessageId($pdo, $id)->toArray();
 				} else if(empty ($listingId) === false) {
 					$reply->data = Message::getMessageByListingId($pdo, $listingId)->toArray();
 				} else if(empty ($orgId) === false) {
