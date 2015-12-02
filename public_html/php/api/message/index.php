@@ -132,7 +132,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 			$reply->status = $exception->getCode();
 			$reply->message = $exception->getMessage();
 		}
-		header("content-type: applications/json");
+header("Content-type: application/json");
 if($reply->data === null){
 	unset($reply->data);
 }
