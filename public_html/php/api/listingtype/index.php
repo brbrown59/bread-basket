@@ -41,7 +41,7 @@ try {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 	//sanitize and trim the Listing Type (Info) fields
-	$listingType = filter_input(INPUT_GET, "listingType", FILTER_SANITIZE_STRING);
+	$listingTypeInfo = filter_input(INPUT_GET, "listingType", FILTER_SANITIZE_STRING);
 
 	//handle REST calls, while only allowing administrators access to database-modifying methods
 	if($method === "GET") {
@@ -51,8 +51,8 @@ try {
 		//get the listing type based on the given field
 		if(empty($id) === false) {
 			$reply->data = ListingType::getListingTypeById($pdo, $id);
-		} elseif(empty($listingType)=== false) {
-			$reply->data = ListingType::getListingByTypeInfo($pdo, $listingType);
+		} elseif(empty($listingTypeInfo)=== false) {
+			$reply->data = ListingType::getListingByTypeInfo($pdo, $listingTypeInfo);
 		} else {
 			$reply->data = ListingType::getAllListingTypes($pdo)->toArray();
 		}

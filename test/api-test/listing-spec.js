@@ -106,7 +106,7 @@ var validPost = function() {
 
 var invalidPost = function() {
 	//do a post that should fail, by not having a valid foreign key
-	listingData.orgId = null;
+	//listingData.orgId = null;
 	listingData.listingTypeId = 89;
 	//listingData.listingTypeId = invalidKey;
 	frisby.create("post a bad listing type")
@@ -208,7 +208,7 @@ frisby.create("GET XSRF Token")
 		createAccount();
 		setup();
 		validPost();
-		//invalidPost();
+		invalidPost();
 		teardown();
 		/*
 		 // insert dependencies into database, probably include just beneath xsrf stuff
