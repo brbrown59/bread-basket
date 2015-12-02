@@ -61,8 +61,6 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 					$reply->data = Message::getMessageByListingId($pdo, $listingId)->toArray();
 				} else if(empty ($orgId) === false) {
 					$reply->data = Message::getMessageByOrgId($pdo, $orgId)->toArray();
-				} else if(empty ($orgId) === false) {
-					$reply->data = Message::getMessageByMessageText($pdo, $messageId)->toArray();
 				} else{
 					$reply->data = Message::getAllMessages($pdo)->toArray();
 				}
