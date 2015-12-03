@@ -8,36 +8,24 @@ app.service("VolunteerService", function($http, VOLUNTEER_ENDPOINT) {
 		return(getUrl() + volId);
 	}
 
-	function getUrlForEmail(volEmail) {
-		return(getUrl + volEmail);
-	}
-
-	function getUrlForIsAdmin(volIsAdmin) {
-		return(getUrl + volIsAdmin);
-	}
-
-	function getUrlForVolPhone(volPhone) {
-		return(getUrl + volPhone)
-	}
-
 	this.all = function() {
 		return($http.get(getUrl()));
 	};
 
-	this.fetch = function(volId) {
+	this.fetchId = function(volId) {
 		return($http.get(getUrlForId(volId)));
 	};
 
-	this.fetch = function(volEmail) {
-		return($http.get(getUrlForEmail(volEmail)));
+	this.fetchEmail = function(volEmail) {
+		return($http.get(getUrl() + '?email=' + volEmail));
 	};
 
-	this.fetch = function(volIsAdmin) {
-		return($http.get(getUrlForIsAdmin(volIsAdmin)));
+	this.fetchAdmin = function(volIsAdmin) {
+		return($http.get(getUrl() + '?isAdmin=' + volIsAdmin));
 	};
 
-	this.fetch = function(volPhone) {
-		return($http.get(getUrlForVolPhone(volPhone)));
+	this.fetchPhone = function(volPhone) {
+		return($http.get(getUrl() + '?phone=' + volPhone));
 	};
 
 	this.create = function(volunteer) {
@@ -48,9 +36,8 @@ app.service("VolunteerService", function($http, VOLUNTEER_ENDPOINT) {
 		return($http.put(getUrlForId(volId), volunteer));
 	};
 
-	this.destroy = function(misquoteId) {
-		return($http.delete(getUrlForId(misquoteId)));
+	this.destroy = function(volId) {
+		return($http.delete(getUrlForId(volId)));
 	};
 });
 
-.

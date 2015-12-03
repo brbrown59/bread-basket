@@ -30,7 +30,7 @@ require_once("header.php");
 			<div class="col-xs-3">
 				<a class="btn btn-default btn-lg" href="login-landing-page.php" role="button">Back</a>
 			</div>
-			<div class="col-xs-3" ng-controller="NewListingController">
+			<div class="col-xs-3" ng-controller="ListingController">
 				<button class="btn btn-info btn-lg" ng-click="openListingModal();">New Listing</button>
 			</div>
 		</div>
@@ -52,8 +52,8 @@ require_once("header.php");
 						<td>Grapefruits! So many grapefruits!</td>
 						<td>11/11/22 14:25</td>
 						<td>
-							<button class="btn btn-info" ng-click="setEditedVolunteer(volunteer);"><i class="fa fa-pencil"></i></button>
-							<form class="inline" ng-submit="deleteVolunteer(volunteer.volId);">
+							<button class="btn btn-info" ng-click="setEditedListing(listing);"><i class="fa fa-pencil"></i></button>
+							<form class="inline" ng-submit="deleteListings(listing.listingId);">
 								<button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
 							</form>
 						</td>

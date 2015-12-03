@@ -26,7 +26,7 @@ require_once("header.php");
 						<div class="col-xs-3">
 							<a class="btn btn-default btn-lg" href="login-landing-page.php" role="button">Back</a>
 						</div>
-						<div class="col-xs-3" ng-controller="NewVolunteerController">
+						<div class="col-xs-3" ng-controller="VolunteerController">
 							<button class="btn btn-info btn-lg" ng-click="openVolunteerModal();">New Volunteer</button>
 						</div>
 					</div>
@@ -48,7 +48,7 @@ require_once("header.php");
 									<td>(505) 867-5309</td>
 									<td>
 										<button class="btn btn-info" ng-click="setEditedVolunteer(volunteer);"><i class="fa fa-pencil"></i></button>
-										<form class="inline" ng-submit="deleteVolunteer(volunteer.volunteerId);">
+										<form class="inline" ng-submit="deleteVolunteer(volunteer.volId);">
 											<button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
 										</form>
 									</td>

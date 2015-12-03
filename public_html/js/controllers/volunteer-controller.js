@@ -1,4 +1,4 @@
-app.controller("NewVolunteerController", ["$scope", "$uibModal", function($scope, $uibModal) {
+app.controller("VolunteerController", ["$scope", "$uibModal", function($scope, $uibModal) {
 	$scope.volData = {};
 
 	$scope.openVolunteerModal = function () {
