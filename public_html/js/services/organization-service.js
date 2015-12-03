@@ -20,23 +20,23 @@ app.service("OrganizationService", function($http, ORGANIZATION_ENDPOINT) {
 		return($http.get(getUrlForId(orgId)));
 	};
 	//get by city
-	this.fetchcity = function(orgCity) {
+	this.fetchCity = function(orgCity) {
 		return($http.get(getUrl() + "?city=" + orgCity));
 	};
 	//get by name
-	this.fetchname = function(orgName) {
+	this.fetchName = function(orgName) {
 		return($http.get(getUrl() + "?name=" + orgName));
 	};
 	//get by state
-	this.fetchstate = function(orgState) {
+	this.fetchState = function(orgState) {
 		return($http.get(getUrl() + "?state=" + orgState));
 	};
 	//get by type
-	this.fetchtype = function(orgType) {
+	this.fetchType = function(orgType) {
 		return($http.get(getUrl() + "?type=" + orgType));
 	};
 	//get by zip
-	this.fetchzip = function(orgZip) {
+	this.fetchZip = function(orgZip) {
 		return($http.get(getUrl() + "?zip=" + orgZip));
 	};
 
