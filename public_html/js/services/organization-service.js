@@ -5,8 +5,30 @@ app.service("OrganizationService", function($http, ORGANIZATION_ENDPOINT) {
 	}
 
 	function getUrlForId(orgId) {
-		return(getUrl() + orgId)
+		return(getUrl() + orgId);
 	}
+
+	function getUrlForCity(orgCity) {
+		return(getUrl() + "?city=" + orgCity);
+	}
+
+	function getUrlForName(orgName) {
+		return(getUrl() + "?name=" + orgName);
+	}
+
+	function getUrlForState(orgState) {
+		return(getUrl() + "?state=" + orgState);
+	}
+
+	function getUrlForType(orgType) {
+		return(getUrl() + "?type=" + orgType);
+	}
+
+	function getUrlForZip(orgZip) {
+		return(getUrl() + "?zip=" + orgZip);
+	}
+
+
 	//getting all
 	this.all = function() {
 		return($http.get(getUrl()));
@@ -29,4 +51,7 @@ app.service("OrganizationService", function($http, ORGANIZATION_ENDPOINT) {
 		return($http.put(getUrlForId(orgId), organization));
 	};
 
-}
+	this.destroy = function(orgId) {
+		return($http.delete(getUrlForId(orgId)));
+	};
+});
