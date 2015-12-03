@@ -8,18 +8,6 @@ app.service("VolunteerService", function($http, VOLUNTEER_ENDPOINT) {
 		return(getUrl() + volId);
 	}
 
-	function getUrlForEmail(volEmail) {
-		return(getUrl + '?email=' + volEmail);
-	}
-
-	function getUrlForIsAdmin(volIsAdmin) {
-		return(getUrl + '?isAdmin=' + volIsAdmin);
-	}
-
-	function getUrlForVolPhone(volPhone) {
-		return(getUrl + '?phone=' + volPhone)
-	}
-
 	this.all = function() {
 		return($http.get(getUrl()));
 	};
@@ -29,15 +17,15 @@ app.service("VolunteerService", function($http, VOLUNTEER_ENDPOINT) {
 	};
 
 	this.fetchEmail = function(volEmail) {
-		return($http.get(getUrlForEmail(volEmail)));
+		return($http.get(getUrl() + '?email=' + volEmail));
 	};
 
 	this.fetchAdmin = function(volIsAdmin) {
-		return($http.get(getUrlForIsAdmin(volIsAdmin)));
+		return($http.get(getUrl() + '?isAdmin=' + volIsAdmin));
 	};
 
 	this.fetchPhone = function(volPhone) {
-		return($http.get(getUrlForVolPhone(volPhone)));
+		return($http.get(getUrl() + '?phone=' + volPhone));
 	};
 
 	this.create = function(volunteer) {
