@@ -1,8 +1,9 @@
-app.service("MessageService", function($http) {
-		this.EVENT_ENDPOINT = "/event/";
+app.constant("MESSAGE_ENDPOINT", "api/message/");
+app.service("MessageService", function($http,MESSAGE_ENDPOINT) {
+		this.MESSAGE_ENDPOINT = "/message/";
 
 		this.getUrl = function() {
-				return(this.EVENT_ENDPOINT);
+				return(this.MESSAGE_ENDPOINT);
 		};
 
 		this.getUrlForId = function(messageId) {
@@ -23,7 +24,7 @@ app.service("MessageService", function($http) {
 			}));
 		};
 
-		this.create = function(messageId) {
+		this.create = function(message) {
 				return($http.post(this.getUrl(), message)
 					.then(function(reply) {
 							return(reply.data);
