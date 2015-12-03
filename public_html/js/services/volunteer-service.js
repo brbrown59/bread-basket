@@ -9,15 +9,15 @@ app.service("VolunteerService", function($http, VOLUNTEER_ENDPOINT) {
 	}
 
 	function getUrlForEmail(volEmail) {
-		return(getUrl + volEmail);
+		return(getUrl + '?email=' + volEmail);
 	}
 
 	function getUrlForIsAdmin(volIsAdmin) {
-		return(getUrl + volIsAdmin);
+		return(getUrl + '?isAdmin=' + volIsAdmin);
 	}
 
 	function getUrlForVolPhone(volPhone) {
-		return(getUrl + volPhone)
+		return(getUrl + '?phone=' + volPhone)
 	}
 
 	this.all = function() {
