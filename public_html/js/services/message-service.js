@@ -24,6 +24,20 @@ app.service("MessageService", function($http,MESSAGE_ENDPOINT) {
 			}));
 		};
 
+	this.fetch = function(listingId) {
+		return($http.get(this.getUrlForId(listingId))
+			.then(function(reply) {
+				return(reply.data);
+			}));
+	};
+
+	this.fetch = function(orgId) {
+		return($http.get(this.getUrlForId(orgId))
+			.then(function(reply) {
+				return(reply.data);
+			}));
+	};
+
 		this.create = function(message) {
 				return($http.post(this.getUrl(), message)
 					.then(function(reply) {
