@@ -89,7 +89,7 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 		var modalHtml = '<div class="modal-body">' + message + '</div><div class="modal-footer"><button class="btn btn-primary" ng-click="yes()">Yes</button><button class="btn btn-warning" ng-click="no()">No</button></div>';
 
 		var modalInstance = $uibModal.open({
-			template: modalHtml
+			template: modalHtml,
 			controller: ModalInstanceCtrl
 		});
 
