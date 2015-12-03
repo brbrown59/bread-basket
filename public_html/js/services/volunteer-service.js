@@ -24,19 +24,19 @@ app.service("VolunteerService", function($http, VOLUNTEER_ENDPOINT) {
 		return($http.get(getUrl()));
 	};
 
-	this.fetch = function(volId) {
+	this.fetchId = function(volId) {
 		return($http.get(getUrlForId(volId)));
 	};
 
-	this.fetch = function(volEmail) {
+	this.fetchEmail = function(volEmail) {
 		return($http.get(getUrlForEmail(volEmail)));
 	};
 
-	this.fetch = function(volIsAdmin) {
+	this.fetchAdmin = function(volIsAdmin) {
 		return($http.get(getUrlForIsAdmin(volIsAdmin)));
 	};
 
-	this.fetch = function(volPhone) {
+	this.fetchPhone = function(volPhone) {
 		return($http.get(getUrlForVolPhone(volPhone)));
 	};
 
@@ -48,9 +48,8 @@ app.service("VolunteerService", function($http, VOLUNTEER_ENDPOINT) {
 		return($http.put(getUrlForId(volId), volunteer));
 	};
 
-	this.destroy = function(misquoteId) {
-		return($http.delete(getUrlForId(misquoteId)));
+	this.destroy = function(volId) {
+		return($http.delete(getUrlForId(volId)));
 	};
 });
 
-.
