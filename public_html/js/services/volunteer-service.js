@@ -52,3 +52,5 @@ app.service("VolunteerService", function($http, VOLUNTEER_ENDPOINT) {
 		return($http.delete(getUrlForId(misquoteId)));
 	};
 });
+
+.
