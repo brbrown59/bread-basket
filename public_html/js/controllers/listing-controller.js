@@ -1,4 +1,4 @@
-app.controller("NewListingController", ["$scope", "$uibModal", function($scope, $uibModal) {
+app.controller("ListingController", ["$scope", "$uibModal", function($scope, $uibModal) {
 	$scope.listingData = {};
 
 	$scope.openListingModal = function () {
