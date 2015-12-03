@@ -1,4 +1,4 @@
-app.controller("SigninController", ["$scope", "$uibModal", "SigninService", function($scope, $uibModal) {
+app.controller("SigninController", ["$scope", "$uibModal", "$window", "AlertService", "SigninService", function($scope, $uibModal, $window, AlertService, SigninService) {
 	$scope.signinData = {};
 
 	$scope.openSigninModal = function () {
@@ -6,10 +6,24 @@ app.controller("SigninController", ["$scope", "$uibModal", "SigninService", func
 			templateUrl: "../../js/views/signin-modal.php",
 			controller: "SigninModal",
 			resolve: {
-				signinData : function () {
+				signinData: function () {
 					return($scope.signinData);
 				}
 			}
 		});
-	}
+		signupModalInstance.result.then(function (signinData) {
+			$scope.signinData = signinData;
+			SigninService.signinData(signinData)
+					.then(function(reply){
+						if(reply.status === 200) {
+							AlertService.addAlert({type: "success", msg: reply.message});
+							$window.location.reload();
+						} else {
+								AlertService.addAlert({type: "danger", msg: reply.message});
+						}
+					});
+		}, function() {
+				$scope.signinData = {};
+		});
+	};
 }]);
