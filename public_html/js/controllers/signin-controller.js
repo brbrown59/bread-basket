@@ -1,4 +1,4 @@
-app.controller("SigninController", ["$scope", "$uibModal", function($scope, $uibModal) {
+app.controller("SigninController", ["$scope", "$uibModal", "SigninService", function($scope, $uibModal) {
 	$scope.signinData = {};
 
 	$scope.openSigninModal = function () {
