@@ -2,18 +2,6 @@ app.controller("OrganizationController", ["$scope", "$uibModal", "OrganizationSe
 	//add as needed
 	$scope.organizations = [];
 	$scope.alerts = [];
-	$scope.isEditing = false;
-
-	//set the isEditing value to true
-	//here in case we want to add an editing "well", may be omitted/altered later
-	$scope.setEditedOrganization = function() {
-		$scope.isEditing = true;
-	};
-
-	//cancels editing
-	$scope.cancelEditing = function() {
-		$scope.isEditing = false;
-	};
 
 	//get orgs from api
 	//come back for the other gets
