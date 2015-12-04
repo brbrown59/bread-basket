@@ -1,3 +1,5 @@
+//todo: consider moving the validation checks to the service, so that the org directives can call the service directly
+
 app.controller("OrganizationController", ["$scope", "$uibModal", "OrganizationService", function($scope, OrganizationService) {
 	//add as needed
 	$scope.organizations = [];
