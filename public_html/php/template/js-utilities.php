@@ -1,0 +1,15 @@
+<script type="text/javascript" src="../../js/angular-password.min.js"></script>
+<script type="text/javascript" src="../../js/breadbasket.js"></script>
+<script type="text/javascript" src="../../js/services/volunteer-service.js"></script>
+<script type="text/javascript" src="../../js/services/alert-service.js"></script>
+<script type="text/javascript" src="../../js/controllers/tabs.js"></script>
+<script type="text/javascript" src="../../js/controllers/signup-modal.js"></script>
+<script type="text/javascript" src="../../js/controllers/signin-modal.js"></script>
+<script type="text/javascript" src="../../js/controllers/newvolunteer-modal.js"></script>
+<script type="text/javascript" src="../../js/controllers/newlisting-modal.js"></script>
+<script type="text/javascript" src="../../js/controllers/contact-modal.js"></script>
+<script type="text/javascript" src="../../js/controllers/signup-controller.js"></script>
+<script type="text/javascript" src="../../js/controllers/signin-controller.js"></script>
+<script type="text/javascript" src="../../js/controllers/volunteer-controller.js"></script>
+<script type="text/javascript" src="../../js/controllers/listing-controller.js"></script>
+<script type="text/javascript" src="../../js/controllers/contact-controller.js"></script>

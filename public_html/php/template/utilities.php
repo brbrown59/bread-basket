@@ -46,24 +46,12 @@ setXsrfCookie();
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 
 		<!--CDN derived Angular.js -->
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-messages.min.js"></script>
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
 
 		<!-- CUSTOM js-->
-		<script type="text/javascript" src="../../js/angular-password.min.js"></script>
-		<script type="text/javascript" src="../../js/breadbasket.js"></script>
-		<script type="text/javascript" src="../../js/controllers/tabs.js"></script>
-		<script type="text/javascript" src="../../js/controllers/signup-modal.js"></script>
-		<script type="text/javascript" src="../../js/controllers/signin-modal.js"></script>
-		<script type="text/javascript" src="../../js/controllers/newvolunteer-modal.js"></script>
-		<script type="text/javascript" src="../../js/controllers/newlisting-modal.js"></script>
-		<script type="text/javascript" src="../../js/controllers/contact-modal.js"></script>
-		<script type="text/javascript" src="../../js/controllers/signup-controller.js"></script>
-		<script type="text/javascript" src="../../js/controllers/signin-controller.js"></script>
-		<script type="text/javascript" src="../../js/controllers/volunteer-controller.js"></script>
-		<script type="text/javascript" src="../../js/controllers/listing-controller.js"></script>
-		<script type="text/javascript" src="../../js/controllers/contact-controller.js"></script>
+		<?php require_once("js-utilities.php") ?>
 
 		<!--Page Title-->
 		<title><?php echo $PAGE_TITLE; ?></title>
