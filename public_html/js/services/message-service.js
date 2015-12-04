@@ -40,8 +40,12 @@ app.service("MessageService", function($http,MESSAGE_ENDPOINT) {
 	};
 
 	//put
-	this.update = function(messageIde) {
-		return($http.post(getUrl(), message));
+	this.update = function(messageId, message) {
+		return($http.post(getUrlForId(messageId), message));
 	};
 
-}
+	//delete
+	this.destroy = function(messageId){
+		return($http.delete(getUrlForId(messageId)));
+	};
+});
