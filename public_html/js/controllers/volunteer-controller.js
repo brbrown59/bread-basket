@@ -24,10 +24,52 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 	};
 
 	/**
-	 * fufills the promise from retrieving the volunteers from the volunteer API
+	 * fufills the promise from retrieving all the volunteers from the volunteer API
 	 */
 	$scope.getVolunteers = function() {
 		VolunteerService.all()
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.volunteers = result.data.data;
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
+	};
+
+	/**
+	 * fufills the promise from retrieving the volunteers BY EMAIL from the volunteer API
+	 */
+	$scope.getVolunteers = function() {
+		VolunteerService.fetchEmail()
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.volunteers = result.data.data;
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
+	};
+
+	/**
+	 * fufills the promise from retrieving the volunteers BY ADMIN from the volunteer API
+	 */
+	$scope.getVolunteers = function() {
+		VolunteerService.fetchAdmin()
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.volunteers = result.data.data;
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
+	};
+
+	/**
+	 * fufills the promise from retrieving the volunteers BY PHONE from the volunteer API
+	 */
+	$scope.getVolunteers = function() {
+		VolunteerService.fetchPhone()
 				.then(function(result) {
 					if(result.data.status === 200) {
 						$scope.volunteers = result.data.data;

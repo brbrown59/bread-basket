@@ -1,7 +1,7 @@
 <?php
 /**
  * Get the relative path..
- * @see https://raw.githubusercontent.com/kingscreations/farm-to-you/master/php/lib/_header.php FarmToYou Header
+ *
  **/
 
 // include the appropriate number of dirname() functions
