@@ -1,6 +1,8 @@
 app.constant("MESSAGE_ENDPOINT", "api/message/");
 app.service("MessageService", function($http,MESSAGE_ENDPOINT) {
-			function getUrl() {
+
+		//internal function for holding the url
+					function getUrl() {
 					return(MESSAGE_ENDPOINT);
 			}
 
