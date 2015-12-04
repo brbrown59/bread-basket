@@ -1,7 +1,7 @@
 app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService", function($scope, $uibModal, VolunteerService) {
 	$scope.volData = {};
 	$scope.editedVolunteer = {};
-	$scope.newVolunteer = {volId: null, volEmail: "", volEmailActivation: "", volFirstName: "", volIsAdmin: false, volLasName: "", volPhone: ""} //EMAIL ACTIVATION????
+	$scope.newVolunteer = {volId: null, email: "", emailActivation: "", firstName: "", isAdmin: false, lastName: "", phone: ""} //EMAIL ACTIVATION????
 	$scope.isEditing = false;
 	$scope.alerts = [];
 	$scope.volunteers = [];
