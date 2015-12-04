@@ -122,3 +122,13 @@ $scope.createMessage = function(message, validated) {
 
 }]);
 
+//modal instance controller for deleting prompt
+var modalInstanceCtrl = function($scope, $ubiModalInstance) {
+	$scope.yes =function() {
+		$ubiModalInstance.dismiss('cancel');
+	};
+	$scope.no = function() {
+		$ubiModalInstance.dismiss('cancel');
+	};
+};
+
