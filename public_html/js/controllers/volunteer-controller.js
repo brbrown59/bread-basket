@@ -1,10 +1,35 @@
-app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService", function($scope, $uibModal, VolunteerService) {
-	$scope.volData = {};
+app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService", "AlertService", function($scope, $uibModal, VolunteerService, AlertService) {
 	$scope.editedVolunteer = {};
-	$scope.newVolunteer = {volId: null, email: "", emailActivation: "", firstName: "", isAdmin: false, lastName: "", phone: ""} //EMAIL ACTIVATION????
+	$scope.newVolunteer = {volId: null, email: "", firstName: "", isAdmin: false, lastName: "", phone: ""} //EMAIL ACTIVATION????
 	$scope.isEditing = false;
 	$scope.alerts = [];
 	$scope.volunteers = [];
+
+
+	$scope.openVolunteerModal = function () {
+		var VolunteerModalInstance = $uibModal.open({
+			templateUrl: "../../js/views/newvolunteer-modal.php",
+			controller: "VolunteerModal",
+			resolve: {
+				newVolunteer: function() {
+					return($scope.newVolunteer);
+				}
+			}
+		});
+		VolunteerModalInstance.result.then(function (newVolunteer) {
+			$scope.newVolunteer = newVolunteer;
+			VolunteerService.create(newVolunteer)
+					.then(function(reply) {
+						if(reply.status === 200) {
+							AlertService.addAlert({type: "success", msg: reply.message});
+						} else {
+							AlertService.addAlert({type: "danger", msg: reply.message});
+						}
+					});
+		}, function() {
+			$scope.newVolunteer = {};
+		});
+	};
 
 	/**
 	 * sets which volunteer is being edited and activates the editing form
@@ -38,7 +63,7 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 	};
 
 	/**
-	 * fufills the promise from retrieving the volunteers BY ID from the volunteer API
+	 * fufills the promise from retrieving the volunteers BY ID  from the volunteer API
 	 */
 	$scope.getVolunteers = function() {
 		VolunteerService.fetchId()
@@ -94,25 +119,6 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 	};
 
 	/**
-	 * creates a volunteer and sends it to the volunteer API
-	 *
-	 * @param volunteer the volunteer to send
-	 * @param validated true if angular validated the form, false if not
-	 */
-	$scope.createVolunteer = function(volunteer, validated) {
-		if(validated === true) {
-			VolunteerService.create(volunteer)
-					.then(function(result){
-						if(result.data.staus === 200) {
-							$scope.alerts[0] = {type: "success", msg: result.data.message};
-						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.data.message}
-						}
-					})
-		}
-	};
-
-	/**
 	 * updates a volunteer and sends it to the volunteer API
 	 *
 	 * @param volunteer the volunteer to send
@@ -162,19 +168,6 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 		});
 	};
 
-
-	//opens the new volunteer Modal to enter new volunteer information
-	$scope.openVolunteerModal = function () {
-		var VolunteerModalInstance = $uibModal.open({
-			templateUrl: "../../js/views/newvolunteer-modal.php",
-			controller: "VolunteerModal",
-			resolve: {
-				volData : function () {
-					return($scope.volData);
-				}
-			}
-		});
-	}
 }]);
 
 // embedded modal instance controller to create deletion prompt

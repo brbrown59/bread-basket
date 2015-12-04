@@ -3,7 +3,7 @@
 $CURRENT_DIR = __DIR__;
 /*set page title here*/
 $PAGE_TITLE = "All Volunteers";
-/*load head-utilss*/
+/*load head-utils*/
 require_once("utilities.php");
 
 /*require once the header*/
@@ -11,7 +11,7 @@ require_once("header.php");
 
 ?>
 			<!--main content-->
-			<main>
+			<main ng-controller="VolunteerController">
 				<!--this container houses the h1 tag/headline and the back to listing button-->
 				<div class="container">
 					<div class="row">
@@ -26,7 +26,7 @@ require_once("header.php");
 						<div class="col-xs-3">
 							<a class="btn btn-default btn-lg" href="login-landing-page.php" role="button">Back</a>
 						</div>
-						<div class="col-xs-3" ng-controller="VolunteerController">
+						<div class="col-xs-3">
 							<button class="btn btn-info btn-lg" ng-click="openVolunteerModal();">New Volunteer</button>
 						</div>
 					</div>

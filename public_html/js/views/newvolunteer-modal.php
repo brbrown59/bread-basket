@@ -2,7 +2,7 @@
 
 
 <div class="modal-body">
-	<form id="volunteerForm" name="volunteerForm" ng-controller="VolunteerController" ng-submit="createVolunteer(newVolunteer, addVolunteerForm.$valid);" ng-hide="isEditing">
+	<form id="volunteerForm" name="volunteerForm"  ng-submit="createVolunteer(newVolunteer, volunteerForm.$valid);" ng-hide="isEditing">
 		<h3>Create New Volunteer</h3>
 		<hr/>
 		<!--begin new volunteer-->
@@ -19,6 +19,9 @@
 			<div class="alert alert-danger" role="alert" ng-messages="volunteerForm.firstName.$error" ng-if="volunteerForm.firstName.$touched" ng-hide="volunteerForm.firstName.$valid">
 				<p ng-message="required">Please enter a first name</p>
 			</div>
+
+
+
 			<!--last name-->
 			<label class="control-label sr-only" for="lastName">Last Name</label>
 			<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" ng-model="newVolunteer.lastName" ng-required="true">
