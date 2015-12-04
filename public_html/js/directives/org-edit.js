@@ -6,7 +6,7 @@ app.directive("orgEdit", ["$http", "$window", "OrganizationService", function($h
 				event.preventDefault();//what does this do?
 				//call the service to fetch the information for this organization to display
 				//can also go via the controller, or make a direct request
-				OrganizationService.update(orgId, organization)
+				$scope.updateOrganization(orgId, organization)
 					.then(function(reply) {
 						if(typeof reply.data === "object") {
 							if(reply.data.status !== 200) {

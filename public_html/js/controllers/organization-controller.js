@@ -4,6 +4,7 @@ app.controller("OrganizationController", ["$scope", "$uibModal", "OrganizationSe
 	//add as needed
 	$scope.organizations = [];
 	$scope.alerts = [];
+	$scope.redirectUrl = "";
 
 	//get orgs from api
 	//come back for the other gets
