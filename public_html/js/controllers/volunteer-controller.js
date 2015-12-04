@@ -38,6 +38,20 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 	};
 
 	/**
+	 * fufills the promise from retrieving the volunteers BY ID from the volunteer API
+	 */
+	$scope.getVolunteers = function() {
+		VolunteerService.fetchId()
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.volunteers = result.data.data;
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
+	};
+
+	/**
 	 * fufills the promise from retrieving the volunteers BY EMAIL from the volunteer API
 	 */
 	$scope.getVolunteers = function() {

@@ -1,8 +1,8 @@
-//modal form for creating a new volunteer
+
 
 
 <div class="modal-body">
-	<form id="volunteerForm" name="volunteerForm" ng-submit="createVolunteer(newVolunteer, addVolunteerForm.$valid);" ng-hide="isEditing">
+	<form id="volunteerForm" name="volunteerForm" ng-controller="VolunteerController" ng-submit="createVolunteer(newVolunteer, addVolunteerForm.$valid);" ng-hide="isEditing">
 		<h3>Create New Volunteer</h3>
 		<hr/>
 		<!--begin new volunteer-->

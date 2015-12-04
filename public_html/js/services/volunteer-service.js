@@ -1,7 +1,7 @@
-app.constant("VOLUNTEER_API", "api/volunteer/");
-app.service("VolunteerService", function($http, VOLUNTEER_API) {
+app.constant("VOLUNTEER_ENDPOINT", "../../php/api/volunteer");
+app.service("VolunteerService", function($http, VOLUNTEER_ENDPOINT) {
 	function getUrl() {
-		return(VOLUNTEER_API);
+		return(VOLUNTEER_ENDPOINT);
 	}
 
 	function getUrlForId(volId) {
