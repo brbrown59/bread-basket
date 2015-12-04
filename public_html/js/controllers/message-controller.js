@@ -69,19 +69,56 @@ app.controller("MessageController", ["$scope", "uibModal", "MessageService", fun
 		}
 	};
 
+	// create new organazation
+$scope.createMessage = function(message, validated) {
+	if(validated === true) {
+		MessageService.create(organization)
+			.then(function(result) {
+				if(result.data.status === 200) {
+					$scope.alerts[0] = {type: "success", msg: result.data.message};
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+				}
+			});
+	}
+};
 
+//update the organization
+	$scope.updateMessage = function(message, validate) {
+		if(validate === true && $scope.isEditing === true) {
+			MessageService.update(organization.messageId, message)
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.alerts[0] = {type: "success", msg: result.data.message};
+					}else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
+		}
+	};
 
+	//delete the message
+	$scope.deleteMessage = function(messageId) {
+		//create a modal to ask for confirmation
+		var message = "do you really want to delete this message?";
+		var modalHtml = '<div class="modal-body">' + message + ' </div><div class="modal-footer"><button class="btn btn-primary" ng-click="yes()">Yes</button><button class="btn-warning" ng-click"no()">No</button></div>;
+		var modalInstance = $uibModal.open({
+			template: modalHtml,
+			controller: ModalInstanceCtrl
+		});
 
+		//if yes is selceted, delet the message
+		modalInstance.result.then(function() {
+			MessageService.destroy(messageId)
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.alerts[0] = {type:"success", msg: result.data.message};
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				})
+		});
+	};
 
+}]);
 
-
-
-
-
-
-
-
-
-
-
-}])
