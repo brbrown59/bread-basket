@@ -101,7 +101,7 @@ $scope.createMessage = function(message, validated) {
 	$scope.deleteMessage = function(messageId) {
 		//create a modal to ask for confirmation
 		var message = "do you really want to delete this message?";
-		var modalHtml = '<div class="modal-body">' + message + ' </div><div class="modal-footer"><button class="btn btn-primary" ng-click="yes()">Yes</button><button class="btn-warning" ng-click"no()">No</button></div>;
+		var modalHtml = '<div class="modal-body">' + message + ' </div><div class="modal-footer"><button class="btn btn-primary" ng-click="yes()">Yes</button><button class="btn-warning" ng-click"no()">No</button></div>';
 		var modalInstance = $uibModal.open({
 			template: modalHtml,
 			controller: ModalInstanceCtrl
