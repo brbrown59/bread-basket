@@ -2,7 +2,7 @@ app.constant("LISTING_ENDPOINT", "php/api/listing/");
 app.service("ListingService", function($http,LISTING_ENDPOINT) {
 	//INTERNAL FUNCTION FOR HOLDING THE URL
 	function getUrl() {
-		return(ORGANIZATION_ENDPOINT);
+		return(LISTING_ENDPOINT);
 	}
 
 	//internal function for tracking the id for the URL
