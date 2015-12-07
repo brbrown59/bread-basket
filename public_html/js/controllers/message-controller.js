@@ -3,7 +3,7 @@ app.controller("MessageController", ["$scope", "uibModal", "MessageService", fun
 	$scope.messages = [];
 	$scope.alerts = [];
 
-	//get messages frmo API
+	//get messages from API
 	//come back for the other gets
 	//make docblocks better
 	$scope.getMessages = function() {
