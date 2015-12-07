@@ -40,4 +40,18 @@ app.service("ListingService", function($http,LISTING_ENDPOINT) {
 		return($http.get(getUrl() + "?listingTypeId=" + listingTypeId));
 	};
 
+	//post
+	this.create = function(listing) {
+		return($http.post(getUrl(), listing));
+	};
 
+	//put
+	this.update = function(listingId, listing){
+		return($http.put(getUrlForId(listingId), listing));
+	};
+
+	//delete
+	this.destroy = function(listingId) {
+		return($http.delete(getUrlForId(listingId)));
+	};
+});
