@@ -9,7 +9,7 @@ app.directive("orgView", function() {
 			});
 			//might need to wire the delete button, too, but I'm not sure
 		},
-		template: "<h1>HELLO I AM WORKING</h1>"
+		templateUrl: "org-profile-view.php"
 	};
 
 });
