@@ -1,16 +1,3 @@
-<?php
-/*grab current directory*/
-$CURRENT_DIR = __DIR__;
-/*set page title here*/
-$PAGE_TITLE = "My Organization";
-/*load head-utilss*/
-require_once("utilities.php");
-
-/*require once the header*/
-require_once("header.php");
-
-?>
-
 <!-- HTML/PAGE CONTENT GOES HERE -->
 <!--main content-->
 

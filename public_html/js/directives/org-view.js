@@ -6,6 +6,8 @@ app.directive("orgView", function() {
 			$scope.getOrganizationById(orgId);//have to make sure I can get this ID from somewhere
 			element.on("edit", function(event) {//might not need event
 				//toggle the hide/show in order to bring up the edit template
+				event.preventDefault();
+				$scope.setEditedOrganization();
 			});
 			//might need to wire the delete button, too, but I'm not sure
 		},

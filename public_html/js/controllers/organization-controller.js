@@ -5,6 +5,24 @@ app.controller("OrganizationController", ["$scope", "$uibModal", "OrganizationSe
 	$scope.organizations = [];
 	$scope.alerts = [];
 	$scope.redirectUrl = "";
+	$scope.isEditing = false;
+
+
+
+	//get orgs from api
+	//come back for the other gets
+	//make docblocks better
+
+	$scope.setEditedOrganization = function() {
+		$scope.isEditing = true;
+	};
+
+	/**
+	 * cancels editing and clears out the misquote being edited
+	 **/
+	$scope.cancelEditing = function() {
+		$scope.isEditing = false;
+	};
 
 	$scope.getOrganizations = function() {
 		OrganizationService.all()

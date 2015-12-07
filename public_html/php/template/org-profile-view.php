@@ -17,7 +17,7 @@
 				<a class="btn btn-default btn-lg" href="login-landing-page.php" role="button">Back</a>
 			</div>
 			<div class="col-xs-3">
-				<button class="btn btn-warning btn-lg">Edit</button>
+				<button class="btn btn-warning btn-lg" ng-model="edit">Edit</button>
 			</div>
 			<div class="col-xs-3">
 				<button class="btn btn-danger btn-lg">Delete</button>

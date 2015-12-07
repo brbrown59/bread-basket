@@ -13,8 +13,8 @@ require_once("header.php");
 
 <main ng-controller="OrganizationController">
 	<div class="container">
-		<org-view></org-view>
-	<!--<org-edit ng-hide="viewing"></org-edit>-->
+		<org-view ng-hide="isEditing"></org-view>
+		<org-edit ng-show="isEditing"></org-edit>
 	</div>
 </main>
 
