@@ -4,6 +4,10 @@ app.directive("orgEdit", ["$http", "$window", function($http, $window) {
 	return {
 		restrict: "E",
 		link: function($scope, element, attr) {
+			//need to account for cancel editing case, and somehow need to switch back to the view
+			//probably though the is-editing boolean
+			//but, all the variables this thing needs are in the controller, accessed via $scope
+			//which makes them available everywhere else
 			element.on("submit", function(event) {
 				$scope.updateOrganization(orgId, organization)
 					.then(function(reply) {

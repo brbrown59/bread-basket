@@ -2,10 +2,13 @@
 
 app.controller("OrganizationController", ["$scope", "$uibModal", "OrganizationService", function($scope, OrganizationService) {
 	//add as needed
+
+	//the organization for the view will be the first element in this array
 	$scope.organizations = [];
 	$scope.alerts = [];
 	$scope.redirectUrl = "";
 	$scope.isEditing = false;
+
 
 
 	//get orgs from api
@@ -39,7 +42,7 @@ app.controller("OrganizationController", ["$scope", "$uibModal", "OrganizationSe
 			OrganizationService.fetch(orgId)
 					.then(function(result) {
 						if(result.data.status === 200) {
-							$scope.organizations = result.data.data;
+							$scope.organization = result.data.data;
 						} else {
 							$scope.alerts[0] = {type: "danger", msg: result.data.message};
 						}
