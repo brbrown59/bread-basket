@@ -50,4 +50,34 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		$scope.isEditing = false;
 	};
 
+	/**
+	 * fulfills the promise from retrieving all the listings from the listing API
+	 */
+	$scope.getListing = function() {
+		ListingService.all()
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.listings = result.data.data;
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
+	};
+
+	/**
+	 * fulfills the promise from retrieving the listing by Id from the listing API
+	 */
+	$scope.getListings = function() {
+		ListingService.fetchId()
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.listings = result.data.data;
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+	});
+	};
+
+	//working through volunteer-controller on line 107
+
 }]);
