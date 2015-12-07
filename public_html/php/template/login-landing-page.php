@@ -18,7 +18,7 @@ require_once("header.php");
 		<p>Get started by selecting a option below</p>
 		<div class="row">
 			<div class="col-md-3">
-				<a class="btn btn-primary btn-lg btn-block" href="org-profile-view.php" role="button">My Organization</a>
+				<a class="btn btn-primary btn-lg btn-block" href="org-base.php" role="button">My Organization</a>
 			</div>
 			<div class="col-md-3">
 				<a class="btn btn-primary btn-lg btn-block" href="volunteer-list-view.php" role="button">My Volunteers</a>

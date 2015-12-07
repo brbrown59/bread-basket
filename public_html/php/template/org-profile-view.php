@@ -1,24 +1,12 @@
-<?php
-/*grab current directory*/
-$CURRENT_DIR = __DIR__;
-/*set page title here*/
-$PAGE_TITLE = "My Organization";
-/*load head-utilss*/
-require_once("utilities.php");
-
-/*require once the header*/
-require_once("header.php");
-
-?>
 
 <!-- HTML/PAGE CONTENT GOES HERE -->
 <!--main content-->
-<main>
+
 	<!--this container houses the h1 tag/headline and the back to listing button-->
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h1>  </h1>
+				<h1>{{ organizations[0].name }}</h1>
 			</div>
 		</div>
 	</div>
@@ -29,7 +17,7 @@ require_once("header.php");
 				<a class="btn btn-default btn-lg" href="login-landing-page.php" role="button">Back</a>
 			</div>
 			<div class="col-xs-3">
-				<button class="btn btn-warning btn-lg">{{ lskjdflsdf }}</button>
+				<button class="btn btn-warning btn-lg">Edit</button>
 			</div>
 			<div class="col-xs-3">
 				<button class="btn btn-danger btn-lg">Delete</button>
@@ -88,8 +76,3 @@ require_once("header.php");
 		</div>
 	</div>
 
-</main>
-</div>
-
-</body>
-</html>

@@ -1,5 +1,3 @@
-//todo: consider moving the validation checks to the service, so that the org directives can call the service directly
-
 app.controller("OrganizationController", ["$scope", "$uibModal", "OrganizationService", function($scope, OrganizationService) {
 	//add as needed
 
@@ -7,24 +5,6 @@ app.controller("OrganizationController", ["$scope", "$uibModal", "OrganizationSe
 	$scope.organizations = [];
 	$scope.alerts = [];
 	$scope.redirectUrl = "";
-	$scope.isEditing = false;
-
-
-
-	//get orgs from api
-	//come back for the other gets
-	//make docblocks better
-
-	$scope.setEditedMisquote = function(misquote) {
-		$scope.isEditing = true;
-	};
-
-	/**
-	 * cancels editing and clears out the misquote being edited
-	 **/
-	$scope.cancelEditing = function() {
-		$scope.isEditing = false;
-	};
 
 	$scope.getOrganizations = function() {
 		OrganizationService.all()
