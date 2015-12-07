@@ -37,9 +37,12 @@ $ANGULAR_VERSION = "1.4.7";
 
 		<!-- CUSTOM js-->
 		<script type="text/javascript" src="../../js/angular-password.min.js"></script>
+		<script type="text/javascript" src="../../js/services/alert-service.js"></script>
 		<script type="text/javascript" src="../../js/breadbasket.js"></script>
 		<script type="text/javascript" src="../../js/controllers/tabs.js"></script>
+
 		<script type="text/javascript" src="../../js/controllers/signup-modal.js"></script>
+		<script type="text/javascript" src="../../js/controllers/alert-controller.js"></script>
 		<script type="text/javascript" src="../../js/controllers/signup-controller.js"></script>
 		<script type="text/javascript" src="../../js/controllers/signin-controller.js"></script>
 		<script type="text/javascript" src="../../js/controllers/signin-modal.js"></script>

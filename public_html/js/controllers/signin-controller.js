@@ -14,10 +14,10 @@ app.controller("SigninController", ["$scope", "$uibModal", "$window", "AlertServ
 		signupModalInstance.result.then(function (signinData) {
 			$scope.signinData = signinData;
 			SigninService.signinData(signinData)
-					.then(function(reply){
+					.then(function(reply) {
 						if(reply.status === 200) {
 							AlertService.addAlert({type: "success", msg: reply.message});
-							$window.location.reload();
+							//$window.location.assign("../../php/template/login-landing-page.php")
 						} else {
 								AlertService.addAlert({type: "danger", msg: reply.message});
 						}
