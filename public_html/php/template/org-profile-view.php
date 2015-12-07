@@ -43,7 +43,7 @@ require_once("header.php");
 			<div class="col-md-3">
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-phone"></span> (505)-333-4444</h3>
-					<h4>Extentions: #555</h4>
+					<h4>Extensions: #555</h4>
 
 				</div>
 			</div>

@@ -1,11 +1,10 @@
-app.directive("orgEdit", ["$http", "$window", "OrganizationService", function($http, $window, OrganizationService) {
+//todo: there's two ways to cancel an edit: cancel, and submit.  Account for both...in which directive? it's based on hide and show
+
+app.directive("orgEdit", ["$http", "$window", function($http, $window) {
 	return {
 		restrict: "E",
 		link: function($scope, element, attr) {
 			element.on("submit", function(event) {
-				event.preventDefault();//what does this do?
-				//call the service to fetch the information for this organization to display
-				//can also go via the controller, or make a direct request
 				$scope.updateOrganization(orgId, organization)
 					.then(function(reply) {
 						if(typeof reply.data === "object") {
