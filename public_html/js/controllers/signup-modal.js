@@ -1,8 +1,8 @@
 app.controller("SignupModal", ["$scope", "$uibModalInstance", function($scope, $uibModalInstance) {
-	$scope.signinData = {};
+	$scope.signupData = {};
 
 	$scope.ok = function() {
-		$uibModalInstance.close($scope.signinData);
+		$uibModalInstance.close($scope.signupData);
 	};
 
 	$scope.cancel = function() {

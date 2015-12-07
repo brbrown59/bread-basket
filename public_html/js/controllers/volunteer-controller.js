@@ -6,6 +6,10 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 	$scope.volunteers = [];
 
 
+	/**
+	 * opens new volutneer modal and adds sends volunteer to the volunteer API
+	 */
+
 	$scope.openVolunteerModal = function () {
 		var VolunteerModalInstance = $uibModal.open({
 			templateUrl: "../../js/views/newvolunteer-modal.php",
@@ -20,15 +24,40 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 			$scope.newVolunteer = newVolunteer;
 			VolunteerService.create(newVolunteer)
 					.then(function(reply) {
-						if(reply.status === 200) {
-							AlertService.addAlert({type: "success", msg: reply.message});
+						console.log("STATUS: " + reply.data.status);
+						console.log("MSG: " + reply.data.message + "(not monosodium glutamate)");
+						if(reply.data.status === 200) {
+							console.log("yes");
+							AlertService.addAlert({type: "success", msg: reply.data.message});
 						} else {
-							AlertService.addAlert({type: "danger", msg: reply.message});
+							console.log("no");
+							AlertService.addAlert({type: "danger", msg: reply.data.message});
 						}
 					});
 		}, function() {
 			$scope.newVolunteer = {};
 		});
+	};
+
+	/**
+	 * creates a volunteer and sends it to the volunteer API
+	 *
+	 * @param volunteer the volunteer to send
+	 * @param validated true if angular validated the form, false if not
+	 */
+	$scope.createVolunteer = function(volunteer, validated) {
+		if(validated === true) {
+			VolunteerService.create(volunteer)
+					.then(function(result) {
+						if(result.data.status === 200) {
+							$scope.alerts[0] = {type: "success", msg: result.data.message};
+						} else {
+							$scope.alerts[0] = {type: "danger", msg: result.data.message};
+						}
+					});
+
+
+		}
 	};
 
 	/**

@@ -1,11 +1,13 @@
-app.controller("AlertController", ["$scope", "AlertService", function($scope, AlertService) {
+app.controller("AlertController", ["$rootScope", "$scope", "AlertService", function($rootScope, $scope, AlertService) {
 	$scope.alerts = AlertService.getAlerts();
 
 	$scope.closeAlert = function() {
 		AlertService.closeAlert();
 	};
 
-	$scope.$on("alerts", function(event, alerts) {
+	$rootScope.$on("alerts", function(event, alerts) {
+		console.log("RECEIVED BROADCAST HAIL");
+		console.log(alerts);
 		$scope.alerts = alerts;
 	});
 }]);
