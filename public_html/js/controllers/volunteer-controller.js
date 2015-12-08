@@ -1,6 +1,6 @@
 app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService", "AlertService", function($scope, $uibModal, VolunteerService, AlertService) {
 	$scope.editedVolunteer = {};
-	$scope.newVolunteer = {volId: null, email: "", firstName: "", isAdmin: false, lastName: "", phone: ""} //EMAIL ACTIVATION????
+	$scope.volunteer = {volId: null, orgId: null, email: "", firstName: "", isAdmin: false, lastName: "", phone: ""} //EMAIL ACTIVATION????
 	$scope.isEditing = false;
 	$scope.alerts = [];
 	$scope.volunteers = [];
@@ -15,14 +15,14 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 			templateUrl: "../../js/views/newvolunteer-modal.php",
 			controller: "VolunteerModal",
 			resolve: {
-				newVolunteer: function() {
-					return($scope.newVolunteer);
+				volunteer: function() {
+					return($scope.volunteer);
 				}
 			}
 		});
-		VolunteerModalInstance.result.then(function (newVolunteer) {
-			$scope.newVolunteer = newVolunteer;
-			VolunteerService.create(newVolunteer)
+		VolunteerModalInstance.result.then(function (volunteer) {
+			$scope.volunteer = volunteer;
+			VolunteerService.create(volunteer)
 					.then(function(reply) {
 						console.log("STATUS: " + reply.data.status);
 						console.log("MSG: " + reply.data.message + "(not monosodium glutamate)");
@@ -35,7 +35,7 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 						}
 					});
 		}, function() {
-			$scope.newVolunteer = {};
+			$scope.volunteer = {};
 		});
 	};
 
@@ -189,7 +189,7 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 			VolunteerService.destroy(volId)
 					.then(function(result) {
 						if(result.data.status === 200) {
-							$scope.alerts[0] = {type: "sucuess", msg: result.data.message};
+							$scope.alerts[0] = {type: "success", msg: result.data.message};
 						} else {
 							$scope.alerts[0] = {type: "danger", msg: result.data.message};
 						}

@@ -92,14 +92,9 @@ try {
 
 
 			//make sure all fields are present, in order to prevent database issues
-			if(empty($requestObject->getOrgId() === $_SESSION["volunteer"]->getOrgId()) === true) {
-				throw(new InvalidArgumentException ("organization id cannot be empty", 405));
-			}
+
 			if(empty($requestObject->volEmail) === true) {
 				throw(new InvalidArgumentException ("email cannot be empty", 405));
-			}
-			if(empty($requestObject->volEmailActivation) === true) {
-				$requestObject->volEmailActivation = null;
 			}
 			if(empty($requestObject->volFirstName) === true) {
 				throw(new InvalidArgumentException ("first name cannot be empty", 405));
@@ -124,26 +119,23 @@ try {
 				$volunteer->setVolFirstName($requestObject->volFirstName);
 				$volunteer->setVolLastName($requestObject->volLastName);
 				$volunteer->setVolPhone($requestObject->volPhone);
-//				var_dump($requestObject->volPhone);
+
 
 				$volunteer->update($pdo);
 
 				$reply->message = "Volunteer updated OK";
 
 			} elseif($method === "POST") {
-				//set password request for POST
-				if($requestObject->password !== $requestObject->passwordConfirm) {
-					throw(new InvalidArgumentException("passwords do not match", 400));
-				}
-
+				$password = bin2hex(openssl_random_pseudo_bytes(32));
 				$salt = bin2hex(openssl_random_pseudo_bytes(32));
-				$hash = hash_pbkdf2("sha512", $requestObject->password, $salt, 262144, 128);
+				$hash = hash_pbkdf2("sha512", $password, $salt, 262144, 128);
+				$emailActivation = bin2hex(openssl_random_pseudo_bytes(8));
 
 				//create new volunteer
-				$volunteer = new Volunteer($id, $requestObject->orgId, $requestObject->volEmail, $requestObject->volEmailActivation,
-						$requestObject->volFirstName, $hash, $requestObject->volIsAdmin, $requestObject->volLastName, $requestObject->volPhone, $salt);
+				$volunteer = new Volunteer($id, $_SESSION["volunteer"]->getOrgId(), $requestObject->volEmail, $emailActivation,
+						$requestObject->volFirstName, $hash, false, $requestObject->volLastName, $requestObject->volPhone, $salt);
 				$volunteer->insert($pdo);
-				$_SESSION["volunteer"] = $volunteer;
+				//$_SESSION["volunteer"] = $volunteer;
 
 				$reply->message = "Volunteer created OK";
 			}
