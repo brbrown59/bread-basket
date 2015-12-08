@@ -19,41 +19,22 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 				}
 			}
 		});
-		ListingModalInstance.result.then(function (listing) {
+		ListingModalInstance.result.then(function(listing) {
 			$scope.listing = listing;
 			ListingService.create(listing)
 					.then(function(reply) {
 						console.log("STATUS: " + reply.data.status);
 						console.log("MSG: " + reply.data.message + "this is the message.");
-						if(reply.status ===200){
+						if(reply.status === 200) {
 							console.log("yes");
-						AlertService.addAlert({type: "success", msg: reply.message});
-					} else {
-						AlertService.addAlert({type: "danger", msg: reply.message});
-					}
-			});
-	}, function() {
-		$scope.listing = {};
-	});
-	};
-
-	/**
-	 * creates a listing and sends it to the listing API
-	 *
-	 * @param listing the listing to send
-	 * @param validated true is angular validated the form, false if not
-	 */
-	$scope.createListing = function(listing, validated) {
-		if(validated === true) {
-			ListingService.create(listing)
-					.then(function(result) {
-						if(result.data.status === 200) {
-							$scope.alerts[0] = {type: "success", msg: result.data.message};
+							AlertService.addAlert({type: "success", msg: reply.message});
 						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.data.message};
+							AlertService.addAlert({type: "danger", msg: reply.message});
 						}
 					});
-		}
+		}, function() {
+			$scope.listing = {};
+		});
 	};
 
 	/**
@@ -87,6 +68,28 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 					}
 				});
 	};
+	/**
+	 * creates a listing and sends it to the listing API
+	 *
+	 * @param listing the listing to send
+	 * @param validated true is angular validated the form, false if not
+	 */
+	$scope.createListing = function(listing, validated) {
+		if(validated === true) {
+			ListingService.create(listing)
+					.then(function(result) {
+						if(result.data.status === 200) {
+							$scope.alerts[0] = {type: "success", msg: result.data.message};
+						} else {
+							$scope.alerts[0] = {type: "danger", msg: result.data.message};
+						}
+					});
+		}
+	};
+
+
+
+
 
 	///**
 	// * fulfills the promise from retrieving the listing by Id from the listing API
