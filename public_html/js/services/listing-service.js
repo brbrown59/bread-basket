@@ -1,4 +1,4 @@
-app.constant("LISTING_ENDPOINT", "php/api/listing/");
+app.constant("LISTING_ENDPOINT", "../../php/api/listing/");
 app.service("ListingService", function($http,LISTING_ENDPOINT) {
 	//INTERNAL FUNCTION FOR HOLDING THE URL
 	function getUrl() {
@@ -12,7 +12,7 @@ app.service("ListingService", function($http,LISTING_ENDPOINT) {
 
 	//getting all
 	this.all = function() {
-		return($hrrp.get(getUrl()));
+		return($http.get(getUrl()));
 	};
 
 	//get by id
