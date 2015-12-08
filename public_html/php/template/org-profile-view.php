@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h1>{{ organizations[0].name }}</h1>
+				<h1>My Organization</h1>
 			</div>
 		</div>
 	</div>
@@ -17,7 +17,7 @@
 				<a class="btn btn-default btn-lg" href="login-landing-page.php" role="button">Back</a>
 			</div>
 			<div class="col-xs-3">
-				<button class="btn btn-warning btn-lg" ng-model="edit">Edit</button>
+				<button class="btn btn-warning btn-lg" ng-click="setEditedOrganization();">Edit</button>
 			</div>
 			<div class="col-xs-3">
 				<button class="btn btn-danger btn-lg">Delete</button>
