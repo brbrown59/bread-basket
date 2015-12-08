@@ -21,7 +21,7 @@
 				<li><a href="org-base.php">Organization</a></li>
 				<li><a href="listing-view.php">Listings</a></li>
 				<li><a href="volunteer-list-view.php">Volunteers</a> </li>
-				<li><a ng-controller="SignoutController" href="home.php">Sign Out</a></li>
+				<li><a ng-controller="SignoutController" href="home.php" ng-click="signOut();">Sign Out</a></li>
 				<li><a href="#">Help</a></li>
 			</ul>
 		</div>
