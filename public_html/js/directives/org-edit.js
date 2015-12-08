@@ -1,7 +1,7 @@
 app.directive("orgEdit", ["$http", "$window", function($http, $window) {
 	return {
 		restrict: "E",
-		link: function($scope, element) {
+		controller: function($scope, element) {
 			//all the variables this thing needs are in the controller, accessed via $scope
 			//which makes them available everywhere else
 			element.on("submit", function() {
