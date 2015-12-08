@@ -38,15 +38,17 @@ require_once("header.php");
 							<uib-alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="alerts.length = 0;">{{ alert.msg }}</uib-alert>
 							<table class="table table-striped table-hover table-condensed">
 								<thead>
+									<th>Id</th>
 									<th>Name</th>
 									<th>Email</th>
 									<th>Phone</th>
 									<th>Actions</th>
 								</thead>
 								<tr class="info" ng-repeat="volunteer in volunteers">
-									<td>Kathryn Janeway {{ volunteer.volFirstName }} {{ volunteer.volLastName }}</td>
-									<td>captain@voyager.com {{ volunteer.volEmail }}</td>
-									<td>(505) 867-5309 {{ volunteer.volPhone }}</td>
+									<td>{{ volunteer.volId }}</td>
+									<td>{{ volunteer.volFirstName }} {{ volunteer.volLastName }}</td>
+									<td>{{ volunteer.volEmail }}</td>
+									<td>{{ volunteer.volPhone }}</td>
 									<td>
 										<button class="btn btn-info" ng-click="setEditedVolunteer(volunteer);"><i class="fa fa-pencil"></i></button>
 										<form class="inline" ng-submit="deleteVolunteer(volunteer.volId);">

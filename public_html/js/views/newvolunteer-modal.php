@@ -14,7 +14,7 @@
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 				</div>
-				<input type="text" class="form-control" id="volFirstName" name="volFirstName" placeholder="First Name" ng-model="newVolunteer.volFirstName" ng-required="true">
+				<input type="text" class="form-control" id="volFirstName" name="volFirstName" placeholder="First Name" ng-model="volunteer.volFirstName" ng-required="true">
 			</div>
 			<div class="alert alert-danger" role="alert" ng-messages="volunteerForm.volFirstName.$error" ng-if="volunteerForm.volFirstName.$touched" ng-hide="volunteerForm.volFirstName.$valid">
 				<p ng-message="required">Please enter a first name</p>
@@ -24,7 +24,7 @@
 
 			<!--last name-->
 			<label class="control-label sr-only" for="volLastName">Last Name</label>
-			<input type="text" class="form-control" id="volLastName" name="volLastName" placeholder="Last Name" ng-model="newVolunteer.volLastName" ng-required="true">
+			<input type="text" class="form-control" id="volLastName" name="volLastName" placeholder="Last Name" ng-model="volunteer.volLastName" ng-required="true">
 			<div class="alert alert-danger" role="alert" ng-messages="volunteerForm.volLastName.$error" ng-if="volunteerForm.volLastName.$touched" ng-hide="volunteerForm.volLastName.$valid">
 			<p ng-message="required">Please enter a last name</p>
 			</div>
@@ -38,19 +38,19 @@
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
 				</div>
-				<input type="email" class="form-control" id="volEmail" name="volEmail" placeholder="volEmail" ng-model="newVolunteer.volEmail" ng-required="true" />
+				<input type="email" class="form-control" id="volEmail" name="volEmail" placeholder="volEmail" ng-model="volunteer.volEmail" ng-required="true" />
 			</div>
 			<div class="alert alert-danger" role="alert" ng-messages="volunteerForm.volEmail.$error" ng-if="volunteerForm.volEmail.$touched" ng-hide="volunteerForm.volEmail.$valid">
 				<p ng-message="email">Email is invalid.</p>
 				<p ng-message="required">Please enter an Email.</p>
 			</div>
 			<!--volPhone-->
-			<label class="control-label sr-only " for="volPhone">volPhone</label>
+			<label class="control-label sr-only " for="volPhone">Phone</label>
 			<div class="input-group">
 				<div class="input-group-addon">
-					<span class="glyphicon glyphicon-volPhone" aria-hidden="true"></span>
+					<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
 				</div>
-				<input type="text" class="form-control" id="volPhone" name="volPhone" placeholder="volPhone" ng-model="newVolunteer.volPhone" ng-required="true" />
+				<input type="text" class="form-control" id="volPhone" name="volPhone" placeholder="Phone" ng-model="volunteer.volPhone" ng-required="true" />
 			</div>
 			<div class="alert alert-danger" role="alert" ng-messages="volunteerForm.volPhone.$error" ng-if="volunteerForm.volPhone.$touched" ng-hide="volunteerForm.volPhone.$valid">
 				<p ng-message="required">Please enter a volPhone number.</p>
