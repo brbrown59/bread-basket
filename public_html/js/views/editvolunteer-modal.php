@@ -1,5 +1,5 @@
 <div class="modal-body">
-	<form id="editeditVolunteerForm" name="editVolunteerForm"  ng-submit="updateVolunteer(volunteer, editVolunteerForm.$valid);" ng-hide="isEditing">
+	<form id="editeditVolunteerForm" name="editVolunteerForm"  ng-submit="updateVolunteer(editedVolunteer, editVolunteerForm.$valid);" ng-show="isEditing">
 		<h3>Edit Volunteer</h3>
 		<hr/>
 		<!--begin new volunteer-->

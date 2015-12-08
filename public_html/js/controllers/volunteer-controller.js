@@ -1,6 +1,5 @@
 app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService", "AlertService", function($scope, $uibModal, VolunteerService, AlertService) {
 	$scope.editedVolunteer = {};
-	$scope.editedVolunteer = {};
 	$scope.isEditing = false;
 	$scope.alerts = [];
 	$scope.volunteers = [];
@@ -24,13 +23,9 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 			$scope.volunteer = volunteer;
 			VolunteerService.create(volunteer)
 					.then(function(reply) {
-						console.log("STATUS: " + reply.data.status);
-						console.log("MSG: " + reply.data.message + "(not monosodium glutamate)");
 						if(reply.data.status === 200) {
-							console.log("yes");
 							AlertService.addAlert({type: "success", msg: reply.data.message});
 						} else {
-							console.log("no");
 							AlertService.addAlert({type: "danger", msg: reply.data.message});
 						}
 					});
@@ -41,44 +36,42 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 
 
 	/**
-	 * opens volunteer modal and sets current volunteer in fields
-	 * updates a volunteer and sends it to the volunteer API
+	 * updates a misquote and sends it to the misquote API
 	 *
-	 * @param volunteer the volunteer to send
-	 * @param validated true if angular validated the form, false if not
-	 */
-	$scope.openEditVolunteerModal = function () {
-		var EditVolunteerModalInstance = $uibModal.open({
-			templateUrl: "../../js/views/editvolunteer-modal.php",
-			controller: "EditVolunteerModal",
-			resolve: {
-				volunteer: function() {
-					return ($scope.volunteer);
-				}
-			}
-		});
-		EditVolunteerModalInstance.result.then(function(volunteer) {
-			$scope.volunteer = volunteer;
-			$scope.updateVolunteer = function(volunteer, validated) {
-				if(validated === true && $scope.isEditing === true) {
-					VolunteerService.update(volunteer.volId, volunteer)
-							.then(function(result) {
-								if(result.data.status === 200) {
-									$scope.alerts[0] = {type: "success", msg: result.data.message};
-								} else {
-									$scope.alerts[0] = {type: "danger", msg: result.data.message};
-								}
-							});
-
-
-				}
-			};
-
-
-		}, function() {
-			$scope.volunteer = {};
-		});
+	 * @param misquote the misquote to send
+	 * @param validated true if Angular validated the form, false if not
+	 **/
+	$scope.updateMisquote = function(misquote, validated) {
+		if(validated === true && $scope.isEditing === true) {
+			MisquoteService.update(misquote.misquoteId, misquote)
+					.then(function(result) {
+						if(result.data.status === 200) {
+							$scope.alerts[0] = {type: "success", msg: result.data.message};
+						} else {
+							$scope.alerts[0] = {type: "danger", msg: result.data.message};
+						}
+					});
+		}
 	};
+
+	/**
+	 * sets the which misquote is being edited and activates the editing form
+	 *
+	 * @param misquote the misquote to load into the editing form
+	 **/
+	$scope.setEditedMisquote = function(misquote) {
+		$scope.editedMisquote = angular.copy(misquote);
+		$scope.isEditing = true;
+	};
+
+	/**
+	 * cancels editing and clears out the misquote being edited
+	 **/
+	$scope.cancelEditing = function() {
+		$scope.editedMisquote = {};
+		$scope.isEditing = false;
+	};
+
 
 	/**
 	 * sets which volunteer is being edited and activates the editing form
@@ -96,6 +89,27 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 	$scope.cancelEditing = function() {
 		$scope.editedVolunteer = {};
 		$scope.isEditing = false;
+	};
+
+	/**
+	 * updates a volunteer and sends it to the volunteer API
+	 *
+	 * @param volunteer the volunteer to send
+	 * @param validated true if angular validated the form, false if not
+	 */
+	$scope.updateVolunteer = function(volunteer, validated) {
+		if(validated === true && $scope.isEditing === true) {
+			VolunteerService.update(volunteer.volId, volunteer)
+					.then(function(result) {
+						if(result.data.status === 200) {
+							$scope.alerts[0] = {type: "success", msg: result.data.message};
+						} else {
+							$scope.alerts[0] = {type: "danger", msg: result.data.message};
+						}
+					});
+
+
+		}
 	};
 
 	/**
@@ -173,27 +187,6 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 				});
 	};
 
-
-	/**
-	 * updates a volunteer and sends it to the volunteer API
-	 *
-	 * @param volunteer the volunteer to send
-	 * @param validated true if angular validated the form, false if not
-	 */
-	$scope.updateVolunteer = function(volunteer, validated) {
-		if(validated === true && $scope.isEditing === true) {
-			VolunteerService.update(volunteer.volId, volunteer)
-					.then(function(result) {
-						if(result.data.status === 200) {
-							$scope.alerts[0] = {type: "success", msg: result.data.message};
-						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.data.message};
-						}
-					});
-
-
-		}
-	};
 
 	/**
 	 * deletes a volunteer and sends it to the volunteer API if the user confirms deletion

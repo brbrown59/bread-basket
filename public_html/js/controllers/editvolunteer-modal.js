@@ -1,9 +1,8 @@
 app.controller("EditVolunteerModal", ["$scope", "$uibModalInstance", function($scope, $uibModalInstance) {
-	$scope.volunteer = {};
-
+	$scope.editedVolunteer = {};
 
 	$scope.ok = function() {
-		$uibModalInstance.close($scope.volunteer);
+		$uibModalInstance.close($scope.editedVolunteer);
 	};
 
 	$scope.cancel = function() {
