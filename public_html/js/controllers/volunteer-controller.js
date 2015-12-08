@@ -1,5 +1,6 @@
 app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService", "AlertService", function($scope, $uibModal, VolunteerService, AlertService) {
 	$scope.editedVolunteer = {};
+	$scope.editedVolunteer = {};
 	$scope.isEditing = false;
 	$scope.alerts = [];
 	$scope.volunteers = [];
@@ -38,12 +39,54 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 		});
 	};
 
+
+	/**
+	 * opens volunteer modal and sets current volunteer in fields
+	 * updates a volunteer and sends it to the volunteer API
+	 *
+	 * @param volunteer the volunteer to send
+	 * @param validated true if angular validated the form, false if not
+	 */
+	$scope.openEditVolunteerModal = function () {
+		var EditVolunteerModalInstance = $uibModal.open({
+			templateUrl: "../../js/views/editvolunteer-modal.php",
+			controller: "EditVolunteerModal",
+			resolve: {
+				volunteer: function() {
+					return ($scope.volunteer);
+				}
+			}
+		});
+		EditVolunteerModalInstance.result.then(function(volunteer) {
+			$scope.volunteer = volunteer;
+			$scope.updateVolunteer = function(volunteer, validated) {
+				if(validated === true && $scope.isEditing === true) {
+					VolunteerService.update(volunteer.volId, volunteer)
+							.then(function(result) {
+								if(result.data.status === 200) {
+									$scope.alerts[0] = {type: "success", msg: result.data.message};
+								} else {
+									$scope.alerts[0] = {type: "danger", msg: result.data.message};
+								}
+							});
+
+
+				}
+			};
+
+
+		}, function() {
+			$scope.volunteer = {};
+		});
+	};
+
 	/**
 	 * sets which volunteer is being edited and activates the editing form
 	 *
 	 * @param volunteer the volunteer to be edited
 	 */
 	$scope.setEditedVolunteer = function(volunteer) {
+		$scope.editedVolunteer = angular.copy(volunteer);
 		$scope.isEditing = true;
 	};
 
@@ -129,6 +172,7 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 					}
 				});
 	};
+
 
 	/**
 	 * updates a volunteer and sends it to the volunteer API

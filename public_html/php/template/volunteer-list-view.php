@@ -50,7 +50,7 @@ require_once("header.php");
 									<td>{{ volunteer.volEmail }}</td>
 									<td>{{ volunteer.volPhone }}</td>
 									<td>
-										<button class="btn btn-info" ng-click="setEditedVolunteer(volunteer);"><i class="fa fa-pencil"></i></button>
+										<button class="btn btn-info" ng-click="openEditVolunteerModal(volunteer);"><i class="fa fa-pencil"></i></button>
 										<form class="inline" ng-submit="deleteVolunteer(volunteer.volId);">
 											<button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
 										</form>
