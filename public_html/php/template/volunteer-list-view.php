@@ -38,15 +38,15 @@ require_once("header.php");
 							<uib-alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="alerts.length = 0;">{{ alert.msg }}</uib-alert>
 							<table class="table table-striped table-hover table-condensed">
 								<thead>
-									<th>Id</th>
-									<th>Name</th>
+									<th>First Name</th>
+									<th>Last Name</th>
 									<th>Email</th>
 									<th>Phone</th>
 									<th>Actions</th>
 								</thead>
 								<tr class="info" ng-repeat="volunteer in volunteers">
-									<td>{{ volunteer.volId }}</td>
-									<td>{{ volunteer.volFirstName }} {{ volunteer.volLastName }}</td>
+									<td>{{ volunteer.volFirstName }}</td>
+									<td>{{ volunteer.volLastName }}</td>
 									<td>{{ volunteer.volEmail }}</td>
 									<td>{{ volunteer.volPhone }}</td>
 									<td>

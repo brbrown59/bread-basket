@@ -1,6 +1,6 @@
 app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService", "AlertService", function($scope, $uibModal, VolunteerService, AlertService) {
 	$scope.editedVolunteer = {};
-	$scope.volunteer = {volId: null, orgId: null, email: "", firstName: "", isAdmin: false, lastName: "", phone: ""} //EMAIL ACTIVATION????
+	$scope.newVolunteer = {volId: null} //EMAIL ACTIVATION????
 	$scope.isEditing = false;
 	$scope.alerts = [];
 	$scope.volunteers = [];
@@ -37,28 +37,19 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 		}, function() {
 			$scope.volunteer = {};
 		});
-	};
 
-	/**
-	 * creates a volunteer and sends it to the volunteer API
-	 *
-	 * @param volunteer the volunteer to send
-	 * @param validated true if angular validated the form, false if not
-	 */
-	$scope.createVolunteer = function(volunteer, validated) {
-		if(validated === true) {
-			VolunteerService.create(volunteer)
+		$scope.getVolunteer = function() {
+			VolunteerService.all()
 					.then(function(result) {
 						if(result.data.status === 200) {
-							$scope.alerts[0] = {type: "success", msg: result.data.message};
+							$scope.volunteers = result.data.data;
 						} else {
 							$scope.alerts[0] = {type: "danger", msg: result.data.message};
 						}
 					});
-
-
-		}
+		};
 	};
+
 
 	/**
 	 * sets which volunteer is being edited and activates the editing form
@@ -91,61 +82,61 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 				});
 	};
 
-	/**
-	 * fufills the promise from retrieving the volunteers BY ID  from the volunteer API
-	 */
-	$scope.getVolunteers = function() {
-		VolunteerService.fetchId()
-				.then(function(result) {
-					if(result.data.status === 200) {
-						$scope.volunteers = result.data.data;
-					} else {
-						$scope.alerts[0] = {type: "danger", msg: result.data.message};
-					}
-				});
-	};
-
-	/**
-	 * fufills the promise from retrieving the volunteers BY EMAIL from the volunteer API
-	 */
-	$scope.getVolunteers = function() {
-		VolunteerService.fetchEmail()
-				.then(function(result) {
-					if(result.data.status === 200) {
-						$scope.volunteers = result.data.data;
-					} else {
-						$scope.alerts[0] = {type: "danger", msg: result.data.message};
-					}
-				});
-	};
-
-	/**
-	 * fufills the promise from retrieving the volunteers BY ADMIN from the volunteer API
-	 */
-	$scope.getVolunteers = function() {
-		VolunteerService.fetchAdmin()
-				.then(function(result) {
-					if(result.data.status === 200) {
-						$scope.volunteers = result.data.data;
-					} else {
-						$scope.alerts[0] = {type: "danger", msg: result.data.message};
-					}
-				});
-	};
-
-	/**
-	 * fufills the promise from retrieving the volunteers BY PHONE from the volunteer API
-	 */
-	$scope.getVolunteers = function() {
-		VolunteerService.fetchPhone()
-				.then(function(result) {
-					if(result.data.status === 200) {
-						$scope.volunteers = result.data.data;
-					} else {
-						$scope.alerts[0] = {type: "danger", msg: result.data.message};
-					}
-				});
-	};
+	///**
+	// * fufills the promise from retrieving the volunteers BY ID  from the volunteer API
+	// */
+	//$scope.getVolunteers = function() {
+	//	VolunteerService.fetchId()
+	//			.then(function(result) {
+	//				if(result.data.status === 200) {
+	//					$scope.volunteers = result.data.data;
+	//				} else {
+	//					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+	//				}
+	//			});
+	//};
+	//
+	///**
+	// * fufills the promise from retrieving the volunteers BY EMAIL from the volunteer API
+	// */
+	//$scope.getVolunteers = function() {
+	//	VolunteerService.fetchEmail()
+	//			.then(function(result) {
+	//				if(result.data.status === 200) {
+	//					$scope.volunteers = result.data.data;
+	//				} else {
+	//					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+	//				}
+	//			});
+	//};
+	//
+	///**
+	// * fufills the promise from retrieving the volunteers BY ADMIN from the volunteer API
+	// */
+	//$scope.getVolunteers = function() {
+	//	VolunteerService.fetchAdmin()
+	//			.then(function(result) {
+	//				if(result.data.status === 200) {
+	//					$scope.volunteers = result.data.data;
+	//				} else {
+	//					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+	//				}
+	//			});
+	//};
+	//
+	///**
+	// * fufills the promise from retrieving the volunteers BY PHONE from the volunteer API
+	// */
+	//$scope.getVolunteers = function() {
+	//	VolunteerService.fetchPhone()
+	//			.then(function(result) {
+	//				if(result.data.status === 200) {
+	//					$scope.volunteers = result.data.data;
+	//				} else {
+	//					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+	//				}
+	//			});
+	//};
 
 	/**
 	 * updates a volunteer and sends it to the volunteer API

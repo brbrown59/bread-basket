@@ -8,6 +8,7 @@ require_once("prefix-utilities.php");
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/services/volunteer-service.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/services/organization-service.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/services/alert-service.js"></script>
+<script type="text/javascript" src="<?php echo $PREFIX; ?>js/services/listing-service.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/tabs.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/signup-modal.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/signin-modal.js"></script>
