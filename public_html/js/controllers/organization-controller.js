@@ -1,17 +1,11 @@
-app.controller("OrganizationController", ["$scope", "$uibModal", "OrganizationService", function($scope, OrganizationService) {
+app.controller("OrganizationController", ["$scope", "OrganizationService", "$uibModal", function($scope, OrganizationService, $uibModal) {
 	//add as needed
 
 	//the organization for the view will be the first element in this array
-	$scope.organizations = [];
+	$scope.organizations = "";
 	$scope.alerts = [];
 	$scope.redirectUrl = "";
 	$scope.isEditing = false;
-
-
-
-	//get orgs from api
-	//come back for the other gets
-	//make docblocks better
 
 	$scope.setEditedOrganization = function() {
 		$scope.isEditing = true;
@@ -35,17 +29,15 @@ app.controller("OrganizationController", ["$scope", "$uibModal", "OrganizationSe
 				});
 	};
 
-	$scope.getOrganizationById = function(orgId, validated) {
-		if(validated === true) {
-			OrganizationService.fetch(orgId)
-					.then(function(result) {
-						if(result.data.status === 200) {
-							$scope.organization = result.data.data;
-						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.data.message};
-						}
-					});
-		}
+	$scope.getOrganizationById = function(orgId) {
+		OrganizationService.fetchId(orgId)
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.organizations = result.data.data;
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
 	};
 
 	$scope.getOrganizationByCity = function(orgCity, validated) {

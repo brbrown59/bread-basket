@@ -1,4 +1,4 @@
-app.constant("ORGANIZATION_ENDPOINT", "php/api/organization/");//check the end point
+app.constant("ORGANIZATION_ENDPOINT", "../../php/api/organization/");
 app.service("OrganizationService", function($http, ORGANIZATION_ENDPOINT) {
 	//internal function for holding the url
 	function getUrl() {
@@ -16,7 +16,7 @@ app.service("OrganizationService", function($http, ORGANIZATION_ENDPOINT) {
 	};
 
 	//get by ID
-	this.fetch = function(orgId) {
+	this.fetchId = function(orgId) {
 		return($http.get(getUrlForId(orgId)));
 	};
 	//get by city
