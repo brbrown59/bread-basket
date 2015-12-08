@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h1>My Organization</h1>
+				<h1>{{ organization.orgName }}</h1>
 			</div>
 		</div>
 	</div>
@@ -32,18 +32,22 @@
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-phone"></span> Phone</h3>
 				</div>
-				<input class="form-group form-group-lg well" type="text" placeholder="Phone">
+				<input class="form-group form-group-lg well" type="text" placeholder="{{ organization.orgPhone }}">
 			</div>
 			<div class="col-md-3">
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-time"></span> Hours</h3>
 				</div>
-				<input class="form-group form-group-lg well" type="text" placeholder="Hours">
+				<input class="form-group form-group-lg well" type="text" placeholder="{{ organization.orgHours }}">
 			</div>
 			<div class="col-md-6">
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-home"></span> Address</h3>
-					<textarea class="form-control form-group form-group-lg well" ></textarea>
+					<input class="form-group form-group-lg well" type="text" placeholder="{{ organization.orgAddress1 }}">
+					<input class="form-group form-group-lg well" type="text" placeholder="{{ organization.orgAddress2 }}">
+					<input class="form-group form-group-lg well" type="text" placeholder="{{ organization.orgCity }}">
+					<input class="form-group form-group-lg well" type="text" placeholder="{{ organization.orgState }}">
+					<input class="form-group form-group-lg well" type="text" placeholder="{{ organization.orgZip }}">
 				</div>
 			</div>
 		</div>
@@ -54,7 +58,7 @@
 			<div class="col-md-6">
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-pencil"></span> Description</h3>
-					<textarea class="form-control form-group form-group-lg well" maxlength="256"></textarea>
+					<textarea class="form-control form-group form-group-lg well" maxlength="256" placeholder="{{ organization.orgDescription }}"></textarea>
 				</div>
 			</div>
 			<div class="col-md-6">

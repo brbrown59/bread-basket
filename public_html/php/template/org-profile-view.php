@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h1>{{ organizations.orgName }} </h1>
+				<h1>{{ organization.orgName }} </h1>
 			</div>
 		</div>
 	</div>
@@ -31,24 +31,25 @@
 			<div class="col-md-3">
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-phone"></span> Phone</h3>
-					<h3>555 044 4553</h3>
+					<h3>{{ organization.orgPhone }}</h3>
 				</div>
 			</div>
 			<div class="col-md-3">
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-time"></span> Hours</h3>
-					<h3>9am-5pm</h3>
+					<h3>{{ organization.orgHours }}</h3>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-home"></span> Address</h3>
 					<address>
-						<strong>Hippy Grocery</strong><br>
-						123 Street NE<br>
-						Albuquerque<br>
-						NM<br>
-						87106<br>
+						<strong>{{ organization.orgName }}</strong><br>
+						{{ organization.orgAddress1 }}<br>
+						{{ organization.orgAddress2 }}<br>
+						{{ organization.orgCity }}
+						{{ organization.orgState }}<br>
+						{{ organization.orgZip }}<br>
 					</address>
 				</div>
 			</div>
@@ -60,10 +61,7 @@
 			<div class="col-md-6">
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-pencil"></span> Description</h3>
-					<p>Shields up. I recommend we transfer power to phasers and arm the photon torpedoes. Something strange on the detector circuit.
-						The weapons must have disrupted our communicators. You saw something as tasty as meat, but inorganically materialized out of
-						patterns used by our transporters. Captain, the most elementary and valuable statement in science, the beginning of wisdom, is
-						'I do not know.' All transporters off.
+					<p>{{ organization.orgDescription }}
 					</p>
 				</div>
 			</div>

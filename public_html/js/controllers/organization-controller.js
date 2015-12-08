@@ -2,7 +2,7 @@ app.controller("OrganizationController", ["$scope", "OrganizationService", "$uib
 	//add as needed
 
 	//the organization for the view will be the first element in this array
-	$scope.organizations = "";
+	$scope.organization = "";
 	$scope.alerts = [];
 	$scope.redirectUrl = "";
 	$scope.isEditing = false;
@@ -33,7 +33,7 @@ app.controller("OrganizationController", ["$scope", "OrganizationService", "$uib
 		OrganizationService.fetchId(orgId)
 				.then(function(result) {
 					if(result.data.status === 200) {
-						$scope.organizations = result.data.data;
+						$scope.organization = result.data.data;
 					} else {
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
