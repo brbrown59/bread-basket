@@ -17,10 +17,10 @@
 				<a class="btn btn-default btn-lg" href="login-landing-page.php" role="button">Back</a>
 			</div>
 			<div class="col-xs-3">
-				<button class="btn btn-info btn-lg">Submit</button>
+				<button class="btn btn-info btn-lg" ng-click="cancelEditing();">Submit</button>
 			</div>
 			<div class="col-xs-3">
-				<button class="btn btn-danger btn-lg">Cancel</button>
+				<button class="btn btn-danger btn-lg" ng-click="cancelEditing();">Cancel</button>
 			</div>
 		</div>
 	</div>
