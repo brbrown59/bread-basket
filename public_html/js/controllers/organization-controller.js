@@ -29,6 +29,17 @@ app.controller("OrganizationController", ["$scope", "OrganizationService", "$uib
 				});
 	};
 
+	$scope.getCurrentOrganization = function() {
+		OrganizationService.fetchCurrent()
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.organization = result.data.data;
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
+	};
+
 	$scope.getOrganizationById = function(orgId) {
 		OrganizationService.fetchId(orgId)
 				.then(function(result) {

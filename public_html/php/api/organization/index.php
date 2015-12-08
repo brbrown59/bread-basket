@@ -46,6 +46,7 @@ try {
 	$state = filter_input(INPUT_GET, "state", FILTER_SANITIZE_STRING);
 	$type = filter_input(INPUT_GET, "type", FILTER_SANITIZE_STRING);
 	$zip = filter_input(INPUT_GET, "zip", FILTER_SANITIZE_STRING);
+	$current = filter_input(INPUT_GET, "current", FILTER_SANITIZE_STRING);
 
 
 	//handle REST calls, while only allowing administrators access to database-modifying methods
@@ -65,6 +66,9 @@ try {
 			$reply->data = Organization::getOrganizationByOrgType($pdo, $type)->toArray();
 		} else if(empty($zip) === false) {
 			$reply->data = Organization::getOrganizationByOrgZip($pdo, $zip)->toArray();
+		} else if(empty ($current) === false) {
+			//used to fetch the current organization info for angular
+			$reply->data = Organization::getOrganizationByOrgId($pdo, $_SESSION["volunteer"]->getOrgId());
 		} else {
 			$reply->data = Organization::getAllOrganizations($pdo)->toArray();
 		}

@@ -19,6 +19,10 @@ app.service("OrganizationService", function($http, ORGANIZATION_ENDPOINT) {
 	this.fetchId = function(orgId) {
 		return($http.get(getUrlForId(orgId)));
 	};
+	//get the current organization
+	this.fetchCurrent = function() {
+		return($http.get(getUrl() + "?current=true"));
+	};
 	//get by city
 	this.fetchCity = function(orgCity) {
 		return($http.get(getUrl() + "?city=" + orgCity));

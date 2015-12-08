@@ -1,9 +1,9 @@
 app.directive("orgView", function() {
 	return {
-		//have to call the getOrganizationById at some point
 		restrict: "E",
 		link: function($scope, element) {
-			$scope.getOrganizationById(307);
+			//need the actual ID: either run a function to get it here, or retrieve it from the scope
+			$scope.getCurrentOrganization();
 		},
 
 		templateUrl: "org-profile-view.php"
