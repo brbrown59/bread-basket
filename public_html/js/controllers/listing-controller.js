@@ -1,6 +1,6 @@
 app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "AlertService",  function($scope, $uibModal,ListingService, AlertService) {
 	$scope.editedListing = {};
-	$scope.newListing = {listingId: null, description: "", estimatedCost: "",  listingType: ""}//todo are these the correct fields?
+	$scope.listing = {memo: "", cost: "", listingType: ""}//todo are these the correct fields?
 	$scope.isEditing = false;
 	$scope.alerts = [];
 	$scope.listings = [];
