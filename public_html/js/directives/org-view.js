@@ -3,7 +3,7 @@ app.directive("orgView", function() {
 		//have to call the getOrganizationById at some point
 		restrict: "E",
 		link: function($scope, element) {
-			$scope.getOrganizationById(302);
+			$scope.getOrganizationById(307);
 		},
 
 		templateUrl: "org-profile-view.php"
