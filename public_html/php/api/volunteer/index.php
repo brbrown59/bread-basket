@@ -92,7 +92,7 @@ try {
 
 
 			//make sure all fields are present, in order to prevent database issues
-			if(empty($requestObject->orgId) === true) {
+			if(empty($requestObject->getOrgId() === $_SESSION["volunteer"]->getOrgId()) === true) {
 				throw(new InvalidArgumentException ("organization id cannot be empty", 405));
 			}
 			if(empty($requestObject->volEmail) === true) {

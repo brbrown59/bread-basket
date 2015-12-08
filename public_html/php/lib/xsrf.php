@@ -1,4 +1,3 @@
-
 <?php
 /**
  * this if block exists because apache_request_headers() is not portable across web servers
@@ -17,17 +16,17 @@ if(function_exists("apache_request_headers") === false) {
 		$headers = array();
 		foreach($_SERVER as $header => $value) {
 			// divide the header name by the underbar
-			$headerNameArray = explode("_" , $header);
+			$headerNameArray = explode("_", $header);
 			// request headers always are prefixed by HTTP_
 			if(array_shift($headerNameArray) === "HTTP") {
 				// convert HTTP_FOO_HEADER to Foo-Header
-				array_walk($headerNameArray, function(&$headerName) {
+				array_walk($headerNameArray, function (&$headerName) {
 					$headerName = ucfirst(strtolower($headerName));
 				});
 				$headers[join("-", $headerNameArray)] = $value;
 			}
 		}
-		return($headers);
+		return ($headers);
 	}
 }
 /**
@@ -36,7 +35,7 @@ if(function_exists("apache_request_headers") === false) {
  * @param string $cookiePath path the cookie is relevant to, blank by default
  * @throws RuntimeException if the session is not active
  **/
-function setXsrfCookie($cookiePath = "") {
+function setXsrfCookie($cookiePath = "/") {
 	// enforce that the session is active
 	if(session_status() !== PHP_SESSION_ACTIVE) {
 		throw(new RuntimeException("session not active"));
@@ -47,6 +46,7 @@ function setXsrfCookie($cookiePath = "") {
 	}
 	setcookie("XSRF-TOKEN", $_SESSION["XSRF-TOKEN"], 0, $cookiePath);
 }
+
 /**
  * verifies the X-XSRF-TOKEN sent by Angular matches the XSRF-TOKEN saved in this session.
  * This function returns nothing, but will throw an exception when something does not match

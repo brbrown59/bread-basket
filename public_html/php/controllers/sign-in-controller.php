@@ -20,7 +20,7 @@ $reply->message = null;
 
 
 try {
-//start the session and create a XSRF token
+	//start the session and create a XSRF token
 	if(session_status() !== PHP_SESSION_ACTIVE) {
 		session_start();
 	}
@@ -43,10 +43,10 @@ try {
 			$_SESSION["volunteer"] = $volunteer;
 			$reply->status = 200;
 			$reply->message = "Successfully logged in";
-		}else {
+		} else {
 			throw(new InvalidArgumentException("email or password is invalid", 401));
 		}
-	}else {
+	} else {
 		throw(new InvalidArgumentException("email or password is invalid", 401));
 	}
 	// create an exception to pass back to the RESTfull caller

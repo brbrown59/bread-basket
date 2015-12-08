@@ -13,11 +13,11 @@ app.controller("SigninController", ["$scope", "$uibModal", "$window", "AlertServ
 		});
 		signupModalInstance.result.then(function (signinData) {
 			$scope.signinData = signinData;
-			SigninService.signinData(signinData)
+			SigninService.signin(signinData)
 					.then(function(reply) {
 						if(reply.status === 200) {
 							AlertService.addAlert({type: "success", msg: reply.message});
-							//$window.location.assign("../../php/template/login-landing-page.php")
+							$window.location.assign("../../php/template/login-landing-page.php")
 						} else {
 								AlertService.addAlert({type: "danger", msg: reply.message});
 						}
