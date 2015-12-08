@@ -1,6 +1,5 @@
 app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService", "AlertService", function($scope, $uibModal, VolunteerService, AlertService) {
 	$scope.editedVolunteer = {};
-	$scope.newVolunteer = {volId: null} //EMAIL ACTIVATION????
 	$scope.isEditing = false;
 	$scope.alerts = [];
 	$scope.volunteers = [];
@@ -16,11 +15,11 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 			controller: "VolunteerModal",
 			resolve: {
 				volunteer: function() {
-					return($scope.volunteer);
+					return ($scope.volunteer);
 				}
 			}
 		});
-		VolunteerModalInstance.result.then(function (volunteer) {
+		VolunteerModalInstance.result.then(function(volunteer) {
 			$scope.volunteer = volunteer;
 			VolunteerService.create(volunteer)
 					.then(function(reply) {
@@ -37,19 +36,7 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 		}, function() {
 			$scope.volunteer = {};
 		});
-
-		$scope.getVolunteer = function() {
-			VolunteerService.all()
-					.then(function(result) {
-						if(result.data.status === 200) {
-							$scope.volunteers = result.data.data;
-						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.data.message};
-						}
-					});
-		};
 	};
-
 
 	/**
 	 * sets which volunteer is being edited and activates the editing form
@@ -81,6 +68,11 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 					}
 				});
 	};
+
+	// load the array on first view
+	if($scope.volunteers.length === 0) {
+		$scope.volunteers = $scope.getVolunteers();
+	}
 
 	///**
 	// * fufills the promise from retrieving the volunteers BY ID  from the volunteer API
