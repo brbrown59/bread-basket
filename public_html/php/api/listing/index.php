@@ -142,7 +142,7 @@ try {
 			$listing->delete($pdo);
 			$deletedObject = new stdClass();
 			$deletedObject->listingId = $id;
-			$pusher->trigger("misquote", "delete", $deletedObject);
+			$pusher->trigger("listing", "delete", $deletedObject);
 
 			$reply->message = "Listing deleted OK";
 

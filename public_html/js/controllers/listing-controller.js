@@ -1,5 +1,5 @@
-app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "AlertService", "Pusher", function($scope, $uibModal,ListingService, AlertService, Pusher) {
-	$scope.listingData = {};
+app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "AlertService",  function($scope, $uibModal,ListingService, AlertService) {
+	$scope.editedListing = {};
 	$scope.newListing = {listingId: null, description: "", estimatedCost: "",  listingType: ""}//todo are these the correct fields?
 	$scope.isEditing = false;
 	$scope.alerts = [];
@@ -14,8 +14,8 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			templateUrl: "../../js/views/newlisting-modal.php",
 			controller: "ListingModal",
 			resolve: {
-				listing : function() {
-					return($scope.listing);
+				listing: function() {
+					return ($scope.listing);
 				}
 			}
 		});
@@ -23,7 +23,10 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			$scope.listing = listing;
 			ListingService.create(listing)
 					.then(function(reply) {
+						console.log("STATUS: " + reply.data.status);
+						console.log("MSG: " + reply.data.message + "this is the message.");
 						if(reply.status ===200){
+							console.log("yes");
 						AlertService.addAlert({type: "success", msg: reply.message});
 					} else {
 						AlertService.addAlert({type: "danger", msg: reply.message});
@@ -74,7 +77,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	/**
 	 * fulfills the promise from retrieving all the listings from the listing API
 	 */
-	$scope.getListing = function() {
+	$scope.getListings = function() {
 		ListingService.all()
 				.then(function(result) {
 					if(result.data.status === 200) {
@@ -85,75 +88,75 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 				});
 	};
 
-	/**
-	 * fulfills the promise from retrieving the listing by Id from the listing API
-	 */
-	$scope.getListings = function() {
-		ListingService.fetchId()
-				.then(function(result) {
-					if(result.data.status === 200) {
-						$scope.listings = result.data.data;
-					} else {
-						$scope.alerts[0] = {type: "danger", msg: result.data.message};
-					}
-				});
-	};
+	///**
+	// * fulfills the promise from retrieving the listing by Id from the listing API
+	// */
+	//$scope.getListings = function() {
+	//	ListingService.fetchId()
+	//			.then(function(result) {
+	//				if(result.data.status === 200) {
+	//					$scope.listings = result.data.data;
+	//				} else {
+	//					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+	//				}
+	//			});
+	//};
 
-	//fulfills the promise from retrieving the listing by org id
-	$scope.getListingByOrgId = function(orgId, validated) {
-		if(validated === true) {
-			ListingService.fetchOrgId(orgId)
-					.then(function(result) {
-						if(result.data.status === 200) {
-							$scope.listings = result.data.data;
-						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.data.message};
-						}
-					});
-		}
-	};
+	////fulfills the promise from retrieving the listing by org id
+	//$scope.getListingsByOrgId = function(orgId, validated) {
+	//	if(validated === true) {
+	//		ListingService.fetchOrgId(orgId)
+	//				.then(function(result) {
+	//					if(result.data.status === 200) {
+	//						$scope.listings = result.data.data;
+	//					} else {
+	//						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+	//					}
+	//				});
+	//	}
+	//};
 
-	//fulfills the promise from retrieving the listings by parent id
-	$scope.getListingByParentId = function(parentId, validated) {
-		if(validated === true) {
-		ListingService.fetchParentId(parentId)
-				.then(function(result) {
-					if(result.data.status === 200) {
-						$scope.listings = result.data.data;
-					} else {
-						$scope.alerts[0] = {type: "danger", msg: result.data.message};
-					}
-				});
-		}
-	};
+	////fulfills the promise from retrieving the listings by parent id
+	//$scope.getListingByParentId = function(parentId, validated) {
+	//	if(validated === true) {
+	//	ListingService.fetchParentId(parentId)
+	//			.then(function(result) {
+	//				if(result.data.status === 200) {
+	//					$scope.listings = result.data.data;
+	//				} else {
+	//					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+	//				}
+	//			});
+	//	}
+	//};
 
-	//fulfills the promise from retrieving the listings by post time
-	$scope.getListingByPostTime = function(postTime, validated) {
-		if(validated === true) {
-			ListingService.fetchPostTime(postTime)
-					.then(function(result) {
-						if(result.data.status === 200) {
-							$scope.listings = result.data.data;
-						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.data.message};
-						}
-					});
-		}
-	};
+	////fulfills the promise from retrieving the listings by post time
+	//$scope.getListingByPostTime = function(postTime, validated) {
+	//	if(validated === true) {
+	//		ListingService.fetchPostTime(postTime)
+	//				.then(function(result) {
+	//					if(result.data.status === 200) {
+	//						$scope.listings = result.data.data;
+	//					} else {
+	//						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+	//					}
+	//				});
+	//	}
+	//};
 
-	//fulfills the promise from retrieving the listings by Type Id
-	$scope.getListingByTypeId = function(typeId, validated) {
-		if(validated === true) {
-			ListingService.fetchTypeId(typeId)
-					.then(function(result) {
-						if(result.data.status === 200) {
-							$scope.listings = result.data.data;
-						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.data.message};
-						}
-					});
-		}
-	};
+	////fulfills the promise from retrieving the listings by Type Id
+	//$scope.getListingByTypeId = function(typeId, validated) {
+	//	if(validated === true) {
+	//		ListingService.fetchTypeId(typeId)
+	//				.then(function(result) {
+	//					if(result.data.status === 200) {
+	//						$scope.listings = result.data.data;
+	//					} else {
+	//						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+	//					}
+	//				});
+	//	}
+	//};
 
 	/**
 	 * updates a listing and sends it to the listing API
@@ -162,7 +165,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	 * @param validated true is angular validated the form, false if not
 	 */
 	$scope.updateListing = function(listing, validated) {
-		if(validated === true) {
+		if(validated === true && $scope.isEditing === true) {
 			ListingService.update(listing.listingId, listing)
 					.then(function(result) {
 						if(result.data.status === 200) {
@@ -175,7 +178,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	};
 
 	/**
-	 * deletes a listing and sends it to the listing API if the user confirms delection
+	 * deletes a listing and sends it to the listing API if the user confirms deletion
 	 *
 	 * @param listingId the listing id of the listing to be deleted
 	 */
@@ -203,39 +206,39 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		});
 	};
 
-	//subscribe to the delete channel; this will delete from the listings array on demand
-	Pusher.subscribe("listing", "delete", function(listing){
-		for(var i = 0; i < $scope.listings.length; i++) {
-			if($scope.listings[i].listingId ===listing.listingId) {
-				$scope.listings.splice(i, 1);
-				break;
-			}
-		}
-	});
+	////subscribe to the delete channel; this will delete from the listings array on demand
+	//Pusher.subscribe("listing", "delete", function(listing){
+	//	for(var i = 0; i < $scope.listings.length; i++) {
+	//		if($scope.listings[i].listingId ===listing.listingId) {
+	//			$scope.listings.splice(i, 1);
+	//			break;
+	//		}
+	//	}
+	//});
 
-	//subscribe to the new channel; this will add to the listings array on demand
-	Pusher.subscribe("listing", "new", function(listing){
-		$scope.listings.push(listing);
-	});
+	////subscribe to the new channel; this will add to the listings array on demand
+	//Pusher.subscribe("listing", "new", function(listing){
+	//	$scope.listings.push(listing);
+	//});
 
-	//subscribe to the update channel; this will update the listings array on demand
-	Pusher.subscribe("listing", "update", function(listing){
-		for(var i = 0; i < $scope.listings.length; i++) {
-			if($scope.listings[i].listingId === listing.listingId) {
-				$scope.listings[i] = listing;
-				break;
-			}
-		}
-	});
+	////subscribe to the update channel; this will update the listings array on demand
+	//Pusher.subscribe("listing", "update", function(listing){
+	//	for(var i = 0; i < $scope.listings.length; i++) {
+	//		if($scope.listings[i].listingId === listing.listingId) {
+	//			$scope.listings[i] = listing;
+	//			break;
+	//		}
+	//	}
+	//});
 
-	//when the window is closed/reloaded, gracefully close the channel
-	$scope.$on("$destroy", function() {
-		Pusher.unsubscribe("listings");
-	});
+	////when the window is closed/reloaded, gracefully close the channel
+	//$scope.$on("$destroy", function() {
+	//	Pusher.unsubscribe("listings");
+	//});
 
 	//load the array on first view
 	if($scope.listings.length === 0) {
-		$scope.linstings = $scope.getListing();
+		$scope.linstings = $scope.getListings();
 	}
 }]);
 
@@ -247,6 +250,5 @@ var ModalInstanceCtrl = function($scope,  $uibModalInstance) {
 
 	$scope.no = function() {
 		$uibModalInstance.dismiss('cancel');
-
 	};
 };
