@@ -25,14 +25,14 @@ app.service("ListingService", function($http,LISTING_ENDPOINT) {
 		return($http.get(getUrl() + "?organization=" + orgId));
 	};
 
-	//get by Listing post Time; listingPostTime
-	this.fetch = function(listingPostTime) {
-		return($http.get(getUrl() + "?listingPostTime=" + listingPostTime));
-	};
-
 	//get by Listing Parent Id; listing
 	this.fetch = function(listingParentId) {
 		return($http.get(getUrl() + "?listingParentId=" + listingParentId));
+	};
+
+	//get by Listing post Time; listingPostTime
+	this.fetch = function(listingPostTime) {
+		return($http.get(getUrl() + "?listingPostTime=" + listingPostTime));
 	};
 
 	//get by Listing Type Id;
