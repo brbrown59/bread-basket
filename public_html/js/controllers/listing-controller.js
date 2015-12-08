@@ -7,7 +7,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	$scope.listingTypes = [];//Todo is linking both correct?
 
 	/**
-	 * opens new listing modal and adds sends listing to the volunteer API
+	 * opens new listing modal and adds sends listing to the listing API
 	 */
 
 	$scope.openListingModal = function() {
@@ -57,7 +57,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	/**
 	 * sets which listing is being edited and activates the editing form
 	 *
-	 * @param newListing the listing to be edited
+	 * @param listing the listing to be edited
 	 */
 
 	$scope.setEditedListing = function(listing) {
@@ -156,4 +156,60 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		}
 	};
 
+	/**
+	 * updates a listing and sends it to the listing API
+	 *
+	 * @param listing the listing to send
+	 * @param validated true is angular validated the form, false if not
+	 */
+	$scope.updateListing = function(listing, validated) {
+		if(validated === true) {
+			ListingService.update(listing.listingId, listing)
+					.then(function(result) {
+						if(result.data.status === 200) {
+							$scope.alerts[0] = {type: "success", msg: result.data.message};
+						} else {
+							$scope.alerts[0] = {type: "danger", msg: result.data.message};
+						}
+					});
+		}
+	};
+
+	/**
+	 * deletes a listing and sends it to the listing API if the user confirms delection
+	 *
+	 * @param listingId the listing id of the listing to be deleted
+	 */
+	$scope.deleteListing = function(listingId) {
+		//create a modal instance to prompt the user if she/he is sure they want to delete the listing
+		var message = "Are you sure you want to delete this listing?";
+
+		var modalHtml = '<div class="modal-body">' + message + '</div><div class="modal-footer"><button class="btn btn-primary" ng-click="yes()">Yes</button><button class="btn btn-warning" ng-click="no()">No</button></div>';
+
+		var modalInstance = $uibModad.open({
+			template: modalHtml,
+			controller: ModalInstanceCtrl
+		});
+
+		//if the user clicked yes, delete the listing
+		modalInstance.result.then(function() {
+			ListingService.destroy(listingId)
+					.then(function(result) {
+						if(result.data.status === 200) {
+							$scope.alerts[0] = {type: "success", msg: result.data.message};
+						} else {
+							$scope.alerts[0] = {type: "danger", msg: result.data.message};
+						}
+					})
+		});
+	};
+
+
 }]);
+
+//embedded modal instance controller to create deletion prompt
+var ModalInstanceCtrl = function($scope,  $uibModalInstance) {
+	$scope.yes = function() {
+		$uibModalInstance.dismiss('cancel');
+	};
+};
