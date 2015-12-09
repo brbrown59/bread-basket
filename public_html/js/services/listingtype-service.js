@@ -5,11 +5,11 @@
  * contributing code from Misquote @author Dylan McDonald
  */
 
-app.constant("LISTINGTYPE_ENDPOINT", "php/api/listingtype.php");
+app.constant("LISTINGTYPE_ENDPOINT", "../../php/api/listingtype.php");
 app.service("ListingService", function($http, LISTING_ENDPOINT) {
 	//internal function for holding the url
-	function getUrlForId(listingTypeId) {
-		return (getUrl() + listingTypeId);
+	function getUrl() {
+		return (LISTING_ENDPOINT);
 	}
 
 	//getAllListingTypes	//getting all
