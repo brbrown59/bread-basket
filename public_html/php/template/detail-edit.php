@@ -1,5 +1,4 @@
 <!-- HTML/PAGE CONTENT GOES HERE -->
-<!--main content-->
 
 <!--this container houses the h1 tag/headline and the back to listing button-->
 <div class="container">
@@ -58,8 +57,8 @@
 
 				<p>MEMO TEXT Offal ethical tacos, iPhone migas neutra vice yr freegan green juice williamsburg bicycle
 					rights cardigan pork belly.
-					Retro poutine irony chartreuse craft beer you probably haven't heard of them. Polaroid vice chicharrones,
-					whatever tacos PBR&B
+					Retro poutine irony chartreuse craft beer you probably haven't heard of them. Polaroid vice
+					chicharrones, whatever tacos PBR&B
 					umami single-origin coffee gluten-free mixtape portland. Readymade vegan pop-up, pug scenester hammock
 					8-bit flexitarian master cleanse.
 				</p>
