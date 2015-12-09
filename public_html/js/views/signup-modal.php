@@ -203,31 +203,31 @@
 			</div>
 		</div>
 		<!--hours-->
-		<div class="form-group" ng-class="{ 'has error' : signupData.hours.$touched && signupData.hours.$invalid }">
-			<label class="control-label" for="hours">Hours</label>
+		<div class="form-group" ng-class="{ 'has error' : signupData.orgHours.$touched && signupData.orgHours.$invalid }">
+			<label class="control-label" for="orgHours">Hours</label>
 
 			<div class="input-group">
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
 				</div>
-				<input type="text" class="form-control" id="hours" name="hours" placeholder="Hours"
-						 ng-model="signupData.hours" ng-required="true"/>
+				<input type="text" class="form-control" id="orgHours" name="orgHours" placeholder="Hours"
+						 ng-model="signupData.orgHours" ng-required="true"/>
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signupData.hours.$error"
-				  ng-if="signupData.hours.$touched" ng-hide="signupData.hours.$valid">
+			<div class="alert alert-danger" role="alert" ng-messages="signupData.orgHours.$error"
+				  ng-if="signupData.orgHours.$touched" ng-hide="signupData.orgHours.$valid">
 				<p ng-message="required">Please enter your hours</p>
 			</div>
 		</div>
 		<!--description-->
-		<div class="form-group" ng-class="{ 'has error' : signupData.hours.$touched && signupData.hours.$invalid }">
-			<label class="control-label" for="description">Description</label>
+		<div class="form-group" ng-class="{ 'has error' : signupData.orgDescription.$touched && signupData.orgDescription.$invalid }">
+			<label class="control-label" for="orgDescription">Description</label>
 
 			<div class="input-group">
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 				</div>
-				<textarea class="form-control" rows="3" id="description" name="description"
-							 placeholder="Description (Optional)" ng-model="signupData.description"
+				<textarea class="form-control" rows="3" id="orgDescription" name="orgDescription"
+							 placeholder="Description (Optional)" ng-model="signupData.orgDescription"
 							 ng-required="false"></textarea>
 			</div>
 		</div>
