@@ -1,7 +1,6 @@
 app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService", "AlertService", function($scope, $uibModal, VolunteerService, AlertService) {
 	$scope.editedVolunteer = {};
 	$scope.newVolunteer = {misquoteId: null, volFirstName: "", volLastName: "", volEmail: "", volPhone: ""};
-	$scope.isEditing = false;
 	$scope.alerts = [];
 	$scope.volunteers = [];
 
@@ -9,7 +8,7 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 	 * opens new volutneer modal and adds sends volunteer to the volunteer API
 	 */
 
-	$scope.openVolunteerModal = function () {
+	$scope.openVolunteerModal = function() {
 		var VolunteerModalInstance = $uibModal.open({
 			templateUrl: "../../js/views/newvolunteer-modal.php",
 			controller: "VolunteerModal",
@@ -22,43 +21,44 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 		VolunteerModalInstance.result.then(function(volunteer) {
 			$scope.volunteer = volunteer;
 			VolunteerService.create(volunteer)
-					.then(function(reply) {
-						if(reply.data.status === 200) {
-							AlertService.addAlert({type: "success", msg: reply.data.message});
-						} else {
-							AlertService.addAlert({type: "danger", msg: reply.data.message});
-						}
-					});
+				.then(function(reply) {
+					if(reply.data.status === 200) {
+						AlertService.addAlert({type: "success", msg: reply.data.message});
+					} else {
+						AlertService.addAlert({type: "danger", msg: reply.data.message});
+					}
+				});
 		}, function() {
 			$scope.volunteer = {};
 		});
 	};
 
 
-
 	/**
 	 * opens edit volunteer modal and sends updated volunteer to the volunteer API
 	 */
 
-	$scope.openEditVolunteerModal = function () {
+	$scope.openEditVolunteerModal = function() {
 		var EditVolunteerModalInstance = $uibModal.open({
 			templateUrl: "../../js/views/editvolunteer-modal.php",
 			controller: "EditVolunteerModal",
 			resolve: {
-				volunteer: function() {
-					return ($scope.volunteer);
+				editedVolunteer: function() {
+					//console.log($scope.editedVolunteer);
+					return ($scope.editedVolunteer);
 				}
 			}
 		});
 		EditVolunteerModalInstance.result.then(function(volunteer) {
+			console.log(volunteer);
 			VolunteerService.update(volunteer.volId, volunteer)
-					.then(function(reply) {
-						if(reply.data.status === 200) {
-							AlertService.addAlert({type: "success", msg: reply.data.message});
-						} else {
-							AlertService.addAlert({type: "danger", msg: reply.data.message});
-						}
-					});
+				.then(function(reply) {
+					if(reply.data.status === 200) {
+						AlertService.addAlert({type: "success", msg: reply.data.message});
+					} else {
+						AlertService.addAlert({type: "danger", msg: reply.data.message});
+					}
+				});
 		}, function() {
 			$scope.volunteer = {};
 		});
@@ -66,7 +66,7 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 
 	$scope.setEditedVolunteer = function(volunteer) {
 		$scope.editedVolunteer = angular.copy(volunteer);
-		$scope.isEditing = true;
+		//console.log($scope.editedVolunteer);
 		$scope.openEditVolunteerModal();
 	};
 
@@ -76,13 +76,13 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 	 */
 	$scope.getVolunteers = function() {
 		VolunteerService.all()
-				.then(function(result) {
-					if(result.data.status === 200) {
-						$scope.volunteers = result.data.data;
-					} else {
-						$scope.alerts[0] = {type: "danger", msg: result.data.message};
-					}
-				});
+			.then(function(result) {
+				if(result.data.status === 200) {
+					$scope.volunteers = result.data.data;
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+				}
+			});
 	};
 
 	// load the array on first view
@@ -95,13 +95,13 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 	 */
 	$scope.getVolunteersById = function() {
 		VolunteerService.fetchId()
-				.then(function(result) {
-					if(result.data.status === 200) {
-						$scope.volunteers = result.data.data;
-					} else {
-						$scope.alerts[0] = {type: "danger", msg: result.data.message};
-					}
-				});
+			.then(function(result) {
+				if(result.data.status === 200) {
+					$scope.volunteers = result.data.data;
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+				}
+			});
 	};
 
 	/**
@@ -109,13 +109,13 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 	 */
 	$scope.getVolunteersByEmail = function() {
 		VolunteerService.fetchEmail()
-				.then(function(result) {
-					if(result.data.status === 200) {
-						$scope.volunteers = result.data.data;
-					} else {
-						$scope.alerts[0] = {type: "danger", msg: result.data.message};
-					}
-				});
+			.then(function(result) {
+				if(result.data.status === 200) {
+					$scope.volunteers = result.data.data;
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+				}
+			});
 	};
 
 	/**
@@ -123,13 +123,13 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 	 */
 	$scope.getVolunteersByIsAdmin = function() {
 		VolunteerService.fetchAdmin()
-				.then(function(result) {
-					if(result.data.status === 200) {
-						$scope.volunteers = result.data.data;
-					} else {
-						$scope.alerts[0] = {type: "danger", msg: result.data.message};
-					}
-				});
+			.then(function(result) {
+				if(result.data.status === 200) {
+					$scope.volunteers = result.data.data;
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+				}
+			});
 	};
 
 	/**
@@ -137,13 +137,13 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 	 */
 	$scope.getVolunteersByPhone = function() {
 		VolunteerService.fetchPhone()
-				.then(function(result) {
-					if(result.data.status === 200) {
-						$scope.volunteers = result.data.data;
-					} else {
-						$scope.alerts[0] = {type: "danger", msg: result.data.message};
-					}
-				});
+			.then(function(result) {
+				if(result.data.status === 200) {
+					$scope.volunteers = result.data.data;
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+				}
+			});
 	};
 
 
@@ -164,15 +164,15 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 		});
 
 		//if the user clicked yes, delete the volunteer
-		modalInstance.result.then(function () {
+		modalInstance.result.then(function() {
 			VolunteerService.destroy(volId)
-					.then(function(result) {
-						if(result.data.status === 200) {
-							$scope.alerts[0] = {type: "success", msg: result.data.message};
-						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.data.message};
-						}
-					})
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.alerts[0] = {type: "success", msg: result.data.message};
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				})
 		});
 	};
 
