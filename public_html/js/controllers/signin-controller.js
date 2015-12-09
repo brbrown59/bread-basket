@@ -2,7 +2,7 @@ app.controller("SigninController", ["$scope", "$uibModal", "$window", "AlertServ
 	$scope.signinData = {};
 
 	$scope.openSigninModal = function () {
-		var signupModalInstance = $uibModal.open({
+		var signinModalInstance = $uibModal.open({
 			templateUrl: "../../js/views/signin-modal.php",
 			controller: "SigninModal",
 			resolve: {
@@ -11,7 +11,7 @@ app.controller("SigninController", ["$scope", "$uibModal", "$window", "AlertServ
 				}
 			}
 		});
-		signupModalInstance.result.then(function (signinData) {
+		signinModalInstance.result.then(function (signinData) {
 			$scope.signinData = signinData;
 			SigninService.signin(signinData)
 					.then(function(reply) {

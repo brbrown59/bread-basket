@@ -128,6 +128,7 @@ EOF;
 } catch(Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
+	$reply->message = $exception->getTrace();
 }
 
 header("Content-type: application/json");

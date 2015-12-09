@@ -6,14 +6,15 @@
  */
 
 //"signupService refers to what's in the signup-controller.
-// Todo add Sign up Service to js Signup Controller TODO is this the correct endpoint?
-app.service("SignupService", function($http){
+app.service("SignupService", function($http) {
 	this.SIGNUP_ENDPOINT = "../../php/controllers/sign-up-controller.php";//this is the php sign-up-controller
 
 	this.signup = function(signupData) { //signupData from the signup-controller and signup-modal
-		return($http.post(this.SIGNUP_ENDPOINT, signupData)
+		console.log("I am Arlo!")
+		return ($http.post(this.SIGNUP_ENDPOINT, signupData)
 			.then(function(reply) {
-				return(reply.data);
+				console.log("I am a Dylan!")
+				return (reply.data);
 			}));
 	};
 });
