@@ -38,8 +38,8 @@ require_once("header.php");
 				<div class="container">
 					<!--CREATE Volunteer form-->
 					<div class="row">
-						<div class="col-md-12">
-							<form name="volunteerForm" id="volunteerForm" class="form-horizontal well" ng-submit="createVolunteer(volunteer, volunteerForm.$valid);" ng-show="isCreating" novalidate>
+						<div class="col-md-12" ng-show="isCreating">
+							<form name="volunteerForm" id="volunteerForm" class="form-horizontal well" ng-submit="createVolunteer(volunteer, volunteerForm.$valid);"  ng-hide="isEditing" novalidate>
 								<h2>Create Volunteer</h2>
 								<hr />
 								<div class="form-group" ng-class="{ 'has-error': volunteerForm.volunteer.$touched && volunteerForm.volunteer.$invalid }">
@@ -100,7 +100,8 @@ require_once("header.php");
 									</div>
 									<br />
 									<button type="submit" class="btn btn-info btn-lg" ng-disabled="volunteerForm.$invalid"><i class="fa fa-share"></i> Volunteer</button>
-									<button type="reset" class="btn btn-warning btn-lg" ng-click="cancelEditing();"><i class="fa fa-ban"></i> Cancel</button>
+									<button type="reset" class="btn btn-warning btn-lg" ng-click="cancelCreating();"><i class="fa fa-ban"></i> Cancel</button>
+								</div>
 							</form>
 						</div>
 					</div>
@@ -172,18 +173,18 @@ require_once("header.php");
 									<br />
 								<button type="submit" class="btn btn-info btn-lg" ng-disabled="editVolunteerForm.$invalid"><i class="fa fa-share"></i> Volunteer</button>
 								<button type="reset" class="btn btn-warning btn-lg" ng-click="cancelEditing();"><i class="fa fa-ban"></i> Cancel</button>
-							</form>
 							</div>
+							</form>
 						</div>
-						</div>
+					</div>
 					</div>
 
 
 
 
 
-
 					<!--Volunteer Table-->
+				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
 							<uib-alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="alerts.length = 0;">{{ alert.msg }}</uib-alert>
