@@ -15,6 +15,7 @@ app.controller("SignupController", ["$scope", "$uibModal", "$window", "AlertServ
 		signupModalInstance.result.then(function (signupData) {
 			console.log("I am a teapot")
 			$scope.signupData = signupData;
+			console.log("I am offended by your teapot, sir!")
 			SignupService.signup(signupData)
 					.then(function(reply) {
 						console.log("I am a fluffy kitty!")

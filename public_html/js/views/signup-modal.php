@@ -76,7 +76,7 @@
 				<div class="input-group-addon">
 					<i class="fa fa-key" aria-hidden="true"></i>
 				</div>
-				<input type="text" class="form-control" id="password" name="password" placeholder="Password&hellip;"
+				<input type="password" class="form-control" id="password" name="password" placeholder="Password&hellip;"
 						 ng-model="signupData.password" ng-minlength="8" ng-required="true"/>
 			</div>
 			<div class="alert alert-danger" role="alert" ng-messages="signupData.password.$error"
@@ -94,7 +94,7 @@
 				<div class="input-group-addon">
 					<i class="fa fa-key" aria-hidden="true"></i>
 				</div>
-				<input type="text" class="form-control" id="password_confirmation" name="password_confirmation"
+				<input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
 						 placeholder="Confirm Password&hellip;" match-password="password"
 						 ng-model="signupData.password_confirmation" ng-minlength="8" ng-required="true"/>
 			</div>
@@ -231,6 +231,16 @@
 							 ng-required="false"></textarea>
 			</div>
 		</div>
+		<!--type-->
+			<div class="form-group" ng-class="{ 'has-error': signupData.orgType.$touched && signupData.orgType.$invalid }">
+				<label class="control-label" for="orgType">Organization Type</label>
+
+				<div class="input-group">
+					<select class="form-control" id="orgType" name="orgType" ng-model="signupData.orgType" ng-required="true">
+						<option>G</option>
+					</select>
+				</div>
+			</div>
 		<hr/>
 		<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="signupData.$invalid"><i
 				class="fa fa-check" aria-hidden="true"></i>Submit
