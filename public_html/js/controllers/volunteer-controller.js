@@ -2,10 +2,8 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 	$scope.editedVolunteer = {};
 	$scope.newVolunteer = {misquoteId: null, volFirstName: "", volLastName: "", volEmail: "", volPhone: ""};
 	$scope.isEditing = false;
-	$scope.isCreating = false;
 	$scope.alerts = [];
 	$scope.volunteers = [];
-
 
 	/**
 	 * opens new volutneer modal and adds sends volunteer to the volunteer API
@@ -37,99 +35,41 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 	};
 
 
-	/**
-	 * sets the which misquote is being edited and activates the editing form
-	 *
-	 * @param misquote the misquote to load into the editing form
-	 **/
-	$scope.setNewVolunteer = function() {
-		$scope.isCreating = true;
-	};
 
 	/**
-	 * cancels editing and clears out the misquote being edited
-	 **/
-	$scope.cancelCreating = function() {
-		$scope.newVolunteer = {};
-		$scope.isCreating = false;
+	 * opens edit volunteer modal and sends updated volunteer to the volunteer API
+	 */
+
+	$scope.openEditVolunteerModal = function () {
+		var EditVolunteerModalInstance = $uibModal.open({
+			templateUrl: "../../js/views/editvolunteer-modal.php",
+			controller: "EditVolunteerModal",
+			resolve: {
+				volunteer: function() {
+					return ($scope.volunteer);
+				}
+			}
+		});
+		EditVolunteerModalInstance.result.then(function(volunteer) {
+			VolunteerService.update(volunteer.volId, volunteer)
+					.then(function(reply) {
+						if(reply.data.status === 200) {
+							AlertService.addAlert({type: "success", msg: reply.data.message});
+						} else {
+							AlertService.addAlert({type: "danger", msg: reply.data.message});
+						}
+					});
+		}, function() {
+			$scope.volunteer = {};
+		});
 	};
-	/**
-	 * sets the which misquote is being edited and activates the editing form
-	 *
-	 * @param misquote the misquote to load into the editing form
-	 **/
+
 	$scope.setEditedVolunteer = function(volunteer) {
 		$scope.editedVolunteer = angular.copy(volunteer);
 		$scope.isEditing = true;
+		$scope.openEditVolunteerModal();
 	};
 
-	/**
-	 * cancels editing and clears out the misquote being edited
-	 **/
-	$scope.cancelEditing = function() {
-		$scope.editedVolunteer = {};
-		$scope.isEditing = false;
-	};
-
-	/**
-	 * updates a misquote and sends it to the misquote API
-	 *
-	 * @param misquote the misquote to send
-	 * @param validated true if Angular validated the form, false if not
-	 **/
-	$scope.updateVolunteer = function(volunteer, validated) {
-		if(validated === true && $scope.isEditing === true) {
-			VolunteerService.update(volunteer.volId, volunteer)
-					.then(function(result) {
-						if(result.data.status === 200) {
-							$scope.alerts[0] = {type: "success", msg: result.data.message};
-						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.data.message};
-						}
-					});
-		}
-	};
-
-
-
-	///**
-	// * sets which volunteer is being edited and activates the editing form
-	// *
-	// * @param volunteer the volunteer to be edited
-	// */
-	//$scope.setEditedVolunteer = function(volunteer) {
-	//	$scope.editedVolunteer = angular.copy(volunteer);
-	//	$scope.isEditing = true;
-	//};
-	//
-	///**
-	// * cancels editing doesn't change volunteer being edited
-	// */
-	//$scope.cancelEditing = function() {
-	//	$scope.editedVolunteer = {};
-	//	$scope.isEditing = false;
-	//};
-	//
-	///**
-	// * updates a volunteer and sends it to the volunteer API
-	// *
-	// * @param volunteer the volunteer to send
-	// * @param validated true if angular validated the form, false if not
-	// */
-	//$scope.updateVolunteer = function(volunteer, validated) {
-	//	if(validated === true && $scope.isEditing === true) {
-	//		VolunteerService.update(volunteer.volId, volunteer)
-	//				.then(function(result) {
-	//					if(result.data.status === 200) {
-	//						$scope.alerts[0] = {type: "success", msg: result.data.message};
-	//					} else {
-	//						$scope.alerts[0] = {type: "danger", msg: result.data.message};
-	//					}
-	//				});
-	//
-	//
-	//	}
-	//};
 
 	/**
 	 * fufills the promise from retrieving all the volunteers from the volunteer API

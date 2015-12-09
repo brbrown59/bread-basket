@@ -94,7 +94,7 @@ try {
 			//make sure all fields are present, in order to prevent database issues
 
 			if(empty($requestObject->volEmail) === true) {
-				throw(new InvalidArgumentException ("email cannot be empty", 405));
+				throw(new InvalidArgumentException ("email cannot be empty", 418));
 			}
 			if(empty($requestObject->volFirstName) === true) {
 				throw(new InvalidArgumentException ("first name cannot be empty", 405));

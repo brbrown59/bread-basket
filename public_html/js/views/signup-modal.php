@@ -28,7 +28,7 @@
 				<input type="text" class="form-control" id="volLastName" name="volLastName" placeholder="Last Name"
 						 ng-model="signupData.volLastName" ng-required="true"/>
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signupData.lastName.$error"
+			<div class="alert alert-danger" role="alert" ng-messages="signupData.volLastName.$error"
 				  ng-if="signupData.volLastName.$touched" ng-hide="signupData.volLastName.$valid">
 				<p ng-message="required">Please enter your last name</p>
 			</div>
@@ -53,7 +53,7 @@
 			</div>
 		</div>
 		<!--phone number-->
-		<div class="form-group" ng-class="{ 'has-error': signupData.phone.$touched && signupData.phone.$invalid }">
+		<div class="form-group" ng-class="{ 'has-error': signupData.volPhone.$touched && signupData.volPhone.$invalid }">
 			<label class="control-label" for="phone">Phone</label>
 
 			<div class="input-group">
@@ -61,7 +61,7 @@
 					<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
 				</div>
 				<input type="text" class="form-control" id="phone" name="phone" placeholder="Phone"
-						 ng-model="signupData.phone" ng-required="true"/>
+						 ng-model="signupData.volPhone" ng-required="true"/>
 			</div>
 			<div class="alert alert-danger" role="alert" ng-messages="signupData.volPhone.$error"
 				  ng-if="signupData.volPhone.$touched" ng-hide="signupData.volPhone.$valid">
@@ -76,30 +76,30 @@
 				<div class="input-group-addon">
 					<i class="fa fa-key" aria-hidden="true"></i>
 				</div>
-				<input type="password" class="form-control" id="password" name="password" placeholder="Password&hellip;"
-						 ng-model="signupData.password" ng-minlength="8" ng-required="true"/>
+				<input type="password" class="form-control" id="volPassword" name="volPassword" placeholder="Password&hellip;"
+						 ng-model="signupData.volPassword" ng-minlength="8" ng-required="true"/>
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signupData.password.$error"
-				  ng-if="signupData.password.$touched" ng-hide="signupData.password.$valid">
+			<div class="alert alert-danger" role="alert" ng-messages="signupData.volPassword.$error"
+				  ng-if="signupData.volPassword.$touched" ng-hide="signupData.volPassword.$valid">
 				<p ng-message="minlength">Password must be at least 8 characters.</p>
 
 				<p ng-message="required">Please enter your password.</p>
 			</div>
 		</div>
 		<div class="form-group"
-			  ng-class="{ 'has-error': signupData.password_confirmation.$touched && signupData.password_confirmation.$invalid }">
+			  ng-class="{ 'has-error': signupData.volPassword_confirmation.$touched && signupData.volPassword_confirmation.$invalid }">
 			<label class="control-label">Confirm Password</label>
 
 			<div class="input-group">
 				<div class="input-group-addon">
 					<i class="fa fa-key" aria-hidden="true"></i>
 				</div>
-				<input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
-						 placeholder="Confirm Password&hellip;" match-password="password"
-						 ng-model="signupData.password_confirmation" ng-minlength="8" ng-required="true"/>
+				<input type="password" class="form-control" id="volPassword_confirmation" name="volPassword_confirmation"
+						 placeholder="Confirm Password&hellip;" match-password="volPassword"
+						 ng-model="signupData.volPassword_confirmation" ng-minlength="8" ng-required="true"/>
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signupData.password_confirmation.$error"
-				  ng-if="signupData.password_confirmation.$touched" ng-hide="signupData.password_confirmation.$valid">
+			<div class="alert alert-danger" role="alert" ng-messages="signupData.volPassword_confirmation.$error"
+				  ng-if="signupData.volPassword_confirmation.$touched" ng-hide="signupData.volPassword_confirmation.$valid">
 				<p ng-message="minlength">Password must be at least 8 characters.</p>
 
 				<p ng-message="passwordMatch">Passwords do not match.</p>
@@ -126,61 +126,61 @@
 			</div>
 		</div>
 		<!--org address 1-->
-		<div class="form-group" ng-class="{ 'has-error': signupData.address1.$touched && signupData.address1.$invalid }">
-			<label class="control-label" for="address1">Organization Address</label>
+		<div class="form-group" ng-class="{ 'has-error': signupData.orgAddress1.$touched && signupData.orgAddress1.$invalid }">
+			<label class="control-label" for="orgAddress1">Organization Address</label>
 
 			<div class="input-group">
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 				</div>
-				<input type="text" class="form-control" id="address1" name="address1" placeholder="Address 1"
-						 ng-model="signupData.address1" ng-required="true"/>
+				<input type="text" class="form-control" id="address1" name="orgAddress1" placeholder="Address 1"
+						 ng-model="signupData.orgAddress1" ng-required="true"/>
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signupData.address1.$error"
-				  ng-if="signupData.address1.$touched" ng-hide="signupData.address1.$valid">
+			<div class="alert alert-danger" role="alert" ng-messages="signupData.orgAddress1.$error"
+				  ng-if="signupData.orgAddress1.$touched" ng-hide="signupData.orgAddress1.$valid">
 				<p ng-message="required">Please enter your address.</p>
 			</div>
 		</div>
 		<!--org address 2-->
-		<div class="form-group" ng-class="{ 'has-error': signupData.address2.$touched && signupData.address2.$invalid }">
-			<label class="control-label sr-only" for="address2">Address 2</label>
+		<div class="form-group" ng-class="{ 'has-error': signupData.orgAddress2.$touched && signupData.orgAddress2.$invalid }">
+			<label class="control-label sr-only" for="orgAddress2">Address 2</label>
 
 			<div class="input-group">
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-none" aria-hidden="true"></span>
 				</div>
-				<input type="text" class="form-control" id="address2" name="address2" placeholder="Address 2"
-						 ng-model="signupData.address2" ng-required="false"/>
+				<input type="text" class="form-control" id="orgAddress2" name="orgAddress2" placeholder="Address 2"
+						 ng-model="signupData.orgAddress2" ng-required="false"/>
 			</div>
 		</div>
 		<!--city-->
 		<div class="form-inline">
-			<div class="form-group" ng-class="{ 'has-error': signupData.city.$touched && signupData.city.$invalid }">
-				<label class="control-label" for="city">City</label>
+			<div class="form-group" ng-class="{ 'has-error': signupData.orgCity.$touched && signupData.orgCity.$invalid }">
+				<label class="control-label" for="orgCity">City</label>
 
 				<div class="input-group">
-					<select class="form-control" id="city" name="city" ng-model="signupData.city" ng-required="true">
+					<select class="form-control" id="orgCity" name="orgCity" ng-model="signupData.orgCity" ng-required="true">
 						<option>Albuquerque</option>
 					</select>
 				</div>
 			</div>
 			<!--state-->
-			<div class="form-group" ng-class="{ 'has-error': signupData.state.$touched && signupData.state.$invalid }">
+			<div class="form-group" ng-class="{ 'has-error': signupData.orgState.$touched && signupData.orgState.$invalid }">
 				<label class="control-label" for="state">State</label>
 
 				<div class="input-group">
-					<select class="form-control" id="state" name="state" ng-model="signupData.state" ng-required="true">
+					<select class="form-control" id="orgState" name="orgState" ng-model="signupData.orgState" ng-required="true">
 						<option>NM</option>
 					</select>
 				</div>
 			</div>
 			<!--zip-->
-			<div class="form-group" ng-class="{ 'has-error': signupData.zip.$touched && signupData.zip.$invalid }">
-				<label class="control-label" for="zip">Zip</label>
+			<div class="form-group" ng-class="{ 'has-error': signupData.orgZip.$touched && signupData.orgZip.$invalid }">
+				<label class="control-label" for="orgZip">Zip</label>
 
 				<div class="input-group">
 
-					<input type="text" class="form-control" id="zip" name="zip" placeholder="Zip " ng-model="signupData.zip"
+					<input type="text" class="form-control" id="orgZip" name="orgZip" placeholder="Zip " ng-model="signupData.orgZip"
 							 ng-required="true"/>
 				</div>
 			</div>
