@@ -49,7 +49,7 @@ try {
 	$volEmailActivation = bin2hex(openssl_random_pseudo_bytes(8));
 
 	// create the hash
-	$volHash = hash_pbkdf2("sha512", $requestObject->volPassword, $volSalt, 262144, 128);
+	$volHash = hash_pbkdf2("sha512", $requestObject->password, $volSalt, 262144, 128);
 
 	//create a new organization and insert into mySQL
 	$organization = new Organization(null, $requestObject->orgAddress1, $requestObject->orgAddress2, $requestObject->orgCity, $requestObject->orgDescription, $requestObject->orgHours, $requestObject->orgName, $requestObject->orgPhone, $requestObject->orgState, $requestObject->orgType, $requestObject->orgZip);

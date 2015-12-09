@@ -11,9 +11,11 @@ app.service("SignupService", function($http) {
 
 	this.signup = function(signupData) { //signupData from the signup-controller and signup-modal
 		console.log("I am Arlo!")
+		console.log(signupData)
 		return ($http.post(this.SIGNUP_ENDPOINT, signupData)
 			.then(function(reply) {
 				console.log("I am a Dylan!")
+				console.log(reply.data)
 				return (reply.data);
 			}));
 	};

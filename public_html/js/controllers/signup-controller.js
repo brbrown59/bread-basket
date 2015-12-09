@@ -16,7 +16,6 @@ app.controller("SignupController", ["$scope", "$uibModal", "$window", "AlertServ
 			console.log("I am a teapot")
 			$scope.signupData = signupData;
 			SignupService.signup(signupData)
-			console.log("I am a kitty!")
 					.then(function(reply) {
 						console.log("I am a fluffy kitty!")
 						if(reply.status === 200) {

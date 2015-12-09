@@ -4,434 +4,44 @@
 </head>
 <body>
 
-	Failures:
-
-	1) Frisby Test: get all volunteers
-	[ GET https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/ ]
-	Message:
-	Error: Error parsing JSON string: Unexpected token <
-	Given:
 	<br />
 	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgAddress1 in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>616</i></th></tr>
+			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined property: stdClass::$volPassword in /home/kkeller13/public_html/bread-basket/public_html/php/controllers/sign-up-controller.php on line <i>52</i></th></tr>
 			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
 			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
+			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>249240</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/controllers/sign-up-controller.php' bgcolor='#eeeeec'>.../sign-up-controller.php<b>:</b>0</td></tr>
 		</table></font>
 	<br />
 	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgAddress2 in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>616</i></th></tr>
+			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined property: stdClass::$orgAddress2 in /home/kkeller13/public_html/bread-basket/public_html/php/controllers/sign-up-controller.php on line <i>55</i></th></tr>
 			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
 			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
+			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>249240</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/controllers/sign-up-controller.php' bgcolor='#eeeeec'>.../sign-up-controller.php<b>:</b>0</td></tr>
 		</table></font>
 	<br />
 	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgCity in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>616</i></th></tr>
+			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined property: stdClass::$orgDescription in /home/kkeller13/public_html/bread-basket/public_html/php/controllers/sign-up-controller.php on line <i>55</i></th></tr>
 			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
 			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
+			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>249240</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/controllers/sign-up-controller.php' bgcolor='#eeeeec'>.../sign-up-controller.php<b>:</b>0</td></tr>
 		</table></font>
 	<br />
 	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgDescription in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
+			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined property: stdClass::$orgType in /home/kkeller13/public_html/bread-basket/public_html/php/controllers/sign-up-controller.php on line <i>55</i></th></tr>
 			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
 			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-		</table></font>
-	<br />
-	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgHours in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
-			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-		</table></font>
-	<br />
-	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgName in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
-			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-		</table></font>
-	<br />
-	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgPhone in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
-			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-		</table></font>
-	<br />
-	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgState in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
-			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-		</table></font>
-	<br />
-	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgType in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>618</i></th></tr>
-			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-		</table></font>
-	<br />
-	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgZip in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>618</i></th></tr>
-			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
+			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>249240</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/controllers/sign-up-controller.php' bgcolor='#eeeeec'>.../sign-up-controller.php<b>:</b>0</td></tr>
 		</table></font>
 	<br />
 	<font size='1'><table class='xdebug-error xe-warning' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Warning: Cannot modify header information - headers already sent by (output started at /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php:616) in /home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php on line <i>169</i></th></tr>
+			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Warning: Cannot modify header information - headers already sent by (output started at /home/kkeller13/public_html/bread-basket/public_html/php/controllers/sign-up-controller.php:55) in /home/kkeller13/public_html/bread-basket/public_html/php/controllers/sign-up-controller.php on line <i>134</i></th></tr>
 			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
 			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0034</td><td bgcolor='#eeeeec' align='right'>347496</td><td bgcolor='#eeeeec'><a href='http://www.php.net/function.header' target='_new'>header</a>
-					(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>169</td></tr>
+			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>249240</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/controllers/sign-up-controller.php' bgcolor='#eeeeec'>.../sign-up-controller.php<b>:</b>0</td></tr>
+			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.8555</td><td bgcolor='#eeeeec' align='right'>364336</td><td bgcolor='#eeeeec'><a href='http://www.php.net/function.header' target='_new'>header</a>
+					(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/controllers/sign-up-controller.php' bgcolor='#eeeeec'>.../sign-up-controller.php<b>:</b>134</td></tr>
 		</table></font>
-	{"status":0,"message":"address (first line) is empty or insecure"}
-	Stacktrace:
-	Error: Error parsing JSON string: Unexpected token <
-	Given:
-	<br />
-	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgAddress1 in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>616</i></th></tr>
-			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-		</table></font>
-	<br />
-	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgAddress2 in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>616</i></th></tr>
-			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-		</table></font>
-	<br />
-	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgCity in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>616</i></th></tr>
-			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-		</table></font>
-	<br />
-	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgDescription in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
-			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-		</table></font>
-	<br />
-	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgHours in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
-			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-		</table></font>
-	<br />
-	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgName in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
-			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-		</table></font>
-	<br />
-	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgPhone in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
-			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-		</table></font>
-	<br />
-	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgState in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
-			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-		</table></font>
-	<br />
-	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgType in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>618</i></th></tr>
-			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-		</table></font>
-	<br />
-	<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgZip in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>618</i></th></tr>
-			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-		</table></font>
-	<br />
-	<font size='1'><table class='xdebug-error xe-warning' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Warning: Cannot modify header information - headers already sent by (output started at /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php:616) in /home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php on line <i>169</i></th></tr>
-			<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-			<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-			<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0034</td><td bgcolor='#eeeeec' align='right'>347496</td><td bgcolor='#eeeeec'><a href='http://www.php.net/function.header' target='_new'>header</a>
-					(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>169</td></tr>
-		</table></font>
-	{"status":0,"message":"address (first line) is empty or insecure"}
-	at _jsonParse (/Users/khaleesi/Desktop/bootcamp/git/bread-basket/test/api-test/node_modules/frisby/lib/frisby.js:1219:11)
-	at null.<anonymous> (/Users/khaleesi/Desktop/bootcamp/git/bread-basket/test/api-test/node_modules/frisby/lib/frisby.js:650:20)
-		at null.<anonymous> (/Users/khaleesi/Desktop/bootcamp/git/bread-basket/test/api-test/node_modules/frisby/lib/frisby.js:1074:43)
-			at Timer.listOnTimeout (timers.js:92:15)
-
-			2) Frisby Test: get all volunteers
-			[ GET https://bootcamp-coders.cnm.edu/~kkeller13/bread-basket/public_html/php/api/volunteer/ ]
-			Message:
-			Error: Error parsing JSON string: Unexpected token <
-			Given:
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgAddress1 in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>616</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgAddress2 in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>616</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgCity in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>616</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgDescription in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgHours in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgName in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgPhone in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgState in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgType in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>618</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgZip in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>618</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-warning' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Warning: Cannot modify header information - headers already sent by (output started at /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php:616) in /home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php on line <i>169</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0034</td><td bgcolor='#eeeeec' align='right'>347496</td><td bgcolor='#eeeeec'><a href='http://www.php.net/function.header' target='_new'>header</a>
-							(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>169</td></tr>
-				</table></font>
-			{"status":0,"message":"address (first line) is empty or insecure"}
-			Stacktrace:
-			Error: Error parsing JSON string: Unexpected token <
-			Given:
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgAddress1 in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>616</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgAddress2 in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>616</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgCity in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>616</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgDescription in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgHours in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgName in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgPhone in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgState in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>617</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgType in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>618</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: orgZip in /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php on line <i>618</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0010</td><td bgcolor='#eeeeec' align='right'>276504</td><td bgcolor='#eeeeec'>Volunteer::getAllVolunteers(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>67</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0013</td><td bgcolor='#eeeeec' align='right'>300760</td><td bgcolor='#eeeeec'>Organization::storeSQLResultsInArray(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/classes/volunteer.php' bgcolor='#eeeeec'>.../volunteer.php<b>:</b>794</td></tr>
-				</table></font>
-			<br />
-			<font size='1'><table class='xdebug-error xe-warning' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-					<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Warning: Cannot modify header information - headers already sent by (output started at /home/kkeller13/public_html/bread-basket/public_html/php/classes/organization.php:616) in /home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php on line <i>169</i></th></tr>
-					<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
-					<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0000</td><td bgcolor='#eeeeec' align='right'>243096</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>0</td></tr>
-					<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0034</td><td bgcolor='#eeeeec' align='right'>347496</td><td bgcolor='#eeeeec'><a href='http://www.php.net/function.header' target='_new'>header</a>
-							(  )</td><td title='/home/kkeller13/public_html/bread-basket/public_html/php/api/volunteer/index.php' bgcolor='#eeeeec'>.../index.php<b>:</b>169</td></tr>
-				</table></font>
-			{"status":0,"message":"address (first line) is empty or insecure"}
-			at _jsonParse (/Users/khaleesi/Desktop/bootcamp/git/bread-basket/test/api-test/node_modules/frisby/lib/frisby.js:1219:11)
-			at Frisby.<anonymous> (/Users/khaleesi/Desktop/bootcamp/git/bread-basket/test/api-test/node_modules/frisby/lib/frisby.js:910:30)
-				at Frisby.<anonymous> (/Users/khaleesi/Desktop/bootcamp/git/bread-basket/test/api-test/node_modules/frisby/lib/frisby.js:940:8)
-					at null.<anonymous> (/Users/khaleesi/Desktop/bootcamp/git/bread-basket/test/api-test/node_modules/frisby/lib/frisby.js:1112:18)
-						at Timer.listOnTimeout (timers.js:92:15)
+	{"status":0,"message":[{"file":"\/home\/kkeller13\/public_html\/bread-basket\/public_html\/php\/controllers\/sign-up-controller.php","line":55,"function":"__construct","class":"Organization","type":"->","args":[null,"asfdasfd",null,"Albuquerque",null,"sdfasdfa","asdfasdf","asfdasdf","NM",null,"87106"]}]}
 
 </body>
 </html>
