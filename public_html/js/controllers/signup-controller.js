@@ -1,14 +1,14 @@
 
 app.controller("SignupController", ["$scope", "$uibModal", "AlertService", "SignupService", function($scope, $uibModal, AlertService, SignupService) {
-	$scope.signinData = {};
+	$scope.signupData = {};
 
 	$scope.openSignupModal = function () {
 		var signupModalInstance = $uibModal.open({
 			templateUrl: "../../js/views/signup-modal.php",
 			controller: "SignupModal",
 			resolve: {
-				signinData: function () {
-					return($scope.signinData);
+				signupData: function () {
+					return($scope.signupData);
 				}
 			}
 		});
@@ -24,7 +24,7 @@ app.controller("SignupController", ["$scope", "$uibModal", "AlertService", "Sign
 						}
 					});
 		}, function() {
-			$scope.signinData = {};
+			$scope.signupData = {};
 		});
 	};
 }]);
