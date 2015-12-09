@@ -1,5 +1,5 @@
 
-app.controller("SignupController", ["$scope", "$uibModal", "AlertService", "SignupService", function($scope, $uibModal, AlertService, SignupService) {
+app.controller("SignupController", ["$scope", "$uibModal", "$window", "AlertService", "SignupService", function($scope, $uibModal, $window, AlertService, SignupService) {
 	$scope.signupData = {};
 
 	$scope.openSignupModal = function () {
@@ -12,13 +12,13 @@ app.controller("SignupController", ["$scope", "$uibModal", "AlertService", "Sign
 				}
 			}
 		});
-		signupModalInstance.result.then(function(signupData) {
+		signupModalInstance.result.then(function (signupData) {
 			$scope.signupData = signupData;
 			SignupService.signup(signupData)
 					.then(function(reply) {
 						if(reply.status === 200) {
 							AlertService.addAlert({type: "success", msg: reply.message});
-							$window.location.reload();
+							$window.location.assign("../../php/template/login-landing-page.php");
 						} else {
 							AlertService.addAlert({type: "danger", msg: reply.message});
 						}

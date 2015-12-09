@@ -6,48 +6,48 @@
 		<label class="control-label" for="name">Name</label>
 
 		<div class="form-inline"
-			  ng-class="{ 'has-error' : signupData.firstName.$touched && signupData.firstName.$invalid }">
-			<label class="control-label sr-only" for="firstName">First Name</label>
+			  ng-class="{ 'has-error' : signupData.volFirstName.$touched && signupData.volFirstName.$invalid }">
+			<label class="control-label sr-only" for="volFirstName">First Name</label>
 
 			<div class="input-group">
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 				</div>
-				<input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name"
-						 ng-model="signupData.firstName" ng-required="true"/>
+				<input type="text" class="form-control" id="volFirstName" name="volFirstName" placeholder="First Name"
+						 ng-model="signupData.volFirstName" ng-required="true"/>
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signupData.firstName.$error"
-				  ng-if="signupData.firstName.$touched" ng-hide="signupData.firstName.$valid">
+			<div class="alert alert-danger" role="alert" ng-messages="signupData.volFirstName.$error"
+				  ng-if="signupData.volFirstName.$touched" ng-hide="signupData.volFirstName.$valid">
 				<p ng-message="required">Please enter your first name</p>
 			</div>
 			<!--last name-->
 
-			<label class="control-label sr-only" for="lastName">Last Name</label>
+			<label class="control-label sr-only" for="volLastName">Last Name</label>
 
 			<div class="input-group">
-				<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name"
-						 ng-model="signupData.lastName" ng-required="true"/>
+				<input type="text" class="form-control" id="volLastName" name="volLastName" placeholder="Last Name"
+						 ng-model="signupData.volLastName" ng-required="true"/>
 			</div>
 			<div class="alert alert-danger" role="alert" ng-messages="signupData.lastName.$error"
-				  ng-if="signupData.lastName.$touched" ng-hide="signupData.lastName.$valid">
+				  ng-if="signupData.volLastName.$touched" ng-hide="signupData.volLastName.$valid">
 				<p ng-message="required">Please enter your last name</p>
 			</div>
 
 		</div>
 		<!--email-->
-		<div class="form-group" ng-class="{ 'has-error': signupData.email.$touched && signupData.email.$invalid }">
-			<label class="control-label" for="email">Email</label>
+		<div class="form-group" ng-class="{ 'has-error': signupData.volEmail.$touched && signupData.volEmail.$invalid }">
+			<label class="control-label" for="volEmail">Email</label>
 
 			<div class="input-group">
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
 				</div>
-				<input type="email" class="form-control" id="email" name="email" placeholder="Email"
-						 ng-model="signupData.email" ng-required="true"/>
+				<input type="email" class="form-control" id="volEmail" name="volEmail" placeholder="Email"
+						 ng-model="signupData.volEmail" ng-required="true"/>
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signupData.email.$error"
-				  ng-if="signupData.email.$touched" ng-hide="signupData.email.$valid">
-				<p ng-message="email">Email is invalid.</p>
+			<div class="alert alert-danger" role="alert" ng-messages="signupData.volEmail.$error"
+				  ng-if="signupData.volEmail.$touched" ng-hide="signupData.volEmail.$valid">
+				<p ng-message="volEmail">Email is invalid.</p>
 
 				<p ng-message="required">Please enter your Email.</p>
 			</div>
@@ -63,14 +63,14 @@
 				<input type="text" class="form-control" id="phone" name="phone" placeholder="Phone"
 						 ng-model="signupData.phone" ng-required="true"/>
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signupData.phone.$error"
-				  ng-if="signupData.phone.$touched" ng-hide="signupData.phone.$valid">
+			<div class="alert alert-danger" role="alert" ng-messages="signupData.volPhone.$error"
+				  ng-if="signupData.volPhone.$touched" ng-hide="signupData.volPhone.$valid">
 				<p ng-message="required">Please enter your phone number.</p>
 			</div>
 		</div>
 		<!--password-->
-		<div class="form-group" ng-class="{ 'has-error': signupData.password.$touched && signupData.password.$invalid }">
-			<label class="control-label" for="password">Password</label>
+		<div class="form-group" ng-class="{ 'has-error': signupData.volPassword.$touched && signupData.volPassword.$invalid }">
+			<label class="control-label" for="volPassword">Password</label>
 
 			<div class="input-group">
 				<div class="input-group-addon">
