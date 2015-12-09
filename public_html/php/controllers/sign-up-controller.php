@@ -38,8 +38,8 @@ try {
 
 
 	// sanitize the email & search by volEmail
-	$email = filter_var($requestObject->email, FILTER_SANITIZE_EMAIL);
-	$volunteer = Volunteer::getVolunteerByVolEmail($pdo, $email);
+	$volEmail = filter_var($requestObject->volEmail, FILTER_SANITIZE_EMAIL);
+	$volunteer = Volunteer::getVolunteerByVolEmail($pdo, $volEmail);
 	if($volunteer !== null) {
 		throw new RuntimeException("This email already has an account", 422);
 	}
