@@ -13,16 +13,16 @@ app.controller("SignupController", ["$scope", "$uibModal", "$window", "AlertServ
 			}
 		});
 		signupModalInstance.result.then(function (signupData) {
-			console.log("I am a teapot")
+			//console.log("I am a teapot")
 			$scope.signupData = signupData;
-			console.log("I am offended by your teapot, sir!")
+			//console.log(signupData);
 			SignupService.signup(signupData)
 					.then(function(reply) {
-						console.log("I am a fluffy kitty!")
+						//console.log("I am a fluffy kitty!")
 						if(reply.status === 200) {
 							AlertService.addAlert({type: "success", msg: reply.message});
 							$window.location.assign("../../php/template/login-landing-page.php");
-							console.log("I am a noisy kitty!")
+							//console.log("I am a noisy kitty!")
 						} else {
 							AlertService.addAlert({type: "danger", msg: reply.message});
 						}

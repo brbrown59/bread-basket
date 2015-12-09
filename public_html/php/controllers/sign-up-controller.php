@@ -36,6 +36,54 @@ try {
 	$requestContent = file_get_contents("php://input");
 	$requestObject = json_decode($requestContent);
 
+	//make sure all fields are present, in order to prevent database issues
+	if(empty($requestObject->volEmail) === true) {
+		throw(new InvalidArgumentException ("email cannot be empty", 418));
+	}
+	if(empty($requestObject->volFirstName) === true) {
+		throw(new InvalidArgumentException ("first name cannot be empty", 405));
+	}
+	if(empty($requestObject->volLastName) === true) {
+		throw(new InvalidArgumentException ("last name cannot be empty", 405));
+	}
+	if(empty($requestObject->volPhone) === true) {
+		throw(new InvalidArgumentException ("phone cannot be empty", 405));
+	}
+	if(empty($requestObject->orgAddress1) === true) {
+		throw(new InvalidArgumentException ("organization address cannot be empty", 405));
+	}
+	if(empty($requestObject->orgAddress2) === true) {
+		$requestObject->orgAddress2 = null;
+	}
+	if(empty($requestObject->orgCity) === true) {
+		throw(new InvalidArgumentException ("organization city cannot be empty", 405));
+	}
+	if(empty($requestObject->orgDescription) === true) {
+		$requestObject->orgDescription = null;
+	}
+	if(empty($requestObject->orgHours) === true) {
+		$requestObject->orgHours = null;
+	}
+	if(empty($requestObject->orgName) === true) {
+		throw(new InvalidArgumentException ("organization name cannot be empty", 405));
+	}
+	if(empty($requestObject->orgPhone) === true) {
+		throw(new InvalidArgumentException ("organization phone number cannot be empty", 405));
+	}
+	if(empty($requestObject->orgState) === true) {
+		throw(new InvalidArgumentException ("organization state cannot be empty", 405));
+	}
+	if(empty($requestObject->orgType) === true) {
+		throw(new InvalidArgumentException ("organization type cannot be empty", 405));
+	}
+	if(empty($requestObject->orgZip) === true) {
+		throw(new InvalidArgumentException ("organization zip code cannot be empty", 405));
+	}
+	if(empty($requestObject->password) === true) {
+		throw(new InvalidArgumentException ("password cannot be empty", 405));
+	}
+
+
 
 	// sanitize the email & search by volEmail
 	$volEmail = filter_var($requestObject->volEmail, FILTER_SANITIZE_EMAIL);
