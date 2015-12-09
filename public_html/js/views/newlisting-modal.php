@@ -1,5 +1,5 @@
 <div class="modal-body">
-	<form id="listingForm" name="listingForm">
+	<form id="listingForm" name="listingForm" ng-submit="createListing(listing, listingForm.$valid);" ng-hide="isEditing">
 		<h2>Post New Listing</h2>
 		<hr />
 		<p>Please include a pickup time and approximate size of donation in description. <br> Thank you for donating!</p>

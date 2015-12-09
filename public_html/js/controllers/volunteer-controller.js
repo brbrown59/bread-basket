@@ -1,6 +1,5 @@
 app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService", "AlertService", function($scope, $uibModal, VolunteerService, AlertService) {
 	$scope.editedVolunteer = {};
-	$scope.newVolunteer = {misquoteId: null, volFirstName: "", volLastName: "", volEmail: "", volPhone: ""};
 	$scope.alerts = [];
 	$scope.volunteers = [];
 
