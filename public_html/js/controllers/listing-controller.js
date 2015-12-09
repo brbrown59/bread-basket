@@ -40,7 +40,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	 * @param listing the listing to be edited
 	 */
 
-	$scope.setEditedListing = function(listing) {
+	$scope.setEditedListing = function() {
 		$scope.isEditing = true;
 	};
 

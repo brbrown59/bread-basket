@@ -15,10 +15,10 @@
 			<a class="btn btn-default btn-lg" href="listing-view.php" role="button">Back</a>
 		</div>
 		<div class="col-xs-3">
-			<button class="btn btn-warning btn-lg">Edit</button>
+			<button class="btn btn-info btn-lg" ng-click="cancelEditing();">Submit</button><!--change this later to the other thing-->
 		</div>
 		<div class="col-xs-3">
-			<button class="btn btn-danger btn-lg">Delete</button>
+			<button class="btn btn-danger btn-lg" ng-click="cancelEditing()">Cancel</button>
 		</div>
 	</div>
 </div>
