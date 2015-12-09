@@ -126,7 +126,8 @@
 			</div>
 		</div>
 		<!--org address 1-->
-		<div class="form-group" ng-class="{ 'has-error': signupData.orgAddress1.$touched && signupData.orgAddress1.$invalid }">
+		<div class="form-group"
+			  ng-class="{ 'has-error': signupData.orgAddress1.$touched && signupData.orgAddress1.$invalid }">
 			<label class="control-label" for="orgAddress1">Organization Address</label>
 
 			<div class="input-group">
@@ -142,7 +143,8 @@
 			</div>
 		</div>
 		<!--org address 2-->
-		<div class="form-group" ng-class="{ 'has-error': signupData.orgAddress2.$touched && signupData.orgAddress2.$invalid }">
+		<div class="form-group"
+			  ng-class="{ 'has-error': signupData.orgAddress2.$touched && signupData.orgAddress2.$invalid }">
 			<label class="control-label sr-only" for="orgAddress2">Address 2</label>
 
 			<div class="input-group">
@@ -159,17 +161,20 @@
 				<label class="control-label" for="orgCity">City</label>
 
 				<div class="input-group">
-					<select class="form-control" id="orgCity" name="orgCity" ng-model="signupData.orgCity" ng-required="true">
+					<select class="form-control" id="orgCity" name="orgCity" ng-model="signupData.orgCity"
+							  ng-required="true">
 						<option>Albuquerque</option>
 					</select>
 				</div>
 			</div>
 			<!--state-->
-			<div class="form-group" ng-class="{ 'has-error': signupData.orgState.$touched && signupData.orgState.$invalid }">
+			<div class="form-group"
+				  ng-class="{ 'has-error': signupData.orgState.$touched && signupData.orgState.$invalid }">
 				<label class="control-label" for="state">State</label>
 
 				<div class="input-group">
-					<select class="form-control" id="orgState" name="orgState" ng-model="signupData.orgState" ng-required="true">
+					<select class="form-control" id="orgState" name="orgState" ng-model="signupData.orgState"
+							  ng-required="true">
 						<option>NM</option>
 					</select>
 				</div>
@@ -180,7 +185,8 @@
 
 				<div class="input-group">
 
-					<input type="text" class="form-control" id="orgZip" name="orgZip" placeholder="Zip " ng-model="signupData.orgZip"
+					<input type="text" class="form-control" id="orgZip" name="orgZip" placeholder="Zip "
+							 ng-model="signupData.orgZip"
 							 ng-required="true"/>
 				</div>
 			</div>
@@ -219,7 +225,8 @@
 			</div>
 		</div>
 		<!--description-->
-		<div class="form-group" ng-class="{ 'has error' : signupData.orgDescription.$touched && signupData.orgDescription.$invalid }">
+		<div class="form-group"
+			  ng-class="{ 'has error' : signupData.orgDescription.$touched && signupData.orgDescription.$invalid }">
 			<label class="control-label" for="orgDescription">Description</label>
 
 			<div class="input-group">
@@ -232,15 +239,15 @@
 			</div>
 		</div>
 		<!--type-->
-			<div class="form-group" ng-class="{ 'has-error': signupData.orgType.$touched && signupData.orgType.$invalid }">
-				<label class="control-label" for="orgType">Organization Type</label>
+		<div class="form-group" ng-class="{ 'has-error': signupData.orgType.$touched && signupData.orgType.$invalid }">
+			<label class="control-label" for="orgType">Organization Type</label>
 
-				<div class="input-group">
-					<select class="form-control" id="orgType" name="orgType" ng-model="signupData.orgType" ng-required="true">
-						<option>G</option>
-					</select>
-				</div>
+			<div class="input-group">
+				<select class="form-control" id="orgType" name="orgType" ng-model="signupData.orgType" ng-required="true">
+					<option>G</option>
+				</select>
 			</div>
+		</div>
 		<hr/>
 		<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="signupData.$invalid"><i
 				class="fa fa-check" aria-hidden="true"></i>Submit

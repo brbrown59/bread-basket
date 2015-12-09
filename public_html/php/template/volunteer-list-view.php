@@ -29,9 +29,6 @@ require_once("header.php");
 						<div class="col-xs-3">
 							<button class="btn btn-info btn-lg" ng-click="openVolunteerModal();">New Volunteer</button>
 						</div>
-						<div class="col-xs-3">
-							<button class="btn btn-info btn-lg" ng-click="setNewVolunteer();">Create Volunteer</button>
-						</div>
 					</div>
 				</div>
 				<hr />
