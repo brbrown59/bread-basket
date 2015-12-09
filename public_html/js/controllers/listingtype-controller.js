@@ -5,10 +5,28 @@
  * contributing code from Misquote @author Dylan McDonald
  */
 
-app.controller("ListingTypeController", ["$scope", "$uibModal", "ListingTypeService", function($scope, ListingTypeService) {
+app.controller("ListingTypeController", ["$scope", "$uibModal", "ListingTypeService", "AlertService", function($scope, ListingTypeService, AlertService) {
 	//add as needed
 	$scope.listingTypes = [];
 	$scope.alerts = [];
+	$scope.editedListingTypes = [];
+
+
+	/**
+	 * opens new listingType modal and adds sends listingType to the listingType API
+	 */
+
+	$scope.openListingModal = function() {
+		var ListingModalInstance = $uibModal.open({
+			templateUrl: "../../js/views/newlisting-modal.php",
+			controller: "ListingModal",
+			resolve: {
+				listingType: function() {
+					return ($scope.listingType);
+				}
+			}
+		});
+	}
 
 	//get listingType from API REST Endpoint
 	//come back for the other gets
@@ -87,7 +105,7 @@ app.controller("ListingTypeController", ["$scope", "$uibModal", "ListingTypeServ
 			controller:ModalInstanceCtrl
 		});
 
-		//if yes is selcted, delete the listingType
+		//if yes is selected, delete the listingType
 		modalInstance.result.then(function() {
 			ListingTypeService.destroy(listingTypeId)
 					.then(function(result) {

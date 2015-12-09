@@ -1,6 +1,5 @@
 app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "AlertService",  function($scope, $uibModal,ListingService, AlertService) {
 	$scope.editedListing = {};
-	$scope.isEditing = false;
 	$scope.alerts = [];
 	$scope.listings = [];
 
@@ -18,14 +17,12 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 				}
 			}
 		});
+
 		ListingModalInstance.result.then(function(listing) {
 			$scope.listing = listing;
 			ListingService.create(listing)
 					.then(function(reply) {
-						console.log("STATUS: " + reply.data.status);
-						console.log("MSG: " + reply.data.message + "this is the message.");
 						if(reply.status === 200) {
-							console.log("yes");
 							AlertService.addAlert({type: "success", msg: reply.message});
 						} else {
 							AlertService.addAlert({type: "danger", msg: reply.message});
@@ -35,6 +32,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			$scope.listing = {};
 		});
 	};
+
 
 	/**
 	 * sets which listing is being edited and activates the editing form
