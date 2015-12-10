@@ -7,7 +7,6 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 	/**
 	 * opens new volutneer modal and adds sends volunteer to the volunteer API
 	 */
-
 	$scope.openVolunteerModal = function() {
 		var VolunteerModalInstance = $uibModal.open({
 			templateUrl: "../../js/views/newvolunteer-modal.php",
@@ -46,12 +45,12 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 			controller: "EditVolunteerModal",
 			resolve: {
 				editedVolunteer: function() {
-					//console.log($scope.editedVolunteer);
 					return ($scope.editedVolunteer);
 				}
 			}
 		});
 		EditVolunteerModalInstance.result.then(function(volunteer) {
+			//send the update request to the database
 			VolunteerService.update(volunteer.volId, volunteer)
 				.then(function(result) {
 					if(result.data.status === 200) {
@@ -69,9 +68,9 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 	};
 
 	$scope.setEditedVolunteer = function(volunteer, index) {
+		//set the edited volunteer in the scope, and set the index for updating the array
 		$scope.editedVolunteer = angular.copy(volunteer);
 		$scope.index = index;
-		//console.log($scope.editedVolunteer);
 		$scope.openEditVolunteerModal();
 	};
 
@@ -177,7 +176,7 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 					} else {
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
-				})
+				});
 			//remove the current listing from array
 			$scope.volunteers.splice(index, 1);
 		});
