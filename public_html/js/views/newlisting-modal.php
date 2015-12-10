@@ -27,7 +27,7 @@
 					<input type="number" class="form-control" id="cost" name="cost" placeholder="Estimated cost of donation" min="0" step="0.01" ng-min="0" ng-model="listingData.cost" ng-required="false"/>
 				</div>
 			</div>
-			<!--type-->
+<!--			<!--type--
 			<div class="radio" ng-class="{ 'has-error' : listingForm.type1.$touched && listingForm.type1.$invalid }">
 				<label class="control-label" for="type1">
 					<input type="radio" name="listingType" id="perishable" value="1" ng-model="listingData.listingType">
@@ -40,7 +40,7 @@
 					Non-Perishable
 				</label>
 			</div>
-
+-->
 		<hr />
 		<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="listingForm.$invalid"><i class="fa fa-check" aria-hidden="true"></i>Submit</button>
 		<button type="reset" class="btn btn-lg btn-warning" ng-click="cancel();"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
