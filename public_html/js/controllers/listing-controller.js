@@ -63,6 +63,8 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	};
 
 
+
+
 	/**
 	 * sets which listing is being edited and activates the editing form
 	 *
@@ -71,6 +73,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 
 	$scope.setEditedListing = function() {
 		$scope.isEditing = true;
+		$scope.openEditListinglModal();
 	};
 
 	/**
@@ -79,6 +82,35 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	$scope.cancelEditing = function() {
 		$scope.editedListing = {};
 		$scope.isEditing = false;
+	};
+
+	/**
+	 * opens edit listing modal and allows user to update listing as claimed or not claimed
+	 */
+
+	$scope.openEditListinglModal = function() {
+		var EditListingModalInstance = $uibModal.open({
+			templateUrl: "../../js/views/editlisting-modal.php",
+			controller: "EditListingModal",
+			resolve: {
+				volunteer: function() {
+					return ($scope.listing);
+				}
+			}
+		});
+		//ListingDetailModalInstance.result.then(function(listing) {
+		//	$scope.listing = listing;
+		//	ListingService.create(listing)
+		//			.then(function(result) {
+		//				if(result.data.status === 200) {
+		//					$scope.alerts[0] = {type: "success", msg: result.data.message};
+		//				} else {
+		//					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+		//				}
+		//			});
+		//}, function() {
+		//	$scope.listing = {};
+		//});
 	};
 
 	/**
