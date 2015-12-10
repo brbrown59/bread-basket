@@ -43,22 +43,20 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			controller: "ListingModal",
 			resolve: {
 				listing: function() {
-					return ($scope.listing);
+					return ($scope.listings);
 				}
 			}
 		});
 		ListingModalInstance.result.then(function(listing) {
-			$scope.listing = listing;
+			console.log(listing);
 			ListingService.create(listing)
-					.then(function(reply) {
-						if(reply.status === 200) {
-							$scope.alerts[0] = {type: "success", msg: reply.message};
+					.then(function(result) {
+						if(result.status === 200) {
+							$scope.alerts[0] = {type: "success", msg: result.message};
 						} else {
-							$scope.alerts[0] = {type: "danger", msg: reply.message};
+							$scope.alerts[0] = {type: "danger", msg: result.message};
 						}
 					});
-		}, function() {
-			$scope.listing = {};
 		});
 	};
 
@@ -299,7 +297,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 
 	//load the array on first view
 	if($scope.listings.length === 0) {
-		$scope.linstings = $scope.getListings();
+		$scope.listings = $scope.getListings();
 	}
 }]);
 

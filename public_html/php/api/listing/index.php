@@ -86,9 +86,6 @@ try {
 			$requestObject = json_decode($requestContent);
 
 			//make sure all fields are present, in order to prevent database issues
-			if(empty($requestObject->orgId) === true) {
-				throw(new InvalidArgumentException ("organization id cannot be empty", 405));
-			}
 			if(empty($requestObject->listingClaimedBy) === true) {
 				$requestObject->listingClaimedBy = null;
 			}
@@ -132,7 +129,7 @@ try {
 
 			} elseif($method === "POST") {
 				//create new listing
-				$listing = new Listing(null, $_SESSION["volunteer"]->getListingId(), $requestObject->listingClaimedBy, $requestObject->listingClosed,
+				$listing = new Listing(null, $_SESSION["volunteer"]->getOrgId(), $requestObject->listingClaimedBy, $requestObject->listingClosed,
 						$requestObject->listingCost, $requestObject->listingMemo, $requestObject->listingParentId, $requestObject->listingPostTime, $requestObject->listingTypeId);
 				$listing->insert($pdo);
 //				$pusher->trigger("listing", "new", $listing);
