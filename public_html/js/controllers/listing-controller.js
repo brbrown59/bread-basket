@@ -12,25 +12,24 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			templateUrl: "../../js/views/listing-detailview-modal.php",
 			controller: "ListingDetailModal",
 			resolve: {
-				listing: function() {
+				volunteer: function() {
 					return ($scope.listing);
 				}
 			}
 		});
-
-		ListingDetailModalInstance.result.then(function(listing) {
-			$scope.listing = listing;
-			ListingService.create(listing)
-					.then(function(reply) {
-						if(reply.status === 200) {
-							AlertService.addAlert({type: "success", msg: reply.message});
-						} else {
-							AlertService.addAlert({type: "danger", msg: reply.message});
-						}
-					});
-		}, function() {
-			$scope.listing = {};
-		});
+		//ListingDetailModalInstance.result.then(function(listing) {
+		//	$scope.listing = listing;
+		//	ListingService.create(listing)
+		//			.then(function(result) {
+		//				if(result.data.status === 200) {
+		//					$scope.alerts[0] = {type: "success", msg: result.data.message};
+		//				} else {
+		//					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+		//				}
+		//			});
+		//}, function() {
+		//	$scope.listing = {};
+		//});
 	};
 
 

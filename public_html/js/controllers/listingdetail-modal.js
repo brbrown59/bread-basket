@@ -1,9 +1,11 @@
-app.controller("ListingDetailModal", ["$scope", "$uibModalInstance", "DetailListing", function($scope, $uibModalInstance, detailListing) {
-	$scope.detailListing = detailListing;
+app.controller("ListingDetailModal", ["$scope", "$uibModalInstance", function($scope, $uibModalInstance) {
+	$scope.listing = {};
+
 
 
 	$scope.ok = function() {
-		$uibModalInstance.close($scope.detailListing);
+
+		$uibModalInstance.close($scope.listing);
 	};
 
 	$scope.cancel = function() {
