@@ -20,11 +20,11 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 		VolunteerModalInstance.result.then(function(volunteer) {
 			$scope.volunteer = volunteer;
 			VolunteerService.create(volunteer)
-				.then(function(reply) {
-					if(reply.data.status === 200) {
-						AlertService.addAlert({type: "success", msg: reply.data.message});
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.alerts[0] = {type: "success", msg: result.data.message};
 					} else {
-						AlertService.addAlert({type: "danger", msg: reply.data.message});
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
 				});
 		}, function() {
@@ -51,11 +51,11 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 		EditVolunteerModalInstance.result.then(function(volunteer) {
 			console.log(volunteer);
 			VolunteerService.update(volunteer.volId, volunteer)
-				.then(function(reply) {
-					if(reply.data.status === 200) {
-						AlertService.addAlert({type: "success", msg: reply.data.message});
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.alerts[0] = {type: "success", msg: result.data.message};
 					} else {
-						AlertService.addAlert({type: "danger", msg: reply.data.message});
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
 				});
 		}, function() {

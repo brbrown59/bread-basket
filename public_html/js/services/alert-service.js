@@ -1,4 +1,4 @@
-app.service("AlertService", function($rootScope, $timeout) {
+app.service("AlertService", function($rootScope) {
 	this.alerts = [];
 
 	this.addAlert = function(alert) {
