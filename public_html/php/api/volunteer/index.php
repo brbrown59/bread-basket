@@ -70,7 +70,7 @@ try {
 			$volunteer = Volunteer::getVolunteerByVolPhone($pdo, $phone);
 			if($volunteer !== null && $volunteer->getOrgId() === $_SESSION["volunteer"]->getOrgId()) {
 			}
-				$reply->data = $volunteer;
+			$reply->data = $volunteer;
 		} else if(empty($emailActivation) === false) {
 			$volunteer = Volunteer::getVolunteerByVolEmailActivation($pdo, $emailActivation);
 			if($volunteer !== null && $volunteer->getOrgId() === $_SESSION["volunteer"]->getOrgId()) {
@@ -107,7 +107,7 @@ try {
 			}
 
 // perform the actual put or post
-				if($method === "PUT") {
+			if($method === "PUT") {
 				$volunteer = Volunteer::getVolunteerByVolId($pdo, $id);
 				if($volunteer === null) {
 					throw(new RuntimeException("Volunteer does not exist", 404));
@@ -133,28 +133,31 @@ try {
 
 				//create new volunteer
 				$volunteer = new Volunteer($id, $_SESSION["volunteer"]->getOrgId(), $requestObject->volEmail, $emailActivation,
-						$requestObject->volFirstName, $hash, false, $requestObject->volLastName, $requestObject->volPhone, $salt);
+					$requestObject->volFirstName, $hash, false, $requestObject->volLastName, $requestObject->volPhone, $salt);
 				$volunteer->insert($pdo);
 				//$_SESSION["volunteer"] = $volunteer;
 
 				$reply->message = "Volunteer created OK";
+
+				//compose and send the email
+
 			}
 
-			} elseif($method === "DELETE") {
-				verifyXsrf();
+		} elseif($method === "DELETE") {
+			verifyXsrf();
 
-				$volunteer = Volunteer::getVolunteerByVolId($pdo, $id);
-				if($volunteer === null) {
-					throw(new RangeException("Volunteer does not exist", 404));
-				}
-
-				$volunteer->delete($pdo);
-				$deletedObject = new stdClass();
-				$deletedObject->volunteerId = $id;
-
-				$reply->message = "Volunteer deleted OK";
+			$volunteer = Volunteer::getVolunteerByVolId($pdo, $id);
+			if($volunteer === null) {
+				throw(new RangeException("Volunteer does not exist", 404));
 			}
-		} else {
+
+			$volunteer->delete($pdo);
+			$deletedObject = new stdClass();
+			$deletedObject->volunteerId = $id;
+
+			$reply->message = "Volunteer deleted OK";
+		}
+	} else {
 		//if not an admin, and attempting a method other than get, throw an exception
 		if((empty($method) === false) && ($method !== "GET")) {
 			throw(new RuntimeException("Only administrators are allowed to modify entries", 401));

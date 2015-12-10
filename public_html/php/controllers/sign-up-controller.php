@@ -144,7 +144,7 @@ try {
 	// building the activation link that can travel to another server and still work. This is the link that will be clicked to confirm the account.
 	$lastSlash = strrpos($_SERVER["SCRIPT_NAME"], "/");
 	$basePath = substr($_SERVER["SCRIPT_NAME"], 0, $lastSlash + 1);
-	$urlglue = $basePath . "confirmation.php?emailActivation=" . $volEmailActivation;
+	$urlglue = $basePath . "email-confirmation?emailActivation=" . $volEmailActivation;
 
 	$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
 	$message = <<< EOF
