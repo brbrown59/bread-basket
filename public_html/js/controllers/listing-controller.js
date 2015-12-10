@@ -17,15 +17,14 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 				}
 			}
 		});
-
 		ListingModalInstance.result.then(function(listing) {
 			$scope.listing = listing;
 			ListingService.create(listing)
 					.then(function(reply) {
 						if(reply.status === 200) {
-							AlertService.addAlert({type: "success", msg: reply.message});
+							$scope.alerts[0] = {type: "success", msg: reply.message};
 						} else {
-							AlertService.addAlert({type: "danger", msg: reply.message});
+							$scope.alerts[0] = {type: "danger", msg: reply.message};
 						}
 					});
 		}, function() {
