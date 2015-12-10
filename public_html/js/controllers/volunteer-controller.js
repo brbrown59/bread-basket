@@ -52,8 +52,6 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 			}
 		});
 		EditVolunteerModalInstance.result.then(function(volunteer) {
-			console.log(volunteer);
-			console.log($scope.volunteers);
 			VolunteerService.update(volunteer.volId, volunteer)
 				.then(function(result) {
 					if(result.data.status === 200) {
@@ -62,6 +60,7 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
 				});
+			//update angulars copy for dynamic table updates
 			$scope.volunteers[$scope.index] = volunteer;
 			$scope.index = null;
 		}, function() {
@@ -158,7 +157,7 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 	 *
 	 * @param volId the volunteer id to delete
 	 */
-	$scope.deleteVolunteer = function(volId) {
+	$scope.deleteVolunteer = function(volId, index) {
 		//create a modal instance to prompt the user if she/he is sure they want to delete the misquote
 		var message = "Are you sure you want to delete this volunteer?";
 
@@ -180,6 +179,7 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 					}
 				})
 			//remove the current listing from array
+			$scope.volunteers.splice(index, 1);
 		});
 	};
 
