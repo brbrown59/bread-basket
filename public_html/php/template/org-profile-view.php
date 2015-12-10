@@ -19,9 +19,7 @@
 			<div class="col-xs-3">
 				<button class="btn btn-warning btn-lg" ng-click="setEditedOrganization();">Edit</button>
 			</div>
-			<div class="col-xs-3">
-				<button class="btn btn-danger btn-lg" ng-click="deleteOrganization(organization.orgId);">Delete</button>
-			</div>
+
 		</div>
 	</div>
 	<hr />
