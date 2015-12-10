@@ -14,7 +14,7 @@ require_once("prefix-utilities.php");
 
 <!--relevant app and password min files-->
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/breadbasket.js"></script>
-<script type="text/javascript" src="<?php echo $PREFIX; ?>js/pusher-config.js"
+<script type="text/javascript" src="<?php echo $PREFIX; ?>js/pusher-config.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/angular-password.min.js"></script>
 
 <!--Angular Services-->
