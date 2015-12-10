@@ -1,11 +1,10 @@
-app.controller("MessageController", ["$scope", "uibModal", "MessageService", function($scope, MessageService){
+app.controller("MessageController", ["$scope", "uibModal", "MessageService", function($scope, $ubimodal, MessageService){
 	//add as needed
 	$scope.messages = [];
 	$scope.alerts = [];
 
 	//get messages from API
-	//come back for the other gets
-	//make docblocks better
+
 	$scope.getMessages = function() {
 		MessageService.all()
 			.then(function(result){
@@ -69,7 +68,7 @@ app.controller("MessageController", ["$scope", "uibModal", "MessageService", fun
 		}
 	};
 
-	// create new organazation
+	// create new organization
 $scope.createMessage = function(message, validated) {
 	if(validated === true) {
 		MessageService.create(organization)
