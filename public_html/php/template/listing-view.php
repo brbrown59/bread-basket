@@ -40,6 +40,7 @@ require_once("header.php");
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
+				<uib-alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="alerts.length = 0;">{{ alert.msg }}</uib-alert>
 				<table class="table table-condensed table-striped table-hover">
 					<thead>
 						<th>Location</h3></th>
@@ -48,10 +49,10 @@ require_once("header.php");
 						<th>Actions</th>
 						<th>Details</th>
 					</thead>
-					<tr class="success">
-						<td>Hippy Grocery</td>
-						<td>Grapefruits! So many grapefruits!</td>
-						<td>11/11/22 14:25</td>
+					<tr class="info" ng-repeat="listing in listings">
+						<td>Filler</td>
+						<td>{{ listing.listingMemo }}</td>
+						<td>{{ listing.listingPostTime }}</td>
 						<td>
 							<button class="btn btn-info" ng-click="setEditedListing(listing);"><i class="fa fa-pencil"></i></button>
 							<form class="inline" ng-submit="deleteListings(listing.listingId);">

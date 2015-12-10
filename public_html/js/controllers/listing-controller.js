@@ -57,6 +57,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 							$scope.alerts[0] = {type: "danger", msg: result.message};
 						}
 					});
+			$scope.listings.push(listing);
 		});
 	};
 
