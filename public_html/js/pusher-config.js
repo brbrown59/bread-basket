@@ -1,5 +1,5 @@
 app.config(["PusherServiceProvider", function(PusherServiceProvider) {
 	PusherServiceProvider
-		.setToken("a20d674ae1f0b68e8bb2")
+		.setToken("ba0db46196643feeb6ad")
 		.setOptions({});
 }]);

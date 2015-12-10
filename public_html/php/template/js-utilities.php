@@ -3,6 +3,7 @@
 require_once("prefix-utilities.php");
 
 ?>
+<script type="text/javascript" src="<?php echo $PREFIX; ?>js/pusher-config.js"
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/angular-password.min.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/breadbasket.js"></script>
 
