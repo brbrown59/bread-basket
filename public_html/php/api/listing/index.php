@@ -21,7 +21,6 @@ $reply->status = 200;
 $reply->data = null;
 
 try {
-
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySql("/etc/apache2/capstone-mysql/breadbasket.ini");
 
@@ -41,33 +40,36 @@ try {
 
 	//sanitize the id
 	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 	//sanitize and trim the other fields
 	$orgId = filter_input(INPUT_GET, "orgId", FILTER_VALIDATE_INT);
-	$listingMemo = filter_input(INPUT_GET, "listingMemo", FILTER_SANITIZE_STRING);
+	$listingClaimedBy = filter_input(INPUT_GET, "listingClaimedBy", FILTER_VALIDATE_INT);
+	$listingClosed = filter_input(INPUT_GET, "listingClosed", FILTER_VALIDATE_INT);
 	$listingCost = filter_input(INPUT_GET, "listingCost", FILTER_VALIDATE_FLOAT);
-	$listingTypeId = filter_input(INPUT_GET, "listingTypeId", FILTER_VALIDATE_INT);
+	$listingMemo = filter_input(INPUT_GET, "listingMemo", FILTER_SANITIZE_STRING);
 	$listingParentId = filter_input(INPUT_GET, "listingParentId", FILTER_VALIDATE_INT);
 	$listingPostTime = filter_input(INPUT_GET, "listingPostTime", FILTER_SANITIZE_STRING);
+	$listingTypeId = filter_input(INPUT_GET, "listingTypeId", FILTER_VALIDATE_INT);
 
-
-	//handle all RESTful calls to listing
-	//get some or all Listings
+	//handle all RESTful calls to listing //get some or all Listings
 	if($method === "GET") {
 		//set an XSRF cookie on get requests
 		setXsrfCookie("/");
+
+		//get the listing based on the given field TODO I think this needs fixing. TF
 		if(empty($id) === false) {
 			$reply->data = Listing::getListingByListingId($pdo, $id);
 		} elseif(empty($orgId) === false) {
 			$reply->data = Listing::getListingByOrgId($pdo, $orgId)->toArray();
 		} elseif(empty($postTime) === false) {
-			$reply->data = Listing::getListingByListingPostTime($pdo, $postTime)->toArray();
+			$reply->data = Listing::getListingByListingPostTime($pdo, $listingPostTime)->toArray();
 		} elseif(empty($parentId) === false) {
-			$reply->data = Listing::getListingByParentId($pdo, $parentId)->toArray();
+			$reply->data = Listing::getListingByParentId($pdo, $listingParentId)->toArray();
 		} elseif(empty($typeId) === false) {
-			$reply->data = Listing::getListingByTypeId($pdo, $typeId)->toArray();
+			$reply->data = Listing::getListingByTypeId($pdo, $listingTypeId)->toArray();
 		} else {
 			$reply->data = Listing::getAllListings($pdo)->toArray();
 		}
@@ -111,58 +113,52 @@ try {
 
 			//perform the actual put or post
 			if($method === "PUT") {
+			$listing = Listing::getListingByListingId($pdo, $id);
+			if($listing === null) {
+					throw(new RuntimeException("Listing does not exist", 404));
+			}
+
+			$listing = Listing::getListingByListingId($pdo, $id);
+			$listing->setListingClaimedBy($requestObject->listingClaimedBy);
+			$listing->setListingClosed($requestObject->listingClosed);
+			$listing->setListingCost($requestObject->listingCost);
+			$listing->setListingMemo($requestObject->listingMemo);
+			$listing->setListingParentId($requestObject->listingParentId);
+			$listing->setListingPostTime($requestObject->listingPostTime);
+			$listing->setListingTypeId($requestObject->listingTypeId);
+			$listing->update($pdo);
+
+				$reply->message = "Listing updated OK";
+
+			} elseif($method === "POST") {
+				//create new listing
+				$listing = new Listing(null, $_SESSION["volunteer"]->getListingId(), $requestObject->listingClaimedBy, $requestObject->listingClosed,
+						$requestObject->listingCost, $requestObject->listingMemo, $requestObject->listingParentId, $requestObject->listingPostTime, $requestObject->listingTypeId);
+				$listing->insert($pdo);
+//				$pusher->trigger("listing", "new", $listing);
+				$reply->message = "Listing created OK";
+			}
+			} elseif($method === "DELETE") {
 				$listing = Listing::getListingByListingId($pdo, $id);
 				if($listing === null) {
 					throw(new RuntimeException("Listing does not exist", 404));
 				}
 
-				$listing = Listing::getListingByListingId($pdo, $id);
-				$listing->setListingClaimedBy($requestObject->listingClaimedBy);
-				$listing->setListingClosed($requestObject->listingClosed);
-				$listing->setListingMemo($requestObject->listingCost);
-				$listing->setListingParentId($requestObject->listingParentId);
-				$listing->setListingPostTime($requestObject->listingPostTime);
-	/*			$listing->setListingTypeId($requestObject->listingTypeId);*/
-				$listing->update($pdo);
+				$listing->delete($pdo);
+				$deletedObject = new stdClass();
+				$deletedObject->listingId = $id;
+//				$pusher->trigger("listing", "delete", $deletedObject);
 
-				$reply->message = "Listing updated OK";
-
-//				$listing = new Listing($id, $_SESSION["volunteer"]->getListingId(), $requestObject->listingClaimedBy, $requestObject->listingClosed,
-//					$requestObject->listingCost, $requestObject->listingMemo,$requestObject->listingParentId, $requestObject->listingPostTime, $requestObject->listingTypeId);
-//				$listing->update($pdo);
-///*				$pusher->trigger("listing", "update", $listing);*/
-//
-//				$reply->message = "Listing updated OK";
-
-			} elseif($method === "POST") {
-				//create new volunteer
-				$listing = new Listing(null, $_SESSION["volunteer"]->getListingId(), $requestObject->listingClaimedBy, $requestObject->listingClosed,
-						$requestObject->listingCost, $requestObject->listingMemo,$requestObject->listingParentId, $requestObject->listingPostTime, $requestObject->listingTypeId);
-				$listing->insert($pdo);
-//				$pusher->trigger("listing", "new", $listing);
-				$reply->message = "Listing created OK";
-
-			} elseif($method === "DELETE") {
-			$listing = Listing::getListingByListingId($pdo, $id);
-			if($listing === null) {
-				throw(new RuntimeException("Listing does not exist", 404));
+				$reply->message = "Listing deleted OK";
+			}
+		} else {
+				//if not an admin and attempting a method other than get, throw an exception
+				if((empty($method) === false) && ($method !== "GET")) {
+					throw(new RangeException("Only administrators are allowed to modify entries", 401));
+				}
 			}
 
-			$listing->delete($pdo);
-			$deletedObject = new stdClass();
-			$deletedObject->listingId = $id;
-//			$pusher->trigger("listing", "delete", $deletedObject);
-
-			$reply->message = "Listing deleted OK";
-
-		}
-	} else {
-		//if not an admin and attempting a method other than get, throw an exception
-		if((empty($method) === false) && ($method !== "GET")) {
-			throw(new RangeException("Only administrators are allowed to modify entries", 401));
-		}
-	}
-} catch (Exception $exception) {
+		} catch (Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
 	//$reply->message = $exception->getTrace();
