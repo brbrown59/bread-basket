@@ -1,4 +1,4 @@
-app.controller("VoulunteerController", ["$scope", "$ubiModal", "ListingService", "OrganizationService", "AlertService", function($scope, $ubiModal, ListingService, OrganizationService,AlertService) {
+app.controller("ListingController", ["$scope", "$ubiModal", "ListingService", "OrganizationService", "AlertService", function($scope, $ubiModal, ListingService, OrganizationService,AlertService) {
 	$scope.editedListing = {};
 	$scope.index = null;
 	$scope.alerts = [];
@@ -46,7 +46,11 @@ app.controller("VoulunteerController", ["$scope", "$ubiModal", "ListingService",
 					return ($scope.editedListing);
 				}
 			}
-		})
+		});
+
+		EditlistingModalInstance
+
+
 	}
 
 
