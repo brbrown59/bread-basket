@@ -4,6 +4,37 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	$scope.listings = [];
 
 	/**
+	 * opens detail listing modal and allows user to update listing as claimed or not claimed
+	 */
+
+	$scope.openListingDetailModal = function() {
+		var ListingDetailModalInstance = $uibModal.open({
+			templateUrl: "../../js/views/listing-detailview-modal.php",
+			controller: "ListingDetailModal",
+			resolve: {
+				listing: function() {
+					return ($scope.listing);
+				}
+			}
+		});
+
+		ListingDetailModalInstance.result.then(function(listing) {
+			$scope.listing = listing;
+			ListingService.create(listing)
+					.then(function(reply) {
+						if(reply.status === 200) {
+							AlertService.addAlert({type: "success", msg: reply.message});
+						} else {
+							AlertService.addAlert({type: "danger", msg: reply.message});
+						}
+					});
+		}, function() {
+			$scope.listing = {};
+		});
+	};
+
+
+	/**
 	 * opens new listing modal and adds sends listing to the listing API
 	 */
 
