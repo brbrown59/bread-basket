@@ -43,19 +43,19 @@ require_once("header.php");
 				<uib-alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="alerts.length = 0;">{{ alert.msg }}</uib-alert>
 				<table class="table table-condensed table-striped table-hover">
 					<thead>
-						<th>Location</h3></th>
+
 						<th>Description</th>
 						<th>Date Posted</th>
 						<th>Actions</th>
 						<th>Details</th>
 					</thead>
 					<tr class="info" ng-repeat="listing in listings">
-						<td>Filler</td>
+
 						<td>{{ listing.listingMemo }}</td>
 						<td>{{ listing.listingPostTime }}</td>
 						<td>
-							<button class="btn btn-info" ng-click="setEditedListing(listing);"><i class="fa fa-pencil"></i></button>
-							<form class="inline" ng-submit="deleteListings(listing.listingId);">
+							<button class="btn btn-info" ng-click="setEditedListing(listing, listings.indexOf(listing);"><i class="fa fa-pencil"></i></button>
+							<form class="inline" ng-submit="deleteListing(listing.listingId, listings.indexOf(listing));">
 								<button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
 							</form>
 						</td>

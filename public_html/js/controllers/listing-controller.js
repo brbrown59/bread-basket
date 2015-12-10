@@ -148,6 +148,8 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 
 
 
+
+
 	///**
 	// * fulfills the promise from retrieving the listing by Id from the listing API
 	// */
@@ -242,7 +244,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	 *
 	 * @param listingId the listing id of the listing to be deleted
 	 */
-	$scope.deleteListing = function(listingId) {
+	$scope.deleteListing = function(listingId, index) {
 		//create a modal instance to prompt the user if she/he is sure they want to delete the listing
 		var message = "Are you sure you want to delete this listing?";
 
@@ -262,7 +264,9 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 						} else {
 							$scope.alerts[0] = {type: "danger", msg: result.data.message};
 						}
-					})
+					});
+			//remove the current listing from array
+			$scope.listing.splice(index, 1);
 		});
 	};
 
