@@ -1,1 +1,1 @@
-var app = angular.module("BreadBasket", ["ngMessages", "ngPassword", "ui.bootstrap"]);
+var app = angular.module("BreadBasket", ["ngMessages", "ngPassword", "doowb.angular-pusher", "ui.bootstrap"]);

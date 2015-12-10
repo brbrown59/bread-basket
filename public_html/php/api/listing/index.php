@@ -30,10 +30,10 @@ try {
 		throw(new RuntimeException("Please log-in or sign up", 401));
 	}
 
-/*	//create the Pusher connection
+  //create the Pusher connection
 	$config = readConfig("/etc/apache2/capstone-mysql/breadbasket.ini");
 	$pusherConfig = json_decode($config["pusher"]);
-	$pusher = new Pusher($pusherConfig->key, $pusherConfig->secret, $pusherConfig->id, ["encrypted" => true]);*/
+	$pusher = new Pusher($pusherConfig->key, $pusherConfig->secret, $pusherConfig->id, ["encrypted" => true]);
 
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];

@@ -1,4 +1,4 @@
-app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "AlertService",  function($scope, $uibModal,ListingService, AlertService) {
+app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "AlertService", "Pusher",  function($scope, $uibModal,ListingService, AlertService, Pusher) {
 	$scope.editedListing = {};
 	$scope.alerts = [];
 	$scope.listings = [];
@@ -266,35 +266,35 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		});
 	};
 
-	////subscribe to the delete channel; this will delete from the listings array on demand
-	//Pusher.subscribe("listing", "delete", function(listing){
-	//	for(var i = 0; i < $scope.listings.length; i++) {
-	//		if($scope.listings[i].listingId ===listing.listingId) {
-	//			$scope.listings.splice(i, 1);
-	//			break;
-	//		}
-	//	}
-	//});
+	//subscribe to the delete channel; this will delete from the listings array on demand
+	Pusher.subscribe("listing", "delete", function(listing){
+		for(var i = 0; i < $scope.listings.length; i++) {
+			if($scope.listings[i].listingId ===listing.listingId) {
+				$scope.listings.splice(i, 1);
+				break;
+			}
+		}
+	});
 
-	////subscribe to the new channel; this will add to the listings array on demand
-	//Pusher.subscribe("listing", "new", function(listing){
-	//	$scope.listings.push(listing);
-	//});
+	//subscribe to the new channel; this will add to the listings array on demand
+	Pusher.subscribe("listing", "new", function(listing){
+		$scope.listings.push(listing);
+	});
 
-	////subscribe to the update channel; this will update the listings array on demand
-	//Pusher.subscribe("listing", "update", function(listing){
-	//	for(var i = 0; i < $scope.listings.length; i++) {
-	//		if($scope.listings[i].listingId === listing.listingId) {
-	//			$scope.listings[i] = listing;
-	//			break;
-	//		}
-	//	}
-	//});
+	//subscribe to the update channel; this will update the listings array on demand
+	Pusher.subscribe("listing", "update", function(listing){
+		for(var i = 0; i < $scope.listings.length; i++) {
+			if($scope.listings[i].listingId === listing.listingId) {
+				$scope.listings[i] = listing;
+				break;
+			}
+		}
+	});
 
-	////when the window is closed/reloaded, gracefully close the channel
-	//$scope.$on("$destroy", function() {
-	//	Pusher.unsubscribe("listings");
-	//});
+	//when the window is closed/reloaded, gracefully close the channel
+	$scope.$on("$destroy", function() {
+		Pusher.unsubscribe("listings");
+	});
 
 	//load the array on first view
 	if($scope.listings.length === 0) {
