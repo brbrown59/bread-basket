@@ -29,8 +29,6 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 				});
 			//push the new volunteer into the array to update live
 			$scope.volunteers.push(volunteer);
-		}, function() {
-			$scope.volunteer = {};
 		});
 	};
 
@@ -62,8 +60,6 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 			//update angulars copy for dynamic table updates
 			$scope.volunteers[$scope.index] = volunteer;
 			$scope.index = null;
-		}, function() {
-			$scope.volunteer = {};
 		});
 	};
 
