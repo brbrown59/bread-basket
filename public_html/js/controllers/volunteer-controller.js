@@ -1,5 +1,6 @@
 app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService", "AlertService", function($scope, $uibModal, VolunteerService, AlertService) {
 	$scope.editedVolunteer = {};
+	$scope.index = null;
 	$scope.alerts = [];
 	$scope.volunteers = [];
 
@@ -13,12 +14,12 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 			controller: "VolunteerModal",
 			resolve: {
 				volunteer: function() {
-					return ($scope.volunteer);
+					return ($scope.volunteers);
 				}
 			}
 		});
 		VolunteerModalInstance.result.then(function(volunteer) {
-			$scope.volunteer = volunteer;
+
 			VolunteerService.create(volunteer)
 				.then(function(result) {
 					if(result.data.status === 200) {
@@ -27,6 +28,8 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
 				});
+			//push the new volunteer into the array to update live
+			$scope.volunteers.push(volunteer);
 		}, function() {
 			$scope.volunteer = {};
 		});
@@ -50,6 +53,7 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 		});
 		EditVolunteerModalInstance.result.then(function(volunteer) {
 			console.log(volunteer);
+			console.log($scope.volunteers);
 			VolunteerService.update(volunteer.volId, volunteer)
 				.then(function(result) {
 					if(result.data.status === 200) {
@@ -58,13 +62,16 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
 				});
+			$scope.volunteers[$scope.index] = volunteer;
+			$scope.index = null;
 		}, function() {
 			$scope.volunteer = {};
 		});
 	};
 
-	$scope.setEditedVolunteer = function(volunteer) {
+	$scope.setEditedVolunteer = function(volunteer, index) {
 		$scope.editedVolunteer = angular.copy(volunteer);
+		$scope.index = index;
 		//console.log($scope.editedVolunteer);
 		$scope.openEditVolunteerModal();
 	};
@@ -172,6 +179,7 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
 				})
+			//remove the current listing from array
 		});
 	};
 
