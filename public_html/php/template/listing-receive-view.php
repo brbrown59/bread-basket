@@ -19,28 +19,28 @@ require_once("header.php");
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h1>ALL listings Available</h1>
+				<h1>Available Listings</h1>
 			</div>
 		</div>
 	</div>
 	<hr />
 
-	<!---starts buttons-->
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-3">
-				<a class="btn btn-default btn-lg" href="login-landing-page.php" role="button"></a>
-			</div>
-
-			<!--------button for new listing
-			<div class="col-xs-3">
-				<button class="btn btn-info btn-lg" ng-click=""openListingModal();">text for button goes here</button>
-			</div>
-			---------->
-
-		</div>
-	</div>
-	<hr />
+<!--	<!---starts buttons-->
+<!--	<div class="container">-->
+<!--		<div class="row">-->
+<!--<!--			<div class="col-xs-3">-->
+<!--<!--				<a class="btn btn-default btn-lg" href="login-landing-page.php" role="button"></a>-->
+<!--<!--			</div>-->
+<!---->
+<!--			<!--------button for new listing-->
+<!--			<div class="col-xs-3">-->
+<!--				<button class="btn btn-info btn-lg" ng-click=""openListingModal();">text for button goes here</button>-->
+<!--			</div>-->
+<!--			---------->
+<!---->
+<!--		</div>-->
+<!--	</div>-->
+<!--	<hr />-->
 
 	<!-----starts table------>
 	<div class="container">
@@ -57,7 +57,7 @@ require_once("header.php");
 						<tr class="info" ng-repeat="listing in listings">
 							<td>Filler</td>
 							<td>{{ listing.listingMemo }}</td>
-							<td>{{ listing.listingPostTime }}</td>
+							<td>{{ listing.listingPostTime | date : 'medium' }}</td>
 							<td>
 								<button class="btn btn-info" ng-click="openListingDetailModal();">Claim Listing</button>
 							</td>
