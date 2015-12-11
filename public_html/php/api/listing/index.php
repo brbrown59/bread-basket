@@ -1,6 +1,6 @@
 <?php
 
-//require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/vendor/autoload.php");
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/vendor/autoload.php");
 require_once dirname(dirname(__DIR__)) . "/classes/autoloader.php";
 require_once dirname(dirname(__DIR__)) . "/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
@@ -22,7 +22,7 @@ $reply->data = null;
 
 try {
 	// create the Pusher connection
-	$config = readConfig("/etc/apache2/data-design/breadbasket.ini");
+	$config = readConfig("/etc/apache2/capstone-mysql/breadbasket.ini");
 	$pusherConfig = json_decode($config["pusher"]);
 	$pusher = new Pusher($pusherConfig->key, $pusherConfig->secret, $pusherConfig->id, ["encrypted" => true]);
 
@@ -126,7 +126,7 @@ try {
 			$listing->update($pdo);
 			$pusher->trigger("listing", "update", $listing);
 
-			$reply->message = "Listing updated OK";
+				$reply->message = "Listing updated OK";
 
 			} elseif($method === "POST") {
 				//create new listing
