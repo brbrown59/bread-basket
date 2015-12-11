@@ -32,26 +32,27 @@ require_once("prefix-utilities.php");
 <!--Angular Controllers-->
 
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/alert-controller.js"></script>
+<script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/contact-controller.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/signup-controller.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/signin-controller.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/sign-out-controller.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/volunteer-controller.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/listing-controller.js"></script>
-<script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/contact-controller.js"></script>
+<script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/listingtype-controller.js"></script>
+<script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/message-controller.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/organization-controller.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/validation-controller.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/tabs.js"></script>
 
 <!--Angular Modal Controllers-->
-<script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/signup-modal.js"></script>
-<script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/signin-modal.js"></script>
-<script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/newvolunteer-modal.js"></script>
-<script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/newlisting-modal.js"></script>
-<script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/contact-modal.js"></script>
-<script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/editvolunteer-modal.js"></script>
-<script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/listingdetail-modal.js"></script>
-<script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/editlisting-modal.js"></script>
-<script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/listing-receive-controller.js"></script>
+<script type="text/javascript" src="<?php echo $PREFIX; ?>js/modalcontrollers/signup-modal.js"></script>
+<script type="text/javascript" src="<?php echo $PREFIX; ?>js/modalcontrollers/signin-modal.js"></script>
+<script type="text/javascript" src="<?php echo $PREFIX; ?>js/modalcontrollers/newvolunteer-modal.js"></script>
+<script type="text/javascript" src="<?php echo $PREFIX; ?>js/modalcontrollers/newlisting-modal.js"></script>
+<script type="text/javascript" src="<?php echo $PREFIX; ?>js/modalcontrollers/contact-modal.js"></script>
+<script type="text/javascript" src="<?php echo $PREFIX; ?>js/modalcontrollers/editvolunteer-modal.js"></script>
+<script type="text/javascript" src="<?php echo $PREFIX; ?>js/modalcontrollers/listingdetail-modal.js"></script>
+<script type="text/javascript" src="<?php echo $PREFIX; ?>js/modalcontrollers/editlisting-modal.js"></script>
 
 <!--Angular Directives-->
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/directives/org-view.js"></script>

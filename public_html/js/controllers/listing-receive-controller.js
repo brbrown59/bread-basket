@@ -1,4 +1,4 @@
-app.controller("ListingController", ["$scope", "$ubiModal", "ListingService", "OrganizationService", "AlertService", function($scope, $ubiModal, ListingService, OrganizationService,AlertService) {
+app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "OrganizationService", "AlertService", function($scope, $uibModal, ListingService, OrganizationService,AlertService) {
 	$scope.editedListing = {};
 	$scope.index = null;
 	$scope.alerts = [];
@@ -9,8 +9,8 @@ app.controller("ListingController", ["$scope", "$ubiModal", "ListingService", "O
 	 */
 
 	$scope.openListingModal = function() {
-		var ListingModalInstance = $ubiModal.open({
-			templateUrl: "../../js/views/listing-detailview-modal.php",
+		var ListingModalInstance = $uibModal.open({
+			templateUrl: "../../js/views/newlisting-modal.php",
 			controller: "listingModal",
 			resolve: {
 				volunteer: function() {
@@ -38,7 +38,7 @@ app.controller("ListingController", ["$scope", "$ubiModal", "ListingService", "O
 	 */
 
 	$scope.openEditlistingModal = function() {
-		var EditlistingModalInstance = $ubiModal.open({
+		var EditlistingModalInstance = $uibModal.open({
 			templateUrl: "../../js/views/editListing-modal.php",
 			controller: "EditListingModal",
 			resolve: {
@@ -68,7 +68,7 @@ app.controller("ListingController", ["$scope", "$ubiModal", "ListingService", "O
 	 */
 
 	$scope.openEditlistingModal = function() {
-		var EditListingModalInstance = $ubiModal.open({
+		var EditListingModalInstance = $uibModal.open({
 			templateUrl: "../../js/views/editListing-modal.php",
 			controller: "EditListingModal",
 			resolve: {

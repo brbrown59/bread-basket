@@ -45,11 +45,11 @@ require_once("utilities.php")
 		<script type="text/javascript" src="../../js/services/alert-service.js"></script>
 		<script type="text/javascript" src="../../js/services/sign-in-service.js"></script>
 		<script type="text/javascript" src="../../js/services/sign-up-service.js"></script>
-		<script type="text/javascript" src="../../js/controllers/signup-modal.js"></script>
+		<script type="text/javascript" src="../../js/modal%20controllers/signup-modal.js"></script>
 		<script type="text/javascript" src="../../js/controllers/alert-controller.js"></script>
 		<script type="text/javascript" src="../../js/controllers/signup-controller.js"></script>
 		<script type="text/javascript" src="../../js/controllers/signin-controller.js"></script>
-		<script type="text/javascript" src="../../js/controllers/signin-modal.js"></script>
+		<script type="text/javascript" src="../../js/modal%20controllers/signin-modal.js"></script>
 
 
 
