@@ -42,11 +42,10 @@ try {
 
 
 // building the activation link that can travel to another server and still work. This is the link that will be clicked to confirm the account.
-$lastSlash = strrpos($_SERVER["SCRIPT_NAME"], "/");
-$basePath = substr($_SERVER["SCRIPT_NAME"], 0, $lastSlash);
+	$basePath = $_SERVER["SCRIPT_NAME"];
 
 //iterate to get to the right path (gotta be a cleaner way to do this...)
-for ($i=0; $i < 2; $i++) {
+for ($i=0; $i < 3; $i++) {
 	$lastSlash = strrpos($basePath, "/");
 	$basePath = substr($basePath, 0, $lastSlash);
 }
@@ -54,7 +53,7 @@ for ($i=0; $i < 2; $i++) {
 	//if this is an admin, send to the admin login page
 	//if not, send to the password confirmation page
 if ($volunteer->getVolIsAdmin() === true) {
-	$urlglue = $basePath . "/template/email-validation-login.php"; //double check this
+	$urlglue = $basePath . "/template/email-validation-login.php";
 } else {
 	$urlglue = $basePath . "/template/new-volunteer-login.php";
 }
