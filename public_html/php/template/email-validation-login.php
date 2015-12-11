@@ -1,16 +1,16 @@
 <?php
+//need to account for the case where the validation fails (check the reply data for a not 200)
+//needs a directive????
+
 /*grab current directory*/
 $CURRENT_DIR = __DIR__;
 /*set page title here*/
-$PAGE_TITLE = "All Volunteers";
+$PAGE_TITLE = "Validation Log-In";
 /*load head-utils*/
 require_once("utilities.php");
-/*load head-utilss*/
-require_once("utilities.php");
-
 ?>
 
-<main ng-controller="SigninController">
+<main ng-controller="ValidationController">
 
 	<div class="container">
 		<form id="signinForm" name="signinForm">
@@ -53,7 +53,7 @@ require_once("utilities.php");
 				</div>
 			</div>
 			<hr/>
-			<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="signinForm.$invalid"><i
+			<button type="submit" class="btn btn-lg btn-info" ng-click="signin(signinData, signinForm.$valid);" ng-disabled="signinForm.$invalid"><i
 					class="fa fa-sign-in" aria-hidden="true"></i> Sign In
 			</button>
 			<button type="reset" class="btn btn-lg btn-warning" ng-click="cancel();"><i class="fa fa-ban"

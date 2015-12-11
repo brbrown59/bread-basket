@@ -38,6 +38,7 @@ require_once("prefix-utilities.php");
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/listing-controller.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/contact-controller.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/organization-controller.js"></script>
+<script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/validation-controller.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/tabs.js"></script>
 
 <!--Angular Modal Controllers-->
