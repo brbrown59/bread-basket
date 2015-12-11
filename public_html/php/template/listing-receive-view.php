@@ -31,9 +31,13 @@ require_once("header.php");
 			<div class="col-xs-3">
 				<a class="btn btn-default btn-lg" href="login-landing-page.php" role="button"></a>
 			</div>
+
+			<!--------button for new listing
 			<div class="col-xs-3">
 				<button class="btn btn-info btn-lg" ng-click=""openListingModal();">New Listing Available</button>
 			</div>
+			---------->
+
 		</div>
 	</div>
 	<hr />
