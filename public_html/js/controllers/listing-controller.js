@@ -12,7 +12,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			templateUrl: "../../js/views/listing-detailview-modal.php",
 			controller: "ListingDetailModal",
 			resolve: {
-				listing: function() {         //this line was volunteers. I'm not entirely sure it should be listing
+				listing: function() {      //todo this line was volunteers. I'm not entirely sure it should be listing
 					return ($scope.listings);
 				}
 			}
@@ -96,7 +96,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			}
 		});
 
-		ListingDetailModalInstance.result.then(function(listing) { //todo is there something wrong with ListingDetailModalInstance?
+		ListingDetailModalInstance.result.then(function(listing) { //todo is there something wrong with ListingDetailModalInstance see the color?
 			$scope.listing = listing;
 			ListingService.create(listing)
 					.then(function(result) {
