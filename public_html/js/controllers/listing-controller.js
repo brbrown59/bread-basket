@@ -46,15 +46,15 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			}
 		});
 		ListingModalInstance.result.then(function(listing) {
-			console.log(listing);
 			ListingService.create(listing)
 					.then(function(result) {
-						if(result.status === 200) {
-							$scope.alerts[0] = {type: "success", msg: result.message};
+						if(result.data.status === 200) {
+							$scope.alerts[0] = {type: "success", msg: result.data.message};
 						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.message};
+							$scope.alerts[0] = {type: "danger", msg: result.data.message};
 						}
 					});
+			//push the new listing into he array to update live
 			$scope.listings.push(listing);
 		});
 	};
@@ -85,18 +85,18 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	 * opens edit listing modal and allows user to update listing as claimed or not claimed
 	 */
 
-	$scope.openEditListinglModal = function() {
+	$scope.openEditListingModal = function() {
 		var EditListingModalInstance = $uibModal.open({
 			templateUrl: "../../js/views/editlisting-modal.php",
 			controller: "EditListingModal",
 			resolve: {
-				volunteer: function() {        //TODo should this be volunteer and below listings?
+				listing: function() {        //TODo should this be volunteer for some reason I don't see?
 					return ($scope.listing);
 				}
 			}
 		});
 
-		ListingDetailModalInstance.result.then(function(listing) { //todo is there something wrong with ListingDetailModalIstance?
+		ListingDetailModalInstance.result.then(function(listing) { //todo is there something wrong with ListingDetailModalInstance?
 			$scope.listing = listing;
 			ListingService.create(listing)
 					.then(function(result) {
@@ -153,19 +153,20 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 
 
 
-	///**
-	// * fulfills the promise from retrieving the listing by Id from the listing API
-	// */
-	//$scope.getListings = function() {
-	//	ListingService.fetchId()
-	//			.then(function(result) {
-	//				if(result.data.status === 200) {
-	//					$scope.listings = result.data.data;
-	//				} else {
-	//					$scope.alerts[0] = {type: "danger", msg: result.data.message};
-	//				}
-	//			});
-	//};
+	/**
+	 * fulfills the promise from retrieving the listing by Id from the listing API
+	 */
+	//This promise at one point removed the alert box and would break the New Listing drop down
+	$scope.getListings = function() {
+		ListingService.fetchId()
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.listings = result.data.data;
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
+	};
 
 	//fulfills the promise from retrieving the listing by org id
 	$scope.getListingsByOrgId = function(orgId, validated) {
@@ -195,33 +196,33 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		}
 	};
 
-	////fulfills the promise from retrieving the listings by post time
-	//$scope.getListingByPostTime = function(postTime, validated) {
-	//	if(validated === true) {
-	//		ListingService.fetchPostTime(postTime)
-	//				.then(function(result) {
-	//					if(result.data.status === 200) {
-	//						$scope.listings = result.data.data;
-	//					} else {
-	//						$scope.alerts[0] = {type: "danger", msg: result.data.message};
-	//					}
-	//				});
-	//	}
-	//};
+	//fulfills the promise from retrieving the listings by post time
+	$scope.getListingByPostTime = function(postTime, validated) {
+		if(validated === true) {
+			ListingService.fetchPostTime(postTime)
+					.then(function(result) {
+						if(result.data.status === 200) {
+							$scope.listings = result.data.data;
+						} else {
+							$scope.alerts[0] = {type: "danger", msg: result.data.message};
+						}
+					});
+		}
+	};
 
-	////fulfills the promise from retrieving the listings by Type Id
-	//$scope.getListingByTypeId = function(typeId, validated) {
-	//	if(validated === true) {
-	//		ListingService.fetchTypeId(typeId)
-	//				.then(function(result) {
-	//					if(result.data.status === 200) {
-	//						$scope.listings = result.data.data;
-	//					} else {
-	//						$scope.alerts[0] = {type: "danger", msg: result.data.message};
-	//					}
-	//				});
-	//	}
-	//};
+	//fulfills the promise from retrieving the listings by Type Id
+	$scope.getListingByTypeId = function(typeId, validated) {
+		if(validated === true) {
+			ListingService.fetchTypeId(typeId)
+					.then(function(result) {
+						if(result.data.status === 200) {
+							$scope.listings = result.data.data;
+						} else {
+							$scope.alerts[0] = {type: "danger", msg: result.data.message};
+						}
+					});
+		}
+	};
 
 	/**
 	 * updates a listing and sends it to the listing API
