@@ -29,8 +29,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 							$scope.alerts[0] = {type: "danger", msg: result.data.message};
 						}
 					});
-			//push the new listing into he array to update live
-			$scope.listings.push(listing);
+
 		});
 	};
 
@@ -59,9 +58,9 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 							$scope.alerts[0] = {type: "danger", msg: result.data.message};
 						}
 					});
-			//update angulars copy for dynamic table updates
-			$scope.listing[$scope.index] = listing;
-			$scope.index = null;
+			////update angulars copy for dynamic table updates
+			//$scope.listing[$scope.index] = listing;
+			//$scope.index = null;
 		});
 	};
 
@@ -78,6 +77,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	$scope.getListings = function() {
 		ListingService.all()
 				.then(function(result) {
+					console.log(result.data)
 					if(result.data.status === 200) {
 						$scope.listings = result.data.data;
 					} else {
@@ -220,8 +220,8 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 							$scope.alerts[0] = {type: "danger", msg: result.data.message};
 						}
 					});
-			//remove the current listing from array
-			$scope.listings.splice(index, 1);
+			////remove the current listing from array
+			//$scope.listings.splice(index, 1);
 		});
 	};
 
@@ -229,8 +229,16 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	 * START PUSHER METHODS
 	 */
 
+		// Enable pusher logging DEBUG TOOL - TAKE OUT OF PRODUCTION
+	Pusher.log = function(message) {
+		if (window.console && window.console.log) {
+			window.console.log(message);
+		}
+	};
+
 	//subscribe to the delete channel; this will delete from the listings array on demand
-	Pusher.subscribe("listing", "delete", function(listing){
+	Pusher.subscribe("listing", "delete", function(listing) {
+		console.log("Fuzzy kitty")
 		for(var i = 0; i < $scope.listings.length; i++) {
 			if($scope.listings[i].listingId ===listing.listingId) {
 				$scope.listings.splice(i, 1);

@@ -21,6 +21,11 @@ $reply->status = 200;
 $reply->data = null;
 
 try {
+	// create the Pusher connection
+	$config = readConfig("/etc/apache2/data-design/breadbasket.ini");
+	$pusherConfig = json_decode($config["pusher"]);
+	$pusher = new Pusher($pusherConfig->key, $pusherConfig->secret, $pusherConfig->id, ["encrypted" => true]);
+
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySql("/etc/apache2/capstone-mysql/breadbasket.ini");
 
@@ -29,11 +34,6 @@ try {
 		setXsrfCookie("/");
 		throw(new RuntimeException("Please log-in or sign up", 401));
 	}
-
-  //create the Pusher connection
-	$config = readConfig("/etc/apache2/capstone-mysql/breadbasket.ini");
-	$pusherConfig = json_decode($config["pusher"]);
-	$pusher = new Pusher($pusherConfig->key, $pusherConfig->secret, $pusherConfig->id, ["encrypted" => true]);
 
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
@@ -124,15 +124,16 @@ try {
 			$listing->setListingPostTime($requestObject->listingPostTime);
 			$listing->setListingTypeId($requestObject->listingTypeId);
 			$listing->update($pdo);
+			$pusher->trigger("listing", "update", $listing);
 
-				$reply->message = "Listing updated OK";
+			$reply->message = "Listing updated OK";
 
 			} elseif($method === "POST") {
 				//create new listing
 				$listing = new Listing(null, $_SESSION["volunteer"]->getOrgId(), $requestObject->listingClaimedBy, $requestObject->listingClosed,
 						$requestObject->listingCost, $requestObject->listingMemo, $requestObject->listingParentId, $requestObject->listingPostTime, $requestObject->listingTypeId);
 				$listing->insert($pdo);
-//				$pusher->trigger("listing", "new", $listing);
+				$pusher->trigger("listing", "new", $listing);
 				$reply->message = "Listing created OK";
 			}
 			} elseif($method === "DELETE") {
@@ -144,7 +145,7 @@ try {
 				$listing->delete($pdo);
 				$deletedObject = new stdClass();
 				$deletedObject->listingId = $id;
-//				$pusher->trigger("listing", "delete", $deletedObject);
+				$pusher->trigger("listing", "delete", $deletedObject);
 
 				$reply->message = "Listing deleted OK";
 			}
@@ -158,7 +159,6 @@ try {
 		} catch (Exception $exception) {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
-	//$reply->message = $exception->getTrace();
 }
 header("Content-type: application/json");
 if($reply->data === null) {
