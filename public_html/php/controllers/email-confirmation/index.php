@@ -31,10 +31,10 @@ try {
 	$volunteer = Volunteer::getVolunteerByVolEmailActivation($pdo, $volEmailActivation);
 
 	if(empty($volunteer) === true) {
-		//throw (new InvalidArgumentException("Activation code has been activated or does not exist", 404));
-	//} else {
-	//	$volunteer->setVolEmailActivation(null);
-	//	$volunteer->update($pdo);
+		throw (new InvalidArgumentException("Activation code has been activated or does not exist", 404));
+	} else {
+		$volunteer->setVolEmailActivation(null);
+		$volunteer->update($pdo);
 	}
 
 	$reply->data = "Congratulations, your account has been activated!";
@@ -45,13 +45,22 @@ try {
 	$reply->data = $exception->getMessage();
 }
 
-// building the activation link that can travel to another server and still work. This is the link that will be clicked to confirm the account.
-//$lastSlash = strrpos($_SERVER["SCRIPT_NAME"], "/");
-//$basePath = substr($_SERVER["SCRIPT_NAME"], 0, $lastSlash + 1);
-//$urlglue = $basePath . "email-confirmation?emailActivation=" . $volEmailActivation;
 
 // building the activation link that can travel to another server and still work. This is the link that will be clicked to confirm the account.
-header("location: location, Content-type: application/json");//look how to send multiple parts to the header
+$lastSlash = strrpos($_SERVER["SCRIPT_NAME"], "/");
+$basePath = substr($_SERVER["SCRIPT_NAME"], 0, $lastSlash);
+
+//iterate to get to the right path (gotta be a cleaner way to do this...)
+for ($i=0; $i < 2; $i++) {
+	$lastSlash = strrpos($basePath, "/");
+	$basePath = substr($basePath, 0, $lastSlash);
+}
+$urlglue = $basePath . "/template/home.php";
+
+
+header("Location: " . $urlglue);
+header("Content-type: application/json");
+
 if($reply->data === null) {
 	unset($reply->data);
 }
