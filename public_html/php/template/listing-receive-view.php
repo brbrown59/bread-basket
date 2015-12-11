@@ -6,7 +6,7 @@ $PAGE_TITLE = "All listings Available";
 /*load head-utils*/
 require_once("utilities.php");
 
-/*requier once the header*/
+/*require once the header*/
 require_once("header.php");
 
 ?>
@@ -48,7 +48,6 @@ require_once("header.php");
 						<th>Location</h3></th>
 						<th>Description</th>
 						<th>Date Posted</th>
-						<th>Actions</th>
 						<th>Details</th>
 					</thead>
 						<tr class="info" ng-repeat="listing in listings">
