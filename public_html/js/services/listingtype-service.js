@@ -6,7 +6,7 @@
  */
 
 app.constant("LISTINGTYPE_ENDPOINT", "../../php/api/listingtype.php");
-app.service("ListingService", function($http, LISTING_ENDPOINT) {
+app.service("ListingTypeService", function($http, LISTING_ENDPOINT) {
 
 	//internal function for holding the url
 	function getUrl() {
