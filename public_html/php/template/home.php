@@ -32,24 +32,8 @@ require_once("utilities.php")
 		<!--latest compiled and minified bootstrap javascript-->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 
-		<!--CDN derived Angular.js -->
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-messages.min.js"></script>
-		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
-
 		<!-- CUSTOM js-->
-		<script type="text/javascript" src="../../js/angular-password.min.js"></script>
-
-		<script type="text/javascript" src="../../js/breadbasket.js"></script>
-		<script type="text/javascript" src="../../js/controllers/tabs.js"></script>
-		<script type="text/javascript" src="../../js/services/alert-service.js"></script>
-		<script type="text/javascript" src="../../js/services/sign-in-service.js"></script>
-		<script type="text/javascript" src="../../js/services/sign-up-service.js"></script>
-		<script type="text/javascript" src="../../js/modal%20controllers/signup-modal.js"></script>
-		<script type="text/javascript" src="../../js/controllers/alert-controller.js"></script>
-		<script type="text/javascript" src="../../js/controllers/signup-controller.js"></script>
-		<script type="text/javascript" src="../../js/controllers/signin-controller.js"></script>
-		<script type="text/javascript" src="../../js/modal%20controllers/signin-modal.js"></script>
+		<?php require_once("js-utilities.php")?>
 
 
 
