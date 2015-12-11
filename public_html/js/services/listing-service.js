@@ -16,12 +16,12 @@ app.service("ListingService", function($http,LISTING_ENDPOINT) {
 	};
 
 	//get by id
-	this.fetch = function(listingId) {
-		return($http.get(getUrlForId(listingid)));
+	this.fetchId = function(listingId) {
+		return($http.get(getUrlForId(listingId)));
 	};
 
 	//get by organization; orgId
-	this.fetchOrganization = function(orgId) {
+	this.fetch = function(orgId) {
 		return($http.get(getUrl() + "?organization=" + orgId));
 	};
 

@@ -12,24 +12,22 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			templateUrl: "../../js/views/listing-detailview-modal.php",
 			controller: "ListingDetailModal",
 			resolve: {
-				volunteer: function() {
-					return ($scope.listing);
+				listing: function() {         //this line was volunteers. I'm not entirely sure it should be listing
+					return ($scope.listings);
 				}
 			}
 		});
-		//ListingDetailModalInstance.result.then(function(listing) {
-		//	$scope.listing = listing;
-		//	ListingService.create(listing)
-		//			.then(function(result) {
-		//				if(result.data.status === 200) {
-		//					$scope.alerts[0] = {type: "success", msg: result.data.message};
-		//				} else {
-		//					$scope.alerts[0] = {type: "danger", msg: result.data.message};
-		//				}
-		//			});
-		//}, function() {
-		//	$scope.listing = {};
-		//});
+		ListingDetailModalInstance.result.then(function(listing) {
+			$scope.listing = listing;
+			ListingService.create(listing)
+					.then(function(result) {
+						if(result.data.status === 200) {
+							$scope.alerts[0] = {type: "success", msg: result.data.message};
+						} else {
+							$scope.alerts[0] = {type: "danger", msg: result.data.message};
+						}
+					});
+		});
 	};
 
 
@@ -67,7 +65,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	/**
 	 * sets which listing is being edited and activates the editing form
 	 *
-	 * @param listing the listing to be edited
+	 *
 	 */
 
 	$scope.setEditedListing = function() {
@@ -92,24 +90,23 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			templateUrl: "../../js/views/editlisting-modal.php",
 			controller: "EditListingModal",
 			resolve: {
-				volunteer: function() {
+				volunteer: function() {        //TODo should this be volunteer and below listings?
 					return ($scope.listing);
 				}
 			}
 		});
-		//ListingDetailModalInstance.result.then(function(listing) {
-		//	$scope.listing = listing;
-		//	ListingService.create(listing)
-		//			.then(function(result) {
-		//				if(result.data.status === 200) {
-		//					$scope.alerts[0] = {type: "success", msg: result.data.message};
-		//				} else {
-		//					$scope.alerts[0] = {type: "danger", msg: result.data.message};
-		//				}
-		//			});
-		//}, function() {
-		//	$scope.listing = {};
-		//});
+
+		ListingDetailModalInstance.result.then(function(listing) { //todo is there something wrong with ListingDetailModalIstance?
+			$scope.listing = listing;
+			ListingService.create(listing)
+					.then(function(result) {
+						if(result.data.status === 200) {
+							$scope.alerts[0] = {type: "success", msg: result.data.message};
+						} else {
+							$scope.alerts[0] = {type: "danger", msg: result.data.message};
+						}
+					});
+		});
 	};
 
 	/**
@@ -125,6 +122,12 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 					}
 				});
 	};
+
+	//load the array on first view
+	if($scope.listings.length === 0) {
+		$scope.listings = $scope.getListings();
+	}
+
 	/**
 	 * creates a listing and sends it to the listing API
 	 *
@@ -164,33 +167,33 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	//			});
 	//};
 
-	////fulfills the promise from retrieving the listing by org id
-	//$scope.getListingsByOrgId = function(orgId, validated) {
-	//	if(validated === true) {
-	//		ListingService.fetchOrgId(orgId)
-	//				.then(function(result) {
-	//					if(result.data.status === 200) {
-	//						$scope.listings = result.data.data;
-	//					} else {
-	//						$scope.alerts[0] = {type: "danger", msg: result.data.message};
-	//					}
-	//				});
-	//	}
-	//};
+	//fulfills the promise from retrieving the listing by org id
+	$scope.getListingsByOrgId = function(orgId, validated) {
+		if(validated === true) {
+			ListingService.fetchOrgId(orgId)
+					.then(function(result) {
+						if(result.data.status === 200) {
+							$scope.listings = result.data.data;
+						} else {
+							$scope.alerts[0] = {type: "danger", msg: result.data.message};
+						}
+					});
+		}
+	};
 
-	////fulfills the promise from retrieving the listings by parent id
-	//$scope.getListingByParentId = function(parentId, validated) {
-	//	if(validated === true) {
-	//	ListingService.fetchParentId(parentId)
-	//			.then(function(result) {
-	//				if(result.data.status === 200) {
-	//					$scope.listings = result.data.data;
-	//				} else {
-	//					$scope.alerts[0] = {type: "danger", msg: result.data.message};
-	//				}
-	//			});
-	//	}
-	//};
+	//fulfills the promise from retrieving the listings by parent id
+	$scope.getListingByParentId = function(parentId, validated) {
+		if(validated === true) {
+		ListingService.fetchParentId(parentId)
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.listings = result.data.data;
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
+		}
+	};
 
 	////fulfills the promise from retrieving the listings by post time
 	//$scope.getListingByPostTime = function(postTime, validated) {
@@ -244,13 +247,13 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	 *
 	 * @param listingId the listing id of the listing to be deleted
 	 */
-	$scope.deleteListing = function(listingId, index) {
+	$scope.deleteListing = function(listingId) { //Todo Add , index
 		//create a modal instance to prompt the user if she/he is sure they want to delete the listing
 		var message = "Are you sure you want to delete this listing?";
 
 		var modalHtml = '<div class="modal-body">' + message + '</div><div class="modal-footer"><button class="btn btn-primary" ng-click="yes()">Yes</button><button class="btn btn-warning" ng-click="no()">No</button></div>';
 
-		var modalInstance = $uibModad.open({
+		var modalInstance = $uibModal.open({
 			template: modalHtml,
 			controller: ModalInstanceCtrl
 		});
@@ -265,8 +268,8 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 							$scope.alerts[0] = {type: "danger", msg: result.data.message};
 						}
 					});
-			//remove the current listing from array
-			$scope.listing.splice(index, 1);
+			//remove the current listing from array //Todo commented out while figuring out how I broke it
+			//$scope.listing.splice(index, 1);
 		});
 	};
 
@@ -300,10 +303,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		Pusher.unsubscribe("listings");
 	});
 
-	//load the array on first view
-	if($scope.listings.length === 0) {
-		$scope.listings = $scope.getListings();
-	}
+
 }]);
 
 //embedded modal instance controller to create deletion prompt
