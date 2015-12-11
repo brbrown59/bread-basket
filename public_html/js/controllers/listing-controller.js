@@ -201,7 +201,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	 */
 	$scope.deleteListing = function(listingId, index) {
 		//create a modal instance to prompt the user if she/he is sure they want to delete the misquote
-		var message = "Are you sure you want to delete this volunteer?";
+		var message = "Are you sure you want to delete this listing?";
 
 		var modalHtml = '<div class="modal-body">' + message + '</div><div class="modal-footer"><button class="btn btn-primary" ng-click="yes()">Yes</button><button class="btn btn-warning" ng-click="no()">No</button></div>';
 
@@ -214,14 +214,16 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		modalInstance.result.then(function() {
 			ListingService.destroy(listingId)
 					.then(function(result) {
+						console.log(result.data)
+						console.log(result.message)
 						if(result.data.status === 200) {
 							$scope.alerts[0] = {type: "success", msg: result.data.message};
 						} else {
 							$scope.alerts[0] = {type: "danger", msg: result.data.message};
 						}
 					});
-			////remove the current listing from array
-			//$scope.listings.splice(index, 1);
+			//remove the current listing from array
+			$scope.listings.splice(index, 1);
 		});
 	};
 
@@ -229,16 +231,8 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	 * START PUSHER METHODS
 	 */
 
-		// Enable pusher logging DEBUG TOOL - TAKE OUT OF PRODUCTION
-	Pusher.log = function(message) {
-		if (window.console && window.console.log) {
-			window.console.log(message);
-		}
-	};
-
 	//subscribe to the delete channel; this will delete from the listings array on demand
 	Pusher.subscribe("listing", "delete", function(listing) {
-		console.log("Fuzzy kitty")
 		for(var i = 0; i < $scope.listings.length; i++) {
 			if($scope.listings[i].listingId ===listing.listingId) {
 				$scope.listings.splice(i, 1);

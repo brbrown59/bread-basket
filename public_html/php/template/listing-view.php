@@ -54,8 +54,8 @@ require_once("header.php");
 						<td>{{ listing.listingMemo }}</td>
 						<td>{{ listing.listingPostTime }}</td>
 						<td>
-							<button class="btn btn-info" ng-click="setEditedListing(listing);"><i class="fa fa-pencil"></i></button>
-							<form class="inline" ng-submit="deleteListing(listing.listingId);">
+							<button class="btn btn-info" ng-click="setEditedListing(listing, listings.indexOf(listing));"><i class="fa fa-pencil"></i></button>
+							<form class="inline" ng-submit="deleteListing(listing.listingId, listings.indexOf(listing));">
 								<button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
 							</form>
 						</td>

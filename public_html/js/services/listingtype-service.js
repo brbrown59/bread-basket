@@ -7,6 +7,7 @@
 
 app.constant("LISTINGTYPE_ENDPOINT", "../../php/api/listingtype.php");
 app.service("ListingService", function($http, LISTING_ENDPOINT) {
+
 	//internal function for holding the url
 	function getUrl() {
 		return (LISTING_ENDPOINT);
@@ -19,7 +20,7 @@ app.service("ListingService", function($http, LISTING_ENDPOINT) {
 
 	//getListingTypeById
 	this.fetch = function(listingTypeId) {
-		return ($http.get(getUrlForId(listingTypeId)));
+		return ($http.get(getUrl(listingTypeId)));
 	};
 
 	//getListingTypeByTypeInfo
@@ -34,12 +35,12 @@ app.service("ListingService", function($http, LISTING_ENDPOINT) {
 
 	//PUT
 	this.update = function(listingTypeId, listingType) {
-		return($http.put(getUrlForId(listingType), listingType));
+		return($http.put(getUrl(listingType), listingType));
 	};
 
 		//DELETE
 	this.destroy = function(listingTypeId) {
-		return($http.delete(getUrlForId(listingTypeId)));
+		return($http.delete(getUrl(listingTypeId)));
 	};
 });
 
