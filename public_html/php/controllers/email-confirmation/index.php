@@ -55,6 +55,10 @@ for ($i=0; $i < 3; $i++) {
 if ($volunteer->getVolIsAdmin() === true) {
 	$urlglue = $basePath . "/template/email-validation-login.php";
 } else {
+	//have to log-in the new volunteer here so that they can update their password
+	$_SESSION["volunteer"] = $volunteer;
+	$reply->status = 200;
+	$reply->message = "Successfully logged in";
 	$urlglue = $basePath . "/template/new-volunteer-login.php";
 }
 

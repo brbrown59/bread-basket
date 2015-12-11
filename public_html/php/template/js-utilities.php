@@ -57,5 +57,3 @@ require_once("prefix-utilities.php");
 <!--Angular Directives-->
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/directives/org-view.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/directives/org-edit.js"></script>
-<script type="text/javascript" src="<?php echo $PREFIX; ?>js/directives/listing-view.js"></script>
-<script type="text/javascript" src="<?php echo $PREFIX; ?>js/directives/listing-edit.js"></script>
