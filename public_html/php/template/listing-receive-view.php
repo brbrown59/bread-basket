@@ -4,7 +4,7 @@ $CURRENT_Dir = __DIR__;
 /*set page title here*/
 $PAGE_TITLE = "All listings Available";
 /*load head-utilss*/
-requier_once("utilities.php");
+require_once("utilities.php");
 
 /*requier once the header*/
 require_once("header.php");
