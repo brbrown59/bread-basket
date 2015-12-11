@@ -17,6 +17,6 @@
 	<span>505-867-5309</span>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-primary" type="button" ng-click="ok()">Claim Listing</button>
-	<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel Claim</button>
+	<button class="btn btn-lg btn-info" type="button" ng-click="ok()">Claim Listing</button>
+	<button class="btn btn-lg btn-warning" type="button" ng-click="cancel()">Cancel Claim</button>
 </div>
