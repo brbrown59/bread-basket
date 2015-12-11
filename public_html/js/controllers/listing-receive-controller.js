@@ -33,7 +33,7 @@ app.controller("ListingController", ["$scope", "$ubiModal", "ListingService", "O
 		});
 	};
 
-	/**
+	/** ??????do we need this block???????
 	 * opens edit listing modal and sends updated to the volunteer API
 	 */
 
@@ -48,12 +48,63 @@ app.controller("ListingController", ["$scope", "$ubiModal", "ListingService", "O
 			}
 		});
 
-		EditlistingModalInstance
+		EditlistingModalInstance.result.then(function(listing) {
+
+			LisitngService.create(lisitng)
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.alerts[0] = {type: "success", msg:result.data.message}
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
+			//push the new listing inot the array to update in real time
+			$scope.listing.push(listing);
+		});
+	};
+
+	/**??????do we need this block?????????
+	 * opens edit listing modal and sends updated volunteer to the volunteer API
+	 */
+
+	$scope.openEditlistingModal = function() {
+		var EditListingModalInstance = $ubiModal.open({
+			templateUrl: "../../js/views/editListing-modal.php",
+			controller: "EditListingModal",
+			resolve: {
+				editedListing:function() {
+					return ($scope.editiedListing);
+				}
+		}
+		});
+		EditListingModalInstance.result.then(function(lisitng) {
+			//send the update request to the database
+			ListingService.update(listing.listingId, listing)
+				.then (function(result) {
+				if(result.data.status === 200) {
+					$scope.alert[0] = {type: "success", msg: result.data.message};
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+				}
+			});
+			//update angulars copy for dynamic tables updates
+			$scope.editedListing = angular.copy(listing);
+			$scope.index = index;
+			$scope.openEditListingModal();
+		});
+
+		/**
+		 * fulfills the promise from retrieving all the volunteers form the listing API
+		 */
+		$scope.getListing = function() {
+			ListingService.all()
+				.then(function(result) {
+
+				})
+		}
+
 
 
 	}
-
-
-
 
 }])
