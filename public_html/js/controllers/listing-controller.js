@@ -18,7 +18,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			}
 		});
 		ListingDetailModalInstance.result.then(function(listing) {
-			$scope.listing = listing;
+			$scope.listing = listing; //this scope it unusual
 			ListingService.create(listing)
 					.then(function(result) {
 						if(result.data.status === 200) {
@@ -154,11 +154,11 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 
 
 	/**
-	 * fulfills the promise from retrieving the listing by Id from the listing API
+	 * fulfills the promise from retrieving the listings by Id from the listing API
 	 */
 	//This promise at one point removed the alert box and would break the New Listing drop down
-	$scope.getListings = function() {
-		ListingService.fetchId()
+	$scope.getListingsById = function() {
+		ListingService.fetchId() //changed to all
 				.then(function(result) {
 					if(result.data.status === 200) {
 						$scope.listings = result.data.data;
@@ -171,7 +171,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	//fulfills the promise from retrieving the listing by org id
 	$scope.getListingsByOrgId = function(orgId, validated) {
 		if(validated === true) {
-			ListingService.fetchOrgId(orgId)
+			ListingService.fetchByOrgId(orgId)
 					.then(function(result) {
 						if(result.data.status === 200) {
 							$scope.listings = result.data.data;

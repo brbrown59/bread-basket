@@ -21,7 +21,7 @@ app.service("ListingService", function($http,LISTING_ENDPOINT) {
 	};
 
 	//get by organization; orgId
-	this.fetch = function(orgId) {
+	this.fetchByOrgId = function(orgId) {
 		return($http.get(getUrl() + "?organization=" + orgId));
 	};
 
