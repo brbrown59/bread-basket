@@ -49,6 +49,7 @@ require_once("prefix-utilities.php");
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/editvolunteer-modal.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/listingdetail-modal.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/editlisting-modal.js"></script>
+<script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/listing-receive-controller.js"></script>
 
 <!--Angular Directives-->
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/directives/org-view.js"></script>
