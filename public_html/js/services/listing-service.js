@@ -26,17 +26,17 @@ app.service("ListingService", function($http,LISTING_ENDPOINT) {
 	};
 
 	//get by Listing Parent Id; listing
-	this.fetch = function(listingParentId) {
+	this.fetchByParentId = function(listingParentId) {
 		return($http.get(getUrl() + "?listingParentId=" + listingParentId));
 	};
 
 	//get by Listing post Time; listingPostTime
-	this.fetch = function(listingPostTime) {
+	this.fetchByPostTime = function(listingPostTime) {
 		return($http.get(getUrl() + "?listingPostTime=" + listingPostTime));
 	};
 
 	//get by Listing Type Id;
-	this.fetch = function(listingTypeId) {
+	this.fetchByTypeId = function(listingTypeId) {
 		return($http.get(getUrl() + "?listingTypeId=" + listingTypeId));
 	};
 

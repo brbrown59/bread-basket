@@ -1,11 +1,9 @@
-app.controller("EditListingModal", ["$scope", "$uibModalInstance", function($scope, $uibModalInstance) {
-	$scope.listing = {};
-
+app.controller("EditListingModal", ["$scope", "$uibModalInstance", "editedListing", function($scope, $uibModalInstance, editedListing) {
+	$scope.editedListing = editedListing;
 
 
 	$scope.ok = function() {
-
-		$uibModalInstance.close($scope.listing);
+		$uibModalInstance.close($scope.editedListing);
 	};
 
 	$scope.cancel = function() {

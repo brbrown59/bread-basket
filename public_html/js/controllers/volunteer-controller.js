@@ -5,6 +5,7 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 	$scope.volunteers = [];
 
 	/**
+	 * START METHOD: CREATE/POST
 	 * opens new volutneer modal and adds sends volunteer to the volunteer API
 	 */
 	$scope.openVolunteerModal = function() {
@@ -32,8 +33,8 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 		});
 	};
 
-
 	/**
+	 * START METHOD UPDATE/PUT
 	 * opens edit volunteer modal and sends updated volunteer to the volunteer API
 	 */
 
@@ -72,6 +73,7 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 
 
 	/**
+	 * START METHOD(S): FETCH/GET
 	 * fufills the promise from retrieving all the volunteers from the volunteer API
 	 */
 	$scope.getVolunteers = function() {
@@ -148,6 +150,7 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 
 
 	/**
+	 * STARTS METHOD: DELETE/DESTROY
 	 * deletes a volunteer and sends it to the volunteer API if the user confirms deletion
 	 *
 	 * @param volId the volunteer id to delete

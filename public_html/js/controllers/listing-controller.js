@@ -3,35 +3,10 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	$scope.alerts = [];
 	$scope.listings = [];
 
-	/**
-	 * opens detail listing modal and allows user to update listing as claimed or not claimed
-	 */
-
-	$scope.openListingDetailModal = function() {
-		var ListingDetailModalInstance = $uibModal.open({
-			templateUrl: "../../js/views/listing-detailview-modal.php",
-			controller: "ListingDetailModal",
-			resolve: {
-				listing: function() {      //todo this line was volunteers. I'm not entirely sure it should be listing
-					return ($scope.listings);
-				}
-			}
-		});
-		ListingDetailModalInstance.result.then(function(listing) {
-			$scope.listing = listing; //this scope it unusual
-			ListingService.create(listing)
-					.then(function(result) {
-						if(result.data.status === 200) {
-							$scope.alerts[0] = {type: "success", msg: result.data.message};
-						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.data.message};
-						}
-					});
-		});
-	};
 
 
 	/**
+	 * START METHOD: CREATE/POST
 	 * opens new listing modal and adds sends listing to the listing API
 	 */
 
@@ -59,30 +34,9 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		});
 	};
 
-
-
-
 	/**
-	 * sets which listing is being edited and activates the editing form
-	 *
-	 *
-	 */
-
-	$scope.setEditedListing = function() {
-		$scope.isEditing = true;
-		$scope.openEditListinglModal();
-	};
-
-	/**
-	 * cancels editing doesn't change listing being edited
-	 */
-	$scope.cancelEditing = function() {
-		$scope.editedListing = {};
-		$scope.isEditing = false;
-	};
-
-	/**
-	 * opens edit listing modal and allows user to update listing as claimed or not claimed
+	 * START METHOD UPDATE/PUT
+	 * opens edit volunteer modal and sends updated volunteer to the volunteer API
 	 */
 
 	$scope.openEditListingModal = function() {
@@ -90,15 +44,14 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			templateUrl: "../../js/views/editlisting-modal.php",
 			controller: "EditListingModal",
 			resolve: {
-				listing: function() {        //TODo should this be volunteer for some reason I don't see?
-					return ($scope.listing);
+				editedListing: function() {
+					return ($scope.editedListing);
 				}
 			}
 		});
-
-		ListingDetailModalInstance.result.then(function(listing) { //todo is there something wrong with ListingDetailModalInstance see the color?
-			$scope.listing = listing;
-			ListingService.create(listing)
+		EditListingModalInstance.result.then(function(listing) {
+			//send the update request to the database
+			ListingService.update(listing.listingId, listing)
 					.then(function(result) {
 						if(result.data.status === 200) {
 							$scope.alerts[0] = {type: "success", msg: result.data.message};
@@ -106,7 +59,17 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 							$scope.alerts[0] = {type: "danger", msg: result.data.message};
 						}
 					});
+			//update angulars copy for dynamic table updates
+			$scope.listing[$scope.index] = listing;
+			$scope.index = null;
 		});
+	};
+
+	$scope.setEditedListing = function(listing, index) {
+		//set the edited volunteer in the scope, and set the index for updating the array
+		$scope.editedListing = angular.copy(listing);
+		$scope.index = index;
+		$scope.openEditListingModal();
 	};
 
 	/**
@@ -123,38 +86,17 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 				});
 	};
 
+	/**
+	 * LOADS TABLE ARRAY
+	 */
 	//load the array on first view
 	if($scope.listings.length === 0) {
 		$scope.listings = $scope.getListings();
 	}
 
 	/**
-	 * creates a listing and sends it to the listing API
-	 *
-	 * @param listing the listing to send
-	 * @param validated true is angular validated the form, false if not
-	 */
-	$scope.createListing = function(listing, validated) {
-		if(validated === true) {
-			ListingService.create(listing)
-					.then(function(result) {
-						if(result.data.status === 200) {
-							$scope.alerts[0] = {type: "success", msg: result.data.message};
-						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.data.message};
-						}
-					});
-		}
-	};
-
-
-
-
-
-
-
-	/**
-	 * fulfills the promise from retrieving the listings by Id from the listing API
+	 * START METHOD(S): FETCH/GET
+	 * fufills the promise from retrieving all the volunteers from the volunteer API
 	 */
 	//This promise at one point removed the alert box and would break the New Listing drop down
 	$scope.getListingsById = function() {
@@ -225,14 +167,23 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	};
 
 	/**
-	 * updates a listing and sends it to the listing API
-	 *
-	 * @param listing the listing to send
-	 * @param validated true is angular validated the form, false if not
+	 * FOR: RECEIVER ORGANIZATIONS
+	 * opens detail listing modal and allows a VOLUNTEER to update listing as CLAIMED or NOT CLAIMED
 	 */
-	$scope.updateListing = function(listing, validated) {
-		if(validated === true && $scope.isEditing === true) {
-			ListingService.update(listing.listingId, listing)
+
+	$scope.openListingDetailModal = function() {
+		var ListingDetailModalInstance = $uibModal.open({
+			templateUrl: "../../js/views/listing-detailview-modal.php",
+			controller: "ListingDetailModal",
+			resolve: {
+				listing: function() {      //todo this line was volunteers. I'm not entirely sure it should be listing
+					return ($scope.listings);
+				}
+			}
+		});
+		ListingDetailModalInstance.result.then(function(listing) {
+
+			ListingService.create(listing)
 					.then(function(result) {
 						if(result.data.status === 200) {
 							$scope.alerts[0] = {type: "success", msg: result.data.message};
@@ -240,7 +191,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 							$scope.alerts[0] = {type: "danger", msg: result.data.message};
 						}
 					});
-		}
+		});
 	};
 
 	/**
@@ -248,9 +199,9 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	 *
 	 * @param listingId the listing id of the listing to be deleted
 	 */
-	$scope.deleteListing = function(listingId) { //Todo Add , index
-		//create a modal instance to prompt the user if she/he is sure they want to delete the listing
-		var message = "Are you sure you want to delete this listing?";
+	$scope.deleteListing = function(listingId, index) {
+		//create a modal instance to prompt the user if she/he is sure they want to delete the misquote
+		var message = "Are you sure you want to delete this volunteer?";
 
 		var modalHtml = '<div class="modal-body">' + message + '</div><div class="modal-footer"><button class="btn btn-primary" ng-click="yes()">Yes</button><button class="btn btn-warning" ng-click="no()">No</button></div>';
 
@@ -259,7 +210,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			controller: ModalInstanceCtrl
 		});
 
-		//if the user clicked yes, delete the listing
+		//if the user clicked yes, delete the volunteer
 		modalInstance.result.then(function() {
 			ListingService.destroy(listingId)
 					.then(function(result) {
@@ -269,10 +220,14 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 							$scope.alerts[0] = {type: "danger", msg: result.data.message};
 						}
 					});
-			//remove the current listing from array //Todo commented out while figuring out how I broke it
-			//$scope.listing.splice(index, 1);
+			//remove the current listing from array
+			$scope.listings.splice(index, 1);
 		});
 	};
+
+	/**
+	 * START PUSHER METHODS
+	 */
 
 	//subscribe to the delete channel; this will delete from the listings array on demand
 	Pusher.subscribe("listing", "delete", function(listing){
@@ -306,6 +261,13 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 
 
 }]);
+
+/**
+ * EMBEDDED CONTROLLER FOR DELETE METHOD
+ * @param $scope
+ * @param $uibModalInstance
+ * @constructor
+ */
 
 //embedded modal instance controller to create deletion prompt
 var ModalInstanceCtrl = function($scope,  $uibModalInstance) {
