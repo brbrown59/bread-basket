@@ -16,6 +16,10 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 //composer for Swiftmailer
 require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/vendor/autoload.php");
 
+//verify the xsrf challenge
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
 
 // prepare default error message
 $reply = new stdClass();

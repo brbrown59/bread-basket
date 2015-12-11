@@ -29,37 +29,36 @@ app.controller("ValidationController", ["$scope", "$uibModal", "$window", "Alert
 	$scope.setVolPasswords = function(newvolData, validation) {
 		if(validation === true) {
 			//get the volunteer in question
-			console.log(newvolData.volEmail);
+			console.log(newvolData);
 			VolunteerService.fetchEmail(newvolData.volEmail)
 				.then(function(reply) {
-					if(reply.status === 200) {
-						//set the new volunteer passwords, and do an update
-						console.log(reply.data);
-						$scope.volunteer = reply.data.data;
-						$scope.volunteer.volPassword = newvolData.password;
-						VolunteerService.update($scope.volunteer.volId, $scope.volunteer)
-							.then(function(reply) {
-								if(reply.status === 200) {
-									//sign the volunteer into the program
-									SigninService.signin(newvolData) //sends the validation, but api should ignore it
-										.then(function(reply) {
-											if(reply.status === 200) {
-												//redirect them to the listing page
-												//later, make this an if statement that checks if they're an admin
-												AlertService.addAlert({type: "success", msg: reply.message});
-												$window.location.assign("../../php/template/listing-receive-view.php");
-											} else {
-												AlertService.addAlert({type: "danger", msg: reply.message});
-											}
-										})
-								} else {
-									AlertService.addAlert({type: "danger", msg: reply.message});
-								}
-							})
-					} else {
-						AlertService.addAlert({type: "danger", msg: reply.message});
+						if(reply.status === 200) {
+							//set the new volunteer passwords, and do an update
+							console.log(reply.data);
+							$scope.volunteer = reply.data.data;
+							$scope.volunteer.volPassword = newvolData.password;
+
+
+							VolunteerService.update($scope.volunteer.volId, $scope.volunteer)
+								.then(function(reply) {
+									if(reply.status === 200) {
+										//sign the volunteer into the program
+
+										//redirect them to the listing page
+										//later, make this an if statement that checks if they're an admin
+										AlertService.addAlert({type: "success", msg: reply.message});
+										$window.location.assign("../../php/template/listing-receive-view.php");
+
+
+									} else {
+										AlertService.addAlert({type: "danger", msg: reply.message});
+									}
+								})
+						} else {
+							AlertService.addAlert({type: "danger", msg: reply.message});
+						}
 					}
-				})
+				)
 		}
 	};
 }]);
