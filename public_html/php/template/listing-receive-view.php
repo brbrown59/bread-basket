@@ -32,7 +32,7 @@ require_once("header.php");
 				<a class="btn btn-default btn-lg" href="login-landing-page.php" role="button"></a>
 			</div>
 			<div class="col-xs-3">
-				<button class="btn btn-info btn-lg" ng-click=""openListingModal();">New Listing available</button>
+				<button class="btn btn-info btn-lg" ng-click=""openListingModal();">New Listing Available</button>
 			</div>
 		</div>
 	</div>
