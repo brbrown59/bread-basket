@@ -34,7 +34,7 @@ require_once("header.php");
 
 			<!--------button for new listing
 			<div class="col-xs-3">
-				<button class="btn btn-info btn-lg" ng-click=""openListingModal();">New Listing Available</button>
+				<button class="btn btn-info btn-lg" ng-click=""openListingModal();">text for button goes here</button>
 			</div>
 			---------->
 
