@@ -1,6 +1,6 @@
 <?php
 /**
- * controller for sending a confirmation email to a new user
+ * controller for getting a confirmation email from a new user
  *
  * @author Tamra Fenstermaker <fenstermaker505@gmail.com>
  * contributor code from https://github.com/sandidgec/foodinventory &
@@ -40,11 +40,6 @@ try {
 	$reply->data = "Congratulations, your account has been activated!";
 	//redirect them somewhere
 
-} catch(Exception $exception) {
-	$reply->status = $exception->getCode();
-	$reply->data = $exception->getMessage();
-}
-
 
 // building the activation link that can travel to another server and still work. This is the link that will be clicked to confirm the account.
 $lastSlash = strrpos($_SERVER["SCRIPT_NAME"], "/");
@@ -55,7 +50,20 @@ for ($i=0; $i < 2; $i++) {
 	$lastSlash = strrpos($basePath, "/");
 	$basePath = substr($basePath, 0, $lastSlash);
 }
-$urlglue = $basePath . "/template/home.php";
+
+	//if this is an admin, send to the admin login page
+	//if not, send to the password confirmation page
+if ($volunteer->getVolIsAdmin() === true) {
+	$urlglue = $basePath . "/template/email-validation-login.php"; //double check this
+} else {
+	$urlglue = $basePath . "/template/new-volunteer-login.php";
+}
+
+} catch(Exception $exception) {
+	$reply->status = $exception->getCode();
+	$reply->data = $exception->getMessage();
+}
+
 
 
 header("Location: " . $urlglue);

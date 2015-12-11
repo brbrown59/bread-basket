@@ -170,9 +170,13 @@ try {
 				// building the activation link that can travel to another server and still work. This is the link that will be clicked to confirm the account.
 				$lastSlash = strrpos($_SERVER["SCRIPT_NAME"], "/");
 				$basePath = substr($_SERVER["SCRIPT_NAME"], 0, $lastSlash);
-				$lastSlash = strrpos($_SERVER["SCRIPT_NAME"], "/");
-				$basePath = substr($_SERVER["SCRIPT_NAME"], 0, $lastSlash);
-				$urlglue = $basePath . "/controllers/new-volunteer-confirmation?emailActivation=" . $volunteer->getVolEmailActivation();
+
+				$lastSlash = strrpos($basePath, "/");
+				$basePath = substr($basePath, 0, $lastSlash);
+
+				$lastSlash = strrpos($basePath, "/");
+				$basePath = substr($basePath, 0, $lastSlash);
+				$urlglue = $basePath . "/controllers/email-confirmation?emailActivation=" . $volunteer->getVolEmailActivation();
 
 				$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
 				$message = <<< EOF
