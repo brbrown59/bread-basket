@@ -80,7 +80,7 @@ try {
 				$reply->data = $volunteer;
 			}
 		} else if(empty($current) === false) {
-			$volunteer = Volunteer::getVolunteerByVolId($pdo, $_SESSION["volunteer"]->getOrgId());
+			$volunteer = Volunteer::getVolunteerByVolId($pdo, $_SESSION["volunteer"]->getVolId());
 			$reply->data = $volunteer;
 		} else {
 			$reply->data = Volunteer::getVolunteerByOrgId($pdo, $_SESSION["volunteer"]->getOrgId())->toArray();

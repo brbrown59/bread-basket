@@ -1,5 +1,5 @@
 app.constant("ORGANIZATION_ENDPOINT", "../../php/api/organization/");
-app.constant("VOLUNTEER_ENDPOINT", "../../php/api/organization/");
+app.constant("VOLUNTEER_ENDPOINT", "../../php/api/volunteer/");
 app.service("GetCurrentService", function($http, ORGANIZATION_ENDPOINT, VOLUNTEER_ENDPOINT) {
 	//internal function for holding the url
 	function getOrgUrl() {
