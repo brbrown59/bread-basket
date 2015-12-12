@@ -27,6 +27,7 @@ require_once("prefix-utilities.php");
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/services/sign-in-service.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/services/sign-up-service.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/services/sign-out-service.js"></script>
+<script type="text/javascript" src="<?php echo $PREFIX; ?>js/services/get-current-service.js"></script>
 
 <!--Angular Controllers-->
 

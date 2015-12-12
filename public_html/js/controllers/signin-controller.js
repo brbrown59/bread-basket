@@ -17,6 +17,7 @@ app.controller("SigninController", ["$scope", "$uibModal", "$window", "AlertServ
 					.then(function(reply) {
 						if(reply.status === 200) {
 							AlertService.addAlert({type: "success", msg: reply.message});
+
 							//needs to be an if here, depending on power of the user
 							//get current, then check isadmin to determine
 							$window.location.assign("../../php/template/login-landing-page.php")

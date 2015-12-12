@@ -1,4 +1,4 @@
-app.controller("OrganizationController", ["$scope", "OrganizationService", "$uibModal", function($scope, OrganizationService, $uibModal) {
+app.controller("OrganizationController", ["$scope", "OrganizationService", "GetCurrentService", "$uibModal", function($scope, OrganizationService, GetCurrentService, $uibModal) {
 	//add as needed
 
 	//the organization for the view will be the first element in this array
@@ -30,7 +30,7 @@ app.controller("OrganizationController", ["$scope", "OrganizationService", "$uib
 	};
 
 	$scope.getCurrentOrganization = function() {
-		OrganizationService.fetchCurrent()
+		GetCurrentService.fetchOrgCurrent()
 				.then(function(result) {
 					if(result.data.status === 200) {
 						$scope.organization = result.data.data;

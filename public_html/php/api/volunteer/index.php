@@ -46,6 +46,7 @@ try {
 	$admin = filter_input(INPUT_GET, "admin", FILTER_VALIDATE_BOOLEAN);
 	$phone = filter_input(INPUT_GET, "phone", FILTER_SANITIZE_STRING);
 	$emailActivation = filter_input(INPUT_GET, "emailActivation", FILTER_SANITIZE_STRING);
+	$current = filter_input(INPUT_GET, "current", FILTER_SANITIZE_STRING);
 
 	//handle REST calls, while only allowing administrators to access database-modifying methods
 	if($method === "GET") {
@@ -78,6 +79,9 @@ try {
 			if($volunteer !== null && $volunteer->getOrgId() === $_SESSION["volunteer"]->getOrgId()) {
 				$reply->data = $volunteer;
 			}
+		} else if(empty($current) === false) {
+			$volunteer = Volunteer::getVolunteerByVolId($pdo, $_SESSION["volunteer"]->getOrgId());
+			$reply->data = $volunteer;
 		} else {
 			$reply->data = Volunteer::getVolunteerByOrgId($pdo, $_SESSION["volunteer"]->getOrgId())->toArray();
 		}
