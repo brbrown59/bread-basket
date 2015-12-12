@@ -17,14 +17,27 @@ app.controller("SigninController", ["$scope", "$uibModal", "$window", "AlertServ
 				.then(function(reply) {
 					if(reply.status === 200) {
 						AlertService.addAlert({type: "success", msg: reply.message});
-						//needs to be an if here, depending on power of the user
-						//get current, then check isadmin to determine
+						//three potential cases here: receiving volunteer, receiving admin, giving admin
+						//Receiving volunteer redirects to the listing page, the other two go to their respective landing pages
 						GetCurrentService.fetchVolCurrent()
 							.then(function(result) {
 								if(result.data.status === 200) {
 									if(result.data.data.volIsAdmin === true) {
-										$window.location.assign("../../php/template/login-landing-page.php")
+										GetCurrentService.fetchOrgCurrent()
+											.then(function(result) {
+												if(result.data.status === 200) {
+													if(result.data.data.orgType === "G") {
+														//giving admin
+													} else if(result.data.data.orgType === "R") {
+														//receiving admin
+														$window.location.assign("../../php/template/login-landing-page.php")
+													}
+												} else {
+													AlertService.addAlert({type: "danger", msg: reply.message});
+												}
+											});
 									} else {
+										//receiving volunteer
 										$window.location.assign("../../php/template/listing-receive-view.php")
 									}
 								} else {
