@@ -115,8 +115,14 @@ try {
 					throw(new RuntimeException("Volunteer does not exist", 404));
 				}
 
+				//check to make sure a non-admin is only attempting to edit themselves
+				//if not, take their temp access and throw an exception
+				$security = Volunteer::getVolunteerByVolId($pdo, $_SESSION["volunteer"]->getVolId());
+				if(($security->getVolIsAdmin() === false) && ($_SESSION["volunteer"]->getVolId() !== $volunteer->getVolId())) {
+					$_SESSION["volunteer"]->setVolIsAdmin(false);
+					throw(new RunTimeException("Only administrators can modify entries", 403));
+				}
 
-				$volunteer = Volunteer::getVolunteerByVolId($pdo, $id);
 				$volunteer->setVolEmail($requestObject->volEmail);
 				$volunteer->setVolFirstName($requestObject->volFirstName);
 				$volunteer->setVolLastName($requestObject->volLastName);
