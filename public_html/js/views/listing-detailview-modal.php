@@ -3,12 +3,9 @@
 	<h4>Posted On: 11/11/15</h4>
 </div>
 <div class="modal-body">
-	<h4>Perishable</h4>
+	<h4>{{ listing.listingType }} </h4>
 	<h4>Description</h4>
-	<p>MEMO TEXT Offal ethical tacos, iPhone migas neutra vice yr freegan green juice williamsburg
-		bicycle rights cardigan pork belly. Retro poutine irony chartreuse craft beer you probably haven't
-		heard of them. Polaroid vice chicharrones, whatever tacos PBR&B umami single-origin coffee gluten-free
-		mixtape portland. Readymade vegan pop-up, pug scenester hammock 8-bit flexitarian master cleanse.</p>
+	<p>{{ listing.listingMemo }}</p>
 	<h4>Location</h4>
 	<span>123 Street NE</span> <span>Albuquerque</span> <span>NM</span> <span>87106</span>
 	<h4>Hours</h4>

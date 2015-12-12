@@ -1,7 +1,7 @@
 
 <div class="container-fluid">
 	<!--begin navbar-->
-	<nav class="nav navbar-default">
+	<nav class="nav navbar">
 		<!--logo and mobile toggle button get grouped together-->
 		<div class="navbar-header">
 			<button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#my-navbar" aria-expanded="false">

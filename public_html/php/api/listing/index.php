@@ -25,7 +25,6 @@ try {
 	$config = readConfig("/etc/apache2/capstone-mysql/breadbasket.ini");
 	$pusherConfig = json_decode($config["pusher"]);
 	$pusher = new Pusher($pusherConfig->key, $pusherConfig->secret, $pusherConfig->id, ["debug" => true, "encrypted" => true]);
-	$pusher->set_logger(new BadLogger());
 
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySql("/etc/apache2/capstone-mysql/breadbasket.ini");
@@ -60,7 +59,7 @@ try {
 		$reply->config = $pusher->getSettings();
 		$reply->rawChannels = $pusher->get("/channels/");
 		$reply->channels = $pusher->get_channels();
-	} else if($method === "GET") {
+	} elseif($method === "GET") {
 		//set an XSRF cookie on get requests
 		setXsrfCookie("/");
 

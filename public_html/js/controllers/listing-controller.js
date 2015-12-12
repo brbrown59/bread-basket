@@ -177,21 +177,25 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			templateUrl: "../../js/views/listing-detailview-modal.php",
 			controller: "ListingDetailModal",
 			resolve: {
-				listing: function() {      //todo this line was volunteers. I'm not entirely sure it should be listing
-					return ($scope.listings);
+				editedListing: function() {
+					return ($scope.editedListing);
 				}
 			}
 		});
 		ListingDetailModalInstance.result.then(function(listing) {
-
-			ListingService.create(listing)
+			//send the update request to the database
+			ListingService.update(listing.listingId, listing)
 					.then(function(result) {
+						console.log(result.data)
 						if(result.data.status === 200) {
 							$scope.alerts[0] = {type: "success", msg: result.data.message};
 						} else {
 							$scope.alerts[0] = {type: "danger", msg: result.data.message};
 						}
 					});
+			////update angulars copy for dynamic table updates
+			//$scope.listing[$scope.index] = listing;
+			//$scope.index = null;
 		});
 	};
 

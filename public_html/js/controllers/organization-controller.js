@@ -150,7 +150,7 @@ app.controller("OrganizationController", ["$scope", "OrganizationService", "$uib
 	$scope.deleteOrganization = function(orgId) {
 		//create a modal to ask for confirmation
 		var message = "Do you really want to delete this organization?";
-		var modalHtml = '<div class="modal-body">' + message + '</div><div class="modal-footer"><button class="btn btn-primary" ng-click="yes()">Yes</button><button class="btn btn-warning" ng-click-"no()">No</button></div>';
+		var modalHtml = '<div class="modal-body">' + message + '</div><div class="modal-footer"><button class="btn btn-primary" ng-click="yes()">Yes</button><button class="btn btn-warning" ng-click="no()">No</button></div>';
 		var modalInstance = $uibModal.open({
 			template: modalHtml,
 			controller: ModalInstanceCtrl
