@@ -87,10 +87,10 @@ try {
 	if(empty($_SESSION["volunteer"]) === false && $_SESSION["volunteer"]->getVolIsAdmin() === true) {
 
 		if($method === "PUT" || $method === "POST") {
-
 			verifyXsrf();
 			$requestContent = file_get_contents("php://input");
 			$requestObject = json_decode($requestContent);
+
 
 
 			//make sure all fields are present, in order to prevent database issues
@@ -122,10 +122,23 @@ try {
 				$volunteer->setVolLastName($requestObject->volLastName);
 				$volunteer->setVolPhone($requestObject->volPhone);
 
+				//if there's a password, hash it, and set it
+				if($requestObject->volPassword !== null) {
+					$hash = hash_pbkdf2("sha512", $requestObject->volPassword, $volunteer->getVolSalt(), 262144, 128);
+					$volunteer->setVolHash($hash);
+				}
 
 				$volunteer->update($pdo);
+				//kill the temporary admin access, if they're not supposed to have it
+				//check to see if the password is not null; this means it's a regular volunteer changing their password and not an admin
+				//prevents admins from being logged out for editing their regular volunteers
+				if(($volunteer->getVolIsAdmin() === false) && ($requestObject->volPassword !== null)) {
+					$_SESSION["volunteer"]->setVolIsAdmin(false);
+				}
 
 				$reply->message = "Volunteer updated OK";
+
+
 
 			} elseif($method === "POST") {
 				$password = bin2hex(openssl_random_pseudo_bytes(32));

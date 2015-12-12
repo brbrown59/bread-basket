@@ -49,6 +49,8 @@ app.controller("VolunteerController", ["$scope", "$uibModal", "VolunteerService"
 			}
 		});
 		EditVolunteerModalInstance.result.then(function(volunteer) {
+			//need to set a volPassword here, so that the set password in the validation controller doesn't break
+			volunteer.volPassword = null;
 			//send the update request to the database
 			VolunteerService.update(volunteer.volId, volunteer)
 				.then(function(result) {
