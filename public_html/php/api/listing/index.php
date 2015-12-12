@@ -24,7 +24,8 @@ try {
 	// create the Pusher connection
 	$config = readConfig("/etc/apache2/capstone-mysql/breadbasket.ini");
 	$pusherConfig = json_decode($config["pusher"]);
-	$pusher = new Pusher($pusherConfig->key, $pusherConfig->secret, $pusherConfig->id, ["encrypted" => true]);
+	$pusher = new Pusher($pusherConfig->key, $pusherConfig->secret, $pusherConfig->id, ["debug" => true, "encrypted" => true]);
+	$pusher->set_logger(new BadLogger());
 
 	//grab the mySQL connection
 	$pdo = connectToEncryptedMySql("/etc/apache2/capstone-mysql/breadbasket.ini");
@@ -55,7 +56,11 @@ try {
 	$listingTypeId = filter_input(INPUT_GET, "listingTypeId", FILTER_VALIDATE_INT);
 
 	//handle all RESTful calls to listing //get some or all Listings
-	if($method === "GET") {
+	if($method === "OPTIONS") {
+		$reply->config = $pusher->getSettings();
+		$reply->rawChannels = $pusher->get("/channels/");
+		$reply->channels = $pusher->get_channels();
+	} else if($method === "GET") {
 		//set an XSRF cookie on get requests
 		setXsrfCookie("/");
 

@@ -1,5 +1,6 @@
 app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "AlertService", "Pusher", function($scope, $uibModal,ListingService, AlertService, Pusher) {
 	$scope.editedListing = {};
+	$scope.newListing = {listingId: null, listingMemo: "", listingCost: "", listingType: ""};
 	$scope.alerts = [];
 	$scope.listings = [];
 
@@ -52,6 +53,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			//send the update request to the database
 			ListingService.update(listing.listingId, listing)
 					.then(function(result) {
+						console.log(result.data)
 						if(result.data.status === 200) {
 							$scope.alerts[0] = {type: "success", msg: result.data.message};
 						} else {
@@ -77,7 +79,6 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	$scope.getListings = function() {
 		ListingService.all()
 				.then(function(result) {
-					console.log(result.data)
 					if(result.data.status === 200) {
 						$scope.listings = result.data.data;
 					} else {
@@ -233,6 +234,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 
 	//subscribe to the delete channel; this will delete from the listings array on demand
 	Pusher.subscribe("listing", "delete", function(listing) {
+		console.log(listing);
 		for(var i = 0; i < $scope.listings.length; i++) {
 			if($scope.listings[i].listingId ===listing.listingId) {
 				$scope.listings.splice(i, 1);
@@ -242,12 +244,12 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	});
 
 	//subscribe to the new channel; this will add to the listings array on demand
-	Pusher.subscribe("listing", "new", function(listing){
+	Pusher.subscribe("listing", "new", function(listing) {
 		$scope.listings.push(listing);
 	});
 
 	//subscribe to the update channel; this will update the listings array on demand
-	Pusher.subscribe("listing", "update", function(listing){
+	Pusher.subscribe("listing", "update", function(listing) {
 		for(var i = 0; i < $scope.listings.length; i++) {
 			if($scope.listings[i].listingId === listing.listingId) {
 				$scope.listings[i] = listing;

@@ -12,7 +12,7 @@
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 				</div>
-				<textarea class="form-control" id="memo" name="memo" placeholder="Please add a brief description of your donation" ng-model="listingData.listingMemo" ng-required="true"></textarea>
+				<textarea class="form-control" id="memo" name="memo" placeholder="Please add a brief description of your donation" ng-model="editedListing.listingMemo" ng-required="true"></textarea>
 			</div>
 			<div class="alert alert-danger" role="alert" ng-messages="editListingForm.listingMemo.$error" ng-if="editListingForm.listingMemo.$touched" ng-hide="editListingForm.listingMemo.$valid">
 				<p ng-message="required">Please add a description</p>
@@ -25,19 +25,19 @@
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
 				</div>
-				<input type="number" class="form-control" id="cost" name="cost" placeholder="Estimated cost of donation" min="0" step="0.01" ng-min="0" ng-model="listingData.listingCost" ng-required="false"/>
+				<input type="number" class="form-control" id="cost" name="cost" placeholder="Estimated cost of donation" min="0" step="0.01" ng-min="0" ng-model="editedListing.listingCost" ng-required="false"/>
 			</div>
 		</div>
 		<!--type-->
 		<div class="radio" ng-class="{ 'has-error' : editListingForm.type1.$touched && editListingForm.type1.$invalid }">
 			<label class="control-label" for="type1">
-				<input type="radio" name="listingTypeId" id="perishable" value="93" ng-model="listingData.listingTypeId">
+				<input type="radio" name="listingTypeId" id="perishable" value="93" ng-model="editedListing.listingTypeId">
 				Perishable
 			</label>
 		</div>
 		<div class="radio" ng-class="{ 'has-error' : editListingForm.type2.$touched && editListingForm.type2.$invalid }">
 			<label class="control-label" for="type2">
-				<input type="radio" name="listingTypeId" id="nonPerishable" value="94" ng-model="listingData.listingTypeId">
+				<input type="radio" name="listingTypeId" id="nonPerishable" value="94" ng-model="editedListing.listingTypeId">
 				Non-Perishable
 			</label>
 		</div>
