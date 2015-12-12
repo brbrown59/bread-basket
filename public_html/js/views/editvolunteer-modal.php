@@ -35,11 +35,11 @@
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
 				</div>
-				<input type="email" class="form-control" id="volEmail" name="volEmail" placeholder="volEmail" ng-model="editedVolunteer.volEmail" ng-required="true" />
+				<input type="email" class="form-control" id="volEmail" name="volEmail" placeholder="Email" ng-model="editedVolunteer.volEmail" ng-required="true" />
 			</div>
 			<div class="alert alert-danger" role="alert" ng-messages="editVolunteerForm.volEmail.$error" ng-if="editVolunteerForm.volEmail.$touched" ng-hide="editVolunteerForm.volEmail.$valid">
 				<p ng-message="email">Email is invalid.</p>
-				<p ng-message="required">Please enter an Email.</p>
+				<p ng-message="required">Please enter an email.</p>
 			</div>
 			<!--volPhone-->
 			<label class="control-label sr-only " for="volPhone">Phone</label>
@@ -50,7 +50,7 @@
 				<input type="text" class="form-control" id="volPhone" name="volPhone" placeholder="Phone" ng-model="editedVolunteer.volPhone" ng-required="true" />
 			</div>
 			<div class="alert alert-danger" role="alert" ng-messages="editVolunteerForm.volPhone.$error" ng-if="editVolunteerForm.volPhone.$touched" ng-hide="editVolunteerForm.volPhone.$valid">
-				<p ng-message="required">Please enter a volPhone number.</p>
+				<p ng-message="required">Please enter a phone number.</p>
 			</div>
 			<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="editVolunteerForm.$invalid"><i class="fa fa-check" aria-hidden="true"></i>Submit</button>
 			<button type="reset" class="btn btn-lg btn-warning" ng-click="cancel();"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>

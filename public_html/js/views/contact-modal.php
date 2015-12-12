@@ -58,7 +58,7 @@
 					<div class="input-group-addon">
 						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 					</div>
-				<input type="text" class="form-control" maxlength = "256" id="subject" name="subject" placeholder="subject" ng-model="contactData.subject" ng-maxlength="256" ng-required="true">
+				<input type="text" class="form-control" maxlength = "256" id="subject" name="subject" placeholder="Subject" ng-model="contactData.subject" ng-maxlength="256" ng-required="true">
 			</div>
 			<div class="alert alert-danger" role="alert" ng-messages="contactForm.subject.$error" ng-if="contactForm.subject.$touched" ng-hide="contactForm.subject.$valid">
 				<p ng-message="required">Please enter a subject</p>

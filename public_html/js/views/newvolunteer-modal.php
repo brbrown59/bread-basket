@@ -33,16 +33,16 @@
 		<label class="control-label" for="volvolEmail">Contact</label>
 		<div class="form-inline form-group-lg" ng-class="{ 'has-error': volunteerForm.volEmail.$touched && volunteerForm.volEmail.$invalid }">
 			<!--volEmail-->
-			<label class="control-label sr-only" for="volEmail">volEmail</label>
+			<label class="control-label sr-only" for="volEmail">Email</label>
 			<div class="input-group">
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
 				</div>
-				<input type="email" class="form-control" id="volEmail" name="volEmail" placeholder="volEmail" ng-model="volunteer.volEmail" ng-required="true" />
+				<input type="email" class="form-control" id="volEmail" name="volEmail" placeholder="Email" ng-model="volunteer.volEmail" ng-required="true" />
 			</div>
 			<div class="alert alert-danger" role="alert" ng-messages="volunteerForm.volEmail.$error" ng-if="volunteerForm.volEmail.$touched" ng-hide="volunteerForm.volEmail.$valid">
 				<p ng-message="email">Email is invalid.</p>
-				<p ng-message="required">Please enter an Email.</p>
+				<p ng-message="required">Please enter a valid email.</p>
 			</div>
 			<!--volPhone-->
 			<label class="control-label sr-only " for="volPhone">Phone</label>
@@ -53,7 +53,7 @@
 				<input type="text" class="form-control" id="volPhone" name="volPhone" placeholder="Phone" ng-model="volunteer.volPhone" ng-required="true" />
 			</div>
 			<div class="alert alert-danger" role="alert" ng-messages="volunteerForm.volPhone.$error" ng-if="volunteerForm.volPhone.$touched" ng-hide="volunteerForm.volPhone.$valid">
-				<p ng-message="required">Please enter a volPhone number.</p>
+				<p ng-message="required">Please enter a phone number.</p>
 			</div>
 		<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="volunteerForm.$invalid"><i class="fa fa-check" aria-hidden="true"></i>Submit</button>
 		<button type="reset" class="btn btn-lg btn-warning" ng-click="cancel();"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>

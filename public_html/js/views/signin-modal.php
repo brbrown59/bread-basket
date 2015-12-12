@@ -12,7 +12,7 @@
 			</div>
 			<div class="alert alert-danger" role="alert" ng-messages="signinForm.email.$error" ng-if="signinForm.email.$touched" ng-hide="signinForm.email.$valid">
 				<p ng-message="email">Email is invalid.</p>
-				<p ng-message="required">Please enter your Email.</p>
+				<p ng-message="required">Please enter your email.</p>
 			</div>
 		</div>
 		<div class="form-group form-group-lg" ng-class="{ 'has-error': signinForm.password.$touched && signinForm.password.$invalid }">

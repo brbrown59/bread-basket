@@ -33,6 +33,10 @@
 					<h3><span class="glyphicon glyphicon-phone"></span> Phone</h3>
 				</div>
 				<input class="form-group form-group-lg well" type="text" id="orgPhone" name="orgPhone" ng-model="organization.orgPhone" placeholder="{{ organization.orgPhone }}">
+				<div class="alert alert-danger" role="alert" ng-messages="organizationForm.orgPhone.$error" ng-if="organizationForm.volEmail.$touched" ng-hide="organizationForm.volEmail.$valid">
+					<p ng-message="email">Email is invalid.</p>
+					<p ng-message="required">Please enter an Email.</p>
+				</div>
 			</div>
 			<div class="col-md-3">
 				<div class="text-box">

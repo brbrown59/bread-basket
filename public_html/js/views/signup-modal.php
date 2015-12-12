@@ -20,8 +20,8 @@
 				  ng-if="signupData.volFirstName.$touched" ng-hide="signupData.volFirstName.$valid">
 				<p ng-message="required">Please enter your first name</p>
 			</div>
-			<!--last name-->
 
+			<!--last name-->
 			<label class="control-label sr-only" for="volLastName">Last Name</label>
 
 			<div class="input-group">
@@ -34,6 +34,7 @@
 			</div>
 
 		</div>
+
 		<!--email-->
 		<div class="form-group" ng-class="{ 'has-error': signupData.volEmail.$touched && signupData.volEmail.$invalid }">
 			<label class="control-label" for="volEmail">Email</label>
@@ -52,6 +53,7 @@
 				<p ng-message="required">Please enter your Email.</p>
 			</div>
 		</div>
+
 		<!--phone number-->
 		<div class="form-group" ng-class="{ 'has-error': signupData.volPhone.$touched && signupData.volPhone.$invalid }">
 			<label class="control-label" for="phone">Phone</label>
@@ -68,6 +70,7 @@
 				<p ng-message="required">Please enter your phone number.</p>
 			</div>
 		</div>
+
 		<!--password-->
 		<div class="form-group" ng-class="{ 'has-error': signupData.password.$touched && signupData.password.$invalid }">
 			<label class="control-label" for="password">Password</label>
@@ -107,8 +110,10 @@
 				<p ng-message="required">Please enter your password.</p>
 			</div>
 		</div>
+
 		<!--start organization fields-->
 		<p>Please enter your organization information</p>
+
 		<!--org name-->
 		<div class="form-group" ng-class="{ 'has-error': signupData.orgName.$touched && signupData.orgName.$invalid }">
 			<label class="control-label" for="orgName">Organization Name</label>
@@ -125,6 +130,7 @@
 				<p ng-message="required">Please enter your organization name.</p>
 			</div>
 		</div>
+
 		<!--org address 1-->
 		<div class="form-group"
 			  ng-class="{ 'has-error': signupData.orgAddress1.$touched && signupData.orgAddress1.$invalid }">
@@ -142,6 +148,7 @@
 				<p ng-message="required">Please enter your address.</p>
 			</div>
 		</div>
+
 		<!--org address 2-->
 		<div class="form-group"
 			  ng-class="{ 'has-error': signupData.orgAddress2.$touched && signupData.orgAddress2.$invalid }">
@@ -155,6 +162,7 @@
 						 ng-model="signupData.orgAddress2" ng-required="false"/>
 			</div>
 		</div>
+
 		<!--city-->
 		<div class="form-inline">
 			<div class="form-group" ng-class="{ 'has-error': signupData.orgCity.$touched && signupData.orgCity.$invalid }">
@@ -167,6 +175,7 @@
 					</select>
 				</div>
 			</div>
+
 			<!--state-->
 			<div class="form-group"
 				  ng-class="{ 'has-error': signupData.orgState.$touched && signupData.orgState.$invalid }">
@@ -179,13 +188,14 @@
 					</select>
 				</div>
 			</div>
+
 			<!--zip-->
 			<div class="form-group" ng-class="{ 'has-error': signupData.orgZip.$touched && signupData.orgZip.$invalid }">
 				<label class="control-label" for="orgZip">Zip</label>
 
 				<div class="input-group">
 
-					<input type="text" class="form-control" id="orgZip" name="orgZip" placeholder="Zip "
+					<input type="text" class="form-control" id="orgZip" name="orgZip" placeholder="Zip"
 							 ng-model="signupData.orgZip"
 							 ng-required="true"/>
 				</div>
