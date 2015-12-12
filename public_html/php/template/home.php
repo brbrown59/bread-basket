@@ -26,6 +26,7 @@ require_once("utilities.php")
 		<link type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
 		<!-- CUSTOM stylesheets -->
 		<link type="text/css" rel="stylesheet" href="../../css/custom-style.css"/>
+		<link type="text/css" rel="stylesheet" href="../../css/fonts.css"/>
 
 		<!--jQuery for Bootstrap's .js plugins-->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -34,6 +35,9 @@ require_once("utilities.php")
 
 		<!-- CUSTOM js-->
 		<?php require_once("js-utilities.php")?>
+
+		<!--Google Fonts-->
+		<link href='https://fonts.googleapis.com/css?family=Dosis|Josefin+Sans|Raleway' rel='stylesheet' type='text/css'>
 
 
 
@@ -46,17 +50,19 @@ require_once("utilities.php")
 			<header>
 				<div class="container-fluid">
 					<!--begin navbar-->
-					<nav class="nav navbar-default">
+					<nav class="nav navbar">
 						<!--logo and mobile toggle button get grouped together-->
 						<div class="navbar-header">
 							<button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#my-navbar" aria-expanded="false">
 								<span class="sr-only">Main Menu</span>
 								<span class="glyphicon glyphicon-th-large"></span>
 							</button>
-							<a href="#" class="navbar-brand">
+							<div class="nav navbar-nav">
+							<a href="#" class="home-link">
 								<span class="glyphicon glyphicon-grain"></span>
 								Bread Basket
 							</a>
+							</div>
 						</div>
 
 						<!--nav links are grouped together here-->
@@ -72,29 +78,29 @@ require_once("utilities.php")
 			<!--main content-->
 			<main>
 				<!--container 1-->
-				<div class="bg-blue container-fluid">
+				<div class="container-fluid">
 					<div class="padding-top-bottom-lg">
 						<div class="row">
 							<div class="col-md-4 col-md-offset-4">
-								<div class="text-center lead">
-									Connecting People To End Hunger
+								<div class="text-center">
+									<h1>Connecting People To End Hunger</h1>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4 col-md-offset-4 text-center">
-								<button class="btn btn-lg">Find Out How</button>
+								<button class="btn btn-lg btn-home">Find Out How</button>
 							</div>
 						</div>
 					</div>
 				</div>
 				<!--container 2-->
-				<div class="container-fluid">
+				<div class="bg-drk container-fluid">
 					<div class="padding-top-bottom-sm">
 						<div class="row">
 							<div class="col-md-12 center-block">
-								<div class="text-center lead">
-									How It Works
+								<div class="text-center">
+									<h1>How It Works</h1>
 								</div>
 							</div>
 						</div>
@@ -103,7 +109,7 @@ require_once("utilities.php")
 							<div class="col-md-4 col-md-offset-4">
 								<div ng-controller="TabsController">
 									<uib-tabset justified="true">
-										<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" >
+										<uib-tab ng-class ="{active: disabled, disabled: disabled}" ng-repeat="tab in tabs" heading="{{tab.title}}" >
 											{{tab.content}}
 										</uib-tab>
 									</uib-tabset>
@@ -113,19 +119,19 @@ require_once("utilities.php")
 					</div>
 				</div>
 				<!--container 3-->
-				<div class="container-fluid bg-powderblue">
+				<div class="container-fluid">
 					<div class="padding-top-bottom-sm">
 						<div class="row">
 							<div class="col-md-4 col-md-offset-4">
-								<div class="text-center lead">
-									Join Us
+								<div class="text-center">
+									<h1>Join Us</h1>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4 col-md-offset-4 text-center">
 								<div ng-controller="SignupController">
-								<button class="btn btn-lg" ng-click="openSignupModal();">Sign Up</button>
+								<button class="btn btn-lg btn-home" ng-click="openSignupModal();">Sign Up</button>
 								</div>
 							</div>
 						</div>
@@ -134,6 +140,8 @@ require_once("utilities.php")
 			</main>
 
 		</div>
+
+		<?php require_once("footer.php")?>
 	</body>
 
 

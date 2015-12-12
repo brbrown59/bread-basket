@@ -42,7 +42,6 @@ require_once("prefix-utilities.php");
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/message-controller.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/organization-controller.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/validation-controller.js"></script>
-<script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/tabs.js"></script>
 
 <!--Angular Modal Controllers-->
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/modalcontrollers/signup-modal.js"></script>
@@ -57,3 +56,4 @@ require_once("prefix-utilities.php");
 <!--Angular Directives-->
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/directives/org-view.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/directives/org-edit.js"></script>
+<script type="text/javascript" src="<?php echo $PREFIX; ?>js/directives/tabs.js"></script>

@@ -1,6 +1,6 @@
 app.controller("TabsController", function ($scope) {
 	$scope.tabs = [
-		{title: "Giver", content: 'giver description'},
+		{title: "Giver", content: '../views/giver-tab.php'},
 		{title: "Receiver", content: "receiver description"}
 	];
 

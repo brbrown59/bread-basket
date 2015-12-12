@@ -1,3 +1,12 @@
+/********************************************
+* Custom CSS Styles for Bread Basket
+*
+* @author Kimberly Keller keller.kimberly@gmail.com
+*
+********************************************/
+
+/** FOOTER STYLES **/
+
 /***
 * Flexbox Sticky Footer
 * http://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
@@ -15,12 +24,29 @@ body { width: 100%;}
 
 .sfooter-content {
 	flex: 1 0 auto;
+	background: url(../img/food-ingredients-high.jpg) no-repeat center center fixed;
+	background-size: cover;
+	padding-bottom: 100px;
 }
 
-/** adds top padding to center block**/
+footer {
+	padding: 10px 0;
+	background-color: darkslategray;
+	color: whitesmoke;
+	font-size: 1.5em;
+	box-shadow: 0 -42px 100px rgba(0, 0, 0, 0.42);
+}
 
+
+/** HOME PAGE CUSTOM STYLING **/
+
+/** Add padding to large block elements on home page**/
 .inline {
 	display: inline;
+}
+
+.small-block {
+	padding: 5%;
 }
 .padding-top-bottom-lg {
 	padding-top: 12%;
@@ -37,10 +63,59 @@ body { width: 100%;}
 	padding-right: 10%;
 }
 
-.bg-blue {
-	background-color: cornflowerblue;
+.bg-drk {
+	background-color: darkslategrey;
+
 }
 
-.bg-powderblue {
-	background-color: powderblue;
+/**NAVBAR STYLING**/
+
+.nav li a {
+	color: whitesmoke;
+	font-size: 1.5em;
+	font-family: 'Josefin Sans', sans-serif;
+}
+
+.nav li a:hover {
+	color: darkslategray;
+	border: 2px darkslategray;
+
+}
+
+.home-link {
+	font-size: 2em;
+	font-family: 'Josefin Sans', sans-serif;
+	color: whitesmoke;
+	border-radius: 5px;
+}
+
+.home-link:hover {
+	text-decoration: none;
+	color: darkslategray;
+}
+
+/** BUTTON STYLING **/
+
+.btn-home {
+	font-family: 'Josefin Sans', sans-serif;
+	color: whitesmoke;
+	background-color: darkslategray;
+	padding: 10px 16px;
+	font-size: 1.5em;
+	line-height: 1.33;
+	border-radius: 0px;
+}
+
+.btn {
+	border: 3px solid whitesmoke;
+}
+
+.btn:hover {
+	color: darkslategray;
+	background-color: whitesmoke;
+
+}
+
+.nav-tabs:hover {
+	border-radius: 0px;
 }
