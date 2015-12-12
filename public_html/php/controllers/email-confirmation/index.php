@@ -60,8 +60,7 @@ if ($volunteer->getVolIsAdmin() === true) {
 	$urlglue = $basePath . "/template/email-validation-login.php";
 } else {
 	//have to log-in the new volunteer here so that they can update their password
-	//and temporarily set them as admin, to give them password access
-	//thought: what if I do this via a service that only executes upon submitting the new passwords?
+	//and temporarily set them as admin, to give them update access
 	$volunteer->setVolIsAdmin(true);
 	$_SESSION["volunteer"] = $volunteer;
 	$reply->status = 200;

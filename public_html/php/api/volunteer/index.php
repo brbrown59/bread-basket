@@ -141,6 +141,15 @@ try {
 
 
 			} elseif($method === "POST") {
+
+				//if they shouldn't have admin access to this method, kill the temp access and boot them
+				//check by retrieving their original volunteer from the DB and checking
+				$security = Volunteer::getVolunteerByVolId($pdo, $_SESSION["volunteer"]->getVolId());
+				if($security->getVolIsAdmin() === false) {
+					$_SESSION["volunteer"]->setVolIsAdmin(false);
+					throw(new RunTimeException("Access Denied", 403));
+				}
+
 				$password = bin2hex(openssl_random_pseudo_bytes(32));
 				$salt = bin2hex(openssl_random_pseudo_bytes(32));
 				$hash = hash_pbkdf2("sha512", $password, $salt, 262144, 128);
@@ -222,6 +231,14 @@ EOF;
 
 		} elseif($method === "DELETE") {
 			verifyXsrf();
+
+			//if they shouldn't have admin access to this method, kill the temp access and boot them
+			//check by retrieving their original volunteer from the DB and checking
+			$security = Volunteer::getVolunteerByVolId($pdo, $_SESSION["volunteer"]->getVolId());
+			if($security->getVolIsAdmin() === false) {
+				$_SESSION["volunteer"]->setVolIsAdmin(false);
+				throw(new RunTimeException("Access Denied", 403));
+			}
 
 			$volunteer = Volunteer::getVolunteerByVolId($pdo, $id);
 			if($volunteer === null) {
