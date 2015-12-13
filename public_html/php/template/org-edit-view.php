@@ -32,7 +32,7 @@
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-phone"></span> Phone</h3>
 				</div>
-				<input class="form-group-lg well" type="text" id="orgPhone" name="orgPhone" ng-model="organization.orgPhone" placeholder="{{ organization.orgPhone }}" required>
+				<input class="form-group-lg well" type="text" id="orgPhone" name="orgPhone" ng-model="organization.orgPhone" placeholder="Phone" required>
 				<div class="alert alert-danger" role="alert" ng-messages="organizationForm.orgPhone.$error" ng-if="organizationForm.orgPhone.$touched" ng-hide="organizationForm.orgPhone.$valid">
 					<p ng-message="required">Please enter a phone number</p>
 				</div>
@@ -41,20 +41,20 @@
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-time"></span> Hours</h3>
 				</div>
-				<input class="form-group form-group-lg well" type="text" id="orgHours" name="orgHours" ng-model="organization.orgHours" placeholder="{{ organization.orgHours }}">
+				<input class="form-group form-group-lg well" type="text" id="orgHours" name="orgHours" ng-model="organization.orgHours" placeholder="Hours">
 			</div>
 			<!--address-->
 			<div class="col-md-6">
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-home"></span> Address</h3>
-					<input class="form-group form-group-lg well" type="text" id="orgAddress1" name="orgAddress1" ng-model="organization.orgAddress1" placeholder="{{ organization.orgAddress1 }}" required>
+					<input class="form-group form-group-lg well" type="text" id="orgAddress1" name="orgAddress1" ng-model="organization.orgAddress1" placeholder="Address 1" required>
 					<div class="alert alert-danger" role="alert" ng-messages="organization.orgAddress1.$error" ng-if="organization.orgAddress1.$touched" ng-hide="organization.orgAddress1.$valid">
 						<p ng-message="required">Please enter an address</p>
 					</div>
-					<input class="form-group form-group-lg well" type="text" id="orgAddress2" name="orgAddress2" ng-model="organization.orgAddress2" placeholder="{{ organization.orgAddress2 }}">
-					<input class="form-group form-group-lg well" type="text" id="orgCity" name="orgCity" ng-model="organization.orgCity" placeholder="{{ organization.orgCity }}" required>
-					<input class="form-group form-group-lg well" type="text" id="orgState" name="orgState" ng-model="organization.orgState" placeholder="{{ organization.orgState }}" required>
-					<input class="form-group form-group-lg well" type="text" id="orgZip" name="orgZip" ng-model="organization.orgZip" placeholder="{{ organization.orgZip }}" required>
+					<input class="form-group form-group-lg well" type="text" id="orgAddress2" name="orgAddress2" ng-model="organization.orgAddress2" placeholder="Address 2">
+					<input class="form-group form-group-lg well" type="text" id="orgCity" name="orgCity" ng-model="organization.orgCity" placeholder="City" required>
+					<input class="form-group form-group-lg well" type="text" id="orgState" name="orgState" ng-model="organization.orgState" placeholder="State" required>
+					<input class="form-group form-group-lg well" type="text" id="orgZip" name="orgZip" ng-model="organization.orgZip" placeholder="Zip" required>
 					<div class="alert alert-danger" role="alert" ng-messages="organization.orgZip.$error" ng-if="organization.orgZip.$touched" ng-hide="organizationForm.orgPhone.$valid">
 						<p ng-message="required">Please enter a zip</p>
 						</div>
@@ -69,7 +69,7 @@
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-pencil"></span> Description</h3>
 					<textarea class="form-control form-group form-group-lg well" id="orgDescription" name="orgDescription" ng-model="organization.orgDescription" maxlength="256"
-								 placeholder="{{ organization.orgDescription }}"></textarea>
+								 placeholder="Description (Optional)"></textarea>
 				</div>
 			</div>
 			<div class="col-md-6">
