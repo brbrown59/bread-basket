@@ -28,6 +28,7 @@ app.controller("SigninController", ["$scope", "$uibModal", "$window", "AlertServ
 												if(result.data.status === 200) {
 													if(result.data.data.orgType === "G") {
 														//giving admin
+														$window.location.assign("../../php/template/login-landing-giver.php")
 													} else if(result.data.data.orgType === "R") {
 														//receiving admin
 														$window.location.assign("../../php/template/login-landing-page.php")
