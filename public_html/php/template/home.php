@@ -57,7 +57,7 @@ require_once("utilities.php")
 								<span class="glyphicon glyphicon-th-large"></span>
 							</button>
 							<div class="nav navbar-brand">
-							<a href="#" class="home-link">
+							<a href="#">
 								<span class="glyphicon glyphicon-grain"></span>
 								Bread Basket
 							</a>
