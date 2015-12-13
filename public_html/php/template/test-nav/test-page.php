@@ -25,7 +25,7 @@ require_once("nav-utils.php");
 
 <div class="volunteers-bg sfooter-content">
 
-	<!--main content-->
+	<!--main content--->
 	<main>
 
 
