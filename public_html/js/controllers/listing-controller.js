@@ -85,6 +85,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		$scope.index = index;
 		//set the organization and the listing type here
 		$scope.organization = OrganizationService.fetchId(listing.orgId);
+		console.log($scope.organization);
 		$scope.listingType = ListingTypeService.fetch(listing.listingTypeId);
 		$scope.openListingDetailModal();
 	};
@@ -98,7 +99,6 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 				.then(function(result) {
 					if(result.data.status === 200) {
 						$scope.listings = result.data.data;
-						console.log(result.data.data);
 					} else {
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
@@ -197,12 +197,17 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			resolve: {
 				editedListing: function() {
 					return ($scope.editedListing);
+				},
+				organization: function() {
+					return ($scope.organization);
+				},
+				listingType: function() {
+					return ($scope.listingType);
 				}
 			}
 		});
 		ListingDetailModalInstance.result.then(function(listing) {
 			//get current volunteer ID
-			console.log(listing);
 			GetCurrentService.fetchVolCurrent()
 					.then(function(result) {
 						if(result.data.status === 200) {
