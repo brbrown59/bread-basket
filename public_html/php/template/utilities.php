@@ -9,6 +9,8 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 }
 setXsrfCookie();
 ?>
+
+
 <!--current utilities for each page-->
 <!DOCTYPE html>
 <html lang="en" ng-app="BreadBasket">
@@ -23,7 +25,7 @@ setXsrfCookie();
 		<!--Font Awesome-->
 		<link type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
 
-		<!-- CSS stylesheets -->
+		<!----------------------------CSS stylesheets-------------------------------------------->
 		<!--latest compiled and minified bootstrap css files-->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 		<link type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
@@ -32,13 +34,27 @@ setXsrfCookie();
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 		<!--minified font awesome css-->
 		<link type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+
 		<!-- CUSTOM stylesheets -->
-		<link type="text/css" rel="stylesheet" href="../../css/custom-style.css"/>
+		<link type="text/css" rel="stylesheet" href="<?php echo $PREFIX; ?>css/custom-style.css"/>
+		<link rel="stylesheet" href="<?php echo $PREFIX; ?>css/nav.css" />
+
+		<!----------------------------Javascript-------------------------------------------->
 
 		<!--jQuery for Bootstrap's .js plugins-->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		<!--latest compiled and minified bootstrap javascript-->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
+		<!--NAVBAR-->
+		<script src="<?php echo $PREFIX; ?>js/custom/nav.js"></script>
+
+		<!--call jPushMenu, required-->
+		<script>
+			jQuery(document).ready(function($) {
+				$('.toggle-menu').jPushMenu();
+			});
+		</script>
 
 		<!-- ALL js files, including Angular, Pusher, and Custom JS files-->
 		<?php require_once("js-utilities.php") ?>

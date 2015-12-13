@@ -48,7 +48,6 @@ setXsrfCookie();
 
 		<link rel="stylesheet" href="nav.css" />
 
-		<script src="js/jquery-1.9.1.min.js"></script>
 		<script src="nav.js"></script>
 
 		<!--call jPushMenu, required-->

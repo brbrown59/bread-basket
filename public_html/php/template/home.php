@@ -46,7 +46,6 @@ require_once("utilities.php")
 
 	<body class="sfooter">
 		<div class="home-img sfooter-content">
-			<header>
 				<div class="container-fluid">
 					<!--begin navbar-->
 					<nav class="home-nav nav navbar">
@@ -73,7 +72,6 @@ require_once("utilities.php")
 						</div>
 					</nav>
 				</div>
-			</header>
 			<!--main content-->
 			<main>
 				<!--container 1-->

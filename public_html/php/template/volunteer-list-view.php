@@ -5,10 +5,11 @@ $CURRENT_DIR = __DIR__;
 $PAGE_TITLE = "All Volunteers";
 /*load head-utils*/
 require_once("utilities.php");
+require_once("header.php");
 
 ?>
+
 <div class="volunteers-bg sfooter-content">
-	<?php require_once("header.php")?>
 			<!--main content-->
 			<main ng-controller="VolunteerController">
 				<!--this container houses the h1 tag/headline and the back to listing button-->
