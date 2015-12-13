@@ -4,6 +4,10 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	$scope.alerts = [];
 	$scope.listings = [];
 
+	$scope.organization = {};
+	$scope.listingType = {};
+
+
 
 
 	/**
@@ -78,6 +82,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		//set the claimed listing in the scope, and set the index for updating the array
 		$scope.editedListing = angular.copy(listing);
 		$scope.index = index;
+		//set the organization and the listing type here
 		$scope.openListingDetailModal();
 	};
 
