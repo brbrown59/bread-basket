@@ -17,6 +17,12 @@ setXsrfCookie();
 		<meta http-equiv="x-ua-compatible" content="IE=edge"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
+		<!--Google Fonts-->
+		<link href='https://fonts.googleapis.com/css?family=Noto+Sans|Josefin+Sans' rel='stylesheet' type='text/css'>
+
+		<!--Font Awesome-->
+		<link type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+
 		<!-- CSS stylesheets -->
 		<!--latest compiled and minified bootstrap css files-->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">

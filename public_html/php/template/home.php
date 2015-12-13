@@ -26,7 +26,6 @@ require_once("utilities.php")
 		<link type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
 		<!-- CUSTOM stylesheets -->
 		<link type="text/css" rel="stylesheet" href="../../css/custom-style.css"/>
-		<link type="text/css" rel="stylesheet" href="../../css/fonts.css"/>
 
 		<!--jQuery for Bootstrap's .js plugins-->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -46,18 +45,18 @@ require_once("utilities.php")
 	</head>
 
 	<body class="sfooter">
-		<div class="sfooter-content">
+		<div class="home-img sfooter-content">
 			<header>
 				<div class="container-fluid">
 					<!--begin navbar-->
-					<nav class="nav navbar">
+					<nav class="home-nav nav navbar">
 						<!--logo and mobile toggle button get grouped together-->
 						<div class="navbar-header">
 							<button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#my-navbar" aria-expanded="false">
 								<span class="sr-only">Main Menu</span>
 								<span class="glyphicon glyphicon-th-large"></span>
 							</button>
-							<div class="nav navbar-nav">
+							<div class="nav navbar-brand">
 							<a href="#" class="home-link">
 								<span class="glyphicon glyphicon-grain"></span>
 								Bread Basket
@@ -67,7 +66,7 @@ require_once("utilities.php")
 
 						<!--nav links are grouped together here-->
 						<div class="collapse navbar-collapse navbar-right" id="my-navbar">
-							<ul class="nav navbar-nav">
+							<ul class="home-nav nav navbar-nav">
 								<li ng-controller="SigninController" ng-click="openSigninModal();"><a href="#">Login</a></li>
 								<li ng-controller="SignupController" ng-click="openSignupModal();"><a href="#">Sign Up</a></li>
 							</ul>
@@ -109,7 +108,7 @@ require_once("utilities.php")
 							<div class="col-md-4 col-md-offset-4">
 								<div ng-controller="TabsController">
 									<uib-tabset justified="true">
-										<uib-tab ng-class ="{active: disabled, disabled: disabled}" ng-repeat="tab in tabs" heading="{{tab.title}}" >
+										<uib-tab class ="home-nav" ng-repeat="tab in tabs" heading="{{tab.title}}" >
 											{{tab.content}}
 										</uib-tab>
 									</uib-tabset>

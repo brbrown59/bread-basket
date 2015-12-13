@@ -3,6 +3,7 @@ app.controller("TabsController", function ($scope) {
 		{title: "Giver", content: '../views/giver-tab.php'},
 		{title: "Receiver", content: "receiver description"}
 	];
+	console.log(tabs);
 
 });
 

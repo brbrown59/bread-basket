@@ -5,7 +5,107 @@
 *
 ********************************************/
 
-/** FOOTER STYLES **/
+/********************************************
+* Utility Styles
+********************************************/
+html, body {
+	color: darkslategray;
+	font-family: 'Noto Sans', sans-serif;
+}
+h1 {
+	font-family: 'Josefin Sans', sans-serif;
+	color: whitesmoke;
+}
+
+h2 {
+	font-family: 'Josefin Sans', sans-serif;
+	color: darkslategray;
+}
+
+
+/********************************************
+* Home Page Styles
+********************************************/
+
+/** Navbar Styles ***/
+
+/*media query that targets xs and sm screens*/
+@media only screen and (max-width: 991px) {
+	/*disable fixed header on xs and sm screens*/
+	.navbar-fixed-top {
+		position: static;
+	}
+}
+
+.home-nav a,
+.home-nav a:visited {
+	color: whitesmoke;
+	font-size: 1.5em;
+	font-family: 'Josefin Sans', sans-serif;
+}
+
+.home-nav a:hover {
+	color: darkslategray;
+	border: 2px darkslategray;
+
+}
+
+.home-link {
+	font-size: 2em;
+	font-family: 'Josefin Sans', sans-serif;
+	color: whitesmoke;
+	border-radius: 5px;
+}
+
+.home-link:hover {
+	text-decoration: none;
+	color: darkslategray;
+}
+
+/** BUTTON STYLING **/
+
+.btn-home {
+	font-family: 'Josefin Sans', sans-serif;
+	color: whitesmoke;
+	background-color: darkslategray;
+	padding: 10px 16px;
+	font-size: 1.5em;
+	line-height: 1.33;
+	border-radius: 0px;
+}
+
+.btn {
+	border: 3px solid whitesmoke;
+}
+
+.btn-home:hover {
+	color: darkslategray;
+	background-color: whitesmoke;
+
+}
+
+.nav-tabs:hover {
+	border-radius: 0px;
+}
+
+/** Home Page Background **/
+
+.home-img {
+	background: url(../img/food-ingredients-high.jpg) no-repeat center center fixed;
+}
+
+
+/********************************************
+* Login Landing Page Styles
+********************************************/
+.jumbotron {
+	background-color: darkslategray;
+}
+
+
+/********************************************
+* Footer Styles
+********************************************/
 
 /***
 * Flexbox Sticky Footer
@@ -24,7 +124,6 @@ body { width: 100%;}
 
 .sfooter-content {
 	flex: 1 0 auto;
-	background: url(../img/food-ingredients-high.jpg) no-repeat center center fixed;
 	background-size: cover;
 	padding-bottom: 100px;
 }
@@ -68,54 +167,4 @@ footer {
 
 }
 
-/**NAVBAR STYLING**/
 
-.nav li a {
-	color: whitesmoke;
-	font-size: 1.5em;
-	font-family: 'Josefin Sans', sans-serif;
-}
-
-.nav li a:hover {
-	color: darkslategray;
-	border: 2px darkslategray;
-
-}
-
-.home-link {
-	font-size: 2em;
-	font-family: 'Josefin Sans', sans-serif;
-	color: whitesmoke;
-	border-radius: 5px;
-}
-
-.home-link:hover {
-	text-decoration: none;
-	color: darkslategray;
-}
-
-/** BUTTON STYLING **/
-
-.btn-home {
-	font-family: 'Josefin Sans', sans-serif;
-	color: whitesmoke;
-	background-color: darkslategray;
-	padding: 10px 16px;
-	font-size: 1.5em;
-	line-height: 1.33;
-	border-radius: 0px;
-}
-
-.btn {
-	border: 3px solid whitesmoke;
-}
-
-.btn:hover {
-	color: darkslategray;
-	background-color: whitesmoke;
-
-}
-
-.nav-tabs:hover {
-	border-radius: 0px;
-}

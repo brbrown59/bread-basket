@@ -16,7 +16,7 @@ require_once("header.php");
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
-							<h1>All Volunteers</h1>
+							<h2>All Volunteers</h2>
 						</div>
 					</div>
 				</div>
