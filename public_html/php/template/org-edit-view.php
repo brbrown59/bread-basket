@@ -17,7 +17,7 @@
 				<a class="btn btn-default btn-lg" href="login-landing-page.php" role="button">Back</a>
 			</div>
 			<div class="col-xs-3">
-				<button type="submit" class="btn btn-info btn-lg" ng-click="updateOrganization(organization, organizationForm.$valid);">Submit</button>
+				<button type="submit" class="btn btn-info btn-lg" ng-disabled="organizationForm.$invalid" ng-click="updateOrganization(organization, organizationForm.$valid);">Submit</button>
 			</div>
 			<div class="col-xs-3">
 				<button class="btn btn-danger btn-lg" ng-click="cancelEditing();">Cancel</button>
@@ -43,6 +43,7 @@
 				</div>
 				<input class="form-group form-group-lg well" type="text" id="orgHours" name="orgHours" ng-model="organization.orgHours" placeholder="{{ organization.orgHours }}">
 			</div>
+			<!--address-->
 			<div class="col-md-6">
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-home"></span> Address</h3>
@@ -61,7 +62,7 @@
 			</div>
 		</div>
 	</div>
-	<!--address-->
+
 	<div class="container form-group form-group-lg">
 		<div class="row">
 			<div class="col-md-6">
