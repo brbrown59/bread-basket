@@ -213,8 +213,8 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 							$scope.alerts[0] = {type: "danger", msg: result.data.message};
 						}
 						////update angulars copy for dynamic table updates
-						$scope.listing[$scope.index] = listing;
-						$scope.index = null;
+						//$scope.listing[$scope.index] = listing;
+						//$scope.index = null;
 			});
 
 		});

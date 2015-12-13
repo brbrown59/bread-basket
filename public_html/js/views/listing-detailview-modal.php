@@ -3,9 +3,9 @@
 	<h4>Posted On: 11/11/15</h4>
 </div>
 <div class="modal-body">
-	<h4>{{ listing.listingType }} </h4>
+	<h4>{{ editedListing.listingTypeId }} </h4>
 	<h4>Description</h4>
-	<p>{{ listing.listingMemo }}</p>
+	<p>{{ editedListing.listingMemo }}</p>
 	<h4>Location</h4>
 	<span>123 Street NE</span> <span>Albuquerque</span> <span>NM</span> <span>87106</span>
 	<h4>Hours</h4>
