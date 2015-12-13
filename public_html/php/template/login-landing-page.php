@@ -8,7 +8,7 @@ require_once("utilities.php");
 ?>
 
 <!--main html content-->
-	<div class="login-img sfooter-content">
+	<div class="login-bg sfooter-content">
 		<?php require_once("header.php")?>
 		<div class="container-fluid">
 			<div class="jumbotron">
