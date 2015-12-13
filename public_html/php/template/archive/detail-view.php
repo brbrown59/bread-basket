@@ -1,4 +1,5 @@
 <!-- HTML/PAGE CONTENT GOES HERE -->
+<!--main content-->
 
 <!--this container houses the h1 tag/headline and the back to listing button-->
 <div class="container">
@@ -12,13 +13,13 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xs-3">
-			<a class="btn btn-default btn-lg" href="listing-view.php" role="button">Back</a>
+			<a class="btn btn-default btn-lg" href="../listing-view.php" role="button">Back</a>
 		</div>
 		<div class="col-xs-3">
-			<button class="btn btn-info btn-lg" ng-click="cancelEditing();">Submit</button><!--change this later to the other thing-->
+			<button class="btn btn-warning btn-lg" ng-click="setEditedListing();">Edit</button>
 		</div>
 		<div class="col-xs-3">
-			<button class="btn btn-danger btn-lg" ng-click="cancelEditing()">Cancel</button>
+			<button class="btn btn-danger btn-lg" ng-click="deleteListing();">Delete</button>
 		</div>
 	</div>
 </div>
@@ -57,8 +58,8 @@
 
 				<p>MEMO TEXT Offal ethical tacos, iPhone migas neutra vice yr freegan green juice williamsburg bicycle
 					rights cardigan pork belly.
-					Retro poutine irony chartreuse craft beer you probably haven't heard of them. Polaroid vice
-					chicharrones, whatever tacos PBR&B
+					Retro poutine irony chartreuse craft beer you probably haven't heard of them. Polaroid vice chicharrones,
+					whatever tacos PBR&B
 					umami single-origin coffee gluten-free mixtape portland. Readymade vegan pop-up, pug scenester hammock
 					8-bit flexitarian master cleanse.
 				</p>
@@ -101,13 +102,13 @@
 		<div class="col-md-6">
 			<div class="text-box">
 				<h3><span class="glyphicon glyphicon-picture"></span> Picture</h3>
-				<img class="img-responsive" src="../../img/grapefruit.jpg" alt="picture of donation"/>
+				<img class="img-responsive" src="../../../img/grapefruit.jpg" alt="picture of donation"/>
 			</div>
 		</div>
 		<div class="col-md-6">
 			<div class="text-box">
 				<h3><span class="glyphicon glyphicon-pushpin"></span> Location</h3>
-				<img class="img-responsive" src="../../img/map-placeholder.png" alt="picture of donation"/>
+				<img class="img-responsive" src="../../../img/map-placeholder.png" alt="picture of donation"/>
 			</div>
 		</div>
 	</div>

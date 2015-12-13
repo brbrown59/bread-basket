@@ -29,14 +29,6 @@ h2 {
 
 /** Navbar Styles ***/
 
-/*media query that targets xs and sm screens*/
-@media only screen and (max-width: 991px) {
-	/*disable fixed header on xs and sm screens*/
-	.navbar-fixed-top {
-		position: static;
-	}
-}
-
 .home-nav a,
 .home-nav a:visited {
 	color: whitesmoke;
@@ -88,6 +80,33 @@ h2 {
 	border-radius: 0px;
 }
 
+/** HOME PAGE CUSTOM PADDING **/
+
+/** Add padding to large block elements on home page**/
+.inline {
+	display: inline;
+}
+
+.padding-top-bottom-lg {
+	padding-top: 12%;
+	padding-bottom: 8%;
+}
+
+.padding-top-bottom-sm {
+	padding-top: 6%;
+	padding-bottom: 6%;
+}
+
+.padding-left-right-lg {
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+.bg-drk {
+	background-color: darkslategrey;
+
+}
+
 /** Home Page Background **/
 
 .home-img {
@@ -98,8 +117,14 @@ h2 {
 /********************************************
 * Login Landing Page Styles
 ********************************************/
+
+.login-img {
+	background: url(../img/grapefruits.jpg) no-repeat center center fixed;
+}
+
 .jumbotron {
-	background-color: darkslategray;
+	background-color: rgba(245, 245, 245, .8);
+	: .6;
 }
 
 
@@ -137,34 +162,5 @@ footer {
 }
 
 
-/** HOME PAGE CUSTOM STYLING **/
-
-/** Add padding to large block elements on home page**/
-.inline {
-	display: inline;
-}
-
-.small-block {
-	padding: 5%;
-}
-.padding-top-bottom-lg {
-	padding-top: 12%;
-	padding-bottom: 8%;
-}
-
-.padding-top-bottom-sm {
-	padding-top: 6%;
-	padding-bottom: 6%;
-}
-
-.padding-left-right-lg {
-	padding-left: 10%;
-	padding-right: 10%;
-}
-
-.bg-drk {
-	background-color: darkslategrey;
-
-}
 
 

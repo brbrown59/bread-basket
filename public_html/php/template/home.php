@@ -80,7 +80,7 @@ require_once("utilities.php")
 				<div class="container-fluid">
 					<div class="padding-top-bottom-lg">
 						<div class="row">
-							<div class="col-md-4 col-md-offset-4">
+							<div class="col-lg-4 col-lg-offset-4">
 								<div class="text-center">
 									<h1>Connecting People To End Hunger</h1>
 								</div>
@@ -108,7 +108,7 @@ require_once("utilities.php")
 							<div class="col-md-4 col-md-offset-4">
 								<div ng-controller="TabsController">
 									<uib-tabset justified="true">
-										<uib-tab class ="home-nav" ng-repeat="tab in tabs" heading="{{tab.title}}" >
+										<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" >
 											{{tab.content}}
 										</uib-tab>
 									</uib-tabset>
