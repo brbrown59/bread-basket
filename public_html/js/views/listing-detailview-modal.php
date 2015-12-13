@@ -7,7 +7,7 @@
 	<h4>Description</h4>
 	<p>{{ editedListing.listingMemo }}</p>
 	<h4>Location</h4>
-	<span>{{ organization.orgAddress1 }}</span> <span>{{ organization.orgCity </span> <span>{{ organization.orgState }}</span> <span>{{ organization.orgZip }}</span>
+	<span>{{ organization.orgAddress1 }}</span> <span>{{ organization.orgCity }} </span> <span>{{ organization.orgState }}</span> <span>{{ organization.orgZip }}</span>
 	<h4>Hours</h4>
 	<span>{{ organization.orgHours }}</span>
 	<h4>Contact Provider</h4>
