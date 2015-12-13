@@ -55,28 +55,47 @@ try {
 	$listingTypeId = filter_input(INPUT_GET, "listingTypeId", FILTER_VALIDATE_INT);
 
 	//handle all RESTful calls to listing //get some or all Listings
-	if($method === "OPTIONS") {
-		$reply->config = $pusher->getSettings();
-		$reply->rawChannels = $pusher->get("/channels/");
-		$reply->channels = $pusher->get_channels();
-	} elseif($method === "GET") {
+
+		if($method === "GET") {
 		//set an XSRF cookie on get requests
 		setXsrfCookie("/");
 
-		//get the listing based on the given field TODO I think this needs fixing. TF
-		if(empty($id) === false) {
-			$reply->data = Listing::getListingByListingId($pdo, $id);
-		} elseif(empty($orgId) === false) {
-			$reply->data = Listing::getListingByOrgId($pdo, $orgId)->toArray();
-		} elseif(empty($postTime) === false) {
-			$reply->data = Listing::getListingByListingPostTime($pdo, $listingPostTime)->toArray();
-		} elseif(empty($parentId) === false) {
-			$reply->data = Listing::getListingByParentId($pdo, $listingParentId)->toArray();
-		} elseif(empty($typeId) === false) {
-			$reply->data = Listing::getListingByTypeId($pdo, $listingTypeId)->toArray();
-		} else {
-			$reply->data = Listing::getAllListings($pdo)->toArray();
-		}
+
+			//sets up if block to determine if the current organization is a giver ('G') or a receiver ('R')
+			//if organization is 'G' then show only the listings pertaining to that organization
+			//if organization is 'R' then show all listings
+
+			//get current organization by id
+			$currentOrgType = Organization::getOrganizationByOrgId($pdo, $_SESSION["volunteer"]->getOrgId());
+
+			if($currentOrgType !== null && $currentOrgType->$_SESSION["volunteer"]->getOrgType() === 'G') {
+
+				$currentOrgType = Listing::getAllListings($pdo)->toArray();
+				if($currentOrgType !== null && $currentOrgType->getOrgId() === $_SESSION["volunteer"]->getOrgId()) {
+				}
+				$reply->data = $currentOrgType;
+
+			} elseif($currentOrgType !== null && $currentOrgType->$_SESSION["volunteer"]->getOrgType() === 'R') {
+
+				$currentOrgType = Listing::getAllListings($pdo)->toArray();
+				$reply->data = $currentOrgType;
+			}
+
+
+			//get the listing based on the given field TODO I think this needs fixing. TF
+			if(empty($id) === false) {
+				$reply->data = Listing::getListingByListingId($pdo, $id);
+			} elseif(empty($orgId) === false) {
+				$reply->data = Listing::getListingByOrgId($pdo, $orgId)->toArray();
+			} elseif(empty($postTime) === false) {
+				$reply->data = Listing::getListingByListingPostTime($pdo, $listingPostTime)->toArray();
+			} elseif(empty($parentId) === false) {
+				$reply->data = Listing::getListingByParentId($pdo, $listingParentId)->toArray();
+			} elseif(empty($typeId) === false) {
+				$reply->data = Listing::getListingByTypeId($pdo, $listingTypeId)->toArray();
+			} else {
+				$reply->data = Listing::getAllListings($pdo)->toArray();
+			}
 	}
 	//verify admin and verify object not empty
 

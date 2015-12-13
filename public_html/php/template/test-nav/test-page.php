@@ -9,7 +9,10 @@ require_once("nav-utils.php");
 ?>
 
 <header>
-	<button class="btn btn-primary pull-right toggle-menu menu-right push-body">Menu</button>
+
+	<button class="btn btn-menu pull-right toggle-menu menu-right push-body">
+		<i class="fa fa-bars"></i>
+	</button>
 
 	<!-- Right menu element-->
 	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right">
@@ -24,7 +27,6 @@ require_once("nav-utils.php");
 </header>
 
 <div class="volunteers-bg sfooter-content">
-
 	<!--main content--->
 	<main>
 
@@ -33,7 +35,7 @@ require_once("nav-utils.php");
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-6">
-					<h2 class="inline">All Volunteers</h2>
+					<h2>All Volunteers</h2>
 				</div>
 				<div class="col-sm-6">
 					<button class="btn btn-info btn-pull-right" ng-click="openVolunteerModal();">New Volunteer</button>

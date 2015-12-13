@@ -53,7 +53,7 @@ try {
 		//set XSRF cookie
 		setXsrfCookie("/");
 
-		//get the organization based on the given field
+		//get the volunteer based on the given field
 		if(empty($id) === false) {
 			$volunteer = Volunteer::getVolunteerByVolId($pdo, $id);
 			if($volunteer !== null && $volunteer->getOrgId() === $_SESSION["volunteer"]->getOrgId()) {

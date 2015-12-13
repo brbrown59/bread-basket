@@ -53,7 +53,7 @@ h2 {
 }
 
 .btn {
-	border: 3px solid whitesmoke;
+	border: 2px solid whitesmoke;
 	border-radius: 0px;
 
 }
@@ -87,6 +87,32 @@ h2 {
 	border-color: rgb(47, 79, 79);
 }
 
+.btn-menu {
+	font-family: 'Josefin Sans', sans-serif;
+	color: whitesmoke;
+	background-color: rgb(47, 79, 79);
+	font-size: 1.2em;
+	line-height: 1.33;
+}
+
+.btn-menu:hover {
+	color: rgb(47, 79, 79);
+	background: whitesmoke;
+	border-color: rgb(47, 79, 79);
+}
+
+/********************************************
+* HEADER Styles
+********************************************/
+
+header {
+	padding: 20px;
+	background-color: darkslategray;
+}
+
+main {
+	padding-top: 10px;
+}
 
 /********************************************
 * NAVBAR Styles
