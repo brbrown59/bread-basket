@@ -47,7 +47,6 @@ require_once("header.php");
 						<th>Description</th>
 						<th>Date Posted</th>
 						<th>Actions</th>
-						<th>Details</th>
 					</thead>
 					<tr class="info" ng-repeat="listing in listings | orderBy:'-listingPostTime'">
 						<td>Location</td>
@@ -58,9 +57,6 @@ require_once("header.php");
 							<form class="inline" ng-submit="deleteListing(listing.listingId, listings.indexOf(listing));">
 								<button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
 							</form>
-						</td>
-						<td>
-							<button class="btn btn-info" ng-click="openListingDetailModal();">Claim Listing</button>
 						</td>
 					</tr>
 

@@ -51,6 +51,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		});
 		EditListingModalInstance.result.then(function(listing) {
 			//send the update request to the database
+			console.log(listing);
 			ListingService.update(listing.listingId, listing)
 					.then(function(result) {
 						console.log(result.data)
@@ -190,20 +191,17 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			}
 		});
 		ListingDetailModalInstance.result.then(function(listing) {
-			//send the update request to the database
 			//get current volunteer ID
+			console.log(listing);
 			GetCurrentService.fetchVolCurrent()
 					.then(function(result) {
 						if(result.data.status === 200) {
 							$scope.alerts[0] = {type: "success", msg: result.data.message};
 							//set the volunteer ID in the listing claimed by field
-							$scope.editedListing.listingClaimedBy = result.data.data.volId;
-							//perform the update
-							//set toggle to turn this into a claimed button
-							//the claimed button is going to vary in functionality based on the volunteer
-							//this is going to cause access level issues
-							console.log($scope.editedListing);
-							ListingService.update($scope.editedListing.listingId, $scope.editedListing)
+							listing.listingClaimedBy = result.data.data.volId;
+
+							console.log(listing);
+							ListingService.update(listing.listingId, listing)
 									.then(function(result) {
 										if(result.data.status === 200) {
 											$scope.alerts[0] = {type: "success", msg: "Listing Claimed"};
@@ -211,13 +209,12 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 											$scope.alerts[0] = {type: "danger", msg: result.data.message};
 										}
 									});
-							////update angulars copy for dynamic table updates
-							//$scope.listing[$scope.index] = listing;
-							//$scope.index = null;
 						} else {
 							$scope.alerts[0] = {type: "danger", msg: result.data.message};
 						}
-
+						////update angulars copy for dynamic table updates
+						$scope.listing[$scope.index] = listing;
+						$scope.index = null;
 			});
 
 		});
