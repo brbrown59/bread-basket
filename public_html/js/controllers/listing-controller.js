@@ -1,11 +1,12 @@
-app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "AlertService", "GetCurrentService", "Pusher", function($scope, $uibModal,ListingService, AlertService, GetCurrentService, Pusher) {
+app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "AlertService", "GetCurrentService", "OrganizationService", "ListingTypeService", "Pusher", function($scope, $uibModal,ListingService, AlertService, GetCurrentService, OrganizationService, ListingTypeService, Pusher) {
 	$scope.editedListing = {};
+	$scope.organization = {};
+	$scope.listingType = {};
 	$scope.newListing = {listingId: null, listingMemo: "", listingCost: "", listingType: ""};
 	$scope.alerts = [];
 	$scope.listings = [];
 
-	$scope.organization = {};
-	$scope.listingType = {};
+
 
 
 
@@ -83,6 +84,8 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		$scope.editedListing = angular.copy(listing);
 		$scope.index = index;
 		//set the organization and the listing type here
+		$scope.organization = OrganizationService.fetchId(listing.orgId);
+		$scope.listingType = ListingTypeService.fetch(listing.listingTypeId);
 		$scope.openListingDetailModal();
 	};
 
@@ -245,8 +248,6 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		modalInstance.result.then(function() {
 			ListingService.destroy(listingId)
 					.then(function(result) {
-						console.log(result.data)
-						console.log(result.message)
 						if(result.data.status === 200) {
 							$scope.alerts[0] = {type: "success", msg: result.data.message};
 						} else {

@@ -1,17 +1,17 @@
 <div class="modal-header">
 	<h3 class="modal-title">Details</h3>
-	<h4>Posted On: 11/11/15</h4>
+	<h4>Posted On: {{ editedlisting.listingPostTime | date : 'medium' }}</h4>
 </div>
 <div class="modal-body">
-	<h4>{{ editedListing.listingTypeId }} </h4>
+	<h4>{{ listingType.listingTypeId }} </h4>
 	<h4>Description</h4>
 	<p>{{ editedListing.listingMemo }}</p>
 	<h4>Location</h4>
-	<span>123 Street NE</span> <span>Albuquerque</span> <span>NM</span> <span>87106</span>
+	<span>{{ organization.orgAddress1 }}</span> <span>{{ organization.orgCity </span> <span>{{ organization.orgState }}</span> <span>{{ organization.orgZip }}</span>
 	<h4>Hours</h4>
-	<span>9am-5pm</span>
+	<span>{{ organization.orgHours }}</span>
 	<h4>Contact Provider</h4>
-	<span>505-867-5309</span>
+	<span>{{ organization.orgPhone }}</span>
 </div>
 <div class="modal-footer">
 	<button class="btn btn-lg btn-info" type="button" ng-click="ok()">Claim Listing</button>
