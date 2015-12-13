@@ -11,7 +11,7 @@
 		</div>
 	</div>
 	<hr/>
-	<div class="container form-group">
+	<div class="container form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
 		<div class="row">
 			<div class="col-xs-3">
 				<a class="btn btn-default btn-lg" href="login-landing-page.php" role="button">Back</a>
@@ -26,16 +26,15 @@
 	</div>
 	<hr/>
 	<!--hours, phone, org description-->
-	<div class="container">
+	<div class="container form-group " ng-class="{ 'has-error' : organizationForm.orgPhone.$invalid && !organizationForm.orgPhone.$pristine }">
 		<div class="row">
 			<div class="col-md-3">
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-phone"></span> Phone</h3>
 				</div>
-				<input class="form-group form-group-lg well" type="text" id="orgPhone" name="orgPhone" ng-model="organization.orgPhone" placeholder="{{ organization.orgPhone }}">
-				<div class="alert alert-danger" role="alert" ng-messages="organizationForm.orgPhone.$error" ng-if="organizationForm.volEmail.$touched" ng-hide="organizationForm.volEmail.$valid">
-					<p ng-message="email">Email is invalid.</p>
-					<p ng-message="required">Please enter an Email.</p>
+				<input class="form-group-lg well" type="text" id="orgPhone" name="orgPhone" ng-model="organization.orgPhone" placeholder="{{ organization.orgPhone }}" required>
+				<div class="alert alert-danger" role="alert" ng-messages="organizationForm.orgPhone.$error" ng-if="organizationForm.orgPhone.$touched" ng-hide="organizationForm.orgPhone.$valid">
+					<p ng-message="required">Please enter a phone number</p>
 				</div>
 			</div>
 			<div class="col-md-3">
@@ -47,11 +46,17 @@
 			<div class="col-md-6">
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-home"></span> Address</h3>
-					<input class="form-group form-group-lg well" type="text" id="orgAddress1" name="orgAddress1" ng-model="organization.orgAddress1" placeholder="{{ organization.orgAddress1 }}">
+					<input class="form-group form-group-lg well" type="text" id="orgAddress1" name="orgAddress1" ng-model="organization.orgAddress1" placeholder="{{ organization.orgAddress1 }}" required>
+					<div class="alert alert-danger" role="alert" ng-messages="organization.orgAddress1.$error" ng-if="organization.orgAddress1.$touched" ng-hide="organization.orgAddress1.$valid">
+						<p ng-message="required">Please enter an address</p>
+					</div>
 					<input class="form-group form-group-lg well" type="text" id="orgAddress2" name="orgAddress2" ng-model="organization.orgAddress2" placeholder="{{ organization.orgAddress2 }}">
-					<input class="form-group form-group-lg well" type="text" id="orgCity" name="orgCity" ng-model="organization.orgCity" placeholder="{{ organization.orgCity }}">
-					<input class="form-group form-group-lg well" type="text" id="orgState" name="orgState" ng-model="organization.orgState" placeholder="{{ organization.orgState }}">
-					<input class="form-group form-group-lg well" type="text" id="orgZip" name="orgZip" ng-model="organization.orgZip" placeholder="{{ organization.orgZip }}">
+					<input class="form-group form-group-lg well" type="text" id="orgCity" name="orgCity" ng-model="organization.orgCity" placeholder="{{ organization.orgCity }}" required>
+					<input class="form-group form-group-lg well" type="text" id="orgState" name="orgState" ng-model="organization.orgState" placeholder="{{ organization.orgState }}" required>
+					<input class="form-group form-group-lg well" type="text" id="orgZip" name="orgZip" ng-model="organization.orgZip" placeholder="{{ organization.orgZip }}" required>
+					<div class="alert alert-danger" role="alert" ng-messages="organization.orgZip.$error" ng-if="organization.orgZip.$touched" ng-hide="organizationForm.orgPhone.$valid">
+						<p ng-message="required">Please enter a zip</p>
+						</div>
 				</div>
 			</div>
 		</div>
