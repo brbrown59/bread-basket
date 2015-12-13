@@ -57,7 +57,7 @@ setXsrfCookie();
 			ga('send', 'pageview');
 		</script>
 	</head>
-		<body class="sfooter">
+	<body class="sfooter">
 
 
 
