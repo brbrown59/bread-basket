@@ -54,7 +54,7 @@ require_once("header.php");
 						<th>Date Posted</th>
 						<th>Details</th>
 					</thead>
-						<tr class="info" ng-repeat="listing in listings">
+						<tr class="info" ng-repeat="listing in listings | orderBy:'-listingPostTime'">
 							<td>Filler</td>
 							<td>{{ listing.listingMemo }}</td>
 							<td>{{ listing.listingPostTime | date : 'medium' }}</td>

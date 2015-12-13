@@ -255,6 +255,7 @@
 			<div class="input-group">
 				<select class="form-control" id="orgType" name="orgType" ng-model="signupData.orgType" ng-required="true">
 					<option>G</option>
+					<option>R</option>
 				</select>
 			</div>
 		</div>

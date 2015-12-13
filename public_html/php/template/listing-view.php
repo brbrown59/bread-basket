@@ -49,7 +49,7 @@ require_once("header.php");
 						<th>Actions</th>
 						<th>Details</th>
 					</thead>
-					<tr class="info" ng-repeat="listing in listings">
+					<tr class="info" ng-repeat="listing in listings | orderBy:'-listingPostTime'">
 						<td>Location</td>
 						<td>{{ listing.listingMemo }}</td>
 						<td>{{ listing.listingPostTime | date : format : timezone }}</td>
