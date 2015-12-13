@@ -90,7 +90,8 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	};
 
 	/**
-	 * fulfills the promise from retrieving all the listings from the listing API
+	 *
+	 *  fulfills the promise from retrieving all the listings from the listing API
 	 */
 	$scope.getListings = function() {
 		ListingService.all()
