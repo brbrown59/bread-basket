@@ -1,4 +1,4 @@
-app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "AlertService", "Pusher", function($scope, $uibModal,ListingService, AlertService, Pusher) {
+app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "AlertService", "GetCurrentService", "Pusher", function($scope, $uibModal,ListingService, AlertService, GetCurrentService, Pusher) {
 	$scope.editedListing = {};
 	$scope.newListing = {listingId: null, listingMemo: "", listingCost: "", listingType: ""};
 	$scope.alerts = [];
@@ -67,10 +67,17 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	};
 
 	$scope.setEditedListing = function(listing, index) {
-		//set the edited volunteer in the scope, and set the index for updating the array
+		//set the edited listing in the scope, and set the index for updating the array
 		$scope.editedListing = angular.copy(listing);
 		$scope.index = index;
 		$scope.openEditListingModal();
+	};
+
+	$scope.setClaimedListing = function(listing, index) {
+		//set the claimed listing in the scope, and set the index for updating the array
+		$scope.editedListing = angular.copy(listing);
+		$scope.index = index;
+		$scope.openListingDetailModal();
 	};
 
 	/**
@@ -184,18 +191,35 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		});
 		ListingDetailModalInstance.result.then(function(listing) {
 			//send the update request to the database
-			ListingService.update(listing.listingId, listing)
+			//get current volunteer ID
+			GetCurrentService.fetchVolCurrent()
 					.then(function(result) {
-						console.log(result.data)
 						if(result.data.status === 200) {
 							$scope.alerts[0] = {type: "success", msg: result.data.message};
+							//set the volunteer ID in the listing claimed by field
+							$scope.editedListing.listingClaimedBy = result.data.data.volId;
+							//perform the update
+							//set toggle to turn this into a claimed button
+							//the claimed button is going to vary in functionality based on the volunteer
+							//this is going to cause access level issues
+							console.log($scope.editedListing);
+							ListingService.update($scope.editedListing.listingId, $scope.editedListing)
+									.then(function(result) {
+										if(result.data.status === 200) {
+											$scope.alerts[0] = {type: "success", msg: "Listing Claimed"};
+										} else {
+											$scope.alerts[0] = {type: "danger", msg: result.data.message};
+										}
+									});
+							////update angulars copy for dynamic table updates
+							//$scope.listing[$scope.index] = listing;
+							//$scope.index = null;
 						} else {
 							$scope.alerts[0] = {type: "danger", msg: result.data.message};
 						}
-					});
-			////update angulars copy for dynamic table updates
-			//$scope.listing[$scope.index] = listing;
-			//$scope.index = null;
+
+			});
+
 		});
 	};
 
