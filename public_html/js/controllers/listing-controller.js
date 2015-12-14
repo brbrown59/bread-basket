@@ -84,12 +84,14 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		OrganizationService.fetchId(listing.orgId)
 			.then(function(result) {
 				$scope.organization = result.data.data;
+				ListingTypeService.fetch(listing.listingTypeId)
+					.then(function(result) {
+						$scope.listingType = result.data.data;
+						$scope.openListingDetailModal();
+					});
+
 			});
-		ListingTypeService.fetch(listing.listingTypeId)
-			.then(function(result) {
-				$scope.listingType = result.data.data;
-			});
-		$scope.openListingDetailModal();
+
 	};
 
 	/**
