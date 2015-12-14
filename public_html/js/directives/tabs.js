@@ -1,9 +1,7 @@
 app.controller("TabsController", function ($scope) {
 	$scope.tabs = [
-		{title: "Giver", content: "boop"},
-		{title: "Receiver", content: "receiver description"}
+		{title: "Giver", template: "<div><p>Stuff is great</p></div>"},
+		{title: "Receiver", template: "<div><p>stuff is merely okay</p></div>"}
 	];
-	//console.log(tabs);
-
 });
 

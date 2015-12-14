@@ -39,7 +39,7 @@ require_once("header.php");
 						<tr class="table-style" ng-repeat="listing in listings | orderBy:'-listingPostTime'">
 							<td>Filler</td>
 							<td>{{ listing.listingMemo }}</td>
-							<td>{{ listing.listingPostTime | date : 'medium' }}</td>
+							<td>{{ listing.listingPostTime | date : 'short' }}</td>
 							<td>
 								<button class="btn btn-info btn-block" ng-hide="listing.listingClaimedBy" ng-click="setClaimedListing(listing, listings.indexOf(listing));">View</button>
 								<button class="btn btn-warning btn-block" ng-show="listing.listingClaimedBy" ng-click="unclaimListing(listing, listings.indexOf(listing));">Claimed</button>

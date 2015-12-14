@@ -3,7 +3,7 @@
 </div>
 <div class="modal-body">
 	<form id="editListingForm" name="editListingForm"  ng-submit="updateListing(editedListing, editListingForm.$valid);" ng-hide="isEditing">
-		<h4>Posted On: 11/11/15</h4>
+		<h4>Posted On: {{ editedListing.listingPostTime | date: 'short'}}</h4>
 		<!--begin edit listing-->
 		<!--memo-->
 		<div class="form-group form-group-lg" ng-class="{ 'has-error' : editListingForm.memo.$touched && editListingForm.memo.$invalid }">
