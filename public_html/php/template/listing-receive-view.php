@@ -60,7 +60,7 @@ require_once("header.php");
 							<td>{{ listing.listingPostTime | date : 'medium' }}</td>
 							<td>
 								<button class="btn btn-info" ng-hide="listing.listingClaimedBy" ng-click="setClaimedListing(listing, listings.indexOf(listing));">See Listing</button>
-								<button class="btn btn-danger" ng-show="listing.listingClaimedBy">Listing Claimed</button>
+								<button class="btn btn-danger" ng-show="listing.listingClaimedBy" ng-click="unclaimListing(listing, listings.indexOf(listing));">Listing Claimed</button>
 							</td>
 						</tr>
 				</table>

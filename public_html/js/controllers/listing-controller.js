@@ -102,6 +102,34 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	};
 
 	/**
+	 * allows organizations to unclaim their listings
+	 */
+	$scope.unclaimListing = function(listing, index) {
+		//set the claimed listing in the scope, and set the index for updating the array
+		$scope.editedListing = angular.copy(listing);
+		$scope.index = index;
+		//get the current organization
+		GetCurrentService.fetchOrgCurrent()
+				.then(function(result) {
+					//if this was claimed by the logged in user's organization, allow them to unclaim
+					if (result.data.data.orgId === listing.listingClaimedBy) {
+						OrganizationService.fetchId(listing.orgId)
+								.then(function(result) {
+									$scope.organization = result.data.data;
+									ListingTypeService.fetch(listing.listingTypeId)
+											.then(function(result) {
+												$scope.listingType = result.data.data;
+												$scope.openListingUnclaimModal();
+											});
+
+								});
+					}
+
+				});
+
+	};
+
+	/**
 	 * allows givers to see who has claimed their food
 	 */
 	$scope.getWhoClaimed = function(listing) {
@@ -275,6 +303,39 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			}
 		});
 		SeeClaimedModalInstance.result.then(function() {
+		});
+	};
+
+	/**
+	 * allow receiver organizations to review and unclaim listings
+	 */
+	$scope.openListingUnclaimModal = function() {
+		var ListingUnclaimModalInstance = $uibModal.open({
+			templateUrl: "../../js/views/listing-unclaim-modal.php",
+			controller: "ListingUnclaimModal",
+			resolve: {
+				editedListing: function() {
+					return ($scope.editedListing);
+				},
+				organization: function() {
+					return ($scope.organization);
+				},
+				listingType: function() {
+					return ($scope.listingType);
+				}
+			}
+		});
+		ListingUnclaimModalInstance.result.then(function(listing) {
+			//set the listing claimed field to null
+			listing.listingClaimedBy = null;
+			ListingService.update(listing.listingId, listing)
+					.then(function(result) {
+						if(result.data.status === 200) {
+							$scope.alerts[0] = {type: "success", msg: "Listing Unclaimed"};
+						} else {
+							$scope.alerts[0] = {type: "danger", msg: result.data.message};
+						}
+					});
 		});
 	};
 
