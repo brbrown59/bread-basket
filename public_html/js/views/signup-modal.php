@@ -208,7 +208,13 @@
 
 					<input type="text" class="form-control" id="orgZip" name="orgZip" placeholder="Zip"
 							 ng-model="signupData.orgZip"
-							 ng-required="true"/>
+							 ng-required="true"
+							 ng-pattern="/^(\d{5}-\d{4}|\d{5})$/"/>
+				</div>
+				<div class="alert alert-danger" role="alert" ng-messages="signupForm.orgZip.$error"
+					  ng-if="signupForm.orgZip.$touched" ng-hide="signupForm.orgZip.$valid">
+					<p ng-message="required">Please enter your organization phone number.</p>
+					<p ng-message="pattern">Please enter a valid zip code.</p>
 				</div>
 			</div>
 		</div>
@@ -269,8 +275,10 @@
 			</h5>
 			<div class="input-group">
 				<select class="form-control" id="orgType" name="orgType" ng-model="signupData.orgType" ng-required="true">
-					<option>G</option>
-					<option>R</option>
+					<option value="G">We would like to donate food.</option>
+					<option value="R">We are a shelter or food bank needing donations.</option>
+
+
 				</select>
 			</div>
 		</div>

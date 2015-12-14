@@ -1,5 +1,6 @@
 app.controller("SigninController", ["$scope", "$uibModal", "$window", "AlertService", "SigninService", "GetCurrentService", function($scope, $uibModal, $window, AlertService, SigninService, GetCurrentService) {
 	$scope.signinData = {};
+	$scope.alerts = [];
 
 	$scope.openSigninModal = function() {
 		var signinModalInstance = $uibModal.open({
