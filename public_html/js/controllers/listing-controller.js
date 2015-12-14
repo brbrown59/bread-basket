@@ -1,14 +1,10 @@
-app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "AlertService", "GetCurrentService", "OrganizationService", "ListingTypeService", "Pusher", function($scope, $uibModal,ListingService, AlertService, GetCurrentService, OrganizationService, ListingTypeService, Pusher) {
+app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "AlertService", "GetCurrentService", "OrganizationService", "ListingTypeService", "Pusher", function($scope, $uibModal, ListingService, AlertService, GetCurrentService, OrganizationService, ListingTypeService, Pusher) {
 	$scope.editedListing = {};
 	$scope.organization = {};
 	$scope.listingType = {};
 	$scope.newListing = {listingId: null, listingMemo: "", listingCost: "", listingType: ""};
 	$scope.alerts = [];
 	$scope.listings = [];
-
-
-
-
 
 
 	/**
@@ -28,13 +24,13 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		});
 		ListingModalInstance.result.then(function(listing) {
 			ListingService.create(listing)
-					.then(function(result) {
-						if(result.data.status === 200) {
-							$scope.alerts[0] = {type: "success", msg: result.data.message};
-						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.data.message};
-						}
-					});
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.alerts[0] = {type: "success", msg: result.data.message};
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
 
 		});
 	};
@@ -58,14 +54,14 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			//send the update request to the database
 			console.log(listing);
 			ListingService.update(listing.listingId, listing)
-					.then(function(result) {
-						console.log(result.data)
-						if(result.data.status === 200) {
-							$scope.alerts[0] = {type: "success", msg: result.data.message};
-						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.data.message};
-						}
-					});
+				.then(function(result) {
+					console.log(result.data)
+					if(result.data.status === 200) {
+						$scope.alerts[0] = {type: "success", msg: result.data.message};
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
 			////update angulars copy for dynamic table updates
 			//$scope.listing[$scope.index] = listing;
 			//$scope.index = null;
@@ -84,9 +80,17 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		$scope.editedListing = angular.copy(listing);
 		$scope.index = index;
 		//set the organization and the listing type here
-		$scope.organization = OrganizationService.fetchId(listing.orgId);
-		console.log($scope.organization);
-		$scope.listingType = ListingTypeService.fetch(listing.listingTypeId);
+		//probably need to account for failed cases
+		OrganizationService.fetchId(listing.orgId)
+			.then(function(result) {
+				$scope.organization = result.data.data;
+			});
+		console.log(listing.listingTypeId);
+		ListingTypeService.fetch(listing.listingTypeId)
+			.then(function(result) {
+				$scope.listingType = result.data.data;
+				console.log($scope.listingType);
+			});
 		$scope.openListingDetailModal();
 	};
 
@@ -95,13 +99,13 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	 */
 	$scope.getListings = function() {
 		ListingService.all()
-				.then(function(result) {
-					if(result.data.status === 200) {
-						$scope.listings = result.data.data;
-					} else {
-						$scope.alerts[0] = {type: "danger", msg: result.data.message};
-					}
-				});
+			.then(function(result) {
+				if(result.data.status === 200) {
+					$scope.listings = result.data.data;
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+				}
+			});
 	};
 
 	/**
@@ -116,9 +120,22 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	 * START METHOD(S): FETCH/GET
 	 * fufills the promise from retrieving all the volunteers from the volunteer API
 	 */
-	//This promise at one point removed the alert box and would break the New Listing drop down
+		//This promise at one point removed the alert box and would break the New Listing drop down
 	$scope.getListingsById = function() {
 		ListingService.fetchId() //changed to all
+			.then(function(result) {
+				if(result.data.status === 200) {
+					$scope.listings = result.data.data;
+				} else {
+					$scope.alerts[0] = {type: "danger", msg: result.data.message};
+				}
+			});
+	};
+
+	//fulfills the promise from retrieving the listing by org id
+	$scope.getListingsByOrgId = function(orgId, validated) {
+		if(validated === true) {
+			ListingService.fetchByOrgId(orgId)
 				.then(function(result) {
 					if(result.data.status === 200) {
 						$scope.listings = result.data.data;
@@ -126,26 +143,13 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 						$scope.alerts[0] = {type: "danger", msg: result.data.message};
 					}
 				});
-	};
-
-	//fulfills the promise from retrieving the listing by org id
-	$scope.getListingsByOrgId = function(orgId, validated) {
-		if(validated === true) {
-			ListingService.fetchByOrgId(orgId)
-					.then(function(result) {
-						if(result.data.status === 200) {
-							$scope.listings = result.data.data;
-						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.data.message};
-						}
-					});
 		}
 	};
 
 	//fulfills the promise from retrieving the listings by parent id
 	$scope.getListingByParentId = function(parentId, validated) {
 		if(validated === true) {
-		ListingService.fetchParentId(parentId)
+			ListingService.fetchParentId(parentId)
 				.then(function(result) {
 					if(result.data.status === 200) {
 						$scope.listings = result.data.data;
@@ -160,13 +164,13 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	$scope.getListingByPostTime = function(postTime, validated) {
 		if(validated === true) {
 			ListingService.fetchPostTime(postTime)
-					.then(function(result) {
-						if(result.data.status === 200) {
-							$scope.listings = result.data.data;
-						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.data.message};
-						}
-					});
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.listings = result.data.data;
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
 		}
 	};
 
@@ -174,13 +178,13 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	$scope.getListingByTypeId = function(typeId, validated) {
 		if(validated === true) {
 			ListingService.fetchTypeId(typeId)
-					.then(function(result) {
-						if(result.data.status === 200) {
-							$scope.listings = result.data.data;
-						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.data.message};
-						}
-					});
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.listings = result.data.data;
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
 		}
 	};
 
@@ -208,28 +212,28 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		ListingDetailModalInstance.result.then(function(listing) {
 			//get current volunteer ID
 			GetCurrentService.fetchVolCurrent()
-					.then(function(result) {
-						if(result.data.status === 200) {
-							$scope.alerts[0] = {type: "success", msg: result.data.message};
-							//set the volunteer ID in the listing claimed by field
-							listing.listingClaimedBy = result.data.data.volId;
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.alerts[0] = {type: "success", msg: result.data.message};
+						//set the volunteer ID in the listing claimed by field
+						listing.listingClaimedBy = result.data.data.volId;
 
-							console.log(listing);
-							ListingService.update(listing.listingId, listing)
-									.then(function(result) {
-										if(result.data.status === 200) {
-											$scope.alerts[0] = {type: "success", msg: "Listing Claimed"};
-										} else {
-											$scope.alerts[0] = {type: "danger", msg: result.data.message};
-										}
-									});
-						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.data.message};
-						}
-						////update angulars copy for dynamic table updates
-						//$scope.listing[$scope.index] = listing;
-						//$scope.index = null;
-			});
+						//console.log(listing);
+						ListingService.update(listing.listingId, listing)
+							.then(function(result) {
+								if(result.data.status === 200) {
+									$scope.alerts[0] = {type: "success", msg: "Listing Claimed"};
+								} else {
+									$scope.alerts[0] = {type: "danger", msg: result.data.message};
+								}
+							});
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+					////update angulars copy for dynamic table updates
+					//$scope.listing[$scope.index] = listing;
+					//$scope.index = null;
+				});
 
 		});
 	};
@@ -253,13 +257,13 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		//if the user clicked yes, delete the volunteer
 		modalInstance.result.then(function() {
 			ListingService.destroy(listingId)
-					.then(function(result) {
-						if(result.data.status === 200) {
-							$scope.alerts[0] = {type: "success", msg: result.data.message};
-						} else {
-							$scope.alerts[0] = {type: "danger", msg: result.data.message};
-						}
-					});
+				.then(function(result) {
+					if(result.data.status === 200) {
+						$scope.alerts[0] = {type: "success", msg: result.data.message};
+					} else {
+						$scope.alerts[0] = {type: "danger", msg: result.data.message};
+					}
+				});
 			//remove the current listing from array
 			$scope.listings.splice(index, 1);
 		});
@@ -269,11 +273,11 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	 * START PUSHER METHODS
 	 */
 
-	//subscribe to the delete channel; this will delete from the listings array on demand
+		//subscribe to the delete channel; this will delete from the listings array on demand
 	Pusher.subscribe("listing", "delete", function(listing) {
 		console.log(listing);
 		for(var i = 0; i < $scope.listings.length; i++) {
-			if($scope.listings[i].listingId ===listing.listingId) {
+			if($scope.listings[i].listingId === listing.listingId) {
 				$scope.listings.splice(i, 1);
 				break;
 			}
@@ -311,7 +315,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
  */
 
 //embedded modal instance controller to create deletion prompt
-var ModalInstanceCtrl = function($scope,  $uibModalInstance) {
+var ModalInstanceCtrl = function($scope, $uibModalInstance) {
 	$scope.yes = function() {
 		$uibModalInstance.close();
 	};

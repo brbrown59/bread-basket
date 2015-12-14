@@ -5,12 +5,16 @@
  * contributing code from Misquote @author Dylan McDonald
  */
 
-app.constant("LISTINGTYPE_ENDPOINT", "../../php/api/listingtype.php");
-app.service("ListingTypeService", function($http, LISTING_ENDPOINT) {
+app.constant("LISTINGTYPE_ENDPOINT", "../../php/api/listingtype/");
+app.service("ListingTypeService", function($http, LISTINGTYPE_ENDPOINT) {
 
 	//internal function for holding the url
 	function getUrl() {
-		return (LISTING_ENDPOINT);
+		return (LISTINGTYPE_ENDPOINT);
+	}
+
+	function getUrlForId(listingTypeId) {
+		return(getUrl() + listingTypeId);
 	}
 
 	//getAllListingTypes	//getting all
@@ -20,7 +24,7 @@ app.service("ListingTypeService", function($http, LISTING_ENDPOINT) {
 
 	//getListingTypeById
 	this.fetch = function(listingTypeId) {
-		return ($http.get(getUrl(listingTypeId)));
+		return ($http.get(getUrlForId(listingTypeId)));
 	};
 
 	//getListingTypeByTypeInfo
