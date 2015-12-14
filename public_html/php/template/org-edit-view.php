@@ -25,7 +25,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 <hr/>
 	<!--Phone-->
 
@@ -211,6 +210,7 @@
 		</div>
 	</div>
 </form>
+</div>
 
 </main>
 </div>

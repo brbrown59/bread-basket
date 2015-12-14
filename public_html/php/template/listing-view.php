@@ -8,7 +8,7 @@ $PAGE_TITLE = "All Listings";
 require_once("utilities.php");
 
 /*require once the header*/
-require_once("header.php");
+require_once("giver-header.php");
 
 ?>
 
@@ -16,7 +16,7 @@ require_once("header.php");
 <!--main content-->
 <main ng-controller="ListingController">
 	<!--this container houses the h1 tag/headline and the back to listing button-->
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="h2-bb">All Listings</div>
@@ -28,7 +28,7 @@ require_once("header.php");
 	</div>
 	<hr class="media-hide" />
 	<!--starts table-->
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<uib-alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="alerts.length = 0;">{{ alert.msg }}</uib-alert>
@@ -50,7 +50,7 @@ require_once("header.php");
 								<button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
 							</form>
 						</td>
-						<td><button class="btn btn-danger" ng-show="listing.listingClaimedBy" ng-click="getWhoClaimed(listing)">Listing Claimed</button></td>
+						<td><button class="btn btn-warning btn-block" ng-show="listing.listingClaimedBy" ng-click="getWhoClaimed(listing)">Claimed</button></td>
 					</tr>
 
 				</table>

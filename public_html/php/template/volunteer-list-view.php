@@ -13,7 +13,7 @@ require_once("header.php");
 			<!--main content-->
 			<main ng-controller="VolunteerController">
 				<!--this container houses the h1 tag/headline and the back to listing button-->
-				<div class="container-fluid">
+				<div class="container">
 					<div class="row">
 						<div class="col-sm-6">
 							<div class="h2-bb">All Volunteers</div>
@@ -25,7 +25,7 @@ require_once("header.php");
 				</div>
 				<hr  />
 					<!--Volunteer Table-->
-				<div class="container-fluid">
+				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
 							<uib-alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="alerts.length = 0;">{{ alert.msg }}</uib-alert>

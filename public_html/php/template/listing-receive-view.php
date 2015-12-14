@@ -11,56 +11,38 @@ require_once("header.php");
 
 ?>
 
-
-<!-- HTML/PAGE CONTENT GOES HERE -->
 <!-- main content --->
+<div class="list-bg sfooter-content">
 <main ng-controller="ListingController">
 	<!---this container houes the h1 tag/headline and the back to listing button---->
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h1>Available Listings</h1>
+				<div class="h2-bb">Available Listings</div>
 			</div>
 		</div>
 	</div>
-	<hr />
-
-<!--	<!---starts buttons-->
-<!--	<div class="container">-->
-<!--		<div class="row">-->
-<!--<!--			<div class="col-xs-3">-->
-<!--<!--				<a class="btn btn-default btn-lg" href="login-landing-page.php" role="button"></a>-->
-<!--<!--			</div>-->
-<!---->
-<!--			<!--------button for new listing-->
-<!--			<div class="col-xs-3">-->
-<!--				<button class="btn btn-info btn-lg" ng-click=""openListingModal();">text for button goes here</button>-->
-<!--			</div>-->
-<!--			---------->
-<!---->
-<!--		</div>-->
-<!--	</div>-->
-<!--	<hr />-->
+	<hr class="media-hide" />
 
 	<!-----starts table------>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<uib-alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="alerts.length = 0;">{{ alert.msg}}</uib-alert>
-				<table class="table table-condensed table-striped table-hover">
-					<thead>
+				<table class="table table-condensed table-hover">
+					<thead class="table-style">
 						<th>Location</h3></th>
 						<th>Description</th>
 						<th>Date Posted</th>
 						<th>Details</th>
 					</thead>
-						<tr class="info" ng-repeat="listing in listings | orderBy:'-listingPostTime'">
+						<tr class="table-style" ng-repeat="listing in listings | orderBy:'-listingPostTime'">
 							<td>Filler</td>
 							<td>{{ listing.listingMemo }}</td>
 							<td>{{ listing.listingPostTime | date : 'medium' }}</td>
 							<td>
-								<button class="btn btn-info" ng-hide="listing.listingClaimedBy" ng-click="setClaimedListing(listing, listings.indexOf(listing));">See Listing</button>
-								<button class="btn btn-danger" ng-show="listing.listingClaimedBy" ng-click="unclaimListing(listing, listings.indexOf(listing));">Listing Claimed</button>
+								<button class="btn btn-info btn-block" ng-hide="listing.listingClaimedBy" ng-click="setClaimedListing(listing, listings.indexOf(listing));">View</button>
+								<button class="btn btn-warning btn-block" ng-show="listing.listingClaimedBy" ng-click="unclaimListing(listing, listings.indexOf(listing));">Claimed</button>
 							</td>
 						</tr>
 				</table>
