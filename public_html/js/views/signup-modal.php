@@ -3,7 +3,10 @@
 		<h2>Join Us!</h2>
 		<hr/>
 		<!--first name-->
-		<label class="control-label" for="name">Name</label>
+		<div class="form-group" ng-class="{ 'has-error' : signupForm.$invalid && !signupForm.$pristine }">
+		<h5>
+			<label class="control-label" for="name">Name</label>
+		</h5>
 
 		<div class="form-inline"
 			  ng-class="{ 'has-error' : signupData.volFirstName.$touched && signupData.volFirstName.$invalid }">
@@ -37,8 +40,9 @@
 
 		<!--email-->
 		<div class="form-group" ng-class="{ 'has-error': signupData.volEmail.$touched && signupData.volEmail.$invalid }">
+			<h5>
 			<label class="control-label" for="volEmail">Email</label>
-
+			</h5>
 			<div class="input-group">
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
@@ -56,7 +60,9 @@
 
 		<!--phone number-->
 		<div class="form-group" ng-class="{ 'has-error': signupData.volPhone.$touched && signupData.volPhone.$invalid }">
+			<h5>
 			<label class="control-label" for="phone">Phone</label>
+			</h5>
 
 			<div class="input-group">
 				<div class="input-group-addon">
@@ -73,8 +79,9 @@
 
 		<!--password-->
 		<div class="form-group" ng-class="{ 'has-error': signupData.password.$touched && signupData.password.$invalid }">
+			<h5>
 			<label class="control-label" for="password">Password</label>
-
+			</h5>
 			<div class="input-group">
 				<div class="input-group-addon">
 					<i class="fa fa-key" aria-hidden="true"></i>
@@ -85,14 +92,14 @@
 			<div class="alert alert-danger" role="alert" ng-messages="signupData.password.$error"
 				  ng-if="signupData.password.$touched" ng-hide="signupData.password.$valid">
 				<p ng-message="minlength">Password must be at least 8 characters.</p>
-
 				<p ng-message="required">Please enter your password.</p>
 			</div>
 		</div>
 		<div class="form-group"
 			  ng-class="{ 'has-error': signupData.password_confirmation.$touched && signupData.password_confirmation.$invalid }">
+			<h5>
 			<label class="control-label">Confirm Password</label>
-
+			</h5>
 			<div class="input-group">
 				<div class="input-group-addon">
 					<i class="fa fa-key" aria-hidden="true"></i>
@@ -104,9 +111,7 @@
 			<div class="alert alert-danger" role="alert" ng-messages="signupData.password_confirmation.$error"
 				  ng-if="signupData.password_confirmation.$touched" ng-hide="signupData.password_confirmation.$valid">
 				<p ng-message="minlength">Password must be at least 8 characters.</p>
-
 				<p ng-message="passwordMatch">Passwords do not match.</p>
-
 				<p ng-message="required">Please enter your password.</p>
 			</div>
 		</div>
@@ -116,8 +121,9 @@
 
 		<!--org name-->
 		<div class="form-group" ng-class="{ 'has-error': signupData.orgName.$touched && signupData.orgName.$invalid }">
+			<h5>
 			<label class="control-label" for="orgName">Organization Name</label>
-
+			</h5>
 			<div class="input-group">
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -166,6 +172,7 @@
 		<!--city-->
 		<div class="form-inline">
 			<div class="form-group" ng-class="{ 'has-error': signupData.orgCity.$touched && signupData.orgCity.$invalid }">
+
 				<label class="control-label" for="orgCity">City</label>
 
 				<div class="input-group">
@@ -179,6 +186,7 @@
 			<!--state-->
 			<div class="form-group"
 				  ng-class="{ 'has-error': signupData.orgState.$touched && signupData.orgState.$invalid }">
+
 				<label class="control-label" for="state">State</label>
 
 				<div class="input-group">
@@ -191,6 +199,7 @@
 
 			<!--zip-->
 			<div class="form-group" ng-class="{ 'has-error': signupData.orgZip.$touched && signupData.orgZip.$invalid }">
+
 				<label class="control-label" for="orgZip">Zip</label>
 
 				<div class="input-group">
@@ -204,8 +213,9 @@
 		<br/><br/>
 		<!--phone number-->
 		<div class="form-group" ng-class="{ 'has-error': signupData.orgPhone.$touched && signupData.orgPhone.$invalid }">
+			<h5>
 			<label class="control-label" for="orgPhone">Organization Phone</label>
-
+			</h5>
 			<div class="input-group">
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
@@ -220,8 +230,9 @@
 		</div>
 		<!--hours-->
 		<div class="form-group" ng-class="{ 'has error' : signupData.orgHours.$touched && signupData.orgHours.$invalid }">
+			<h5>
 			<label class="control-label" for="orgHours">Hours</label>
-
+			</h5>
 			<div class="input-group">
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
@@ -237,8 +248,9 @@
 		<!--description-->
 		<div class="form-group"
 			  ng-class="{ 'has error' : signupData.orgDescription.$touched && signupData.orgDescription.$invalid }">
+			<h5>
 			<label class="control-label" for="orgDescription">Description</label>
-
+			</h5>
 			<div class="input-group">
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -250,8 +262,9 @@
 		</div>
 		<!--type-->
 		<div class="form-group" ng-class="{ 'has-error': signupData.orgType.$touched && signupData.orgType.$invalid }">
+			<h5>
 			<label class="control-label" for="orgType">Organization Type</label>
-
+			</h5>
 			<div class="input-group">
 				<select class="form-control" id="orgType" name="orgType" ng-model="signupData.orgType" ng-required="true">
 					<option>G</option>
@@ -260,7 +273,7 @@
 			</div>
 		</div>
 		<hr/>
-		<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="signupData.$invalid"><i
+		<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="signupForm.$invalid"><i
 				class="fa fa-check" aria-hidden="true"></i>Submit
 		</button>
 		<button type="reset" class="btn btn-lg btn-warning" ng-click="cancel();"><i class="fa fa-ban"
