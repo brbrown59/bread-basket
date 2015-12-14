@@ -1,7 +1,8 @@
-app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "AlertService", "GetCurrentService", "OrganizationService", "ListingTypeService", "Pusher", function($scope, $uibModal, ListingService, AlertService, GetCurrentService, OrganizationService, ListingTypeService, Pusher) {
+app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "AlertService", "GetCurrentService", "OrganizationService", "ListingTypeService", "VolunteerService", "Pusher", function($scope, $uibModal, ListingService, AlertService, GetCurrentService, OrganizationService, ListingTypeService, VolunteerService, Pusher) {
 	$scope.editedListing = {};
 	$scope.organization = {};
 	$scope.listingType = {};
+	$scope.volunteer = {};
 	$scope.newListing = {listingId: null, listingMemo: "", listingCost: "", listingType: ""};
 	$scope.alerts = [];
 	$scope.listings = [];
@@ -68,6 +69,9 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		});
 	};
 
+	/**
+	 * Sets the listing to be edited and opens the appropriate modal
+	 **/
 	$scope.setEditedListing = function(listing, index) {
 		//set the edited listing in the scope, and set the index for updating the array
 		$scope.editedListing = angular.copy(listing);
@@ -75,6 +79,10 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		$scope.openEditListingModal();
 	};
 
+
+	/**
+	 * retrieves information about the listing to be claimed and opens the appropriate modal
+	 **/
 	$scope.setClaimedListing = function(listing, index) {
 		//set the claimed listing in the scope, and set the index for updating the array
 		$scope.editedListing = angular.copy(listing);
@@ -91,7 +99,23 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 					});
 
 			});
+	};
 
+	/**
+	 * allows givers to see who has claimed their food
+	 */
+	$scope.getWhoClaimed = function(listing) {
+		$scope.editedListing = angular.copy(listing);
+		//get the volunteer and the organization of the claimer here
+		VolunteerService.fetchId(listing.listingClaimedBy)
+			.then(function(result) {
+				$scope.volunteer = result.data.data;
+				OrganizationService.fetchId($scope.volunteer.orgId)
+					.then(function(result) {
+						$scope.organizaiton = result.data.data;
+						$scope.openSeeClaimedModal();
+					});
+			});
 	};
 
 	/**
@@ -192,7 +216,6 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	 * FOR: RECEIVER ORGANIZATIONS
 	 * opens detail listing modal and allows a VOLUNTEER to update listing as CLAIMED or NOT CLAIMED
 	 */
-
 	$scope.openListingDetailModal = function() {
 		var ListingDetailModalInstance = $uibModal.open({
 			templateUrl: "../../js/views/listing-detailview-modal.php",
@@ -235,6 +258,29 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 					//$scope.index = null;
 				});
 
+		});
+	};
+
+	/**
+	 * allow giver organization to see the details of who claimed their food
+	 */
+	$scope.openSeeClaimedModal = function() {
+		var SeeClaimedModalInstance = $uibModal.open({
+			templateUrl: "../../js/views/see-claimed-modal.php",
+			controller: "SeeClaimedModal",
+			resolve: {
+				editedListing: function() {
+					return ($scope.editedListing);
+				},
+				organization: function() {
+					return ($scope.organization);
+				},
+				volunteer: function() {
+					return ($scope.volunteer);
+				}
+			}
+		});
+		SeeClaimedModalInstance.result.then(function() {
 		});
 	};
 

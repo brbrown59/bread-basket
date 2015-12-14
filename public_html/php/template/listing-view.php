@@ -50,7 +50,7 @@ require_once("header.php");
 								<button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
 							</form>
 						</td>
-						<td><button class="btn btn-danger" ng-show="listing.listingClaimedBy">Listing Claimed</button></td>
+						<td><button class="btn btn-danger" ng-show="listing.listingClaimedBy" ng-click="getWhoClaimed(listing)">Listing Claimed</button></td>
 					</tr>
 
 				</table>

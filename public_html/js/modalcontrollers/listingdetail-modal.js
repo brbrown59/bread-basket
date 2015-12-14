@@ -7,7 +7,6 @@ app.controller("ListingDetailModal", ["$scope", "$uibModalInstance", "editedList
 	//need to get the current organization and listing type in this scope
 	//possibly in the set claimed listing in the controller
 	$scope.ok = function() {
-		//this is probably wrong, and my problem
 		$uibModalInstance.close($scope.editedListing);
 		$uibModalInstance.close($scope.organization);
 		$uibModalInstance.close($scope.listingType);
