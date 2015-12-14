@@ -59,7 +59,7 @@ require_once("header.php");
 							<td>{{ listing.listingMemo }}</td>
 							<td>{{ listing.listingPostTime | date : 'medium' }}</td>
 							<td>
-								<button class="btn btn-info" ng-hide="listing.listingClaimedBy" ng-click="setClaimedListing(listing, listings.indexOf(listing));">Claim Listing</button>
+								<button class="btn btn-info" ng-hide="listing.listingClaimedBy" ng-click="setClaimedListing(listing, listings.indexOf(listing));">See Listing</button>
 								<button class="btn btn-danger" ng-show="listing.listingClaimedBy">Listing Claimed</button>
 							</td>
 						</tr>
