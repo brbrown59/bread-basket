@@ -107,14 +107,11 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	$scope.getWhoClaimed = function(listing) {
 		$scope.editedListing = angular.copy(listing);
 		//get the volunteer and the organization of the claimer here
-		VolunteerService.fetchId(listing.listingClaimedBy)
+		console.log(listing.listingClaimedBy);
+		OrganizationService.fetchId(listing.listingClaimedBy)
 			.then(function(result) {
-				$scope.volunteer = result.data.data;
-				OrganizationService.fetchId($scope.volunteer.orgId)
-					.then(function(result) {
-						$scope.organizaiton = result.data.data;
-						$scope.openSeeClaimedModal();
-					});
+				$scope.organization = result.data.data;
+				$scope.openSeeClaimedModal();
 			});
 	};
 
@@ -233,13 +230,13 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			}
 		});
 		ListingDetailModalInstance.result.then(function(listing) {
-			//get current volunteer ID
-			GetCurrentService.fetchVolCurrent()
+			//get current organization ID
+			GetCurrentService.fetchOrgCurrent()
 				.then(function(result) {
 					if(result.data.status === 200) {
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
-						//set the volunteer ID in the listing claimed by field
-						listing.listingClaimedBy = result.data.data.volId;
+						//set the organization ID in the listing claimed by field
+						listing.listingClaimedBy = result.data.data.orgId;
 
 						//console.log(listing);
 						ListingService.update(listing.listingId, listing)
@@ -274,9 +271,6 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 				},
 				organization: function() {
 					return ($scope.organization);
-				},
-				volunteer: function() {
-					return ($scope.volunteer);
 				}
 			}
 		});

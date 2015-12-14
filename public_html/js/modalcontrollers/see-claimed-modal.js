@@ -1,11 +1,9 @@
-app.controller("SeeClaimedModal", ["$scope", "$uibModalInstance", "editedListing", "organization", "volunteer", function($scope, $uibModalInstance, editedListing, organization, volunteer) {
+app.controller("SeeClaimedModal", ["$scope", "$uibModalInstance", "editedListing", "organization",  function($scope, $uibModalInstance, editedListing, organization) {
 	$scope.editedListing = editedListing;
 	$scope.organization = organization;
-	$scope.volunteer = volunteer;
 
 	$scope.ok = function() {
 		$uibModalInstance.close($scope.editedListing);
 		$uibModalInstance.close($scope.organization);
-		$uibModalInstance.close($scope.volunteer);
 	}
 }]);
