@@ -56,6 +56,13 @@ h1 {
 	}
 
 }
+
+@media (min-width: 768px) {
+	.media-show {
+		display: block;
+	}
+
+}
 /* Media query that hides "menu" text on small screens (desktops, 992px and up) */
 @media (max-width: 768px) {
 	.media-hide {
