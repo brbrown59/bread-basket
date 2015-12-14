@@ -15,9 +15,9 @@ app.controller("SigninController", ["$scope", "$uibModal", "$window", "AlertServ
 		signinModalInstance.result.then(function(signinData) {
 			$scope.signinData = signinData;
 			SigninService.signin(signinData)
-				.then(function(reply) {
-					if(reply.status === 200) {
-						AlertService.addAlert({type: "success", msg: reply.message});
+				.then(function(result) {
+					if(result.status === 200) {
+						AlertService.addAlert({type: "success", msg: result.message});
 						//three potential cases here: receiving volunteer, receiving admin, giving admin
 						//Receiving volunteer redirects to the listing page, the other two go to their respective landing pages
 						GetCurrentService.fetchVolCurrent()
@@ -35,7 +35,7 @@ app.controller("SigninController", ["$scope", "$uibModal", "$window", "AlertServ
 														$window.location.assign("../../php/template/login-landing-page.php")
 													}
 												} else {
-													AlertService.addAlert({type: "danger", msg: reply.message});
+													AlertService.addAlert({type: "danger", msg: result.message});
 												}
 											});
 									} else {
@@ -43,12 +43,12 @@ app.controller("SigninController", ["$scope", "$uibModal", "$window", "AlertServ
 										$window.location.assign("../../php/template/listing-receive-view.php")
 									}
 								} else {
-									AlertService.addAlert({type: "danger", msg: reply.message});
+									AlertService.addAlert({type: "danger", msg: result.message});
 								}
 							});
 
 					} else {
-						AlertService.addAlert({type: "danger", msg: reply.message});
+						AlertService.addAlert({type: "danger", msg: result.message});
 					}
 				});
 		}, function() {
