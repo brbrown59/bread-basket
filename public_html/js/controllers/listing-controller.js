@@ -85,11 +85,9 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 			.then(function(result) {
 				$scope.organization = result.data.data;
 			});
-		console.log(listing.listingTypeId);
 		ListingTypeService.fetch(listing.listingTypeId)
 			.then(function(result) {
 				$scope.listingType = result.data.data;
-				console.log($scope.listingType);
 			});
 		$scope.openListingDetailModal();
 	};
