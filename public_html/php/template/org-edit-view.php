@@ -25,9 +25,7 @@
 
 <hr/>
 	<!--Phone-->
-
-	<!--<div class="row">-->
-		<div class="col-md-3">
+		<div class="col-sm-3">
 			<div class="form-group"
 				  ng-class="{ 'has-error': organizationForm.orgPhone.$touched && organizationForm.orgPhone.$invalid }">
 				<h3>
@@ -56,7 +54,7 @@
 			</div>
 		</div>
 		<!--			Hours-->
-		<div class="col-md-3">
+		<div class="col-sm-3">
 			<div class="form-group"
 				  ng-class="{ 'has-error': organizationForm.orgPhone.$touched && organizationForm.orgPhone.$invalid }">
 				<h3>
@@ -76,7 +74,7 @@
 		</div>
 
 		<!--address-->
-		<div class="col-md-6">
+		<div class="col-sm-6">
 			<h3>
 				<span class="glyphicon glyphicon-home"></span> Address
 			</h3>
@@ -192,7 +190,7 @@
 	<!--Description-->
 	<div class="form-group form-group-lg">
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-sm-6">
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-pencil"></span> Description</h3>
 					<textarea class="form-control" id="orgDescription" name="orgDescription"
@@ -200,7 +198,7 @@
 								 placeholder="Description (Optional)"></textarea>
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-sm-6">
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-pushpin"></span> Location</h3>
 					<img class="img-responsive" src="../../img/map-placeholder.png" alt="picture of donation"/>
