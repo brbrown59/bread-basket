@@ -16,5 +16,5 @@
 <div class="modal-footer">
 	<button class="btn btn-lg btn-info" type="button" ng-click="ok()">Claim Listing</button>
 	<form class="inline" ng-submit="update(listing.listingId, listing.listingClosed);">
-	<button class="btn btn-lg btn-warning" type="button" ng-click="cancel()">Cancel Claim</button>
+	<button class="btn btn-lg btn-warning" type="button" ng-click="cancel()">Back</button>
 </div>
