@@ -61,26 +61,6 @@ try {
 		setXsrfCookie("/");
 
 
-			//sets up if block to determine if the current organization is a giver ('G') or a receiver ('R')
-			//if organization is 'G' then show only the listings pertaining to that organization
-			//if organization is 'R' then show all listings
-
-//			//get current organization by id
-//			$currentOrgType = Organization::getOrganizationByOrgId($pdo, $_SESSION["volunteer"]->getOrgType());
-//
-//			if($currentOrgType !== null && $currentOrgType->$_SESSION["volunteer"]->getOrgType() === 'G') {
-//
-//				$currentOrgType = Listing::getAllListings($pdo)->toArray();
-//				if($currentOrgType !== null && $currentOrgType->getOrgId() === $_SESSION["volunteer"]->getOrgId()) {
-//				}
-//				$reply->data = $currentOrgType;
-//
-//			} elseif($currentOrgType !== null && $currentOrgType->$_SESSION["volunteer"]->getOrgType() === 'R') {
-//
-//				$currentOrgType = Listing::getAllListings($pdo)->toArray();
-//				$reply->data = $currentOrgType;
-//			}
-
 
 			//get the listing based on the given field TODO I think this needs fixing. TF
 			if(empty($id) === false) {
@@ -94,7 +74,15 @@ try {
 			} elseif(empty($typeId) === false) {
 				$reply->data = Listing::getListingByTypeId($pdo, $listingTypeId)->toArray();
 			} else {
-				$reply->data = Listing::getAllListings($pdo)->toArray();
+				//sets up if block to determine if the current organization is a giver ('G') or a receiver ('R')
+				//if organization is 'G' then show only the listings pertaining to that organization
+				//if organization is 'R' then show all listings
+				$currentOrgType = Organization::getOrganizationByOrgId($pdo, $_SESSION["volunteer"]->getOrgId());
+				if($currentOrgType !== null && $currentOrgType->getOrgType() === 'G') {
+					$reply->data = Listing::getListingByOrgId($pdo, $_SESSION["volunteer"]->getOrgId())->toArray();
+				} elseif($currentOrgType !== null && $currentOrgType->getOrgType() === 'R') {
+					$reply->data = Listing::getAllListings($pdo)->toArray();
+				}
 			}
 	}
 	//verify admin and verify object not empty
