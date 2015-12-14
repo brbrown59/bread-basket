@@ -3,7 +3,7 @@ app.controller("TabsController", function ($scope) {
 		{title: "Giver", content: "boop"},
 		{title: "Receiver", content: "receiver description"}
 	];
-	console.log(tabs);
+	//console.log(tabs);
 
 });
 
