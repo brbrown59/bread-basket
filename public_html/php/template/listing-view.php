@@ -38,6 +38,7 @@ require_once("header.php");
 						<th>Description</th>
 						<th>Date Posted</th>
 						<th>Actions</th>
+						<th>Claimed</th>
 					</thead>
 					<tr class="table-style" ng-repeat="listing in listings | orderBy:'-listingPostTime'">
 						<td>Location</td>
@@ -49,6 +50,7 @@ require_once("header.php");
 								<button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
 							</form>
 						</td>
+						<td><button class="btn btn-danger" ng-show="listing.listingClaimedBy">Listing Claimed</button></td>
 					</tr>
 
 				</table>
