@@ -7,17 +7,14 @@ app.controller("SignupController", ["$scope", "$uibModal", "$window", "AlertServ
 			controller: "SignupModal",
 			resolve: {
 				signupData: function () {
-					console.log("this is a message")
 					return($scope.signupData);
 				}
 			}
 		});
 		signupModalInstance.result.then(function (signupData) {
-			//console.log("I am a teapot")
 			$scope.signupData = signupData;
 			SignupService.signup(signupData)
 					.then(function(reply) {
-						//console.log("I am a fluffy kitty!")
 						if(reply.status === 200) {
 							AlertService.addAlert({type: "success", msg: reply.message});
 							if(signupData.orgType === "G") {
@@ -25,7 +22,6 @@ app.controller("SignupController", ["$scope", "$uibModal", "$window", "AlertServ
 							} else if(signupData.orgType === "R") {
 								$window.location.assign("../../php/template/login-landing-page.php");
 							}
-							//console.log("I am a noisy kitty!")
 						} else {
 							AlertService.addAlert({type: "danger", msg: reply.message});
 						}
