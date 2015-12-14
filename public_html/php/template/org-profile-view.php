@@ -5,21 +5,12 @@
 	<!--this container houses the h1 tag/headline and the back to listing button-->
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
-				<h1>{{ organization.orgName }} </h1>
+			<div class="col-sm-6">
+				<div class="h2-bb">{{ organization.orgName }} </div>
 			</div>
-		</div>
-	</div>
-	<hr />
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-3">
-				<a class="btn btn-default btn-lg" href="login-landing-page.php" role="button">Back</a>
-			</div>
-			<div class="col-xs-3">
+			<div class="col-sm-6">
 				<button class="btn btn-warning btn-lg" ng-click="setEditedOrganization();">Edit</button>
 			</div>
-
 		</div>
 	</div>
 	<hr />

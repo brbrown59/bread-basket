@@ -5,29 +5,28 @@
 <!--this container houses the h1 tag/headline and the back to listing button-->
 <div class="container">
 	<div class="row">
-		<div class="col-md-12">
-			<h1>{{ organization.orgName }}</h1>
+		<div class="col-md-6">
+			<div class="h2-bb">{{ organization.orgName }}</div>
+		</div>
+		<div class="col-md-6">
+
+			<form id="organizationForm" name="organizationForm">
+				<div class="form-group" ng-class="{ 'has-error' : organizationForm.$invalid && !organizationForm.$pristine }">
+					<div class="row">
+						<div class="col-xs-6">
+							<button type="submit" class="btn btn-info" ng-disabled="organizationForm.$invalid"
+									  ng-click="updateOrganization(organization, organizationForm.$valid);">Submit
+							</button>
+						</div>
+						<div class="col-xs-6">
+							<button class="btn btn-danger" ng-click="cancelEditing();">Cancel</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
 <hr/>
-<form id="organizationForm" name="organizationForm">
-	<div class="form-group" ng-class="{ 'has-error' : organizationForm.$invalid && !organizationForm.$pristine }">
-		<div class="row">
-			<div class="col-xs-3">
-				<a class="btn btn-default btn-lg" href="login-landing-page.php" role="button">Back</a>
-			</div>
-			<div class="col-xs-3">
-				<button type="submit" class="btn btn-info btn-lg" ng-disabled="organizationForm.$invalid"
-						  ng-click="updateOrganization(organization, organizationForm.$valid);">Submit
-				</button>
-			</div>
-			<div class="col-xs-3">
-				<button class="btn btn-danger btn-lg" ng-click="cancelEditing();">Cancel</button>
-			</div>
-		</div>
-	</div>
-	<hr/>
 	<!--Phone-->
 
 	<div class="row">

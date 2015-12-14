@@ -5,11 +5,12 @@ $CURRENT_DIR = __DIR__;
 $PAGE_TITLE = "My Organization";
 /*load head-utilss*/
 require_once("utilities.php");
+require_once("header.php");
+
 ?>
 
 <!--main html content-->
 	<div class="login-bg sfooter-content">
-		<?php require_once("header.php")?>
 		<div class="container-fluid">
 			<div class="jumbotron">
 				<h1>Hello Again!</h1>

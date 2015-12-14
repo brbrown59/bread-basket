@@ -5,7 +5,7 @@
 			Bread Basket
 		</a>
 	<button class="pull-right btn btn-menu">
-		<span>LOGOUT</span>
+		<span ng-controller="SignoutController" href="home.php" ng-click="signOut();">LOGOUT</span>
 	</button>
 
 	<button class="pull-right btn btn-menu toggle-menu menu-right push-body">
