@@ -31,13 +31,11 @@ require_once("header.php");
 				<uib-alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="alerts.length = 0;">{{ alert.msg}}</uib-alert>
 				<table class="table table-condensed table-hover">
 					<thead class="table-style">
-						<th>Location</h3></th>
 						<th>Description</th>
 						<th>Date Posted</th>
 						<th>Details</th>
 					</thead>
 						<tr class="table-style" ng-repeat="listing in listings | orderBy:'-listingPostTime'">
-							<td>Filler</td>
 							<td>{{ listing.listingMemo }}</td>
 							<td>{{ listing.listingPostTime | date : 'short' }}</td>
 							<td>
