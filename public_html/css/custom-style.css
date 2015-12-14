@@ -54,14 +54,15 @@ h1 {
 	.btn-btn-right {
 		float: right;
 	}
-}
 
+}
 /* Media query that hides "menu" text on small screens (desktops, 992px and up) */
 @media (max-width: 768px) {
 	.media-hide {
 		display: none;
 	}
 }
+
 
 .btn {
 	border-radius: 0px;
@@ -140,7 +141,7 @@ h1 {
 }
 
 #btn-block {
-	margin: 10px 5px;
+	margin-bottom: 10px;
 }
 
 
@@ -311,7 +312,6 @@ only screen and (max-width: 760px),
 * Login Landing Page Styles
 ********************************************/
 
-/**GIVER**/
 
 .login-bg {
 	background: url(../img/market.jpg) no-repeat center center fixed;
@@ -319,9 +319,7 @@ only screen and (max-width: 760px),
 
 .jumbotron {
 	margin-top: 30px;
-	border-radius: 0px;
 	background-color: rgba(245, 245, 245, .8);
-	: .6;
 }
 
 /********************************************

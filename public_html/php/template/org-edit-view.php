@@ -5,25 +5,25 @@
 <!--this container houses the h1 tag/headline and the back to listing button-->
 <div class="container">
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-sm-8">
 			<div class="h2-bb">{{ organization.orgName }}</div>
 		</div>
-		<div class="col-md-6">
+
 
 			<form id="organizationForm" name="organizationForm">
 				<div class="form-group" ng-class="{ 'has-error' : organizationForm.$invalid && !organizationForm.$pristine }">
 					<div class="row">
-						<div class="col-xs-6">
-							<button type="submit" class="btn btn-info" ng-disabled="organizationForm.$invalid"
+						<div class="col-sm-2">
+							<button id= "btn-block" type="submit" class="btn btn-info btn-block" ng-disabled="organizationForm.$invalid"
 									  ng-click="updateOrganization(organization, organizationForm.$valid);">Submit
 							</button>
 						</div>
-						<div class="col-xs-6">
-							<button class="btn btn-danger" ng-click="cancelEditing();">Cancel</button>
+						<div class="col-sm-2">
+							<button id= "btn-block" class="btn btn-danger btn-block" ng-click="cancelEditing();">Cancel</button>
 						</div>
 					</div>
 				</div>
-			</div>
+
 		</div>
 <hr/>
 	<!--Phone-->
