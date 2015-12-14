@@ -3,13 +3,12 @@
 		<h2>Join Us!</h2>
 		<hr/>
 		<!--first name-->
-		<div class="form-group" ng-class="{ 'has-error' : signupForm.$invalid && !signupForm.$pristine }">
+		<div class="form-group" ng-class="{ 'has-error' : signupForm.volFirstName.$touched && signupForm.volFirstName.$invalid }">
 		<h5>
 			<label class="control-label" for="name">Name</label>
 		</h5>
 
-		<div class="form-inline"
-			  ng-class="{ 'has-error' : signupData.volFirstName.$touched && signupData.volFirstName.$invalid }">
+		<div class="form-inline">
 			<label class="control-label sr-only" for="volFirstName">First Name</label>
 
 			<div class="input-group">
@@ -19,10 +18,11 @@
 				<input type="text" class="form-control" id="volFirstName" name="volFirstName" placeholder="First Name"
 						 ng-model="signupData.volFirstName" ng-required="true"/>
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signupData.volFirstName.$error"
-				  ng-if="signupData.volFirstName.$touched" ng-hide="signupData.volFirstName.$valid">
+			<div class="alert alert-danger" role="alert" ng-messages="signupForm.volFirstName.$error"
+				  ng-if="signupForm.volFirstName.$touched" ng-hide="signupForm.volFirstName.$valid">
 				<p ng-message="required">Please enter your first name</p>
 			</div>
+
 
 			<!--last name-->
 			<label class="control-label sr-only" for="volLastName">Last Name</label>
@@ -31,15 +31,15 @@
 				<input type="text" class="form-control" id="volLastName" name="volLastName" placeholder="Last Name"
 						 ng-model="signupData.volLastName" ng-required="true"/>
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signupData.volLastName.$error"
-				  ng-if="signupData.volLastName.$touched" ng-hide="signupData.volLastName.$valid">
+			<div class="alert alert-danger" role="alert" ng-messages="signupForm.volLastName.$error"
+				  ng-if="signupForm.volLastName.$touched" ng-hide="signupForm.volLastName.$valid">
 				<p ng-message="required">Please enter your last name</p>
 			</div>
-
+		</div>
 		</div>
 
 		<!--email-->
-		<div class="form-group" ng-class="{ 'has-error': signupData.volEmail.$touched && signupData.volEmail.$invalid }">
+		<div class="form-group" ng-class="{ 'has-error': signupForm.volEmail.$touched && signupForm.volEmail.$invalid }">
 			<h5>
 			<label class="control-label" for="volEmail">Email</label>
 			</h5>
@@ -50,35 +50,37 @@
 				<input type="email" class="form-control" id="volEmail" name="volEmail" placeholder="Email"
 						 ng-model="signupData.volEmail" ng-required="true"/>
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signupData.volEmail.$error"
-				  ng-if="signupData.volEmail.$touched" ng-hide="signupData.volEmail.$valid">
-				<p ng-message="volEmail">Email is invalid.</p>
-
+			<div class="alert alert-danger" role="alert" ng-messages="signupForm.volEmail.$error"
+				  ng-if="signupForm.volEmail.$touched" ng-hide="signupForm.volEmail.$valid">
+				<p ng-message="email"> Email is invalid.</p>
 				<p ng-message="required">Please enter your Email.</p>
 			</div>
 		</div>
 
 		<!--phone number-->
-		<div class="form-group" ng-class="{ 'has-error': signupData.volPhone.$touched && signupData.volPhone.$invalid }">
+		<div class="form-group" ng-class="{ 'has-error': signupForm.volPhone.$touched && signupForm.volPhone.$invalid }">
 			<h5>
 			<label class="control-label" for="phone">Phone</label>
 			</h5>
 
 			<div class="input-group">
+
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
 				</div>
-				<input type="text" class="form-control" id="phone" name="phone" placeholder="Phone"
-						 ng-model="signupData.volPhone" ng-required="true"/>
+				<input type="text" class="form-control" id="volPhone" name="volPhone" placeholder="Phone"
+						 ng-model="signupData.volPhone" ng-required="true" ng-minlength="10" ng-maxlength="25"/>
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signupData.volPhone.$error"
-				  ng-if="signupData.volPhone.$touched" ng-hide="signupData.volPhone.$valid">
+			<div class="alert alert-danger" role="alert" ng-messages="signupForm.volPhone.$error"
+				  ng-if="signupForm.volPhone.$touched" ng-hide="signupForm.volPhone.$valid">
 				<p ng-message="required">Please enter your phone number.</p>
+				<p ng-message="minlength">Phone too short.</p>
+				<p ng-message="maxlength">Phone too long.</p>
 			</div>
 		</div>
 
 		<!--password-->
-		<div class="form-group" ng-class="{ 'has-error': signupData.password.$touched && signupData.password.$invalid }">
+		<div class="form-group" ng-class="{ 'has-error': signupForm.password.$touched && signupForm.password.$invalid }">
 			<h5>
 			<label class="control-label" for="password">Password</label>
 			</h5>
@@ -89,14 +91,14 @@
 				<input type="password" class="form-control" id="password" name="password" placeholder="Password&hellip;"
 						 ng-model="signupData.password" ng-minlength="8" ng-required="true"/>
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signupData.password.$error"
-				  ng-if="signupData.password.$touched" ng-hide="signupData.password.$valid">
+			<div class="alert alert-danger" role="alert" ng-messages="signupForm.password.$error"
+				  ng-if="signupForm.password.$touched" ng-hide="signupForm.password.$valid">
 				<p ng-message="minlength">Password must be at least 8 characters.</p>
 				<p ng-message="required">Please enter your password.</p>
 			</div>
 		</div>
 		<div class="form-group"
-			  ng-class="{ 'has-error': signupData.password_confirmation.$touched && signupData.password_confirmation.$invalid }">
+			  ng-class="{ 'has-error': signupForm.password_confirmation.$touched && signupForm.password_confirmation.$invalid }">
 			<h5>
 			<label class="control-label">Confirm Password</label>
 			</h5>
@@ -108,11 +110,11 @@
 						 placeholder="Confirm Password&hellip;" match-password="password"
 						 ng-model="signupData.password_confirmation" ng-minlength="8" ng-required="true"/>
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signupData.password_confirmation.$error"
-				  ng-if="signupData.password_confirmation.$touched" ng-hide="signupData.password_confirmation.$valid">
-				<p ng-message="minlength">Password must be at least 8 characters.</p>
-				<p ng-message="passwordMatch">Passwords do not match.</p>
-				<p ng-message="required">Please enter your password.</p>
+			<div class="alert alert-danger" role="alert" ng-messages="signupForm.password_confirmation.$error"
+				  ng-if="signupForm.password_confirmation.$touched" ng-hide="signupForm.password_confirmation.$valid">
+
+				<p ng-message="passwordMatch">Password and confirmation do not match.</p>
+
 			</div>
 		</div>
 
@@ -120,7 +122,7 @@
 		<p>Please enter your organization information</p>
 
 		<!--org name-->
-		<div class="form-group" ng-class="{ 'has-error': signupData.orgName.$touched && signupData.orgName.$invalid }">
+		<div class="form-group" ng-class="{ 'has-error': signupForm.orgName.$touched && signupForm.orgName.$invalid }">
 			<h5>
 			<label class="control-label" for="orgName">Organization Name</label>
 			</h5>
@@ -131,15 +133,15 @@
 				<input type="text" class="form-control" id="orgName" name="orgName" placeholder="Organization"
 						 ng-model="signupData.orgName" ng-required="true"/>
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signupData.orgName.$error"
-				  ng-if="signupData.orgName.$touched" ng-hide="signupData.orgName.$valid">
+			<div class="alert alert-danger" role="alert" ng-messages="signupForm.orgName.$error"
+				  ng-if="signupForm.orgName.$touched" ng-hide="signupForm.orgName.$valid">
 				<p ng-message="required">Please enter your organization name.</p>
 			</div>
 		</div>
 
 		<!--org address 1-->
 		<div class="form-group"
-			  ng-class="{ 'has-error': signupData.orgAddress1.$touched && signupData.orgAddress1.$invalid }">
+			  ng-class="{ 'has-error': signupForm.orgAddress1.$touched && signupForm.orgAddress1.$invalid }">
 			<label class="control-label" for="orgAddress1">Organization Address</label>
 
 			<div class="input-group">
@@ -149,15 +151,15 @@
 				<input type="text" class="form-control" id="address1" name="orgAddress1" placeholder="Address 1"
 						 ng-model="signupData.orgAddress1" ng-required="true"/>
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signupData.orgAddress1.$error"
-				  ng-if="signupData.orgAddress1.$touched" ng-hide="signupData.orgAddress1.$valid">
+			<div class="alert alert-danger" role="alert" ng-messages="signupForm.orgAddress1.$error"
+				  ng-if="signupForm.orgAddress1.$touched" ng-hide="signupForm.orgAddress1.$valid">
 				<p ng-message="required">Please enter your address.</p>
 			</div>
 		</div>
 
 		<!--org address 2-->
 		<div class="form-group"
-			  ng-class="{ 'has-error': signupData.orgAddress2.$touched && signupData.orgAddress2.$invalid }">
+			  ng-class="{ 'has-error': signupForm.orgAddress2.$touched && signupForm.orgAddress2.$invalid }">
 			<label class="control-label sr-only" for="orgAddress2">Address 2</label>
 
 			<div class="input-group">
@@ -171,7 +173,7 @@
 
 		<!--city-->
 		<div class="form-inline">
-			<div class="form-group" ng-class="{ 'has-error': signupData.orgCity.$touched && signupData.orgCity.$invalid }">
+			<div class="form-group" ng-class="{ 'has-error': signupForm.orgCity.$touched && signupForm.orgCity.$invalid }">
 
 				<label class="control-label" for="orgCity">City</label>
 
@@ -185,7 +187,7 @@
 
 			<!--state-->
 			<div class="form-group"
-				  ng-class="{ 'has-error': signupData.orgState.$touched && signupData.orgState.$invalid }">
+				  ng-class="{ 'has-error': signupForm.orgState.$touched && signupForm.orgState.$invalid }">
 
 				<label class="control-label" for="state">State</label>
 
@@ -198,7 +200,7 @@
 			</div>
 
 			<!--zip-->
-			<div class="form-group" ng-class="{ 'has-error': signupData.orgZip.$touched && signupData.orgZip.$invalid }">
+			<div class="form-group" ng-class="{ 'has-error': signupForm.orgZip.$touched && signupForm.orgZip.$invalid }">
 
 				<label class="control-label" for="orgZip">Zip</label>
 
@@ -212,7 +214,7 @@
 		</div>
 		<br/><br/>
 		<!--phone number-->
-		<div class="form-group" ng-class="{ 'has-error': signupData.orgPhone.$touched && signupData.orgPhone.$invalid }">
+		<div class="form-group" ng-class="{ 'has-error': signupForm.orgPhone.$touched && signupForm.orgPhone.$invalid }">
 			<h5>
 			<label class="control-label" for="orgPhone">Organization Phone</label>
 			</h5>
@@ -223,13 +225,13 @@
 				<input type="text" class="form-control" id="orgPhone" name="orgPhone" placeholder="Organization Phone"
 						 ng-model="signupData.orgPhone" ng-required="true"/>
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signupData.orgPhone.$error"
-				  ng-if="signupData.orgPhone.$touched" ng-hide="signupData.orgPhone.$valid">
+			<div class="alert alert-danger" role="alert" ng-messages="signupForm.orgPhone.$error"
+				  ng-if="signupForm.orgPhone.$touched" ng-hide="signupForm.orgPhone.$valid">
 				<p ng-message="required">Please enter your organization phone number.</p>
 			</div>
 		</div>
 		<!--hours-->
-		<div class="form-group" ng-class="{ 'has error' : signupData.orgHours.$touched && signupData.orgHours.$invalid }">
+		<div class="form-group" ng-class="{ 'has error' : signupForm.orgHours.$touched && signupForm.orgHours.$invalid }">
 			<h5>
 			<label class="control-label" for="orgHours">Hours</label>
 			</h5>
@@ -240,14 +242,14 @@
 				<input type="text" class="form-control" id="orgHours" name="orgHours" placeholder="Hours"
 						 ng-model="signupData.orgHours" ng-required="true"/>
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signupData.orgHours.$error"
-				  ng-if="signupData.orgHours.$touched" ng-hide="signupData.orgHours.$valid">
+			<div class="alert alert-danger" role="alert" ng-messages="signupForm.orgHours.$error"
+				  ng-if="signupForm.orgHours.$touched" ng-hide="signupForm.orgHours.$valid">
 				<p ng-message="required">Please enter your hours</p>
 			</div>
 		</div>
 		<!--description-->
 		<div class="form-group"
-			  ng-class="{ 'has error' : signupData.orgDescription.$touched && signupData.orgDescription.$invalid }">
+			  ng-class="{ 'has error' : signupForm.orgDescription.$touched && signupForm.orgDescription.$invalid }">
 			<h5>
 			<label class="control-label" for="orgDescription">Description</label>
 			</h5>
@@ -261,7 +263,7 @@
 			</div>
 		</div>
 		<!--type-->
-		<div class="form-group" ng-class="{ 'has-error': signupData.orgType.$touched && signupData.orgType.$invalid }">
+		<div class="form-group" ng-class="{ 'has-error': signupForm.orgType.$touched && signupForm.orgType.$invalid }">
 			<h5>
 			<label class="control-label" for="orgType">Organization Type</label>
 			</h5>
@@ -280,4 +282,3 @@
 																											 aria-hidden="true"></i> Cancel
 		</button>
 	</form>
-</div>
