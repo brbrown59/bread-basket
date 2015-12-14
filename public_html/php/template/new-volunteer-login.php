@@ -69,8 +69,7 @@ require_once("utilities.php");
 				<div class="alert alert-danger" role="alert" ng-messages="newvolData.volEmail.$error"
 					  ng-if="newvolData.volEmail.$touched" ng-hide="newvolData.volEmail.$valid">
 					<p ng-message="volEmail">Email is invalid.</p>
-
-					<p ng-message="required">Please enter your Email.</p>
+					<p ng-message="required">Please enter your email.</p>
 				</div>
 			</div>
 			<hr/>

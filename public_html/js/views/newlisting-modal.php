@@ -5,7 +5,8 @@
 		<p>Please include a pickup time and approximate size of donation in description. <br> Thank you for donating!</p>
 		<!--begin new listing-->
 		<!--memo-->
-		<div class="form-group form-group-lg" ng-class="{ 'has-error' : listingForm.memo.$touched && listingForm.memo.$invalid }">
+		<div class="form-group form-group-lg"
+			  ng-class="{ 'has-error' : listingForm.memo.$touched && listingForm.memo.$invalid }">
 			<label class="control-label" for="memo">Description</label>
 			<div class="input-group">
 				<div class="input-group-addon">
@@ -18,13 +19,25 @@
 			</div>
 		</div>
 		<!--cost and type-->
-			<div class="form-group form-group-lg" ng-class="{ 'has-error' : listingForm.listingCost.$touched && listingForm.listingCost.$invalid }">
-				<label class="control-label" for="cost">Estimated Cost</label>
+			<div class="form-group form-group-lg"
+				  ng-class="{ 'has-error' : listingForm.listingCost.$touched && listingForm.listingCost.$invalid }">
+				<label class="control-label" for="listingCost">Estimated Cost</label>
 				<div class="input-group">
 					<div class="input-group-addon">
 						<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
 					</div>
-					<input type="number" class="form-control" id="cost" name="cost" placeholder="Estimated cost of donation" min="0" step="0.01" ng-min="0" ng-model="listingData.listingCost" ng-required="false"/>
+					<input type="number"
+							 class="form-control"
+							 id="listingCost" name="listingCost" placeholder="Estimated cost of donation" min=".01" step="1.00" ng-min=".01" ng-model="listingData.listingCost"  ng-init="listingData.listingCost='.01'" value=".01"
+							 ng-required="true"/>
+				</div>
+				<div class="alert alert-danger"
+					  role="alert"
+					  ng-messages="listingForm.listingCost.$error"
+					  ng-if="listingForm.listingCost.$touched"
+					  ng-show="listingForm.listingCost.$invalid">
+					<p ng-message="required">Please add an estimated cost.</p>
+					<p ng-message="min">A value of at least .01 is required.</p>
 				</div>
 			</div>
 			<!--type-->

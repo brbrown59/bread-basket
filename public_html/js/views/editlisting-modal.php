@@ -25,7 +25,7 @@
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
 				</div>
-				<input type="number" class="form-control" id="cost" name="cost" placeholder="Estimated cost of donation" min="0" step="0.01" ng-min="0" ng-model="editedListing.listingCost" ng-required="false"/>
+				<input type="number" class="form-control" id="cost" name="cost" placeholder="Estimated cost of donation" min="0.01" step="1.00" ng-min="0" ng-model="editedListing.listingCost" ng-required="true"/>
 			</div>
 		</div>
 		<!--type-->

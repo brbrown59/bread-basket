@@ -47,7 +47,7 @@
 						placeholder="Phone"
 						ng-required="true"
 						ng-minlength="7"
-					>
+					/>
 				</div>
 				<div class="alert alert-danger"
 					  role="alert"
@@ -55,7 +55,6 @@
 					  ng-show="organizationForm.orgPhone.$invalid"
 					  ng-class="{ 'has-error' : organization.orgPhone.$invalid }">
 					<p ng-message="required">Please enter a phone number</p>
-
 					<p ng-message="minlength">Phone number is too short</p>
 				</div>
 			</div>
