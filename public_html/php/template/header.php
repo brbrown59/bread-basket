@@ -8,7 +8,7 @@
 		<span ng-controller="SignoutController" href="home.php" ng-click="signOut();">LOGOUT</span>
 	</button>
 
-	<button class="pull-right btn btn-menu toggle-menu menu-right push-body">
+	<button id="btn-menu" class="pull-right btn btn-menu toggle-menu menu-right push-body">
 		<span class="media-hide">MENU</span>
 		<i class="fa fa-bars"></i>
 	</button>

@@ -17,16 +17,16 @@ require_once("header.php");
 				<p>Get started by selecting a option below</p>
 				<div class="row">
 					<div class="col-md-3">
-						<a class="btn btn-info btn-lg btn-block" href="org-base.php" role="button">My Organization</a>
+						<a id= "btn-block" class="btn btn-info btn-lg btn-block" href="org-base.php" role="button">My Organization</a>
 					</div>
 					<div class="col-md-3">
-						<a class="btn btn-info btn-lg btn-block" href="volunteer-list-view.php" role="button">My Volunteers</a>
+						<a id= "btn-block" class="btn btn-info btn-lg btn-block" href="volunteer-list-view.php" role="button">My Volunteers</a>
 					</div>
 					<div class="col-md-3">
-						<a class="btn btn-info btn-lg btn-block" href="listing-receive-view.php" role="button">All Listings</a>
+						<a id= "btn-block" class="btn btn-info btn-lg btn-block" href="listing-receive-view.php" role="button">All Listings</a>
 					</div>
 					<div class="col-md-3" ng-controller="ContactController">
-						<button class="btn btn-warning btn-lg btn-block" ng-click ="openContactModal();">Help</button>
+						<button id= "btn-block" class="btn btn-warning btn-lg btn-block" ng-click ="openContactModal();">Help</button>
 					</div>
 				</div>
 			</div>
