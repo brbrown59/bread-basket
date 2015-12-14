@@ -2,7 +2,7 @@
 /*grab current directory*/
 $CURRENT_DIR = __DIR__;
 /*set page title here*/
-$PAGE_TITLE = "All listings Available";
+$PAGE_TITLE = "All Listings Available";
 /*load head-utils*/
 require_once("utilities.php");
 

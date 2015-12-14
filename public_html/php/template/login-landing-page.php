@@ -2,7 +2,7 @@
 /*grab current directory*/
 $CURRENT_DIR = __DIR__;
 /*set page title here*/
-$PAGE_TITLE = "My Organization";
+$PAGE_TITLE = "Bread Basket Home";
 /*load head-utilss*/
 require_once("utilities.php");
 require_once("header.php");
