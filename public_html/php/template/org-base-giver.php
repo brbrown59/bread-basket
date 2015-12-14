@@ -7,7 +7,7 @@ $PAGE_TITLE = "My Organization";
 require_once("utilities.php");
 
 /*require once the header*/
-require_once("header.php");
+require_once("giver-header.php");
 
 ?>
 

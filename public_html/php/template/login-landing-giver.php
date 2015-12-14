@@ -5,7 +5,7 @@ $CURRENT_DIR = __DIR__;
 $PAGE_TITLE = "My Organization";
 /*load head-utilss*/
 require_once("utilities.php");
-require_once("header.php")
+require_once("giver-header.php")
 
 ?>
 
@@ -16,16 +16,13 @@ require_once("header.php")
 			<h1>Hello Again!</h1>
 			<p>Get started by selecting a option below</p>
 			<div class="row">
-				<div class="col-md-3">
-					<a class="btn btn-info btn-lg btn-block" href="org-base.php" role="button">My Organization</a>
+				<div class="col-md-4">
+					<a class="btn btn-info btn-lg btn-block" href="org-base-giver.php" role="button">My Organization</a>
 				</div>
-				<div class="col-md-3">
-					<a class="btn btn-info btn-lg btn-block" href="volunteer-list-view.php" role="button">My Volunteers</a>
+				<div class="col-md-4">
+					<a class="btn btn-info btn-lg btn-block" href="listing-view.php" role="button">All Listings</a>
 				</div>
-				<div class="col-md-3">
-					<a class="btn btn-info btn-lg btn-block" href="listing-receive-view.php" role="button">All Listings</a>
-				</div>
-				<div class="col-md-3" ng-controller="ContactController">
+				<div class="col-md-4" ng-controller="ContactController">
 					<button class="btn btn-warning btn-lg btn-block" ng-click ="openContactModal();">Help</button>
 				</div>
 			</div>
