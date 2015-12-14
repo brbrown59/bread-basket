@@ -16,10 +16,10 @@ require_once("header.php");
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-sm-6">
-							<h2 class="inline">All Volunteers</h2>
+							<div class="h2-bb">All Volunteers</div>
 						</div>
 						<div class="col-sm-6">
-							<button class="btn btn-info btn-pull-right" ng-click="openVolunteerModal();">New Volunteer</button>
+							<button class="btn btn-info btn-btn-right" ng-click="openVolunteerModal();">New Volunteer</button>
 						</div>
 					</div>
 				</div>

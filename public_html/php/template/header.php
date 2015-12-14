@@ -1,18 +1,21 @@
 <header>
 
-	<button class="btn btn-menu pull-right toggle-menu menu-right push-body">
+		<a class="nav-logo" href="#">
+			<span class="glyphicon glyphicon-grain"></span>
+			Bread Basket
+		</a>
+
+	<button class="pull-right btn btn-menu toggle-menu menu-right push-body">
+		<span class="media-hide">MENU</span>
 		<i class="fa fa-bars"></i>
 	</button>
-
-	<!-- Right menu element-->
 	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right">
-		<h3>Menu</h3>
-		<a href="#">Celery seakale</a>
-		<a href="#">Dulse daikon</a>
-		<a href="#">Zucchini garlic</a>
-		<a href="#">Catsear azuki bean</a>
-		<a href="#">Dandelion bunya</a>
-		<a href="#">Rutabaga</a>
+	<!-- Right menu element-->
+		<a href="#">HOME</a>
+		<a href="#">ORGANIZATION</a>
+		<a href="#">VOLUNTEERS</a>
+		<a href="#">LISTINGS</a>
+		<a href="#">HELP</a>
 	</nav>
 </header>
 
