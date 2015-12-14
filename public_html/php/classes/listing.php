@@ -386,6 +386,7 @@ class Listing implements JsonSerializable {
 		} catch(RangeException $range) {
 			throw(new RangeException($range->getMessage(), 0, $range));
 		}
+		$newListingPostTime->setTimezone(new DateTimeZone('America/Denver'));
 		$this->listingPostTime = $newListingPostTime;
 	}
 

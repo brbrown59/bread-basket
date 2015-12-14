@@ -53,10 +53,8 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 		});
 		EditListingModalInstance.result.then(function(listing) {
 			//send the update request to the database
-			console.log(listing);
 			ListingService.update(listing.listingId, listing)
 				.then(function(result) {
-					console.log(result.data)
 					if(result.data.status === 200) {
 						$scope.alerts[0] = {type: "success", msg: result.data.message};
 					} else {
