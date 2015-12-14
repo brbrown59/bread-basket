@@ -33,11 +33,6 @@ h1 {
 	color: whitesmoke;
 }
 
-.nav-logo {
-	font-size: 2em;
-	font-family: 'Josefin Sans', sans-serif;
-	color: whitesmoke;
-}
 .h2-bb {
 	font-size: 36px;
 	font-family: 'Noto Sans', sans-serif;
@@ -216,6 +211,28 @@ main {
 /********************************************
 * NAVBAR Styles
 ********************************************/
+/** HOME PAGE Navbar Styles ****/
+
+.home-nav a,
+.home-nav a:hover {
+	color: whitesmoke;
+	font-size: 1.5em;
+	font-family: 'Josefin Sans', sans-serif;
+	text-decoration: none;
+}
+
+.nav>li>a:hover {
+	color: darkslategray;
+}
+.nav>li>a:active {
+	color: darkslategray !important;
+}
+
+.nav>li>a:focus {
+	color: darkslategray !important;
+}
+
+/** CONTENT PAGE **/
 
 .content-nav a,
 .content-nav a:visited {
@@ -229,6 +246,14 @@ main {
 	color: darkslategray;
 	border: 2px whitesmoke;
 
+}
+
+.nav-logo,
+.nav-logo:hover {
+	font-size: 2em;
+	font-family: 'Josefin Sans', sans-serif;
+	color: whitesmoke;
+	text-decoration: none;
 }
 
 /********************************************
