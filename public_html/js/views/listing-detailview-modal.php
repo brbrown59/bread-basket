@@ -1,9 +1,9 @@
 <div class="modal-header">
 	<h3 class="modal-title">Details</h3>
-	<h4>Posted On: {{ editedlisting.listingPostTime | date : 'medium' }}</h4>
+	<h4>Posted On: {{ editedListing.listingPostTime | date:medium }}</h4>
 </div>
 <div class="modal-body">
-	<h4>{{ listingType.listingTypeId }} </h4>
+	<h4>{{ listingType.listingTypeInfo }} </h4>
 	<h4>Description</h4>
 	<p>{{ editedListing.listingMemo }}</p>
 	<h4>Location</h4>
