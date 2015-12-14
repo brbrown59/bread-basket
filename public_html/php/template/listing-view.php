@@ -12,43 +12,34 @@ require_once("header.php");
 
 ?>
 
-<!-- HTML/PAGE CONTENT GOES HERE -->
+<div class="list-bg sfooter-content">
 <!--main content-->
 <main ng-controller="ListingController">
 	<!--this container houses the h1 tag/headline and the back to listing button-->
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-12">
-				<h1>All Listings</h1>
+			<div class="col-sm-6">
+				<div class="h2-bb">All Listings</div>
+			</div>
+			<div class="col-sm-6">
+				<button class="btn btn-info btn-btn-right" ng-click="openListingModal();">New Listing</button>
 			</div>
 		</div>
 	</div>
-	<hr />
-	<!--starts buttons-->
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-3">
-				<a class="btn btn-default btn-lg" href="login-landing-page.php" role="button">Back</a>
-			</div>
-			<div class="col-xs-3">
-				<button class="btn btn-info btn-lg" ng-click="openListingModal();">New Listing</button>
-			</div>
-		</div>
-	</div>
-	<hr />
+	<hr class="media-hide" />
 	<!--starts table-->
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
 				<uib-alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="alerts.length = 0;">{{ alert.msg }}</uib-alert>
-				<table class="table table-condensed table-striped table-hover">
-					<thead>
+				<table class="table table-condensed table-hover">
+					<thead class="table-style">
 						<th>Location</th>
 						<th>Description</th>
 						<th>Date Posted</th>
 						<th>Actions</th>
 					</thead>
-					<tr class="info" ng-repeat="listing in listings | orderBy:'-listingPostTime'">
+					<tr class="table-style" ng-repeat="listing in listings | orderBy:'-listingPostTime'">
 						<td>Location</td>
 						<td>{{ listing.listingMemo }}</td>
 						<td>{{ listing.listingPostTime | date : format : timezone }}</td>

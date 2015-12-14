@@ -9,7 +9,7 @@ require_once("header.php");
 
 ?>
 
-<div class="volunteers-bg sfooter-content">
+<div class="list-bg sfooter-content">
 			<!--main content-->
 			<main ng-controller="VolunteerController">
 				<!--this container houses the h1 tag/headline and the back to listing button-->
@@ -23,23 +23,21 @@ require_once("header.php");
 						</div>
 					</div>
 				</div>
-				<hr />
+				<hr  />
 					<!--Volunteer Table-->
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-md-12">
 							<uib-alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="alerts.length = 0;">{{ alert.msg }}</uib-alert>
-							<table class="table table-responsive table-hover table-condensed">
+							<table class="table table-condensed table-hover">
 								<thead class="table-style">
-									<th>First Name</th>
-									<th>Last Name</th>
+									<th>Name</th>
 									<th>Email</th>
 									<th>Phone</th>
 									<th>Actions</th>
 								</thead>
 								<tr class="table-style" ng-repeat="volunteer in volunteers">
-									<td>{{ volunteer.volFirstName }}</td>
-									<td>{{ volunteer.volLastName }}</td>
+									<td>{{ volunteer.volFirstName }} {{ volunteer.volLastName }}</td>
 									<td>{{ volunteer.volEmail }}</td>
 									<td>{{ volunteer.volPhone }}</td>
 									<td>
