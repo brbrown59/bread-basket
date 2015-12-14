@@ -76,6 +76,7 @@ h1 {
 
 }
 
+/** BTN INFO **/
 .btn-info {
 	border: 2px solid transparent;
 	font-family: 'Noto Sans', sans-serif;
@@ -86,11 +87,28 @@ h1 {
 	line-height: 1.33;
 }
 
+.btn-info:visited {
+	background-color: rgb(108, 155, 155);
+	border-color: whitesmoke;
+}
+
 .btn-info:hover {
 	background-color: rgb(108, 155, 155);
 	border-color: whitesmoke;
 }
 
+.btn-info:active {
+	background-color: rgb(108, 155, 155) !important;
+	border-color: rgb(245, 245, 245) !important;
+	box-shadow: none !important;
+}
+
+.btn-info:focus {
+	background-color: rgb(108, 155, 155);
+	border-color: whitesmoke;
+}
+
+/** BTN DANGER **/
 .btn-danger {
 	border: 2px solid transparent;
 	padding: 10px 16px;
@@ -98,9 +116,21 @@ h1 {
 	line-height: 1.33;
 }
 
+.btn-danger:visited {
+	border-color: rgb(245, 245, 245) !important;
+	box-shadow: none !important;
+}
+
 .btn-danger:hover {
 	border-color: whitesmoke;
 }
+
+.btn-danger:active {
+	border-color: rgb(245, 245, 245) !important;
+	box-shadow: none !important;
+}
+
+/** BTN WARNING **/
 
 .btn-warning {
 	border: 2px solid transparent;
@@ -109,13 +139,24 @@ h1 {
 	line-height: 1.33;
 }
 
+.btn-warning:visited {
+	border-color: rgb(245, 245, 245) !important;
+	box-shadow: none !important;
+}
+
 .btn-warning:hover {
 	border-color: whitesmoke;
 }
 
+.btn-warning:active {
+	border-color: rgb(245, 245, 245) !important;
+	box-shadow: none !important;
+}
+
+/** BTN PRIMARY **/
 
 .btn-primary {
-	border: 2px solid whitesmoke;
+	border: 2px solid transparent;
 	font-family: 'Noto Sans', sans-serif;
 	color: whitesmoke;
 	background-color: rgb(47, 79, 79);
@@ -125,10 +166,17 @@ h1 {
 }
 
 .btn-primary:hover {
-	color: rgb(47, 79, 79);
-	background: whitesmoke;
-	border-color: rgb(47, 79, 79);
+	background-color: rgb(47, 79, 79);
+	border-color: whitesmoke;
 }
+
+.btn-primary:active {
+	background-color: rgb(47, 79, 79) !important;
+	border-color: rgb(245, 245, 245) !important;
+	box-shadow: none !important;
+}
+
+/** MENU BUTTONS **/
 
 .btn-menu {
 	font-family: 'Josefin Sans', sans-serif;
@@ -258,28 +306,36 @@ only screen and (max-width: 760px),
 
 }
 
+.nav>li>a:active {
+	color: darkslategray !important;
+}
 
-
+.nav>li>a:focus {
+	color: darkslategray !important;
+}
 /** BUTTON STYLING **/
 
 .btn-home {
 	font-family: 'Noto Sans', sans-serif;
 	color: whitesmoke;
 	background-color: darkslategray;
+	border: 2px solid whitesmoke;
 	padding: 10px 16px;
 	font-size: 1.5em;
-	line-height: 1.33;
 }
 
 .btn-home:hover {
 	color: darkslategray;
 	background-color: whitesmoke;
-
+	border: solid 2px whitesmoke;
 }
 
-.nav-tabs:hover {
-	border-radius: 0px;
+.btn-home:focus {
+	color: darkslategray;
+	background-color: whitesmoke;
+	border: solid 2px whitesmoke;
 }
+
 
 /** HOME PAGE CUSTOM PADDING **/
 

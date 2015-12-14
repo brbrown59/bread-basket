@@ -86,7 +86,7 @@ require_once("utilities.php")
 						</div>
 						<div class="row">
 							<div class="col-md-4 col-md-offset-4 text-center">
-								<button class="btn btn-lg btn-primary">Find Out How</button>
+								<button class="btn btn-lg btn-home">Find Out How</button>
 							</div>
 						</div>
 					</div>
@@ -128,7 +128,7 @@ require_once("utilities.php")
 						<div class="row">
 							<div class="col-md-4 col-md-offset-4 text-center">
 								<div ng-controller="SignupController">
-								<button class="btn btn-lg btn-primary" ng-click="openSignupModal();">Sign Up</button>
+								<button class="btn btn-lg btn-home" ng-click="openSignupModal();">Sign Up</button>
 								</div>
 							</div>
 						</div>
