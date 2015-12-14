@@ -171,24 +171,6 @@ h1 {
 	box-shadow: none !important;
 }
 
-/** MENU BUTTONS **/
-
-.btn-menu {
-	font-family: 'Josefin Sans', sans-serif;
-	color: whitesmoke;
-	background-color: rgb(47, 79, 79);
-	font-size: 1.2em;
-}
-
-.btn-menu:hover {
-	color: rgb(47, 79, 79);
-	background: whitesmoke;
-	border-color: rgb(47, 79, 79);
-}
-
-#btn-menu {
-	border: solid 2px whitesmoke;
-}
 
 #btn-block {
 	margin-bottom: 10px;
@@ -254,6 +236,39 @@ main {
 	font-family: 'Josefin Sans', sans-serif;
 	color: whitesmoke;
 	text-decoration: none;
+}
+
+/** MENU BUTTONS **/
+
+.btn-menu {
+	font-family: 'Josefin Sans', sans-serif;
+	color: whitesmoke;
+	background-color: rgb(47, 79, 79);
+	font-size: 1.2em;
+}
+
+.btn-menu:hover {
+	color: rgb(47, 79, 79);
+	background: whitesmoke;
+	border-color: rgb(47, 79, 79);
+}
+
+.btn-menu:focus {
+	color: darkslategray;
+	background-color: whitesmoke;
+}
+
+#btn-menu {
+	border: solid 2px whitesmoke;
+}
+
+#btn-back {
+	 margin-right: 10px;
+ }
+
+#btn-back:hover,
+#btn-back:focus {
+	border: solid 2px whitesmoke;
 }
 
 /********************************************

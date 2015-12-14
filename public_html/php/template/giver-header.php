@@ -1,6 +1,6 @@
 <header>
 
-	<a class="nav-logo" href="#">
+	<a class="nav-logo" href="login-landing-giver.php">
 		<span class="glyphicon glyphicon-grain"></span>
 		Bread Basket
 	</a>
@@ -8,6 +8,9 @@
 	<button id="btn-menu" class="pull-right btn btn-menu toggle-menu menu-right push-body">
 		<span class="media-hide">MENU</span>
 		<i class="fa fa-bars"></i>
+	</button>
+	<button id="btn-back" class="btn btn-menu pull-right">
+		<span class="fa fa-arrow-left"></span> BACK
 	</button>
 	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right">
 		<!-- Right menu element-->

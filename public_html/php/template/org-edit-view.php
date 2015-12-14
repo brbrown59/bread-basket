@@ -9,7 +9,6 @@
 			<div class="h2-bb">{{ organization.orgName }}</div>
 		</div>
 
-
 			<form id="organizationForm" name="organizationForm">
 				<div class="form-group" ng-class="{ 'has-error' : organizationForm.$invalid && !organizationForm.$pristine }">
 					<div class="row">
@@ -24,11 +23,10 @@
 					</div>
 				</div>
 
-		</div>
 <hr/>
 	<!--Phone-->
 
-	<div class="row">
+	<!--<div class="row">-->
 		<div class="col-md-3">
 			<div class="form-group"
 				  ng-class="{ 'has-error': organizationForm.orgPhone.$touched && organizationForm.orgPhone.$invalid }">
@@ -188,6 +186,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 
 
 	<!--Description-->

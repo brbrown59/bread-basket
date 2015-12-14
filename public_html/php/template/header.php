@@ -1,6 +1,6 @@
 <header>
 
-		<a class="nav-logo" href="#">
+		<a class="nav-logo" href="login-landing-page.php">
 			<span class="glyphicon glyphicon-grain"></span>
 			Bread Basket
 		</a>

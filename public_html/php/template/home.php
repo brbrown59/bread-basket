@@ -39,8 +39,8 @@ require_once("utilities.php")
 		<link href='https://fonts.googleapis.com/css?family=Dosis|Josefin+Sans|Raleway' rel='stylesheet' type='text/css'>
 
 
-
 		<title>Bread Basket Home</title>
+		<script> console.log("-=^.^=- fuzzy kitty!"); </script>
 
 	</head>
 
@@ -104,13 +104,7 @@ require_once("utilities.php")
 						<!--giver / receiver tabs-->
 						<div class="row">
 							<div class="col-md-4 col-md-offset-4">
-								<div ng-controller="TabsController">
-									<uib-tabset justified="true">
-										<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" >
-											{{tab.content}}
-										</uib-tab>
-									</uib-tabset>
-								</div>
+
 							</div>
 						</div>
 					</div>
