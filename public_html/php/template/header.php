@@ -4,6 +4,9 @@
 			<span class="glyphicon glyphicon-grain"></span>
 			Bread Basket
 		</a>
+	<button class="pull-right btn btn-menu">
+		<span>LOGOUT</span>
+	</button>
 
 	<button class="pull-right btn btn-menu toggle-menu menu-right push-body">
 		<span class="media-hide">MENU</span>
