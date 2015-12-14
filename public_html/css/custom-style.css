@@ -294,20 +294,16 @@ only screen and (max-width: 760px),
 /** Navbar Styles ***/
 
 .home-nav a,
-.home-nav a:visited {
+.home-nav a:hover {
 	color: whitesmoke;
 	font-size: 1.5em;
 	font-family: 'Josefin Sans', sans-serif;
-}
-
-.home-nav a:hover {
-	color: darkslategray;
-	background-color: whitesmoke;
-	border: 2px solid whitesmoke;
 	text-decoration: none;
-
 }
 
+.nav>li>a:hover {
+	color: darkslategray;
+}
 .nav>li>a:active {
 	color: darkslategray !important;
 }
