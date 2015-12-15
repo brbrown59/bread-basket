@@ -10,5 +10,5 @@
 	<span>{{ organization.orgPhone }}</span>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-lg btn-info" type="button" ng-click="ok()">OK</button>
+	<button class="btn btn-info" type="button" ng-click="ok()">OK</button>
 </div>
