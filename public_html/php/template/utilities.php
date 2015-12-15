@@ -56,6 +56,9 @@ setXsrfCookie();
 		<!--Page Title-->
 		<title><?php echo $PAGE_TITLE; ?></title>
 
+		<!-- Favicon -->
+		<link type="image/ico" href="lib/template/img/favicon.png" rel="shortcut icon" />
+
 		<!-- Google Analytics -->
 		<script>
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

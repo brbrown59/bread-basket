@@ -299,6 +299,15 @@ label {
 
 }
 
+.form-padding {
+	padding:0% 20%;
+}
+
+.emailvalidation-bg {
+	background: url(../img/cookiejar.jpg) no-repeat center center fixed;
+
+}
+
 
 
 
