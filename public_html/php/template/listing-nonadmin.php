@@ -31,7 +31,7 @@ require_once("utilities.php");
 		<div class="collapse navbar-collapse navbar-right" id="my-navbar">
 			<ul class="home-nav nav navbar-nav">
 				<li ng-controller="SignoutController" ng-click="signOut();"><a href="#">Logout</a></li>
-				<li ng-click ="openContactModal();"><a href="#">Help</a></li>
+				<li ng-controller="ContactController" ng-click ="openContactModal();"><a href="#">Help</a></li>
 			</ul>
 		</div>
 	</nav>

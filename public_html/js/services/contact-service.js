@@ -10,7 +10,6 @@ app.service("ContactService", function($http){
 	this.CONTACT_ENDPOINT = "../../php/controllers/contact-form-controller.php";
 
 	this.contact = function(contactData) { //contactData from the contact-form-controller and contact-modal
-		console.log(contactData)
 		return($http.post(this.CONTACT_ENDPOINT, contactData)
 			.then(function(reply) {
 				return(reply.data);
