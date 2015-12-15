@@ -41,7 +41,7 @@ app.controller("ValidationController", ["$scope", "$uibModal", "$window", "Alert
 										//redirect them to the listing page
 										//later, make this an if statement that checks if they're an admin
 										AlertService.addAlert({type: "success", msg: reply.message});
-										$window.location.assign("../../php/template/listing-receive-view.php");
+										$window.location.assign("../../php/template/listing-nonadmin.php");
 									} else {
 										AlertService.addAlert({type: "danger", msg: reply.message});
 									}
