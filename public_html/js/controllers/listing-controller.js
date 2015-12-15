@@ -133,7 +133,6 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 	$scope.getWhoClaimed = function(listing) {
 		$scope.editedListing = angular.copy(listing);
 		//get the volunteer and the organization of the claimer here
-		console.log(listing.listingClaimedBy);
 		OrganizationService.fetchId(listing.listingClaimedBy)
 			.then(function(result) {
 				$scope.organization = result.data.data;

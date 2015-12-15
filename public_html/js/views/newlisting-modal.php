@@ -28,7 +28,7 @@
 					</div>
 					<input type="number"
 							 class="form-control"
-							 id="listingCost" name="listingCost" placeholder="Estimated cost of donation" min=".01" step="1.00" ng-min=".01" ng-model="listingData.listingCost"  ng-init="listingData.listingCost='.01'" value=".01"
+							 id="listingCost" name="listingCost" placeholder="Estimated cost of donation" min=".01" step="1.00" ng-min=".01" ng-model="listingData.listingCost"  ng-init="listingData.listingCost=0.01" value=0.01
 							 ng-required="true"/>
 				</div>
 				<div class="alert alert-danger"
