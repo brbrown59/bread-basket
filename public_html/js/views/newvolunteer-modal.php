@@ -6,21 +6,21 @@
 		<!--begin new volunteer-->
 		<!--first name-->
 		<label class="control-label" for="volFirstName">Name</label>
-		<div class="form-group form-group-lg" ng-class="{ 'has-error' : volunteerForm.volFirstName.$touched && volunteerForm.volFirstName.$invalid }">
+		<div class="form-group form-inline form-group-lg" ng-class="{ 'has-error' : volunteerForm.volFirstName.$touched && volunteerForm.volFirstName.$invalid }">
 			<label class="control-label sr-only" for="volFirstName">Name</label>
 			<div class="input-group">
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 				</div>
 				<input type="text" class="form-control" id="volFirstName" name="volFirstName" placeholder="First Name" ng-model="volunteer.volFirstName" ng-required="true">
-			</div>
+
 			<div class="alert alert-danger" role="alert" ng-messages="volunteerForm.volFirstName.$error" ng-if="volunteerForm.volFirstName.$touched" ng-hide="volunteerForm.volFirstName.$valid">
 				<p ng-message="required">Please enter a first name</p>
 			</div>
-		</div>
+			</div>
 
 			<!--last name-->
-		<div class="form-group form-group-lg" ng-class="{ 'has-error' : volunteerForm.volLastName.$touched && volunteerForm.volLastName.$invalid }">
+		<div class="form-group form-inline form-group-lg" ng-class="{ 'has-error' : volunteerForm.volLastName.$touched && volunteerForm.volLastName.$invalid }">
 			<label class="control-label sr-only" for="volLastName">Last Name</label>
 			<div class="input-group">
 				<div class="input-group-addon">
@@ -31,6 +31,7 @@
 			<div class="alert alert-danger" role="alert" ng-messages="volunteerForm.volLastName.$error" ng-if="volunteerForm.volLastName.$touched" ng-hide="volunteerForm.volLastName.$valid">
 				<p ng-message="required">Please enter a last name</p>
 			</div>
+		</div>
 		</div>
 		<!--contact info-->
 		<label class="control-label" for="volvolEmail">Contact</label>

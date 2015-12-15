@@ -15,10 +15,10 @@ require_once("header.php");
 				<!--this container houses the h1 tag/headline and the back to listing button-->
 				<div class="container">
 					<div class="row">
-						<div class="col-md-10">
+						<div class="col-sm-9">
 							<div class="h2-bb">All Volunteers</div>
 						</div>
-						<div class="col-md-2">
+						<div class="col-sm-3">
 							<button class="btn btn-info btn-block" ng-click="openVolunteerModal();">New Volunteer</button>
 						</div>
 					</div>
