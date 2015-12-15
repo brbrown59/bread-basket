@@ -1,5 +1,5 @@
 app.controller("SignupModal", ["$scope", "$uibModalInstance", function($scope, $uibModalInstance) {
-	$scope.signupData = {};
+	$scope.signupData = {orgState: "NM", orgCity: "Albuquerque"};
 
 	$scope.ok = function() {
 		$uibModalInstance.close($scope.signupData);

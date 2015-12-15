@@ -1,5 +1,9 @@
-<div class="modal-body">
+<div class="modal-header">
 	<h2>Login Failed</h2>
-	<p>Email or Password are incorrect</p>
-	<button type="reset" class="btn btn-lg btn-warning" ng-click="cancel();"><i class="fa fa-ban" aria-hidden="true"></i> OK</button>
+</div>
+<div class="modal-body">
+	<h4>Email or Password are incorrect</h4>
+</div>
+<div class="modal-footer">
+	<button type="reset" class="btn btn-warning" ng-click="cancel();">OK</button>
 </div>

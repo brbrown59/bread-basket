@@ -184,9 +184,9 @@
 				<label class="control-label" for="orgCity">City</label>
 
 				<div class="input-group">
-					<select ng-options="Albuquerque" class="form-control" id="orgCity" name="orgCity" ng-model="signupData.orgCity"
+					<select class="form-control" id="orgCity" name="orgCity" ng-model="signupData.orgCity"
 							  ng-required="true">
-						<option>Albuquerque</option>
+						<option selected>Albuquerque</option>
 					</select>
 				</div>
 			</div>
@@ -200,7 +200,7 @@
 				<div class="input-group">
 					<select class="form-control" id="orgState" name="orgState" ng-model="signupData.orgState"
 							  ng-required="true">
-						<option selected="selected">NM</option>
+						<option>NM</option>
 					</select>
 				</div>
 			</div>
@@ -281,6 +281,7 @@
 			</h5>
 			<div class="input-group">
 				<select class="form-control" id="orgType" name="orgType" ng-model="signupData.orgType" ng-required="true">
+					<option value="">&mdash;SELECT AN OPTION&mdash;</option>
 					<option value="G">We would like to donate food.</option>
 					<option value="R">We are a shelter or food bank needing donations.</option>
 
@@ -290,7 +291,7 @@
 		</div>
 	</div>
 <div class="modal-footer">
-		<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="signupForm.$invalid"><i
+		<button type="submit" class="btn btn-lg btn-primary" ng-click="ok();" ng-disabled="signupForm.$invalid"><i
 				class="fa fa-check" aria-hidden="true"></i>Submit
 		</button>
 		<button type="reset" class="btn btn-lg btn-warning" ng-click="cancel();"><i class="fa fa-ban"
