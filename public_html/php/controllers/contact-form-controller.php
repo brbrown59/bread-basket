@@ -40,7 +40,7 @@ try {
 	// attach the sender to the message
 	// this takes the form of an associative array where the Email is the key for the real name
 	$recipients = [$requestObject->email];
-	$swiftMessage->setFrom("$recipients");
+	$swiftMessage->setFrom($recipients);
 
 
 	/**
@@ -92,5 +92,5 @@ try {
 	$reply->message = $exception->getTrace();
 }
 
-header("Content-type: application/json");
-echo json_encode($reply);
+//header("Content-type: application/json");
+//echo json_encode($reply);
