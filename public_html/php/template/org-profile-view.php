@@ -58,6 +58,7 @@
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-pushpin"></span> Location</h3>
 					<ng-map zoom="16" center="{{ organization.orgAddress1 }} + ' ' + {{ organization.orgAddress2 }} + ' ' + {{ organization.orgCity }} + ', ' + {{ organization.orgState }} + ', ' + {{ organization.orgZip }}" />
+					<marker position="{{organization.orgAddress1}} + ' ' + {{organization.orgAddress2}} + ' ' + {{organization.orgCity}} + ', ' + {{organization.orgState}} + ', ' + {{organization.orgZip}}"><marker />
 				</div>
 			</div>
 		</div>
