@@ -13,6 +13,7 @@ app.service("ContactService", function($http){
 		console.log(contactData)
 		return($http.post(this.CONTACT_ENDPOINT, contactData)
 			.then(function(reply) {
+				console.log(reply.data);
 				return(reply.data);
 			}));
 	};
