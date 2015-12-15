@@ -41,7 +41,7 @@ app.controller("SigninController", ["$scope", "$uibModal", "$window", "AlertServ
 											});
 									} else {
 										//receiving volunteer
-										$window.location.assign("../../php/template/listing-receive-view.php")
+										$window.location.assign("../../php/template/listing-nonadmin.php")
 									}
 								} else {
 									$scope.alerts[0] = {type: "danger", msg: result.message};
