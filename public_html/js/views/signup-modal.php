@@ -191,7 +191,7 @@
 				</div>
 			</div>
 
-			<!--state-->
+			<!--state--->
 			<div class="form-group"
 				  ng-class="{ 'has-error': signupForm.orgState.$touched && signupForm.orgState.$invalid }">
 
