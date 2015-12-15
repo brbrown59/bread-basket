@@ -1,14 +1,15 @@
+<div class="modal-header">
+	<h2>Join Us!</h2>
+</div>
+
 <div class="modal-body">
 	<form id="signupForm" name="signupForm">
-		<h2>Join Us!</h2>
-		<hr/>
 		<!--first name-->
 		<div class="form-group" ng-class="{ 'has-error' : signupForm.volFirstName.$touched && signupForm.volFirstName.$invalid }">
 		<h5>
 			<label class="control-label" for="name">Name</label>
 		</h5>
 
-		<div class="form-inline">
 			<label class="control-label sr-only" for="volFirstName">First Name</label>
 
 			<div class="input-group">
@@ -22,12 +23,16 @@
 				  ng-if="signupForm.volFirstName.$touched" ng-hide="signupForm.volFirstName.$valid">
 				<p ng-message="required">Please enter your first name</p>
 			</div>
+		</div>
 
-
+		<div class="form-group" ng-class="{ 'has-error' : signupForm.volLasttName.$touched && signupForm.volLasttName.$invalid }">
 			<!--last name-->
 			<label class="control-label sr-only" for="volLastName">Last Name</label>
 
 			<div class="input-group">
+				<div class="input-group-addon">
+					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+				</div>
 				<input type="text" class="form-control" id="volLastName" name="volLastName" placeholder="Last Name"
 						 ng-model="signupData.volLastName" ng-required="true"/>
 			</div>
@@ -36,7 +41,8 @@
 				<p ng-message="required">Please enter your last name</p>
 			</div>
 		</div>
-		</div>
+
+
 
 		<!--email-->
 		<div class="form-group" ng-class="{ 'has-error': signupForm.volEmail.$touched && signupForm.volEmail.$invalid }">
@@ -164,7 +170,7 @@
 
 			<div class="input-group">
 				<div class="input-group-addon">
-					<span class="glyphicon glyphicon-none" aria-hidden="true"></span>
+					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 				</div>
 				<input type="text" class="form-control" id="orgAddress2" name="orgAddress2" placeholder="Address 2"
 						 ng-model="signupData.orgAddress2" ng-required="false"/>
@@ -178,7 +184,7 @@
 				<label class="control-label" for="orgCity">City</label>
 
 				<div class="input-group">
-					<select class="form-control" id="orgCity" name="orgCity" ng-model="signupData.orgCity"
+					<select ng-options="Albuquerque" class="form-control" id="orgCity" name="orgCity" ng-model="signupData.orgCity"
 							  ng-required="true">
 						<option>Albuquerque</option>
 					</select>
@@ -194,7 +200,7 @@
 				<div class="input-group">
 					<select class="form-control" id="orgState" name="orgState" ng-model="signupData.orgState"
 							  ng-required="true">
-						<option>NM</option>
+						<option selected="selected">NM</option>
 					</select>
 				</div>
 			</div>
@@ -282,7 +288,8 @@
 				</select>
 			</div>
 		</div>
-		<hr/>
+	</div>
+<div class="modal-footer">
 		<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="signupForm.$invalid"><i
 				class="fa fa-check" aria-hidden="true"></i>Submit
 		</button>
@@ -290,3 +297,4 @@
 																											 aria-hidden="true"></i> Cancel
 		</button>
 	</form>
+</div>

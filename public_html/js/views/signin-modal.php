@@ -1,7 +1,8 @@
+<div class="modal-header">
+	<h2>Welcome Back!</h2>
+</div>
 <div class="modal-body">
 	<form id="signinForm" name="signinForm">
-		<h2>Welcome Back!</h2>
-		<hr />
 		<div class="form-group form-group-lg" ng-class="{ 'has-error': signinForm.email.$touched && signinForm.email.$invalid }">
 			<label class="control-label" for="email">Email</label>
 			<div class="input-group">
@@ -28,8 +29,9 @@
 				<p ng-message="required">Please enter your password.</p>
 			</div>
 		</div>
-		<hr />
-		<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="signinForm.$invalid"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</button>
-		<button type="reset" class="btn btn-lg btn-warning" ng-click="cancel();"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
+		<div class="modal-footer">
+		<button type="submit" class="btn btn-primary" ng-click="ok();" ng-disabled="signinForm.$invalid"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</button>
+		<button type="reset" class="btn btn-warning" ng-click="cancel();"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
 	</form>
+</div>
 </div>

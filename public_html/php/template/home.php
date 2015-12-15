@@ -67,7 +67,7 @@ require_once("utilities.php")
 						<div class="collapse navbar-collapse navbar-right" id="my-navbar">
 							<ul class="home-nav nav navbar-nav">
 								<li ng-controller="SigninController" ng-click="openSigninModal();"><a href="#">Login</a></li>
-								<li ng-controller="SignoutController" ng-click="signOut()"><a href="#">Sign Up</a></li>
+								<li ng-controller="SignupController" ng-click="openSignupModal();"><a href="#">Sign Up</a></li>
 							</ul>
 						</div>
 					</nav>
