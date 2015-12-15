@@ -45,6 +45,17 @@ h1 {
 	font-size: 3em;
 	font-family: 'Josefin Sans', sans-serif;
 	color: whitesmoke;
+	text-decoration: none;
+}
+
+h2 {
+	font-size: 1.5em;
+	font-family: 'Noto Sans', sans-serif;
+	color: whitesmoke;
+}
+
+ul>li {
+	color: whitesmoke;
 }
 
 .h2-bb {
@@ -372,6 +383,15 @@ only screen and (max-width: 760px),
 ********************************************/
 
 /** Navbar Styles ****/
+
+a {
+	color: whitesmoke;
+}
+
+a:hover {
+	text-decoration: none;
+	color: darkslategray;
+}
 
 .home-nav a,
 .home-nav a:hover {

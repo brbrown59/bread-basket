@@ -10,11 +10,24 @@ $PAGE_TITLE = "New Volunteer";
 require_once("utilities.php");
 ?>
 
+<header>
+	<div class="na-nav home-nav nav navbar-brand">
+		<a href="home.php">
+			<span class="glyphicon glyphicon-grain"></span>
+			Bread Basket
+		</a>
+	</div>
+</header>
+
+<div class="emailvalidation-bg sfooter-content">
+
 <main ng-controller="ValidationController">
-	<div class="container">
-		<form id="newvolForm" name="newvolForm">
+	<div class="container form-padding">
+		<div class="modal-header">
 			<h2>Welcome! Please verify your email and create a new password!</h2>
-			<hr/>
+		</div>
+		<div class="modal-body">
+		<form id="newvolForm" name="newvolForm">
 			<div class="form-group"
 				  ng-class="{ 'has-error': newvolForm.password.$touched && newvolForm.password.$invalid }">
 				<h5>
@@ -79,7 +92,8 @@ require_once("utilities.php");
 					<p ng-message="required">Please enter your email.</p>
 				</div>
 			</div>
-			<hr/>
+		</div>
+		<div class="modal-footer">
 			<button type="submit" class="btn btn-lg btn-info" ng-click="setVolPasswords(newvolData, newvolForm.$valid);"
 					  ng-disabled="newvolForm.$invalid"><i
 					class="fa fa-sign-in" aria-hidden="true"></i> Sign In
@@ -90,5 +104,6 @@ require_once("utilities.php");
 		</form>
 	</div>
 </main>
+</div>
 </body>
 </html>
