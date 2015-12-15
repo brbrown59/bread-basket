@@ -14,7 +14,6 @@
 		<a href="org-base.php">ORGANIZATION</a>
 		<a href="volunteer-list-view.php">VOLUNTEERS</a>
 		<a href="listing-receive-view.php">LISTINGS</a>
-		<a href="#">HELP</a>
 		<a href="home.php" ng-controller="SignoutController" ng-click="signOut();">LOGOUT</a>
 	</nav>
 </header>

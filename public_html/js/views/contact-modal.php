@@ -1,7 +1,9 @@
-<div class="modal-body" xmlns="http://www.w3.org/1999/html">
+<div class="modal-header">
+	<h3>Contact Us</h3>
+</div>
+
+<div class="modal-body">
 	<form id="contactForm" name="contactForm">
-		<h3>Contact Us</h3>
-		<hr/>
 		<!--begin contact us fields-->
 		<!--first name-->
 		<label class="control-label" for="firstname">Name</label>
@@ -18,7 +20,12 @@
 			</div>
 			<!--last name-->
 			<label class="control-label sr-only" for="lastname">Last Name</label>
-			<input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" ng-model="contactData.lastname" ng-required="true">
+			<div class="input-group">
+				<div class="input-group-addon">
+					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+				</div>
+				<input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" ng-model="contactData.lastname" ng-required="true">
+			</div>
 			<div class="alert alert-danger" role="alert" ng-messages="contactForm.lastname.$error" ng-if="contactForm.lastname.$touched" ng-hide="contactForm.lastname.$valid">
 				<p ng-message="required">Please enter a last name</p>
 			</div>
@@ -75,7 +82,10 @@
 				<p ng-message="maxlength">Message is too long.</p>
 			</div>
 		</div>
-		<button type="submit" class="btn btn-primary" ng-click="ok();" ng-disabled="contactForm.$invalid"><i class="fa fa-check" aria-hidden="true"></i>Submit</button>
-		<button type="reset" class="btn btn-warning" ng-click="cancel();"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
+	</div>
+
+<div class="modal-footer">
+	<button type="submit" class="btn btn-primary" ng-click="ok();" ng-disabled="contactForm.$invalid"><i class="fa fa-check" aria-hidden="true"></i>Submit</button>
+	<button type="reset" class="btn btn-warning" ng-click="cancel();"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
 	</form>
 </div>

@@ -1,4 +1,4 @@
-app.controller("ContactController", ["$scope", "$uibModal", function($scope, $uibModal) {
+app.controller("ContactController", ["$scope", "$uibModal", "ContactService", function($scope, $uibModal, ContactService) {
 	$scope.contactData = {};
 
 	$scope.openContactModal = function() {

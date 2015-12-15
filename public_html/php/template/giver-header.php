@@ -14,7 +14,6 @@
 		<a href="login-landing-giver.php">HOME</a>
 		<a href="org-base-giver.php">ORGANIZATION</a>
 		<a href="listing-view.php">LISTINGS</a>
-		<a href="#">HELP</a>
 		<a href="home.php" ng-controller="SignoutController" ng-click="signOut();">LOGOUT</a>
 	</nav>
 </header>
