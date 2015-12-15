@@ -38,7 +38,7 @@ require_once("utilities.php");
 
 </div>
 
-<!-- main content --->
+<!-- main content ---->
 <div class="list-bg sfooter-content">
 	<main ng-controller="ListingController">
 		<!---this container houes the h1 tag/headline and the back to listing button---->
