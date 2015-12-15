@@ -49,10 +49,17 @@
 			</div>
 			<div class="radio" ng-class="{ 'has-error' : listingForm.type2.$touched && listingForm.type2.$invalid }">
 				<label class="control-label" for="type2">
-					<input type="radio" name="listingTypeId" id="nonPerishable" value="94" ng-model="listingData.listingTypeId">
+					<input type="radio" name="listingTypeId" id="nonPerishable" value="94" ng-model="listingData.listingTypeId" ng-required="true">
 					Non-Perishable
 				</label>
 			</div>
+		<div class="alert alert-info"
+			  role="alert"
+			  ng-messages="listingForm.listingTypeId.$error"
+			  ng-show="listingForm.listingTypeId.$invalid">
+			<p ng-message="required">Please choose one of the types above.</p>
+		</div>
+
 
 		<hr />
 		<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="listingForm.$invalid"><i class="fa fa-check" aria-hidden="true"></i>Submit</button>
