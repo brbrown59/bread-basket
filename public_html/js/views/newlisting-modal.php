@@ -1,7 +1,9 @@
+<div class="modal-header">
+	<h2>Post New Listing</h2>
+</div>
+
 <div class="modal-body">
 	<form id="listingForm" name="listingForm" ng-submit="createListing(listing, listingForm.$valid);" ng-hide="isEditing">
-		<h2>Post New Listing</h2>
-		<hr />
 		<p>Please include a pickup time and approximate size of donation in description. <br> Thank you for donating!</p>
 		<!--begin new listing-->
 		<!--memo-->
@@ -59,10 +61,10 @@
 			  ng-show="listingForm.listingTypeId.$invalid">
 			<p ng-message="required">Please choose one of the types above.</p>
 		</div>
+	</div>
 
-
-		<hr />
-		<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="listingForm.$invalid"><i class="fa fa-check" aria-hidden="true"></i>Submit</button>
-		<button type="reset" class="btn btn-lg btn-warning" ng-click="cancel();"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-primary" ng-click="ok();" ng-disabled="listingForm.$invalid"><i class="fa fa-check" aria-hidden="true"></i>Submit</button>
+	<button type="reset" class="btn btn-warning" ng-click="cancel();"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
 	</form>
 </div>

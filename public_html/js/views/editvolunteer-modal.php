@@ -1,7 +1,9 @@
+<div class="modal-header">
+	<h3>Edit Volunteer</h3>
+</div>
+
 <div class="modal-body">
 	<form id="editVolunteerForm" name="editVolunteerForm"  ng-submit="updateVolunteer(editedVolunteer, editVolunteerForm.$valid);" ng-hide="isEditing">
-		<h3>Edit Volunteer</h3>
-		<hr/>
 		<!--begin new volunteer-->
 		<!--first name-->
 		<label class="control-label" for="volFirstName">Name</label>
@@ -17,18 +19,21 @@
 				<p ng-message="required">Please enter a first name</p>
 			</div>
 
-
-
 			<!--last name-->
 			<label class="control-label sr-only" for="volLastName">Last Name</label>
+			<div class="input-group">
+				<div class="input-group-addon">
+					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+				</div>
 			<input type="text" class="form-control" id="volLastName" name="volLastName" placeholder="Last Name" ng-model="editedVolunteer.volLastName" ng-required="true">
+			</div>
 			<div class="alert alert-danger" role="alert" ng-messages="editVolunteerForm.volLastName.$error" ng-if="editVolunteerForm.volLastName.$touched" ng-hide="editVolunteerForm.volLastName.$valid">
 				<p ng-message="required">Please enter a last name</p>
 			</div>
 		</div>
 		<!--contact info-->
 		<label class="control-label" for="volvolEmail">Contact</label>
-		<div class="form-inline form-group-lg" ng-class="{ 'has-error': editVolunteerForm.volEmail.$touched && editVolunteerForm.volEmail.$invalid }">
+		<div class="form-group form-group-lg" ng-class="{ 'has-error': editVolunteerForm.volEmail.$touched && editVolunteerForm.volEmail.$invalid }">
 			<!--volEmail-->
 			<label class="control-label sr-only" for="volEmail">volEmail</label>
 			<div class="input-group">
@@ -41,7 +46,9 @@
 				<p ng-message="email">Email is invalid.</p>
 				<p ng-message="required">Please enter an email.</p>
 			</div>
+		</div>
 			<!--volPhone-->
+			<div class="form-group form-group-lg" ng-class="{ 'has-error': editVolunteerForm.volEmail.$touched && editVolunteerForm.volEmail.$invalid }">
 			<label class="control-label sr-only " for="volPhone">Phone</label>
 			<div class="input-group">
 				<div class="input-group-addon">
@@ -52,8 +59,11 @@
 			<div class="alert alert-danger" role="alert" ng-messages="editVolunteerForm.volPhone.$error" ng-if="editVolunteerForm.volPhone.$touched" ng-hide="editVolunteerForm.volPhone.$valid">
 				<p ng-message="required">Please enter a phone number.</p>
 			</div>
-			<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="editVolunteerForm.$invalid"><i class="fa fa-check" aria-hidden="true"></i>Submit</button>
-			<button type="reset" class="btn btn-lg btn-warning" ng-click="cancel();"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
+		</div>
+	</div>
+
+<div class="modal-footer">
+	<button type="submit" class="btn btn-lg btn-info" ng-click="ok();" ng-disabled="editVolunteerForm.$invalid"><i class="fa fa-check" aria-hidden="true"></i>Submit</button>
+	<button type="reset" class="btn btn-lg btn-warning" ng-click="cancel();"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
 	</form>
-</div>
 </div>

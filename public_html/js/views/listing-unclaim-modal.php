@@ -3,7 +3,8 @@
 	<h4>Posted On: {{ editedListing.listingPostTime | date:medium }}</h4>
 </div>
 <div class="modal-body">
-	<h4>{{ listingType.listingTypeInfo }} </h4>
+	<h4>Perishable/Non-perishable </h4>
+	<span>{{ listingType.listingTypeInfo }}</span>
 	<h4>Description</h4>
 	<p>{{ editedListing.listingMemo }}</p>
 	<h4>Location</h4>
