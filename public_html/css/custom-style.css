@@ -20,6 +20,20 @@
 ********************************************/
 
 /********************************************
+* LAYOUT Styles
+********************************************/
+
+header {
+	padding: 20px;
+	background-color: darkslategray;
+}
+
+main {
+	padding-top: 15px;
+}
+
+
+/********************************************
 * Utility Styles
 ********************************************/
 html, body {
@@ -178,19 +192,6 @@ h1 {
 
 
 /********************************************
-* HEADER Styles
-********************************************/
-
-header {
-	padding: 20px;
-	background-color: darkslategray;
-}
-
-main {
-	padding-top: 15px;
-}
-
-/********************************************
 * NAVBAR Styles
 ********************************************/
 /** HOME PAGE Navbar Styles ****/
@@ -238,7 +239,7 @@ main {
 	text-decoration: none;
 }
 
-/** MENU BUTTONS **/
+/** NAVBAR MENU BUTTONS **/
 
 .btn-menu {
 	font-family: 'Josefin Sans', sans-serif;
@@ -261,6 +262,19 @@ main {
 #btn-menu {
 	border: solid 2px whitesmoke;
 }
+
+/** NON ADMIN NAV **/
+
+.na-nav {
+	font-size: 1.5em;
+	color: ghostwhite;
+	font-family: 'Josefin Sans', sans-serif;
+}
+
+.na-header {
+	background-color: darkslategray;
+}
+
 
 
 /********************************************

@@ -51,9 +51,9 @@ require_once("utilities.php")
 					<nav class="home-nav nav navbar">
 						<!--logo and mobile toggle button get grouped together-->
 						<div class="navbar-header">
-							<button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#my-navbar" aria-expanded="false">
+							<button class="na-nav navbar-toggle collapsed" data-toggle="collapse" data-target="#my-navbar" aria-expanded="false">
 								<span class="sr-only">Main Menu</span>
-								<span class="glyphicon glyphicon-th-large"></span>
+								<span class="fa fa-bars"></span>
 							</button>
 							<div class="nav navbar-brand">
 							<a href="#">
@@ -67,7 +67,7 @@ require_once("utilities.php")
 						<div class="collapse navbar-collapse navbar-right" id="my-navbar">
 							<ul class="home-nav nav navbar-nav">
 								<li ng-controller="SigninController" ng-click="openSigninModal();"><a href="#">Login</a></li>
-								<li ng-controller="SignupController" ng-click="openSignupModal();"><a href="#">Sign Up</a></li>
+								<li ng-controller="SignoutController" ng-click="signOut()"><a href="#">Sign Up</a></li>
 							</ul>
 						</div>
 					</nav>
