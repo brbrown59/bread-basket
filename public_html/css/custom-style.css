@@ -280,18 +280,22 @@ h1 {
 ********************************************/
 
 .modal-header {
-
+	background-color: darkslategray !important;
+	color: whitesmoke;
 }
-
-.modal-body {
-
-}
-
+.modal-body,
 .modal-footer {
+	background-color: whitesmoke;
+}
 
+.input-group-addon {
+	color: darkslategray;
+	background-color: whitesmoke;
 }
 
 label {
+	font-size: 15px;
+	margin: 10px 0px;
 
 }
 

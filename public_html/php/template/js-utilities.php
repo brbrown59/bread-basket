@@ -28,6 +28,7 @@ require_once("prefix-utilities.php");
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/services/sign-up-service.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/services/sign-out-service.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/services/get-current-service.js"></script>
+<script type="text/javascript" src="<?php echo $PREFIX; ?>js/services/contact-service.js"></script>
 
 <!-- Angular Google Maps-->
 <script src ="<?php echo $PREFIX; ?>js/ng-map.min.js"></script>
