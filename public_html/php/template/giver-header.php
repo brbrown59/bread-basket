@@ -9,9 +9,6 @@
 		<span class="media-hide">MENU</span>
 		<i class="fa fa-bars"></i>
 	</button>
-	<button id="btn-back" class="btn btn-menu pull-right">
-		<span class="fa fa-arrow-left"></span> BACK
-	</button>
 	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right">
 		<!-- Right menu element-->
 		<a href="login-landing-giver.php">HOME</a>

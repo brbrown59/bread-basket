@@ -262,14 +262,6 @@ main {
 	border: solid 2px whitesmoke;
 }
 
-#btn-back {
-	 margin-right: 10px;
- }
-
-#btn-back:hover,
-#btn-back:focus {
-	border: solid 2px whitesmoke;
-}
 
 /********************************************
 * TABLE Styles
