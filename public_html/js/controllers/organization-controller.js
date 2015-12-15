@@ -3,6 +3,7 @@ app.controller("OrganizationController", ["$scope", "OrganizationService", "GetC
 
 	//the organization for the view will be the first element in this array
 	$scope.organization = "";
+	$scope.savedOrganization = "";
 	$scope.alerts = [];
 	$scope.redirectUrl = "";
 	$scope.isEditing = false;
@@ -10,6 +11,8 @@ app.controller("OrganizationController", ["$scope", "OrganizationService", "GetC
 
 	$scope.setEditedOrganization = function() {
 		$scope.isEditing = true;
+		//set the back-up to reset upon cancellation of the edit
+		$scope.savedOrganization = angular.copy($scope.organization);
 	};
 
 	/**
@@ -17,6 +20,8 @@ app.controller("OrganizationController", ["$scope", "OrganizationService", "GetC
 	 **/
 	$scope.cancelEditing = function() {
 		$scope.isEditing = false;
+		//set the back-up to reset to upon cancellation
+		$scope.organization = angular.copy($scope.savedOrganization);
 	};
 
 	$scope.getOrganizations = function() {
