@@ -57,7 +57,8 @@
 			<div class="col-md-6">
 				<div class="text-box">
 					<h3><span class="glyphicon glyphicon-pushpin"></span> Location</h3>
-					<img class="img-responsive" src="../../img/map-placeholder.png" alt="picture of donation"/>
+					<ng-map zoom="16" center="116 Central Ave SW, Albuquerqu, NM 87102" />
+					<ng-map zoom="16" center="{organization.orgAddress1 + ' ' + organization.orgAddress2 + ' ' + organization.orgCity + ', ' + organization.orgState + ', ' + organization.orgZip}" />
 				</div>
 			</div>
 		</div>

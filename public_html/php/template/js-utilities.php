@@ -29,6 +29,12 @@ require_once("prefix-utilities.php");
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/services/sign-out-service.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/services/get-current-service.js"></script>
 
+<!-- Angular Google Maps-->
+<script src ="<?php echo $PREFIX; ?>js/ng-map.min.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js"></script>
+
+
+
 <!--Angular Controllers-->
 
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/controllers/alert-controller.js"></script>
@@ -60,3 +66,4 @@ require_once("prefix-utilities.php");
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/directives/org-view.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/directives/org-edit.js"></script>
 <script type="text/javascript" src="<?php echo $PREFIX; ?>js/directives/tabs.js"></script>
+
