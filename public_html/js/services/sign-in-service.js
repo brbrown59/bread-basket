@@ -5,7 +5,7 @@
  * contributing code from ng-abq @author Dylan McDonald
  */
 
-//"signinService refers to what's in the signin-controller. Todo add Sign in Service to js SignIn Controller TODO is this the correct endpoint?
+//"signinService refers to what's in the signin-controller. 
 app.service("SigninService", function($http){
 	this.SIGNIN_ENDPOINT = "../../php/controllers/sign-in-controller.php";
 

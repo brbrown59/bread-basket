@@ -11,7 +11,10 @@
 				</div>
 				<input type="email" class="form-control" id="email" name="email" placeholder="What's your Email?" ng-model="signinData.email" ng-required="true" />
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signinForm.email.$error" ng-if="signinForm.email.$touched" ng-hide="signinForm.email.$valid">
+			<div class="alert alert-danger" role="alert"
+				  ng-messages="signinForm.email.$error"
+				  ng-if="signinForm.email.$touched"
+				  ng-hide="signinForm.email.$valid">
 				<p ng-message="email">Email is invalid.</p>
 				<p ng-message="required">Please enter your email.</p>
 			</div>

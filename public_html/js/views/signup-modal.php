@@ -56,10 +56,12 @@
 				<input type="email" class="form-control" id="volEmail" name="volEmail" placeholder="Email"
 						 ng-model="signupData.volEmail" ng-required="true"/>
 			</div>
-			<div class="alert alert-danger" role="alert" ng-messages="signupForm.volEmail.$error"
-				  ng-if="signupForm.volEmail.$touched" ng-hide="signupForm.volEmail.$valid">
+			<div class="alert alert-danger" role="alert"
+				  ng-messages="signupForm.volEmail.$error"
+				  ng-if="signupForm.volEmail.$touched"
+				  ng-hide="signupForm.volEmail.$valid">
 				<p ng-message="email"> Email is invalid.</p>
-				<p ng-message="required">Please enter your Email.</p>
+				<p ng-message="required">Please enter your email.</p>
 			</div>
 		</div>
 

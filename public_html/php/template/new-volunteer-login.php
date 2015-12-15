@@ -16,9 +16,10 @@ require_once("utilities.php");
 			<h2>Welcome! Please verify your email and create a new password!</h2>
 			<hr/>
 			<div class="form-group"
-				  ng-class="{ 'has-error': newvolData.password.$touched && newvolData.password.$invalid }">
-				<label class="control-label" for="password">Password</label>
-
+				  ng-class="{ 'has-error': newvolForm.password.$touched && newvolForm.password.$invalid }">
+				<h5>
+					<label class="control-label" for="password">Password</label>
+				</h5>
 				<div class="input-group">
 					<div class="input-group-addon">
 						<i class="fa fa-key" aria-hidden="true"></i>
@@ -26,17 +27,19 @@ require_once("utilities.php");
 					<input type="password" class="form-control" id="password" name="password" placeholder="Password&hellip;"
 							 ng-model="newvolData.password" ng-minlength="8" ng-required="true"/>
 				</div>
-				<div class="alert alert-danger" role="alert" ng-messages="newvolData.password.$error"
-					  ng-if="newvolData.password.$touched" ng-hide="newvolData.password.$valid">
+				<div class="alert alert-danger" role="alert"
+					  ng-messages="newvolForm.password.$error"
+					  ng-if="newvolForm.password.$touched"
+					  ng-hide="newvolForm.password.$valid">
 					<p ng-message="minlength">Password must be at least 8 characters.</p>
-
 					<p ng-message="required">Please enter your password.</p>
 				</div>
 			</div>
 			<div class="form-group"
-				  ng-class="{ 'has-error': newvolData.password_confirmation.$touched && newvolData.password_confirmation.$invalid }">
+				  ng-class="{ 'has-error': newvolFormpassword_confirmation.$touched && newvolForm.password_confirmation.$invalid }">
+				<h5>
 				<label class="control-label">Confirm Password</label>
-
+				</h5>
 				<div class="input-group">
 					<div class="input-group-addon">
 						<i class="fa fa-key" aria-hidden="true"></i>
@@ -45,20 +48,22 @@ require_once("utilities.php");
 							 placeholder="Confirm Password&hellip;" match-password="password"
 							 ng-model="newvolData.password_confirmation" ng-minlength="8" ng-required="true"/>
 				</div>
-				<div class="alert alert-danger" role="alert" ng-messages="newvolData.password_confirmation.$error"
-					  ng-if="newvolData.password_confirmation.$touched" ng-hide="newvolData.password_confirmation.$valid">
+				<div class="alert alert-danger" role="alert"
+					  ng-messages="newvolForm.password_confirmation.$error"
+					  ng-if="newvolForm.password_confirmation.$touched"
+					  ng-hide="newvolForm.password_confirmation.$valid">
 					<p ng-message="minlength">Password must be at least 8 characters.</p>
-
-					<p ng-message="passwordMatch">Passwords do not match.</p>
-
+					<p ng-message="passwordMatch">Password and confirmation do not match.</p>
 					<p ng-message="required">Please enter your password.</p>
 				</div>
 			</div>
+
 			<!--email-->
 			<div class="form-group"
-				  ng-class="{ 'has-error': newvolData.volEmail.$touched && newvolData.volEmail.$invalid }">
-				<label class="control-label" for="volEmail">Email</label>
-
+				  ng-class="{ 'has-error': newvolForm.volEmail.$touched && newvolForm.volEmail.$invalid }">
+				<h5>
+					<label class="control-label" for="volEmail">Email</label>
+				</h5>
 				<div class="input-group">
 					<div class="input-group-addon">
 						<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
@@ -66,9 +71,11 @@ require_once("utilities.php");
 					<input type="email" class="form-control" id="volEmail" name="volEmail" placeholder="Email"
 							 ng-model="newvolData.volEmail" ng-required="true"/>
 				</div>
-				<div class="alert alert-danger" role="alert" ng-messages="newvolData.volEmail.$error"
-					  ng-if="newvolData.volEmail.$touched" ng-hide="newvolData.volEmail.$valid">
-					<p ng-message="volEmail">Email is invalid.</p>
+				<div class="alert alert-danger" role="alert"
+					  ng-messages="newvolForm.volEmail.$error"
+					  ng-if="newvolForm.volEmail.$touched"
+					  ng-hide="newvolForm.volEmail.$valid">
+					<p ng-message="email">Email is invalid.</p>
 					<p ng-message="required">Please enter your email.</p>
 				</div>
 			</div>
