@@ -94,11 +94,11 @@ require_once("utilities.php");
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button type="submit" class="btn btn-lg btn-info" ng-click="setVolPasswords(newvolData, newvolForm.$valid);"
+			<button type="submit" class="btn btn-primary" ng-click="setVolPasswords(newvolData, newvolForm.$valid);"
 					  ng-disabled="newvolForm.$invalid"><i
 					class="fa fa-sign-in" aria-hidden="true"></i> Sign In
 			</button>
-			<button type="reset" class="btn btn-lg btn-warning" ng-click="cancel();"><i class="fa fa-ban"
+			<button type="reset" class="btn btn-warning" ng-click="cancel();"><i class="fa fa-ban"
 																												 aria-hidden="true"></i> Cancel
 			</button>
 		</form>
