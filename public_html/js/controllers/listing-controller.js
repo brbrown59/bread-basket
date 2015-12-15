@@ -263,7 +263,7 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 						//set the organization ID in the listing claimed by field
 						listing.listingClaimedBy = result.data.data.orgId;
 
-						//console.log(listing);
+
 						ListingService.update(listing.listingId, listing)
 							.then(function(result) {
 								if(result.data.status === 200) {
@@ -373,7 +373,6 @@ app.controller("ListingController", ["$scope", "$uibModal", "ListingService", "A
 
 		//subscribe to the delete channel; this will delete from the listings array on demand
 	Pusher.subscribe("listing", "delete", function(listing) {
-		console.log(listing);
 		for(var i = 0; i < $scope.listings.length; i++) {
 			if($scope.listings[i].listingId === listing.listingId) {
 				$scope.listings.splice(i, 1);

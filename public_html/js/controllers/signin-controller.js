@@ -17,7 +17,6 @@ app.controller("SigninController", ["$scope", "$uibModal", "$window", "AlertServ
 			SigninService.signin(signinData)
 				.then(function(result) {
 					if(result.status === 200) {
-						console.log(result);
 						$scope.alerts[0] = {type: "success", msg: result.message};
 						//three potential cases here: receiving volunteer, receiving admin, giving admin
 						//Receiving volunteer redirects to the listing page, the other two go to their respective landing pages
