@@ -14,7 +14,33 @@ app.controller("ValidationController", ["$scope", "$uibModal", "$window", "Alert
 				.then(function(reply) {
 					if(reply.status === 200) {
 						AlertService.addAlert({type: "success", msg: reply.message});
-						$window.location.assign("../../php/template/login-landing-page.php");
+
+						GetCurrentService.fetchVolCurrent()
+							.then(function(result) {
+								if(result.data.status === 200) {
+									if(result.data.data.volIsAdmin === true) {
+										GetCurrentService.fetchOrgCurrent()
+											.then(function(result) {
+												if(result.data.status === 200) {
+													if(result.data.data.orgType === "G") {
+														//giving admin
+														$window.location.assign("../../php/template/login-landing-giver.php")
+													} else if(result.data.data.orgType === "R") {
+														//receiving admin
+														$window.location.assign("../../php/template/login-landing-page.php")
+													}
+												} else {
+													$scope.alerts[0] = {type: "danger", msg: result.message};
+												}
+											});
+									} else {
+										//receiving volunteer
+										$window.location.assign("../../php/template/listing-nonadmin.php")
+									}
+								} else {
+									$scope.alerts[0] = {type: "danger", msg: result.message};
+								}
+							});
 					} else {
 						AlertService.addAlert({type: "danger", msg: reply.message});
 					}
