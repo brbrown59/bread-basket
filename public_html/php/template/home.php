@@ -97,7 +97,7 @@ require_once("prefix-utilities.php");
 				<div class="bg-drk container-fluid">
 					<div class="padding-top-bottom-sm">
 						<div class="row">
-							<div class="col-md-4 col-md-offset-4">
+							<div class="col-sm-4 col-sm-offset-4">
 								<div class="text-center">
 									<h1>How It Works</h1>
 									<hr />
@@ -145,14 +145,14 @@ require_once("prefix-utilities.php");
 						<div class="row">
 							<div class="col-md-4 col-md-offset-4">
 								<div class="text-center">
-									<h1>Join Us</h1>
+									<h1>Learn More</h1>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4 col-md-offset-4 text-center">
-								<div ng-controller="SignupController">
-								<button class="btn btn-lg btn-home" ng-click="openSignupModal();">Sign Up</button>
+								<div ng-controller="ContactController">
+								<button class="btn btn-lg btn-home" ng-click="openContactModal();">Contact Us</button>
 								</div>
 							</div>
 						</div>
