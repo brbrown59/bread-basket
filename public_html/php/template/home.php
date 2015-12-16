@@ -4,7 +4,9 @@ $CURRENT_DIR = __DIR__;
 /*set page title here*/
 $PAGE_TITLE = "Home";
 /*load head-utils*/
-require_once("utilities.php")
+require_once("utilities.php");
+
+require_once("prefix-utilities.php");
 
 ?>
 
@@ -86,7 +88,7 @@ require_once("utilities.php")
 						</div>
 						<div class="row">
 							<div class="col-md-4 col-md-offset-4 text-center">
-								<button class="btn btn-lg btn-home"><a href="#info">Find Out How</a></button>
+								<button ng-controller="SignupController" class="btn btn-lg btn-home">Sign Up</a></button>
 							</div>
 						</div>
 					</div>
@@ -97,40 +99,46 @@ require_once("utilities.php")
 						<div class="row">
 							<div class="col-md-4 col-md-offset-4">
 								<div class="text-center">
-									<a name="info"><h1>How It Works</h1></a>
+									<h1>How It Works</h1>
 									<hr />
 								</div>
 							</div>
 						</div>
 						<!--HOW IT WORKS-->
 						<div class="row">
-							<div class="col-md-4">
-								<h2 class="text-center">Food Provider</h2>
-								<ul>
-									<li>Step 1</li>
-									<li>Step 2</li>
-									<li>Step 3</li>
-								</ul>
+							<div class="container">
+								<div class="col-sm-6 col-sm-offset-2">
+									<h2>Food Provider</h2>
+									<ul>
+										<li>Step 1</li>
+										<li>Step 2</li>
+										<li>Step 3</li>
+									</ul>
+								</div>
+								<div class="col-sm-4">
+									<img class="img-responsive img-circle" src="<?php echo $PREFIX; ?>img/grocery.jpg" alt="food provider image" />
+								</div>
 							</div>
-							<div class="col-md-4">
-								<h2 class="text-center">Food Receiver</h2>
-								<ul>
-									<li>Step 1</li>
-									<li>Step 2</li>
-									<li>Step 3</li>
-								</ul>
-							</div>
-							<div class="col-md-4">
-								<h2 class="text-center">Everyone Feels Good</h2>
-								<ul>
-									<li>Step 1</li>
-									<li>Step 2</li>
-									<li>Step 3</li>
-								</ul>
+						</div>
+						<div class="container"><hr /></div>
+						<div class="row">
+							<div class="container">
+								<div class="col-sm-6 col-sm-offset-2">
+									<h2 class="text-center">Food Receiver</h2>
+										<ul>
+											<li>Step 1</li>
+											<li>Step 2</li>
+											<li>Step 3</li>
+										</ul>
+									</div>
+								<div class="col-sm-4">
+									<img class="img-responsive img-circle" src="<?php echo $PREFIX; ?>img/buffet2.jpg" alt="food provider image" />
+								</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+
 				<!--container 3-->
 				<div class="container-fluid">
 					<div class="padding-top-bottom-sm">

@@ -32,7 +32,7 @@
 				<p ng-message="required">Please enter your password.</p>
 			</div>
 		</div>
-		<div class="modal-footer">
+		<div>
 		<button type="submit" class="btn btn-primary" ng-click="ok();" ng-disabled="signinForm.$invalid"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</button>
 		<button type="reset" class="btn btn-warning" ng-click="cancel();"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</button>
 	</form>

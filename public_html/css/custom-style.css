@@ -93,6 +93,7 @@ ul>li {
 
 .btn {
 	border-radius: 0px;
+	margin-bottom: 5px;
 
 }
 
@@ -312,7 +313,7 @@ label {
 
 @media (min-width: 768px) {
 	.form-padding {
-		padding: 0 10%;
+		padding: 0 12%;
 	}
 }
 
@@ -465,11 +466,23 @@ a:hover {
 
 }
 
+/** HOW IT WORKS BOXES **/
+
+.border-box {
+	border: 3px solid whitesmoke;
+}
+
+.col-centered {
+	float: none;
+	margin: 0 10px;
+}
+
 /** Home Page Background **/
 
 .home-img {
 	background: url(../img/food-ingredients-high.jpg) no-repeat center center fixed;
 }
+
 
 
 /********************************************
