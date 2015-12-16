@@ -69,7 +69,7 @@ require_once("prefix-utilities.php");
 								</div>
 							</div>
 						</div>
-						<!--HOW IT WORKS-->
+						<!--HOW IT WORKS--->
 						<div class="row">
 							<div class="container">
 								<div class="col-sm-6 col-sm-offset-2">
