@@ -7,9 +7,9 @@
 		<!--begin contact us fields-->
 		<!--first name-->
 		<label class="control-label" for="firstname">Name</label>
-		<div class="form-inline form-group-lg" ng-class="{ 'has-error' : contactForm.firstname.$touched && contactForm.firstname.$invalid }">
+		<div class="form-group form-group-lg" ng-class="{ 'has-error' : contactForm.firstname.$touched && contactForm.firstname.$invalid }">
 			<label class="control-label sr-only" for="firstname">Name</label>
-			<div class="input-group">
+			<div class="input-group form-margin">
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 				</div>
@@ -32,10 +32,10 @@
 		</div>
 		<!--contact info-->
 		<label class="control-label" for="firstname">Contact</label>
-		<div class="form-inline form-group-lg" ng-class="{ 'has-error': contactForm.email.$touched && contactForm.email.$invalid }">
+		<div class="form-group form-group-lg" ng-class="{ 'has-error': contactForm.email.$touched && contactForm.email.$invalid }">
 			<!--email-->
 			<label class="control-label sr-only" for="email">Email</label>
-			<div class="input-group">
+			<div class="input-group form-margin">
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
 				</div>

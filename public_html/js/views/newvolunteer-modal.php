@@ -8,7 +8,7 @@
 		<label class="control-label" for="volFirstName">Name</label>
 		<div class="form-group form-inline form-group-lg" ng-class="{ 'has-error' : volunteerForm.volFirstName.$touched && volunteerForm.volFirstName.$invalid }">
 			<label class="control-label sr-only" for="volFirstName">Name</label>
-			<div class="input-group">
+			<div class="input-group form-margin">
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 				</div>

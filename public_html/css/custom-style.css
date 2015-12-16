@@ -93,7 +93,7 @@ ul>li {
 
 .btn {
 	border-radius: 0px;
-	margin-bottom: 5px;
+	margin-bottom: 5px !important;
 
 }
 
@@ -321,6 +321,10 @@ label {
 .emailvalidation-bg {
 	background: url(../img/cookiejar.jpg) no-repeat center center fixed;
 
+}
+
+.form-margin {
+	margin-bottom: 5px;
 }
 
 
