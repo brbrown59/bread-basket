@@ -198,12 +198,6 @@
 								 placeholder="Description (Optional)"></textarea>
 				</div>
 			</div>
-			<div class="col-sm-6">
-				<div class="text-box">
-					<h3><span class="glyphicon glyphicon-pushpin"></span> Location</h3>
-					<ng-map zoom="16" center="{{ organization.orgAddress1 }} + ' ' + {{ organization.orgAddress2 }} + ' ' + {{ organization.orgCity }} + ', ' + {{ organization.orgState }} + ', ' + {{ organization.orgZip }}" />
-				</div>
-			</div>
 		</div>
 	</div>
 </form>
