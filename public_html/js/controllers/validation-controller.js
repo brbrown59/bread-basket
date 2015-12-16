@@ -30,15 +30,12 @@ app.controller("ValidationController", ["$scope", "$uibModal", "$window", "Alert
 														$window.location.assign("../../php/template/login-landing-page.php")
 													}
 												} else {
-													$scope.alerts[0] = {type: "danger", msg: result.message};
+													AlertService.addAlert({type: "danger", msg: reply.message});
 												}
 											});
-									} else {
-										//receiving volunteer
-										$window.location.assign("../../php/template/listing-nonadmin.php")
 									}
 								} else {
-									$scope.alerts[0] = {type: "danger", msg: result.message};
+									AlertService.addAlert({type: "danger", msg: reply.message});
 								}
 							});
 					} else {
