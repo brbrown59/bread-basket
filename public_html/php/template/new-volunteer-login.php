@@ -24,7 +24,7 @@ require_once("utilities.php");
 <main ng-controller="ValidationController">
 	<div class="container form-padding">
 		<div class="modal-header">
-			<h2>Welcome! Please verify your email and create a new password!</h2>
+			<h2>Welcome! Please verify your email and create a password.</h2>
 		</div>
 		<div class="modal-body">
 		<form id="newvolForm" name="newvolForm">
@@ -33,7 +33,7 @@ require_once("utilities.php");
 				<h5>
 					<label class="control-label" for="password">Password</label>
 				</h5>
-				<div class="input-group">
+				<div class="input-group input-group-lg">
 					<div class="input-group-addon">
 						<i class="fa fa-key" aria-hidden="true"></i>
 					</div>
@@ -53,7 +53,7 @@ require_once("utilities.php");
 				<h5>
 				<label class="control-label">Confirm Password</label>
 				</h5>
-				<div class="input-group">
+				<div class="input-group input-group-lg">
 					<div class="input-group-addon">
 						<i class="fa fa-key" aria-hidden="true"></i>
 					</div>
@@ -77,7 +77,7 @@ require_once("utilities.php");
 				<h5>
 					<label class="control-label" for="volEmail">Email</label>
 				</h5>
-				<div class="input-group">
+				<div class="input-group input-group-lg">
 					<div class="input-group-addon">
 						<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
 					</div>

@@ -310,9 +310,12 @@ label {
 
 }
 
-.form-padding {
-	padding:0% 20%;
+@media (min-width: 768px) {
+	.form-padding {
+		padding: 0 10%;
+	}
 }
+
 
 .emailvalidation-bg {
 	background: url(../img/cookiejar.jpg) no-repeat center center fixed;
