@@ -10,42 +10,7 @@ require_once("prefix-utilities.php");
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en" ng-app="BreadBasket">
-	<head>
-		<meta charset="utf-8"/>
-		<meta http-equiv="x-ua-compatible" content="IE=edge"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-
-		<!-- CSS stylesheets -->
-		<!--latest compiled and minified bootstrap css files-->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-		<link type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
-		<!--optional theme-->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
-		<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-		<!--minified font awesome css-->
-		<link type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
-		<!-- CUSTOM stylesheets -->
-		<link type="text/css" rel="stylesheet" href="../../css/custom-style.css"/>
-
-		<!--jQuery for Bootstrap's .js plugins-->
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-		<!--latest compiled and minified bootstrap javascript-->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-
-		<!-- CUSTOM js-->
-		<?php require_once("js-utilities.php")?>
-
-		<!--Google Fonts-->
-		<link href='https://fonts.googleapis.com/css?family=Dosis|Josefin+Sans|Raleway' rel='stylesheet' type='text/css'>
-
-
-		<title>Bread Basket Home</title>
-		<script> console.log("-=^.^=- fuzzy kitty!"); </script>
-
-	</head>
-
+	<script> console.log("-=^.^=- fuzzy kitty!"); </script>
 	<body class="sfooter">
 		<div class="home-img sfooter-content">
 				<div class="container-fluid">
@@ -108,12 +73,12 @@ require_once("prefix-utilities.php");
 						<div class="row">
 							<div class="container">
 								<div class="col-sm-6 col-sm-offset-2">
-									<h2>Food Provider</h2>
-									<ul>
-										<li>Step 1</li>
-										<li>Step 2</li>
-										<li>Step 3</li>
-									</ul>
+									<h1>Food Provider</h1>
+
+										<h2> <span class="fa fa-pencil"></span> &nbsp;Create a New Listing</h2>
+										<h2> <span class="fa fa-circle-o-notch fa-spin"></span> &nbsp;Wait for a Volunteer to claim it</h2>
+										<h2> <span class="fa fa-heart"></span> &nbsp;Pass off the donation</h2>
+
 								</div>
 								<div class="col-sm-4">
 									<img class="img-responsive img-circle" src="<?php echo $PREFIX; ?>img/grocery.jpg" alt="food provider image" />
@@ -124,12 +89,10 @@ require_once("prefix-utilities.php");
 						<div class="row">
 							<div class="container">
 								<div class="col-sm-6 col-sm-offset-2">
-									<h2 class="text-center">Food Receiver</h2>
-										<ul>
-											<li>Step 1</li>
-											<li>Step 2</li>
-											<li>Step 3</li>
-										</ul>
+									<h1>Food Receiver</h1>
+											<h2><span class="fa fa-mobile"></span> &nbsp;View all available Listings</h2>
+											<h2><span class="fa fa-thumbs-up"></span> &nbsp;Claim a Listing</h2>
+											<h2><span class="fa fa-car"></span> &nbsp;Pick up the Listing</h2>
 									</div>
 								<div class="col-sm-4">
 									<img class="img-responsive img-circle" src="<?php echo $PREFIX; ?>img/buffet2.jpg" alt="food provider image" />

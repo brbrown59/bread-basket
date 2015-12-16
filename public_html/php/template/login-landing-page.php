@@ -13,6 +13,7 @@ require_once("header.php");
 	<div class="login-bg sfooter-content">
 		<div class="container-fluid">
 			<div class="jumbotron">
+				<div class="container">
 				<h1>Hello Again!</h1>
 				<p>Get started by selecting a option below</p>
 				<div class="row">
@@ -27,6 +28,7 @@ require_once("header.php");
 					</div>
 					<div class="col-md-3" ng-controller="ContactController">
 						<button id= "btn-block" class="btn btn-warning btn-lg btn-block" ng-click ="openContactModal();">Help</button>
+					</div>
 					</div>
 				</div>
 			</div>

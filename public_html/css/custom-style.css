@@ -49,10 +49,23 @@ h1 {
 }
 
 h2 {
-	font-size: 1.5em;
+	font-size: 2em;
 	font-family: 'Noto Sans', sans-serif;
 	color: whitesmoke;
 }
+
+h3 {
+	color:whitesmoke;
+	font-family: 'Noto Sans', sans-serif;
+	font-size: 2em;
+}
+
+h4 {
+	color:whitesmoke;
+	font-family: 'Noto Sans', sans-serif;
+	font-size: 1.5em;
+}
+
 
 ul>li {
 	color: whitesmoke;
@@ -389,6 +402,20 @@ only screen and (max-width: 760px),
 /********************************************
 * Home Page Styles
 ********************************************/
+/** media query that fixes images on the small breakpoint only **/
+
+@media (min-width: 500px) and (max-width: 768px) {
+	.img-responsive {
+		max-width: 60%;
+	}
+
+}
+
+.img-circle {
+	margin: 0 auto;
+}
+
+
 
 /** Navbar Styles ****/
 
