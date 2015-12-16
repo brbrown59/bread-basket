@@ -87,8 +87,8 @@ require_once("prefix-utilities.php");
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-4 col-md-offset-4 text-center">
-								<button ng-controller="SignupController" class="btn btn-lg btn-home">Sign Up</a></button>
+							<div ng-controller="SignupController" class="col-md-4 col-md-offset-4 text-center">
+								<button ng-click="openSignupModal();" class="btn btn-lg btn-home">Sign Up</a></button>
 							</div>
 						</div>
 					</div>
