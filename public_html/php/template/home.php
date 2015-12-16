@@ -74,12 +74,10 @@ require_once("prefix-utilities.php");
 							<div class="container">
 								<div class="col-sm-6 col-sm-offset-2">
 									<h1>Food Provider</h1>
+										<div class="home-lead"> <span class="fa fa-pencil"></span> &nbsp;Create a New Listing</div>
+										<div class="home-lead"> <span class="fa fa-circle-o-notch fa-spin"></span> &nbsp;Wait for a Volunteer to claim it</div>
+										<div class="home-lead"> <span class="fa fa-heart"></span> &nbsp;Pass off the donation</div>
 
-										<div class="media-fix">
-										<h5> <span class="fa fa-pencil"></span> &nbsp;Create a New Listing</h5>
-										<h5> <span class="fa fa-circle-o-notch fa-spin"></span> &nbsp;Wait for a Volunteer to claim it</h5>
-										<h5> <span class="fa fa-heart"></span> &nbsp;Pass off the donation</h5>
-										</div>
 								</div>
 								<div class="col-sm-4">
 									<img class="img-responsive img-circle" src="<?php echo $PREFIX; ?>img/grocery.jpg" alt="food provider image" />
@@ -91,9 +89,9 @@ require_once("prefix-utilities.php");
 							<div class="container">
 								<div class="col-sm-6 col-sm-offset-2">
 									<h1>Food Receiver</h1>
-											<h5><span class="fa fa-mobile"></span> &nbsp;View all Listings</h5>
-											<h5><span class="fa fa-thumbs-up"></span> &nbsp;Claim a Listing</h5>
-											<h5><span class="fa fa-car"></span> &nbsp;Pick up the Listing</h5>
+											<div class="home-lead"><span class="fa fa-mobile"></span> &nbsp;View all Listings</div>
+											<div class="home-lead"><span class="fa fa-thumbs-up"></span> &nbsp;Claim a Listing</div>
+											<div class="home-lead"><span class="fa fa-car"></span> &nbsp;Pick up the Listing</div>
 									</div>
 								<div class="col-sm-4">
 									<img class="img-responsive img-circle" src="<?php echo $PREFIX; ?>img/buffet2.jpg" alt="food provider image" />

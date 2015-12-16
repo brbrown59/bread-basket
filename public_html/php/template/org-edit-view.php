@@ -29,7 +29,7 @@
 			<div class="form-group"
 				  ng-class="{ 'has-error': organizationForm.orgPhone.$touched && organizationForm.orgPhone.$invalid }">
 				<h3>
-					<label for="orgPhone"><span class="glyphicon glyphicon-phone"></span> Phone</label>
+					<span for="orgPhone"><span class="glyphicon glyphicon-phone"></span> Phone</span>
 				</h3>
 
 				<div class="input-group">
@@ -58,7 +58,7 @@
 			<div class="form-group"
 				  ng-class="{ 'has-error': organizationForm.orgPhone.$touched && organizationForm.orgPhone.$invalid }">
 				<h3>
-					<label for="orgHours"><span class="glyphicon glyphicon-time"></span> Hours</label>
+					<span for="orgHours"><span class="glyphicon glyphicon-time"></span> Hours</span>
 				</h3>
 
 				<div class="input-group">
