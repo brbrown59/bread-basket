@@ -1,5 +1,5 @@
 //uses the sign-in service; doesn't use the sign in controller because of the modal
-app.controller("ValidationController", ["$scope", "$uibModal", "$window", "AlertService", "SigninService", "VolunteerService", function($scope, $uibModal, $window, AlertService, SigninService, VolunteerService) {
+app.controller("ValidationController", ["$scope", "$uibModal", "$window", "AlertService", "SigninService", "VolunteerService", "GetCurrentService", function($scope, $uibModal, $window, AlertService, SigninService, VolunteerService, GetCurrentService) {
 
 	$scope.volunteer = "";
 
