@@ -105,5 +105,6 @@ require_once("utilities.php");
 	</div>
 </main>
 </div>
+</div>
 </body>
 </html>

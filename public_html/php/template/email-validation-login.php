@@ -77,5 +77,6 @@ require_once("utilities.php");
 		</div>
 	</main>
 </div>
+<?php require_once("footer.php")?>
 </body>
 </html>

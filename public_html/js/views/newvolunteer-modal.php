@@ -13,10 +13,10 @@
 					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 				</div>
 				<input type="text" class="form-control" id="volFirstName" name="volFirstName" placeholder="First Name" ng-model="volunteer.volFirstName" ng-required="true">
-
-			<div class="alert alert-danger" role="alert" ng-messages="volunteerForm.volFirstName.$error" ng-if="volunteerForm.volFirstName.$touched" ng-hide="volunteerForm.volFirstName.$valid">
-				<p ng-message="required">Please enter a first name</p>
 			</div>
+
+			<div class="alert alert-danger form-group form-inline" role="alert" ng-messages="volunteerForm.volFirstName.$error" ng-if="volunteerForm.volFirstName.$touched" ng-hide="volunteerForm.volFirstName.$valid">
+				<p ng-message="required">Please enter a first name</p>
 			</div>
 
 			<!--last name-->
