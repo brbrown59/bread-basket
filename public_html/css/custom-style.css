@@ -48,17 +48,13 @@ h1 {
 	text-decoration: none;
 }
 
-h2 {
-	font-size: 2em;
+h5 {
+	font-size: 1.75em;
 	font-family: 'Noto Sans', sans-serif;
 	color: whitesmoke;
 }
 
-h3 {
-	color:whitesmoke;
-	font-family: 'Noto Sans', sans-serif;
-	font-size: 2em;
-}
+
 
 h4 {
 	color:whitesmoke;
@@ -72,9 +68,10 @@ ul>li {
 }
 
 .h2-bb {
-	font-size: 36px;
+	font-size: 1.75em;
 	font-family: 'Noto Sans', sans-serif;
 	color: darkslategray;
+	margin-bottom: 20px
 }
 
 
@@ -407,6 +404,13 @@ only screen and (max-width: 760px),
 @media (min-width: 500px) and (max-width: 768px) {
 	.img-responsive {
 		max-width: 60%;
+	}
+
+}
+
+@media (max-width: 768px) {
+	.media-fix {
+		font-size: 12px;
 	}
 
 }
