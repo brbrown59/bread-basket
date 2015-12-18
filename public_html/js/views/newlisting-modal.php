@@ -45,13 +45,13 @@
 			<!--type-->
 			<div class="radio" ng-class="{ 'has-error' : listingForm.type1.$touched && listingForm.type1.$invalid }">
 				<label class="control-label" for="type1">
-					<input type="radio" name="listingTypeId" id="perishable" value="93" ng-model="listingData.listingTypeId">
+					<input type="radio" name="listingTypeId" id="perishable" value="1" ng-model="listingData.listingTypeId">
 					Perishable
 				</label>
 			</div>
 			<div class="radio" ng-class="{ 'has-error' : listingForm.type2.$touched && listingForm.type2.$invalid }">
 				<label class="control-label" for="type2">
-					<input type="radio" name="listingTypeId" id="nonPerishable" value="94" ng-model="listingData.listingTypeId" ng-required="true">
+					<input type="radio" name="listingTypeId" id="nonPerishable" value="2" ng-model="listingData.listingTypeId" ng-required="true">
 					Non-Perishable
 				</label>
 			</div>

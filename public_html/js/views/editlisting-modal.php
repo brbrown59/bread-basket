@@ -31,13 +31,13 @@
 		<!--type-->
 		<div class="radio" ng-class="{ 'has-error' : editListingForm.type1.$touched && editListingForm.type1.$invalid }">
 			<label class="control-label" for="type1">
-				<input type="radio" name="listingTypeId" id="perishable" value="93" ng-model="editedListing.listingTypeId">
+				<input type="radio" name="listingTypeId" id="perishable" value="1" ng-model="editedListing.listingTypeId">
 				Perishable
 			</label>
 		</div>
 		<div class="radio" ng-class="{ 'has-error' : editListingForm.type2.$touched && editListingForm.type2.$invalid }">
 			<label class="control-label" for="type2">
-				<input type="radio" name="listingTypeId" id="nonPerishable" value="94" ng-model="editedListing.listingTypeId">
+				<input type="radio" name="listingTypeId" id="nonPerishable" value="2" ng-model="editedListing.listingTypeId">
 				Non-Perishable
 			</label>
 		</div>
