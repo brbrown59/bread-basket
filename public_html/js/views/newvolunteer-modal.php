@@ -6,7 +6,7 @@
 		<!--begin new volunteer-->
 		<!--first name-->
 		<label class="control-label" for="volFirstName">Name</label>
-		<div class="form-group form-inline form-group-lg" ng-class="{ 'has-error' : volunteerForm.volFirstName.$touched && volunteerForm.volFirstName.$invalid }">
+		<div class="form-group form-group-lg" ng-class="{ 'has-error' : volunteerForm.volFirstName.$touched && volunteerForm.volFirstName.$invalid }">
 			<label class="control-label sr-only" for="volFirstName">Name</label>
 			<div class="input-group form-margin">
 				<div class="input-group-addon">
@@ -20,7 +20,7 @@
 			</div>
 
 			<!--last name-->
-		<div class="form-group form-inline form-group-lg" ng-class="{ 'has-error' : volunteerForm.volLastName.$touched && volunteerForm.volLastName.$invalid }">
+		<div class="form-group form-group-lg" ng-class="{ 'has-error' : volunteerForm.volLastName.$touched && volunteerForm.volLastName.$invalid }">
 			<label class="control-label sr-only" for="volLastName">Last Name</label>
 			<div class="input-group">
 				<div class="input-group-addon">
