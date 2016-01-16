@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Get the relative path..
- *
- **/
+* Get the relative path..
+*
+**/
 
 // include the appropriate number of dirname() functions
 // on line 8 to correctly resolve your directory's path
