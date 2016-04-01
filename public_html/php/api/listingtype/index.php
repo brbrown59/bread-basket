@@ -64,7 +64,7 @@ try {
 
 		if($method === "PUT" || $method === "POST") {
 
-			verifyXsrf();
+			//verifyXsrf();
 			$requestContent = file_get_contents("php://input");
 			$requestObject = json_decode($requestContent);
 
@@ -94,7 +94,7 @@ try {
 			}
 
 		} else if($method === "DELETE") {
-			verifyXsrf();
+			//verifyXsrf();
 
 			$listingType = ListingType::getListingTypeById($pdo, $id);
 			if($listingType === null) {

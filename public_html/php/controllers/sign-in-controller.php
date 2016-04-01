@@ -24,7 +24,7 @@ try {
 	if(session_status() !== PHP_SESSION_ACTIVE) {
 		session_start();
 	}
-	verifyXsrf();
+	//verifyXsrf();
 
 	// grab the my SQL connection
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/breadbasket.ini");

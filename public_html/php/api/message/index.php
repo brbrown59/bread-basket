@@ -71,7 +71,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 				if($method === "PUT" || $method === "POST") {
 
-					verifyXsrf();
+					//verifyXsrf();
 					$requestContent = file_get_contents("php://input");
 					$requestObject = json_decode($requestContent);
 
@@ -107,7 +107,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 
 				} else if($method === "DELETE") {
-					verifyXsrf();
+					//verifyXsrf();
 
 					$message = Message::getMessageByMessageId($pdo, $id);
 					if($message === null) {

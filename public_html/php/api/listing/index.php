@@ -96,7 +96,7 @@ try {
 
 		if($method === "PUT" || $method === "POST") {
 
-			verifyXsrf();
+			//verifyXsrf();
 			$requestContent = file_get_contents("php://input");
 			$requestObject = json_decode($requestContent);
 

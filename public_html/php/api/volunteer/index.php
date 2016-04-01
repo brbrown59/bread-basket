@@ -91,7 +91,7 @@ try {
 	if(empty($_SESSION["volunteer"]) === false && $_SESSION["volunteer"]->getVolIsAdmin() === true) {
 
 		if($method === "PUT" || $method === "POST") {
-			verifyXsrf();
+			//verifyXsrf();
 			$requestContent = file_get_contents("php://input");
 			$requestObject = json_decode($requestContent);
 
@@ -240,7 +240,7 @@ EOF;
 			}
 
 		} elseif($method === "DELETE") {
-			verifyXsrf();
+			//verifyXsrf();
 
 			//if they shouldn't have admin access to this method, kill the temp access and boot them
 			//check by retrieving their original volunteer from the DB and checking

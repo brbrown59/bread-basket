@@ -11,6 +11,8 @@ require_once("prefix-utilities.php");
 ?>
 
 	<script> console.log("-=^.^=- fuzzy kitty!"); </script>
+	<script> console.log("back paws for bernie!"); </script>
+
 	<body class="sfooter">
 		<div class="home-img sfooter-content">
 				<div class="container-fluid">
@@ -107,7 +109,8 @@ require_once("prefix-utilities.php");
 						<div class="row">
 							<div class="col-md-4 col-md-offset-4">
 								<div class="text-center">
-									<h1>Learn More</h1>
+									<h1>We're In Beta!</h1>
+									<h3 class="home-fnt-color">Want to become a beta tester? Get more information.</h3>
 								</div>
 							</div>
 						</div>
