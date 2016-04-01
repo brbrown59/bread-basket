@@ -89,7 +89,7 @@ ul>li {
 	}
 
 }
-/* Media query that hides "menu" text on small screens - (desktops, 992px and up) */
+/* Media query that hides "menu" texlt on small screens - (desktops, 992px and up) */
 @media (max-width: 768px) {
 	.media-hide {
 		display: none;
